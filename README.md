@@ -1,2 +1,2 @@
 # test-assets
-Some assets for testing
+Some assets and tests
