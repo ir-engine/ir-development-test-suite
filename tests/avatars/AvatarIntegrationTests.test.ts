@@ -18,11 +18,12 @@ import { AnimationManager } from '@xrengine/engine/src/avatar/AnimationManager'
 import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarComponent'
 import { loadAvatarForUser } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
 import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar'
+import packageJson from '../../package.json'
 
 // for easier debug
 console.warn = () => {}
 
-const avatarPath = '/packages/projects/projects/XREngine-asset-test-suite/avatars/'
+const avatarPath = `/packages/projects/projects/${packageJson.name}/avatars/`
 const animGLB = '/packages/client/public/default_assets/Animations.glb'
 const assetPaths = [
   'reallusion/Allison.glb',
