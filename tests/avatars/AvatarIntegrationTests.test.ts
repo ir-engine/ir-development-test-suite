@@ -10,8 +10,6 @@ import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { createWorld } from '@xrengine/engine/src/ecs/classes/World'
 import { addComponent, getComponent, hasComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
-import { IKPoseComponent } from '@xrengine/engine/src/ikrig/components/IKPoseComponent'
-import { IKRigComponent, IKRigTargetComponent } from '@xrengine/engine/src/ikrig/components/IKRigComponent'
 import { NetworkObjectComponent } from '@xrengine/engine/src/networking/components/NetworkObjectComponent'
 import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/NetworkWorldAction'
 import { AnimationManager } from '@xrengine/engine/src/avatar/AnimationManager'
@@ -19,6 +17,7 @@ import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarCo
 import { loadAvatarForUser } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
 import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar'
 import packageJson from '../../package.json'
+import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 
 // for easier debug
 console.warn = () => {}
@@ -91,27 +90,24 @@ describe('avatarFunctions Integration', async () => {
           
 
         // do assertions
-        assert(hasComponent(entity, IKRigComponent))
-        assert(hasComponent(entity, IKPoseComponent))
-        assert(hasComponent(entity, IKRigTargetComponent))
         const avatarComponent = getComponent(entity, AvatarComponent)
 
         assert(avatarComponent.modelContainer.children.length)
         assert(avatarComponent.avatarHeight > 0)
         assert(avatarComponent.avatarHalfHeight > 0)
 
-        const { boneStructure } = getComponent(entity, IKRigComponent)
-        assert(boneStructure)
-        assert(boneStructure.Hips)
-        assert(boneStructure.Head)
-        assert(boneStructure.Neck)
-        assert(boneStructure.Spine || boneStructure.Spine1 || boneStructure.Spine2)
-        assert(boneStructure.LeftFoot)
-        assert(boneStructure.RightFoot)
-        assert((boneStructure.RightArm || boneStructure.RightForeArm) && boneStructure.RightHand)
-        assert((boneStructure.LeftArm || boneStructure.LeftForeArm) && boneStructure.LeftHand)
-        assert((boneStructure.RightUpLeg || boneStructure.RightLeg) && boneStructure.RightFoot)
-        assert((boneStructure.LeftUpLeg || boneStructure.LeftLeg) && boneStructure.LeftFoot)
+        const { rig } = getComponent(entity, AvatarAnimationComponent)
+        assert(rig)
+        assert(rig.Hips)
+        assert(rig.Head)
+        assert(rig.Neck)
+        assert(rig.Spine || rig.Spine1 || rig.Spine2)
+        assert(rig.LeftFoot)
+        assert(rig.RightFoot)
+        assert((rig.RightArm || rig.RightForeArm) && rig.RightHand)
+        assert((rig.LeftArm || rig.LeftForeArm) && rig.LeftHand)
+        assert((rig.RightUpLeg || rig.RightLeg) && rig.RightFoot)
+        assert((rig.LeftUpLeg || rig.LeftLeg) && rig.LeftFoot)
 
         // TODO: this currently isn't working, the update method doesnt show up in the VRM object
         // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
