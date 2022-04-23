@@ -1,58 +1,82 @@
-import { random } from 'lodash'
 import { Quaternion, Vector3 } from 'three'
+import React, { useEffect } from 'react'
 
 import { NetworkId } from '@xrengine/common/src/interfaces/NetworkId'
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
 import { dispatchAction } from '@xrengine/hyperflux'
 
-import { defaultBonesData } from '@xrengine/engine/src/avatar/DefaultSkeletonBones'
+import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
+import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
+import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
+import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
+import { useDispatch } from '@xrengine/client-core/src/store'
+import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineService'
+
+import Layout from '@xrengine/client-core/src/components/Layout'
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/NetworkWorldAction'
-
-const logCustomTargetRigBones = (targetRig) => {
-  if (targetRig.name !== 'custom') {
-    return
-  }
-
-  console.log('check bones')
-  defaultBonesData.forEach((boneData, index) => {
-    const p = new Vector3(...boneData.position)
-    const r = new Quaternion(...boneData.quaternion)
-    const tbone = targetRig.tpose!.bones[index]
-    console.log('    ', boneData.name, p.equals(tbone.bone.position), r.equals(tbone.bone.quaternion))
-  })
-  console.log('---------')
-}
-
-const avatars = ['Gold', 'Green', 'Pink', 'Red', 'Silver', 'Yellow']
+import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
+import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineService'
+import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
+import { accessAuthState, AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 
 const mockAvatars = () => {
-  for (let i = 0; i < 100; i++) {
-    const cyberbot = avatars[random(avatars.length)]
+  const authState = accessAuthState()
+  const avatarList = authState.avatarList.value
+    .filter((avatar) => !avatar.avatar?.url!.endsWith('vrm'))
+
+  for (let i = 0; i < avatarList.length; i++) {
+    const avatar = avatarList[i]
     const avatarDetail = {
-      thumbnailURL: `/projects/default-project/avatars/Cyberbot${cyberbot}.png`,
-      avatarURL: `/projects/default-project/avatars/Cyberbot${cyberbot}.glb`,
-      avatarId: `Cyberbot${cyberbot}`
+      thumbnailURL: avatar['user-thumbnail']?.url!,
+      avatarURL: avatar.avatar?.url!,
+      avatarId: avatar.avatar?.name!
     }
     const userId = ('user' + i) as UserId
+    const networkId = (1000 + i) as NetworkId
+    const column = ((avatarList.length / 2) - i) * 2
     const parameters = {
-      position: new Vector3(0, 0, 0).random().setY(0).multiplyScalar(10),
-      rotation: new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.random() * Math.PI * 2)
+      position: new Vector3(0, 0, column),
+      rotation: new Quaternion()
     }
 
-    const networkId = (1000 + i) as NetworkId
-
-    const world = Engine.currentWorld
-
-    dispatchAction(world.store, {
+    dispatchAction(Engine.currentWorld.store, {
       ...NetworkWorldAction.createClient({ name: 'user', index: networkId }),
       $from: userId
     })
-    dispatchAction(world.store, {
+    dispatchAction(Engine.currentWorld.store, {
       ...NetworkWorldAction.spawnAvatar({ parameters, prefab: 'avatar' }),
       networkId,
       $from: userId
     })
-    dispatchAction(world.store, { ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
+    dispatchAction(Engine.currentWorld.store, { ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
   }
+}
+
+export default function AvatarBenchmarking () {
+  const authState = useAuthState()
+  useEffect(() => {
+    AuthService.fetchAvatarList()
+    matchActionOnce(Engine.store, EngineActions.joinedWorld.matches, mockAvatars)
+  }, [])
+
+
+  const dispatch = useDispatch()
+  const engineState = useEngineState()
+
+  const projectName = 'default-project'
+  const sceneName = 'default'
+
+  useEffect(() => {
+    dispatch(LocationAction.setLocationName(`${projectName}/${sceneName}`))
+    loadSceneJsonOffline(projectName, sceneName)
+  }, [])
+
+  return (
+    <Layout  useLoadingScreenOpacity pageTitle={'avatar benchmark'}>
+      {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
+      <LoadEngineWithScene />
+      <OfflineLocation />
+    </ Layout>
+  )
 }

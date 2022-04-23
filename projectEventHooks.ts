@@ -8,8 +8,7 @@ const avatarsFolder = path.resolve(__dirname, 'avatars')
 
 const config = {
   onInstall: async (app: Application) => {
-    console.log('onInstall development', packageJson.name)
-    await app.service('route-activate').create({ project: packageJson.name, route: 'examples', activate: true })
+    await app.service('route-activate').create({ project: packageJson.name, route: '/examples', activate: true })
     return Promise.all([
       installAvatarsFromProject(app, avatarsFolder + '/mixamo'),
       installAvatarsFromProject(app, avatarsFolder + '/reallusion'),
