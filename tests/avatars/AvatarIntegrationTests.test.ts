@@ -7,8 +7,8 @@ import { loadGLTFAssetNode } from '@xrengine/engine/tests/util/loadGLTFAssetNode
 import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
 import { loadDRACODecoder } from '@xrengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
-import { createWorld } from '@xrengine/engine/src/ecs/classes/World'
-import { addComponent, getComponent, hasComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEngine } from '@xrengine/engine/src/initializeEngine'
+import { addComponent, getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
 import { NetworkObjectComponent } from '@xrengine/engine/src/networking/components/NetworkObjectComponent'
 import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/NetworkWorldAction'
@@ -40,13 +40,11 @@ before(async () => {
 
 describe('avatarFunctions Integration', async () => {
   beforeEach(async () => {
-    const world = createWorld()
-    Engine.currentWorld = world
-    Engine.publicPath = ''
-    await Engine.currentWorld.physics.createScene({ verbose: true })
+    createEngine()
+    Engine.instance.publicPath = ''
+    await Engine.instance.currentWorld.physics.createScene({ verbose: true })
     AssetLoader.Cache.clear()
-    Engine.userId = Engine.currentWorld.hostId
-    Engine.hasJoinedWorld = true
+    Engine.instance.userId = Engine.instance.currentWorld.hostId
   })
 
   describe('loadAvatarForEntity', () => {
@@ -56,7 +54,7 @@ describe('avatarFunctions Integration', async () => {
         const entity = createEntity()
         const networkObject = addComponent(entity, NetworkObjectComponent, {
           // remote owner
-          ownerId: Engine.userId,
+          ownerId: Engine.instance.userId,
           networkId: 1 as NetworkId,
           prefab: '',
           parameters: {}
@@ -64,7 +62,7 @@ describe('avatarFunctions Integration', async () => {
 
         createAvatar(
           NetworkWorldAction.spawnAvatar({
-            $from: Engine.userId,
+            $from: Engine.instance.userId,
             parameters: { position: new Vector3(), rotation: new Quaternion() },
             networkId: networkObject.networkId
           })

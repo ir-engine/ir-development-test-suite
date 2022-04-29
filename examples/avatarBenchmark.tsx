@@ -40,16 +40,16 @@ const mockAvatars = () => {
       rotation: new Quaternion()
     }
 
-    dispatchAction(Engine.currentWorld.store, {
+    dispatchAction(Engine.instance.currentWorld.store, {
       ...NetworkWorldAction.createClient({ name: 'user', index: networkId }),
       $from: userId
     })
-    dispatchAction(Engine.currentWorld.store, {
+    dispatchAction(Engine.instance.currentWorld.store, {
       ...NetworkWorldAction.spawnAvatar({ parameters, prefab: 'avatar' }),
       networkId,
       $from: userId
     })
-    dispatchAction(Engine.currentWorld.store, { ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
+    dispatchAction(Engine.instance.currentWorld.store, { ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
   }
 }
 
@@ -57,7 +57,7 @@ export default function AvatarBenchmarking () {
   const authState = useAuthState()
   useEffect(() => {
     AuthService.fetchAvatarList()
-    matchActionOnce(Engine.store, EngineActions.joinedWorld.matches, mockAvatars)
+    matchActionOnce(Engine.instance.store, EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
 
 
