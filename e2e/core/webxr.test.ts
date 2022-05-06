@@ -10,7 +10,7 @@ const domain = process.env.APP_HOST
 const locationName = 'test'
 console.log('process.env.HEADLESS', process.env.HEADLESS)
 
-describe.only('WebXR Bot Tests', () => {
+describe.skip('WebXR Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
