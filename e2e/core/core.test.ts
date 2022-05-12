@@ -2,8 +2,10 @@ import { Vector3 } from 'three'
 import { XREngineBot } from 'XREngine-bot/src/bot'
 import { BotHooks } from '@xrengine/engine/src/bot/enums/BotHooks'
 import assert from 'assert'
+import { UserId } from '@xrengine/common/src/interfaces/UserId'
+import { NetworkClient } from '@xrengine/engine/src/networking/interfaces/NetworkClient'
+import { delay } from '@xrengine/engine/src/common/functions/delay'
 
-const bot = new XREngineBot({ name: 'bot-1', verbose: true })
 const vector3 = new Vector3()
 
 const domain = process.env.APP_HOST
@@ -12,11 +14,11 @@ const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
 
+  const bot = new XREngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationLoaded)
-    await bot.runHook(BotHooks.InitializeBot)
   })
 
   after(async () => {
@@ -30,7 +32,7 @@ describe('My Bot Tests', () => {
 
 })
 
-describe.skip('Multi-Bot Tests', () => { 
+describe('Multi-Bot Tests', () => { 
 
   const bots = [] as Array<XREngineBot>
 
@@ -40,16 +42,12 @@ describe.skip('Multi-Bot Tests', () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationLoaded)
-    await bot.runHook(BotHooks.InitializeBot)
-    await bot.delay(1000)
     return bot
   }
 
   after(async () => {
-    console.log("AFTER ALL")
-    for (const b of bots) {
-      await bot.delay(1500)
-      await b.quit()
+    for (const bot of bots) {
+      await bot.quit()
     }
   })
 
@@ -60,9 +58,9 @@ describe.skip('Multi-Bot Tests', () => {
     for (let i = 0; i < numPlayers; i++) addedBots.push(addBot())
     await Promise.all(addedBots)
     const bot = bots[0]
-    const clients = await bot.runHook(BotHooks.GetClients)
-    console.log(JSON.stringify(clients))
-    const clientIds = Object.keys(clients)
+    await delay(1000)
+    const clients = await bot.runHook(BotHooks.GetClients) as [UserId, NetworkClient][]
+    const clientIds = clients.map(([id]) => id)
     assert.equal(clientIds.length, numPlayers)
   })
 
@@ -74,7 +72,6 @@ describe.skip('Multi-Bot Tests', () => {
   //   await bot2.launchBrowser()
   //   await bot2.enterLocation(`https://${domain}/location/${locationName}`)
   //   await bot2.awaitHookPromise(BotHooks.LocationLoaded)
-  //   await bot2.runHook(BotHooks.InitializeBot)
 
   //   expect(
   //     vector3.copy(await bot.runHook(BotHooks.GetPlayerPosition)).length()
