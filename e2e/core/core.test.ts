@@ -17,17 +17,14 @@ describe('My Bot Tests', () => {
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationLoaded)
     await bot.runHook(BotHooks.InitializeBot)
-    await bot.delay(1000)
   })
 
   after(async () => {
-    await bot.delay(1500)
     await bot.quit()
   })
 
   it('Can spawn in the world', async () =>{
-    await bot.delay(1000)
-    const pos = await bot.runHook(BotHooks.GetPlayerPosition)
+    const pos = await bot.awaitHookPromise(BotHooks.GetPlayerPosition)
     assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
   })
 
