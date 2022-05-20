@@ -21,8 +21,8 @@ describe('Editor Scene Tests', () => {
     assert(await bot.runHook(BotHooks.SceneLoaded))
   })
 
-  it('should unload scene', async () => {
-    await bot.runHook(BotHooks.UnLoadScene)
-    assert(!(await bot.runHook(BotHooks.SceneLoaded)))
+  it('should unload scene and load second scene', async () => {
+    await bot.clickAnotherScene()
+    assert(await bot.runHook(BotHooks.SceneLoaded))
   })
 })
