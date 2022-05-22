@@ -7,7 +7,7 @@ const domain = process.env.APP_HOST || 'https://localhost:3000'
 const editorUrl = `${domain}/editor`
 
 describe('Editor Scene Tests', () => {
-  const bot = new XREngineBot({ name: 'bot', verbose: true, headless: false })
+  const bot = new XREngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
   })
