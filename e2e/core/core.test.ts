@@ -13,7 +13,7 @@ const domain = process.env.APP_HOST
 const locationName = 'test'
 const sqrt2 = Math.sqrt(2)
 
-describe('My Bot Tests', () => {
+describe.skip('My Bot Tests', () => {
   const bot = new XREngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
@@ -31,7 +31,7 @@ describe('My Bot Tests', () => {
   })
 })
 
-describe('Multi-Bot Tests', () => {
+describe.skip('Multi-Bot Tests', () => {
   const bots = [] as Array<XREngineBot>
 
   async function addBot() {
