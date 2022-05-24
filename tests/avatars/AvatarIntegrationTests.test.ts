@@ -1,4 +1,8 @@
 import assert from 'assert'
+import fs from 'fs'
+import path from 'path'
+import appRootPath from 'app-root-path'
+
 import { Quaternion, Vector3 } from 'three'
 
 import { NetworkId } from '@xrengine/common/src/interfaces/NetworkId'
@@ -24,15 +28,31 @@ console.warn = () => {}
 
 const avatarPath = `/packages/projects/projects/${packageJson.name}/avatars/`
 const animGLB = '/packages/client/public/default_assets/Animations.glb'
-const assetPaths = [
-  'reallusion/Allison.glb',
-  'mixamo/vanguard.glb',
-  // TODO: vrm and fbx requires us to polyfill images in nodejs - this is a bit of work
-  // 'mixamo/vanguard.fbx',
-  // 'vrm/test2.vrm'
-]
+
+const getAllFiles = (dirPath, arrayOfFiles) => {
+  const avatarPathAbsolute = path.join(appRootPath.path, dirPath)
+  const files = fs.readdirSync(avatarPathAbsolute)
+  arrayOfFiles = arrayOfFiles || []
+  files.forEach(function(file) {
+    if (fs.statSync(avatarPathAbsolute + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
+    } else {
+      arrayOfFiles.push(path.join(dirPath, "/", file))
+    }
+  })
+  return arrayOfFiles
+}
+
+const fetchAvatarList = () => {
+  const assetPaths = getAllFiles(avatarPath, [])
+  const avatarList = assetPaths
+      .filter((url) => url.endsWith('glb'))
+  return avatarList
+}
 
 before(async () => {
+  // const avatarPathAbsolute = path.join(appRootPath.path, avatarPath)
+  // assetPaths = getAllFiles(avatarPathAbsolute, [])
   await loadDRACODecoder()
   const animationGLTF = await loadGLTFAssetNode(animGLB, true)
   AnimationManager.instance.getAnimations(animationGLTF)
@@ -48,8 +68,9 @@ describe('avatarFunctions Integration', async () => {
   })
 
   describe('loadAvatarForEntity', () => {
-    for (const asset of assetPaths) {
-      it('should bone match, and rig avatar ' + asset, async function () {
+    const assetPaths = fetchAvatarList()
+    for (const modelURL of assetPaths) {
+      it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
         // set up avatar entity
         const entity = createEntity()
         const networkObject = addComponent(entity, NetworkObjectComponent, {
@@ -75,7 +96,6 @@ describe('avatarFunctions Integration', async () => {
 
 
         // get the model asset
-        const modelURL = avatarPath + asset
         const modelGLTF = await loadGLTFAssetNode(modelURL)
 
         // manually put it in the cache so it isnt fetched
