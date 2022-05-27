@@ -24,8 +24,6 @@ import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
 import { Object3DComponent } from '@xrengine/engine/src/scene/components/Object3DComponent'
 
-import { AnimationState } from '@xrengine/engine/src/avatar/animation/AnimationState'
-import { AvatarAnimationGraph } from '@xrengine/engine/src/avatar/animation/AvatarAnimationGraph'
 import { BoneStructure } from '@xrengine/engine/src/avatar/AvatarBoneMatching'
 
 import { loadAvatarModelAsset, setupAvatarModel } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
@@ -142,10 +140,11 @@ export default function AvatarBenchmarking () {
     })
     addComponent(entity, VelocityComponent, { linear: new Vector3(), angular: new Vector3() })
     addComponent(entity, AvatarAnimationComponent, {
-      animationGraph: new AvatarAnimationGraph(),
-      currentState: new AnimationState(),
-      prevState: new AnimationState(),
-      prevVelocity: new Vector3(),
+      animationGraph: {
+        states: {},
+        transitionRules: {},
+        currentState: null!
+      },
       rig: {} as BoneStructure,
       rootYRatio: 1
     })
