@@ -42,7 +42,7 @@ import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/Ne
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 
-import { accessAuthState, AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
+import { accessAuthState, AuthService } from '@xrengine/client-core/src/user/services/AuthService'
 
 
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
@@ -178,6 +178,7 @@ export default function AvatarBenchmarking () {
       rootYRatio: 1
     })
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -195,7 +196,6 @@ export default function AvatarBenchmarking () {
       }
     })
 
-    addComponent(entity, Object3DComponent, {value: model})
     //Todo: Skeleton helper
     const av = getComponent(entity, AvatarAnimationComponent)
     const helper = new SkeletonHelper(av.rig.Hips)
@@ -221,6 +221,7 @@ export default function AvatarBenchmarking () {
       rootYRatio: 1
     })
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -235,8 +236,6 @@ export default function AvatarBenchmarking () {
         obj.material = new MeshPhongMaterial({color: new Color('white')})
       }
     })
-
-    addComponent(entity, Object3DComponent, {value: model})
 
     const ac = getComponent(entity, AnimationComponent)
     //Apply tpose
@@ -267,6 +266,7 @@ export default function AvatarBenchmarking () {
       rootYRatio: 1
     })
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -274,7 +274,6 @@ export default function AvatarBenchmarking () {
       rotation: new Quaternion(),
       scale: new Vector3(1, 1, 1)
     })
-    addComponent(entity, Object3DComponent, {value: model})
 
     //Todo: random animation
     const animationTimeScale = 0.5 + Math.random() * 0.5
