@@ -28,8 +28,6 @@ import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
 import { Object3DComponent } from '@xrengine/engine/src/scene/components/Object3DComponent'
 
-import { AnimationState } from '@xrengine/engine/src/avatar/animation/AnimationState'
-import { AvatarAnimationGraph } from '@xrengine/engine/src/avatar/animation/AvatarAnimationGraph'
 import { BoneStructure } from '@xrengine/engine/src/avatar/AvatarBoneMatching'
 
 import { loadAvatarModelAsset, setupAvatarModel } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
@@ -42,7 +40,7 @@ import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/Ne
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 
-import { accessAuthState, AuthService, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
+import { accessAuthState, AuthService } from '@xrengine/client-core/src/user/services/AuthService'
 
 
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
@@ -170,14 +168,17 @@ export default function AvatarBenchmarking () {
     })
     addComponent(entity, VelocityComponent, { linear: new Vector3(), angular: new Vector3() })
     addComponent(entity, AvatarAnimationComponent, {
-      animationGraph: new AvatarAnimationGraph(),
-      currentState: new AnimationState(),
-      prevState: new AnimationState(),
-      prevVelocity: new Vector3(),
+      animationGraph: {
+        states: {},
+        transitionRules: {},
+        currentState: null!
+      },
       rig: {} as BoneStructure,
       rootYRatio: 1
     })
+
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -195,7 +196,6 @@ export default function AvatarBenchmarking () {
       }
     })
 
-    addComponent(entity, Object3DComponent, {value: model})
     //Todo: Skeleton helper
     const av = getComponent(entity, AvatarAnimationComponent)
     const helper = new SkeletonHelper(av.rig.Hips)
@@ -213,14 +213,16 @@ export default function AvatarBenchmarking () {
     })
     addComponent(entity, VelocityComponent, { linear: new Vector3(), angular: new Vector3() })
     addComponent(entity, AvatarAnimationComponent, {
-      animationGraph: new AvatarAnimationGraph(),
-      currentState: new AnimationState(),
-      prevState: new AnimationState(),
-      prevVelocity: new Vector3(),
+      animationGraph: {
+        states: {},
+        transitionRules: {},
+        currentState: null!
+      },
       rig: {} as BoneStructure,
       rootYRatio: 1
     })
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -235,8 +237,6 @@ export default function AvatarBenchmarking () {
         obj.material = new MeshPhongMaterial({color: new Color('white')})
       }
     })
-
-    addComponent(entity, Object3DComponent, {value: model})
 
     const ac = getComponent(entity, AnimationComponent)
     //Apply tpose
@@ -259,14 +259,16 @@ export default function AvatarBenchmarking () {
     })
     addComponent(entity, VelocityComponent, { linear: new Vector3(), angular: new Vector3() })
     addComponent(entity, AvatarAnimationComponent, {
-      animationGraph: new AvatarAnimationGraph(),
-      currentState: new AnimationState(),
-      prevState: new AnimationState(),
-      prevVelocity: new Vector3(),
+      animationGraph: {
+        states: {},
+        transitionRules: {},
+        currentState: null!
+      },
       rig: {} as BoneStructure,
       rootYRatio: 1
     })
     const model = await loadAvatarModelAsset(filename)
+    addComponent(entity, Object3DComponent, {value: model})
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -274,7 +276,6 @@ export default function AvatarBenchmarking () {
       rotation: new Quaternion(),
       scale: new Vector3(1, 1, 1)
     })
-    addComponent(entity, Object3DComponent, {value: model})
 
     //Todo: random animation
     const animationTimeScale = 0.5 + Math.random() * 0.5
