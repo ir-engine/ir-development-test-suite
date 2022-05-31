@@ -32,7 +32,7 @@ import { AnimationComponent } from '@xrengine/engine/src/avatar/components/Anima
 import { VelocityComponent } from '@xrengine/engine/src/physics/components/VelocityComponent'
 import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
 
-import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/NetworkWorldAction'
+import { WorldNetworkAction } from '@xrengine/engine/src/networking/functions/WorldNetworkAction'
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 
@@ -93,15 +93,15 @@ export default function AvatarBenchmarking () {
     }
 
     dispatchAction({
-        ...NetworkWorldAction.createClient({ name: 'user', index: networkId }),
+        ...WorldNetworkAction.createClient({ name: 'user', index: networkId }),
         $from: userId
     })
     dispatchAction({
-        ...NetworkWorldAction.spawnAvatar({ parameters, prefab: 'avatar' }),
+        ...WorldNetworkAction.spawnAvatar({ parameters, prefab: 'avatar' }),
         networkId,
         $from: userId
     })
-    dispatchAction({ ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
+    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
   }
 
   const mockAnimAvatars = async (i) => {

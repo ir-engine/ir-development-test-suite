@@ -15,7 +15,7 @@ import { createEngine } from '@xrengine/engine/src/initializeEngine'
 import { addComponent, getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
 import { NetworkObjectComponent } from '@xrengine/engine/src/networking/components/NetworkObjectComponent'
-import { NetworkWorldAction } from '@xrengine/engine/src/networking/functions/NetworkWorldAction'
+import { WorldNetworkAction } from '@xrengine/engine/src/networking/functions/WorldNetworkAction'
 import { AnimationManager } from '@xrengine/engine/src/avatar/AnimationManager'
 import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarComponent'
 import { loadAvatarForUser } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
@@ -84,7 +84,7 @@ describe('avatarFunctions Integration', async () => {
         })
 
         createAvatar(
-          NetworkWorldAction.spawnAvatar({
+          WorldNetworkAction.spawnAvatar({
             $from: Engine.instance.userId,
             parameters: { position: new Vector3(), rotation: new Quaternion() },
             networkId: networkObject.networkId
