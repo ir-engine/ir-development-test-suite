@@ -61,7 +61,7 @@ export default function AvatarBenchmarking () {
 
   useEffect(() => {
     AuthService.fetchAvatarList()
-    matchActionOnce(Engine.instance.store, EngineActions.joinedWorld.matches, mockAvatars)
+    matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
 
   const mockAvatars = () => {
@@ -95,16 +95,16 @@ export default function AvatarBenchmarking () {
         rotation: new Quaternion()
       }
   
-      dispatchAction(Engine.instance.currentWorld.store, {
+      dispatchAction({
         ...NetworkWorldAction.createClient({ name: 'user', index: networkId }),
         $from: userId
       })
-      dispatchAction(Engine.instance.currentWorld.store, {
+      dispatchAction({
         ...NetworkWorldAction.spawnAvatar({ parameters, prefab: 'avatar' }),
         networkId,
         $from: userId
       })
-      dispatchAction(Engine.instance.currentWorld.store, { ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
+      dispatchAction({ ...NetworkWorldAction.avatarDetails({ avatarDetail }), $from: userId })
     }
   }
 

@@ -22,6 +22,7 @@ import { loadAvatarForUser } from '@xrengine/engine/src/avatar/functions/avatarF
 import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar'
 import packageJson from '../../package.json'
 import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { createMockNetwork } from '@xrengine/engine/tests/util/createMockNetwork'
 
 // for easier debug
 console.warn = () => {}
@@ -61,10 +62,11 @@ before(async () => {
 describe('avatarFunctions Integration', async () => {
   beforeEach(async () => {
     createEngine()
+    createMockNetwork()
+    Engine.instance.userId = Engine.instance.currentWorld.worldNetwork.hostId
     Engine.instance.publicPath = ''
     await Engine.instance.currentWorld.physics.createScene({ verbose: true })
     AssetLoader.Cache.clear()
-    Engine.instance.userId = Engine.instance.currentWorld.hostId
   })
 
   describe('loadAvatarForEntity', () => {
