@@ -1,5 +1,5 @@
-import { XREngineBot } from 'XREngine-bot/src/bot'
-import { BotHooks } from '@xrengine/engine/src/bot/enums/BotHooks'
+import { XREngineBot } from 'XREngine-bot/bot'
+import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
 
 import { setupXR, testWebXR } from '../utils/testWebXR'
 import { delay } from '@xrengine/engine/src/common/functions/delay'

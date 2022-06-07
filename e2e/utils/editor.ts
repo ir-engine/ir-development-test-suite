@@ -1,6 +1,6 @@
-import { XREngineBot } from 'XREngine-bot/src/bot'
+import { XREngineBot } from 'XREngine-bot/bot'
 
-import { BotHooks } from '@xrengine/engine/src/bot/enums/BotHooks'
+import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
 
 /** Enters the editor
  * @param {string} editorUrl The url to load editor page
