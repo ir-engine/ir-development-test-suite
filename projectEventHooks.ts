@@ -14,7 +14,7 @@ const config = {
     return Promise.all([
       installAvatarsFromProject(app, avatarsFolder + '/mixamo'),
       installAvatarsFromProject(app, avatarsFolder + '/reallusion'),
-      installAvatarsFromProject(app, avatarsFolder + '/vrm'),
+      // installAvatarsFromProject(app, avatarsFolder + '/vrm'),
     ])
   },
   onLoad: (app: Application) => {

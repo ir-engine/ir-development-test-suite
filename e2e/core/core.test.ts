@@ -13,7 +13,7 @@ const domain = process.env.APP_HOST
 const locationName = 'test'
 const sqrt2 = Math.sqrt(2)
 
-describe.skip('My Bot Tests', () => {
+describe('My Bot Tests', () => {
   const bot = new XREngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
@@ -31,7 +31,7 @@ describe.skip('My Bot Tests', () => {
   })
 })
 
-describe.skip('Multi-Bot Tests', () => {
+describe('Multi-Bot Tests', () => {
   const bots = [] as Array<XREngineBot>
 
   async function addBot() {
@@ -59,7 +59,8 @@ describe.skip('Multi-Bot Tests', () => {
     await delay(1000)
     const clients = (await bot.runHook(BotHooks.GetClients)) as [UserId, NetworkClient][]
     const clientIds = clients.map(([id]) => id)
-    assert.equal(clientIds.length, numPlayers)
+    // +1 is for the server
+    assert.equal(clientIds.length, numPlayers + 1) 
   })
 
   // test('Can disconnect players', async () => {
