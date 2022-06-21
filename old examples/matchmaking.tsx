@@ -2,20 +2,20 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { client } from '@xrengine/client-core/src/feathers'
+import { API } from '@xrengine/client-core/src/API'
 import { AuthService } from '@xrengine/client-core/src/user/services/AuthService'
 import { MatchmakingTicketAssignment, OpenMatchTicket } from '@xrengine/matchmaking/src/interfaces'
 
 const gameModes = ['ctf', 'tournament']
 
 async function findCurrentTicketData() {
-  const { data } = await client.service('match-user').find()
+  const { data } = await API.instance.client.service('match-user').find()
   if (data.length) {
     const matchUser = data[0]
-    const ticket = await client.service('match-ticket').get(matchUser.ticketId)
+    const ticket = await API.instance.client.service('match-ticket').get(matchUser.ticketId)
     if (!ticket) {
       // ticket is outdated - delete match-user row
-      await client.service('match-user').remove(matchUser.id)
+      await API.instance.client.service('match-user').remove(matchUser.id)
     } else {
       const gamemode = ticket.search_fields.tags[0]
       return { id: ticket.id, gamemode }
@@ -35,9 +35,9 @@ const Page = () => {
   const [connection, setConnection] = useState<string | undefined>()
   const [instanceId, setInstanceId] = useState<string | undefined>()
   const [locationName, setLocationName] = useState<string | undefined>()
-  const locationService = client.service('location')
-  const ticketsService = client.service('match-ticket')
-  const ticketsAssignmentService = client.service('match-ticket-assignment')
+  const locationService = API.instance.client.service('location')
+  const ticketsService = API.instance.client.service('match-ticket')
+  const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 
   console.log('RENDER', ticketData, connection)
 
@@ -86,11 +86,11 @@ const Page = () => {
     try {
       serverTicket = await ticketsService.create({ gamemode })
     } catch (e) {
-      const matchUser = (await client.service('match-user').find()).data[0]
+      const matchUser = (await API.instance.client.service('match-user').find()).data[0]
       serverTicket = await ticketsService.get(matchUser.ticketId)
       if (!serverTicket) {
         // cleanup
-        await client.service('match-user').remove(matchUser.id)
+        await API.instance.client.service('match-user').remove(matchUser.id)
         // create new
         serverTicket = await ticketsService.create({ gamemode })
       }

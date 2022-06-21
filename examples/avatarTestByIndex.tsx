@@ -143,7 +143,8 @@ export default function AvatarBenchmarking () {
       animationGraph: {
         states: {},
         transitionRules: {},
-        currentState: null!
+        currentState: null!,
+        stateChanged: () => {}
       },
       rig: {} as BoneStructure,
       rootYRatio: 1
@@ -160,7 +161,7 @@ export default function AvatarBenchmarking () {
   }
 
   useEffect(() => {
-    dispatch(LocationAction.setLocationName(`${projectName}/${sceneName}`))
+    dispatch(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
     loadSceneJsonOffline(projectName, sceneName)
   }, [])
 

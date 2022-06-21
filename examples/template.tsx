@@ -18,7 +18,7 @@ export default function AvatarBenchmarking () {
   const sceneName = 'default'
 
   useEffect(() => {
-    dispatch(LocationAction.setLocationName(`${projectName}/${sceneName}`))
+    dispatch(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
     loadSceneJsonOffline(projectName, sceneName)
   }, [])
 

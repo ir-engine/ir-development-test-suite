@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { client } from '@xrengine/client-core/src/feathers'
+import { API } from '@xrengine/client-core/src/API'
 import { AuthService } from '@xrengine/client-core/src/user/services/AuthService'
 import { OpenMatchTicketAssignment } from '@xrengine/matchmaking/src/interfaces'
 
@@ -10,9 +10,9 @@ const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()
   const [ticketsIds, setTicketsIds] = useState<string[]>([])
   const connections = useRef<Record<string, string>>({})
-  const locationService = client.service('location')
-  const ticketsService = client.service('match-ticket')
-  const ticketsAssignmentService = client.service('match-ticket-assignment')
+  const locationService = API.instance.client.service('location')
+  const ticketsService = API.instance.client.service('match-ticket')
+  const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 
   console.log('RENDER', ticketsIds, connections)
 
@@ -26,7 +26,7 @@ const Page = () => {
       ticket = await ticketsService.create({ gamemode: 'mode.demo' })
     } catch (e) {
       alert('You already searching for game')
-      const matchUser = (await client.service('match-user').find()).data[0]
+      const matchUser = (await API.instance.client.service('match-user').find()).data[0]
       console.log('matchUser', matchUser)
       ticket = { id: matchUser.ticketId }
     }
