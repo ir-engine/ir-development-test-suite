@@ -11,7 +11,6 @@ import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircl
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
-import { useDispatch } from '@xrengine/client-core/src/store'
 import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 
 import { NetworkId } from '@xrengine/common/src/interfaces/NetworkId'
@@ -47,7 +46,6 @@ import {
 import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
 
 export default function AvatarBenchmarking () {
-  const dispatch = useDispatch()
   const engineState = useEngineState()
 
   const projectName = 'default-project'
@@ -93,7 +91,7 @@ export default function AvatarBenchmarking () {
     }
 
     dispatchAction({
-        ...WorldNetworkAction.createClient({ name: 'user', index: networkId }),
+        ...WorldNetworkAction.createPeer({ name: 'user', index: networkId }),
         $from: userId
     })
     dispatchAction({
@@ -161,7 +159,7 @@ export default function AvatarBenchmarking () {
   }
 
   useEffect(() => {
-    dispatch(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
+    dispatchAction(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
     loadSceneJsonOffline(projectName, sceneName)
   }, [])
 
