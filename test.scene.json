@@ -10,16 +10,6 @@
           }
         },
         {
-          "name": "fog",
-          "props": {
-            "type": "disabled",
-            "color": 16777215,
-            "near": 0.0025,
-            "far": 1000,
-            "density": 0.0025
-          }
-        },
-        {
           "name": "audio-settings",
           "props": {
             "usePositionalAudio": true,
@@ -1600,6 +1590,49 @@
       "parent": "4C8BAAD5-617E-43C0-B902-DDC658724356",
       "index": 3,
       "name": "System"
+    },
+    "e5f66241-2595-4747-9f0f-b88273c5b1a4": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "fog",
+          "props": {
+            "type": "linear",
+            "color": 16777215,
+            "near": 1,
+            "far": 100,
+            "density": 0.005,
+            "height": 0.05,
+            "timeScale": 1
+          }
+        }
+      ],
+      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "index": 7,
+      "name": "Fog"
     }
   },
   "root": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC"

@@ -57,10 +57,10 @@ describe('Multi-Bot Tests', () => {
     await Promise.all(addedBots)
     const bot = bots[0]
     await delay(1000)
-    const clients = (await bot.runHook(BotHooks.GetClients)) as [UserId, NetworkPeer][]
+    const clients = (await bot.runHook(BotHooks.GetWorldNetworkPeers)) as [UserId, NetworkPeer][]
     const clientIds = clients.map(([id]) => id)
     // +1 is for the server
-    assert.equal(clientIds.length, numPlayers + 1) 
+    assert.equal(clientIds.length, numPlayers + 1)
   })
 
   // test('Can disconnect players', async () => {
