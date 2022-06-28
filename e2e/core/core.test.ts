@@ -50,14 +50,14 @@ describe('Multi-Bot Tests', () => {
   })
 
   // skip for now, as loading multiple uses seems to overload github actions and the test fails
-  it.skip('Can connect multiple players', async () => {
+  it('Can connect multiple players', async () => {
     const numPlayers = 3
     const addedBots = [] as Promise<XREngineBot>[]
     for (let i = 0; i < numPlayers; i++) addedBots.push(addBot())
     await Promise.all(addedBots)
     const bot = bots[0]
     await delay(1000)
-    const clients = (await bot.runHook(BotHooks.GetClients)) as [UserId, NetworkPeer][]
+    const clients = (await bot.runHook(BotHooks.GetWorldNetworkPeers)) as [UserId, NetworkPeer][]
     const clientIds = clients.map(([id]) => id)
     // +1 is for the server
     assert.equal(clientIds.length, numPlayers + 1)
