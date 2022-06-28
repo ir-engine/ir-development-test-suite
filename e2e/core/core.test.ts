@@ -5,7 +5,7 @@ import { XREngineBot } from 'XREngine-bot/bot'
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
 import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
 import { delay } from '@xrengine/engine/src/common/functions/delay'
-import { NetworkClient } from '@xrengine/engine/src/networking/interfaces/NetworkClient'
+import { NetworkPeer } from '@xrengine/engine/src/networking/interfaces/NetworkPeer'
 
 const vector3 = new Vector3()
 
@@ -57,7 +57,7 @@ describe('Multi-Bot Tests', () => {
     await Promise.all(addedBots)
     const bot = bots[0]
     await delay(1000)
-    const clients = (await bot.runHook(BotHooks.GetClients)) as [UserId, NetworkClient][]
+    const clients = (await bot.runHook(BotHooks.GetClients)) as [UserId, NetworkPeer][]
     const clientIds = clients.map(([id]) => id)
     // +1 is for the server
     assert.equal(clientIds.length, numPlayers + 1)

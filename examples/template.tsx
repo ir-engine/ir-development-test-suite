@@ -4,21 +4,20 @@ import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircl
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
-import { useDispatch } from '@xrengine/client-core/src/store'
 import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 
 import Layout from '@xrengine/client-core/src/components/Layout'
 import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
+import { dispatchAction } from '@xrengine/hyperflux'
 
 export default function AvatarBenchmarking () {
-  const dispatch = useDispatch()
   const engineState = useEngineState()
 
   const projectName = 'default-project'
   const sceneName = 'default'
 
   useEffect(() => {
-    dispatch(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
+    dispatchAction(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
     loadSceneJsonOffline(projectName, sceneName)
   }, [])
 
