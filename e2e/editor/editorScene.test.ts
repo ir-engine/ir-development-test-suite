@@ -1,3 +1,4 @@
+import { delay } from '@xrengine/engine/src/common/functions/delay'
 import type { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { getEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 import assert from 'assert'
@@ -29,6 +30,8 @@ describe('Editor Scene Tests', () => {
     // click on scene
     await bot.page.waitForSelector(`[class^='_sceneContainer']`, { visible: true })
     await bot.page.click(`[class^='_sceneContainer']`)
+
+    await delay(2000)
 
     // assert scene has loaded
     await bot.awaitHookPromise(BotHooks.SceneLoaded)
