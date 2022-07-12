@@ -23,6 +23,7 @@ import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar
 import packageJson from '../../package.json'
 import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { createMockNetwork } from '@xrengine/engine/tests/util/createMockNetwork'
+import { WorldNetworkActionReceptor } from '@xrengine/engine/src/networking/functions/WorldNetworkActionReceptor'
 
 // for easier debug
 console.warn = () => {}
@@ -73,23 +74,18 @@ describe('avatarFunctions Integration', async () => {
     const assetPaths = fetchAvatarList()
     for (const modelURL of assetPaths) {
       it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
-        // set up avatar entity
-        const entity = createEntity()
-        const networkObject = addComponent(entity, NetworkObjectComponent, {
-          // remote owner
-          ownerId: Engine.instance.userId,
-          networkId: 1 as NetworkId,
-          prefab: '',
-          parameters: {}
+
+        const spawnAction = WorldNetworkAction.spawnAvatar({
+          $from: Engine.instance.userId,
+          position: new Vector3(), 
+          rotation: new Quaternion(),
+          networkId: 1 as NetworkId
         })
 
-        createAvatar(
-          WorldNetworkAction.spawnAvatar({
-            $from: Engine.instance.userId,
-            parameters: { position: new Vector3(), rotation: new Quaternion() },
-            networkId: networkObject.networkId
-          })
-        )
+        WorldNetworkActionReceptor.receiveSpawnObject(spawnAction)
+        createAvatar(spawnAction)
+        
+        const entity = Engine.instance.currentWorld.getUserAvatarEntity(Engine.instance.userId)
 
         const avatar = getComponent(entity, AvatarComponent)
         // make sure this is set later on
