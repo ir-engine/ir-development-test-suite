@@ -111,53 +111,53 @@ describe('Editor Scene Tests', () => {
     //TODO: need logic for check from json file
   })
 
-  // it('should drag and drop', async () => {
-  //   // load scene
-  //   await bot.navigate(`https://${domain}/editor/${projectName}/${SceneName}`)
-  //   await bot.awaitHookPromise(BotHooks.SceneLoaded)
+  it.skip('should drag and drop', async () => {
+    // load scene
+    await bot.navigate(`https://${domain}/editor/${projectName}/${SceneName}`)
+    await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
-  //   const buttonElement = await bot.page.waitForSelector(`[aria-label^='Directional Light']`, { visible: true }) as any
-  //   const rect = await bot.page.evaluate((el) => {
-  //     const {x, y, width, height} = el.getBoundingClientRect();
-  //     return {x, y, width, height}
-  //   }, buttonElement);
-  //   const pos = {x: rect.x + rect.width / 2, y: rect.y + rect.height / 2}
-  //   await bot.page.mouse.move(pos.x,  pos.y, {steps: 20});
-  //   await bot.page.waitForTimeout(100);
-  //   await bot.page.mouse.down();
-  //   await bot.page.waitForTimeout(100);
-  //   await bot.page.mouse.move(window.innerWidth / 2,  window.innerHeight / 2, {steps: 20});
-  //   await bot.page.waitForTimeout(100);
-  //   await bot.page.mouse.up();
-  //   await bot.page.waitForTimeout(100);
-  //   const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
-  //   const editorState = (serializedEngine.store.state['EditorState'] as any)
-  //   // TODO: it seems like puppeteer does not support drag & drop
-  //   // https://github.com/puppeteer/puppeteer/issues/1376
-  //   assert.equal(editorState.sceneModified, true)
-  // })
+    const buttonElement = await bot.page.waitForSelector(`[aria-label^='Directional Light']`, { visible: true }) as any
+    const rect = await bot.page.evaluate((el) => {
+      const {x, y, width, height} = el.getBoundingClientRect();
+      return {x, y, width, height}
+    }, buttonElement);
+    const pos = {x: rect.x + rect.width / 2, y: rect.y + rect.height / 2}
+    await bot.page.mouse.move(pos.x,  pos.y, {steps: 20});
+    await bot.page.waitForTimeout(100);
+    await bot.page.mouse.down();
+    await bot.page.waitForTimeout(100);
+    await bot.page.mouse.move(window.innerWidth / 2,  window.innerHeight / 2, {steps: 20});
+    await bot.page.waitForTimeout(100);
+    await bot.page.mouse.up();
+    await bot.page.waitForTimeout(100);
+    const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
+    const editorState = (serializedEngine.store.state['EditorState'] as any)
+    // TODO: it seems like puppeteer does not support drag & drop
+    // https://github.com/puppeteer/puppeteer/issues/1376
+    assert.equal(editorState.sceneModified, true)
+  })
 
-  // it('should add and remove object ', async () => {
-  //   // load scene
-  //   await bot.navigate(`https://${domain}/editor/${projectName}/${SceneName}`)
-  //   await bot.awaitHookPromise(BotHooks.SceneLoaded)
+  it.skip('should add and remove object ', async () => {
+    // load scene
+    await bot.navigate(`https://${domain}/editor/${projectName}/${SceneName}`)
+    await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
-  //   const buttonElement = await bot.page.waitForSelector(`[aria-label^='Directional Light']`, { visible: true }) as any
-  //   const rect = await bot.page.evaluate((el) => {
-  //     const {x, y, width, height} = el.getBoundingClientRect();
-  //     return {x, y, width, height}
-  //   }, buttonElement);
-  //   const pos = {x: rect.x + rect.width / 2, y: rect.y + rect.height / 2}
-  //   await bot.page.mouse.move(pos.x,  pos.y, {steps: 20});
-  //   await bot.page.waitForTimeout(100);
-  //   await bot.page.mouse.down();
-  //   await bot.page.waitForTimeout(100);
-  //   await bot.page.mouse.up();
-  //   await bot.page.waitForTimeout(100);
-  //   const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
-  //   const editorState = (serializedEngine.store.state['EditorState'] as any)
-  //   // TODO: it seems like puppeteer does not support drag & drop
-  //   // https://github.com/puppeteer/puppeteer/issues/1376
-  //   assert.equal(editorState.sceneModified, true)
-  // })
+    const buttonElement = await bot.page.waitForSelector(`[aria-label^='Directional Light']`, { visible: true }) as any
+    const rect = await bot.page.evaluate((el) => {
+      const {x, y, width, height} = el.getBoundingClientRect();
+      return {x, y, width, height}
+    }, buttonElement);
+    const pos = {x: rect.x + rect.width / 2, y: rect.y + rect.height / 2}
+    await bot.page.mouse.move(pos.x,  pos.y, {steps: 20});
+    await bot.page.waitForTimeout(100);
+    await bot.page.mouse.down();
+    await bot.page.waitForTimeout(100);
+    await bot.page.mouse.up();
+    await bot.page.waitForTimeout(100);
+    const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
+    const editorState = (serializedEngine.store.state['EditorState'] as any)
+    // TODO: it seems like puppeteer does not support drag & drop
+    // https://github.com/puppeteer/puppeteer/issues/1376
+    assert.equal(editorState.sceneModified, true)
+  })
 })
