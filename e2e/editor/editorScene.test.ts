@@ -2,9 +2,9 @@ import { delay } from '@xrengine/engine/src/common/functions/delay'
 import type { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { getEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 import assert from 'assert'
-import { XREngineBot } from 'XREngine-bot/bot'
+import { XREngineBot } from '@xrengine/bot/bot'
 
-import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
+import { BotHooks } from '@xrengine/bot/src/enums/BotHooks'
 
 const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/editor`
