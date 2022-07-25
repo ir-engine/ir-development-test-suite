@@ -24,6 +24,7 @@ import packageJson from '../../package.json'
 import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { createMockNetwork } from '@xrengine/engine/tests/util/createMockNetwork'
 import { WorldNetworkActionReceptor } from '@xrengine/engine/src/networking/functions/WorldNetworkActionReceptor'
+import { Physics } from '@xrengine/engine/src/physics/classes/Physics'
 
 // for easier debug
 console.warn = () => {}
@@ -66,7 +67,8 @@ describe('avatarFunctions Integration', async () => {
     createMockNetwork()
     Engine.instance.userId = Engine.instance.currentWorld.worldNetwork.hostId
     Engine.instance.publicPath = ''
-    await Engine.instance.currentWorld.physics.createScene({ verbose: true })
+    await Physics.load()
+    Engine.instance.currentWorld.physicsWorld = Physics.createWorld()
     AssetLoader.Cache.clear()
   })
 
