@@ -1,9 +1,9 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { XREngineBot } from '@xrengine/bot/bot'
+import { XREngineBot } from 'XREngine-bot/bot'
 
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
-import { BotHooks } from '@xrengine/bot/src/enums/BotHooks'
+import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
 import { delay } from '@xrengine/engine/src/common/functions/delay'
 import { NetworkPeer } from '@xrengine/engine/src/networking/interfaces/NetworkPeer'
 
