@@ -1,8 +1,9 @@
 import { XREngineBot } from 'XREngine-bot/bot'
 import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
 
-import { setupXR, testWebXR } from '../utils/testWebXR'
 import { delay } from '@xrengine/engine/src/common/functions/delay'
+
+import { setupXR, testWebXR } from '../utils/testWebXR'
 
 const domain = process.env.APP_HOST
 const locationName = 'test'

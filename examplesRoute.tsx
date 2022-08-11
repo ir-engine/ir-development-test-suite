@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom'
 
 const loadExampleRoute = (props) => {
   const ExampleRoute = React.lazy(() => import(`./examples/${props.match.params.exampleName}.tsx`))
-  return ExampleRoute ? <ExampleRoute /> : null 
+  return ExampleRoute ? <ExampleRoute /> : null
 }
 
 const ExampleRoutes = () => {

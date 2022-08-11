@@ -1,53 +1,43 @@
 import React, { useEffect } from 'react'
-
 import {
   AnimationMixer,
-  SkeletonHelper,
-  Object3D,
-  Vector3,
-  Quaternion,
+  Color,
   MeshBasicMaterial,
   MeshPhongMaterial,
-  Color
+  Object3D,
+  Quaternion,
+  SkeletonHelper,
+  Vector3
 } from 'three'
 
+import Layout from '@xrengine/client-core/src/components/Layout'
 import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
-import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
-
+import { accessAuthState, AuthService } from '@xrengine/client-core/src/user/services/AuthService'
+import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { NetworkId } from '@xrengine/common/src/interfaces/NetworkId'
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
+import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
+import { BoneStructure } from '@xrengine/engine/src/avatar/AvatarBoneMatching'
+import { AnimationComponent } from '@xrengine/engine/src/avatar/components/AnimationComponent'
+import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { loadAvatarModelAsset, setupAvatarModel } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
+import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
+import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
+import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
+import { addComponent, getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
+import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
+import { NetworkPeerFunctions } from '@xrengine/engine/src/networking/functions/NetworkPeerFunctions'
+import { WorldNetworkAction } from '@xrengine/engine/src/networking/functions/WorldNetworkAction'
+import { VelocityComponent } from '@xrengine/engine/src/physics/components/VelocityComponent'
+import { Object3DComponent } from '@xrengine/engine/src/scene/components/Object3DComponent'
+import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction } from '@xrengine/hyperflux'
 
-import Layout from '@xrengine/client-core/src/components/Layout'
-import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
-
-import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
-import { Object3DComponent } from '@xrengine/engine/src/scene/components/Object3DComponent'
-
-import { BoneStructure } from '@xrengine/engine/src/avatar/AvatarBoneMatching'
-
-import { loadAvatarModelAsset, setupAvatarModel } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
-import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AnimationComponent } from '@xrengine/engine/src/avatar/components/AnimationComponent'
-import { VelocityComponent } from '@xrengine/engine/src/physics/components/VelocityComponent'
-import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
-
-import { WorldNetworkAction } from '@xrengine/engine/src/networking/functions/WorldNetworkAction'
-import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
-import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
-
-import { accessAuthState, AuthService } from '@xrengine/client-core/src/user/services/AuthService'
-
-import {
-  addComponent,
-  getComponent
-} from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
-
-export default function AvatarBenchmarking () {
+export default function AvatarBenchmarking() {
   const engineState = useEngineState()
 
   const projectName = 'default-project'
@@ -68,9 +58,8 @@ export default function AvatarBenchmarking () {
 
   const getAvatarLists = () => {
     const authState = accessAuthState()
-    const avatarList = authState.avatarList.value
-      .filter((avatar) => !avatar.avatar?.url!.endsWith('vrm'))
-      return avatarList
+    const avatarList = authState.avatarList.value.filter((avatar) => !avatar.avatar?.url!.endsWith('vrm'))
+    return avatarList
   }
 
   const mockNetworkAvatars = () => {
@@ -83,22 +72,19 @@ export default function AvatarBenchmarking () {
         avatarId: avatar.avatar?.name!
       }
       const userId = ('user' + i) as UserId
-      const networkId = (1000 + i) as NetworkId
-      const column = ((avatarList.length / 2) - i) * 2
-      const parameters = {
-        position: new Vector3(0, 0, column),
-        rotation: new Quaternion()
-      }
-  
-      dispatchAction({
-        ...WorldNetworkAction.createPeer({ name: 'user', index: networkId }),
-        $from: userId
-      })
-      dispatchAction({
-        ...WorldNetworkAction.spawnAvatar({ parameters, prefab: 'avatar' }),
-        networkId,
-        $from: userId
-      })
+      const index = (1000 + i) as NetworkId
+      const column = (avatarList.length / 2 - i) * 2
+
+      const world = Engine.instance.currentWorld
+
+      NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world),
+        dispatchAction(
+          WorldNetworkAction.spawnAvatar({
+            position: new Vector3(0, 0, column),
+            rotation: new Quaternion(),
+            $from: userId
+          })
+        )
       dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
     }
   }
@@ -110,7 +96,7 @@ export default function AvatarBenchmarking () {
       const avatarList = getAvatarLists()
       for (let i = 0; i < avatarList.length; i++) {
         const avatar = avatarList[i]
-        const column = ((avatarList.length / 2) - i) * 2
+        const column = (avatarList.length / 2 - i) * 2
         loadAssetWithAnimation(avatar.avatar?.url, new Vector3(2, 0, column))
       }
     }
@@ -120,7 +106,7 @@ export default function AvatarBenchmarking () {
     const avatarList = getAvatarLists()
     for (let i = 0; i < avatarList.length; i++) {
       const avatar = avatarList[i]
-      const column = ((avatarList.length / 2) - i) * 2
+      const column = (avatarList.length / 2 - i) * 2
       loadAssetWithSkeletonHelper(avatar.avatar?.url, new Vector3(4, 0, column))
     }
   }
@@ -131,7 +117,7 @@ export default function AvatarBenchmarking () {
       const avatarList = getAvatarLists()
       for (let i = 0; i < avatarList.length; i++) {
         const avatar = avatarList[i]
-        const column = ((avatarList.length / 2) - i) * 2
+        const column = (avatarList.length / 2 - i) * 2
         loadAssetTPose(avatar.avatar?.url, new Vector3(6, 0, column))
       }
     }
@@ -140,7 +126,7 @@ export default function AvatarBenchmarking () {
   const loadAnimation = async () => {
     return await new Promise((resolve, reject) => {
       try {
-        AssetLoader.load('/default_assets/Animations.glb', (gltf) => {
+        AssetLoader.load('/default_assets/Animations.glb', {}, (gltf) => {
           animationsList = gltf.animations
           animationsList.forEach((clip) => {
             clip.tracks = clip.tracks.filter((track) => !track.name.match(/^CC_Base_/))
@@ -170,11 +156,12 @@ export default function AvatarBenchmarking () {
         stateChanged: () => {}
       },
       rig: {} as BoneStructure,
-      rootYRatio: 1
+      bindRig: {} as BoneStructure,
+      rootYRatio: 1,
+      locomotion: new Vector3()
     })
-
     const model = await loadAvatarModelAsset(filename)
-    addComponent(entity, Object3DComponent, {value: model})
+    addComponent(entity, Object3DComponent, { value: model })
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -182,7 +169,7 @@ export default function AvatarBenchmarking () {
       rotation: new Quaternion(),
       scale: new Vector3(1, 1, 1)
     })
-    
+
     //hide material
     model.traverse((obj) => {
       if (obj.isMesh) {
@@ -196,7 +183,7 @@ export default function AvatarBenchmarking () {
     const av = getComponent(entity, AvatarAnimationComponent)
     const helper = new SkeletonHelper(av.rig.Hips)
     const helperEntity = createEntity()
-    addComponent(helperEntity, Object3DComponent, {value: helper})
+    addComponent(helperEntity, Object3DComponent, { value: helper })
   }
 
   const loadAssetTPose = async (filename, position = new Vector3()) => {
@@ -216,10 +203,12 @@ export default function AvatarBenchmarking () {
         stateChanged: () => {}
       },
       rig: {} as BoneStructure,
-      rootYRatio: 1
+      bindRig: null!,
+      rootYRatio: 1,
+      locomotion: new Vector3()
     })
     const model = await loadAvatarModelAsset(filename)
-    addComponent(entity, Object3DComponent, {value: model})
+    addComponent(entity, Object3DComponent, { value: model })
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -227,11 +216,11 @@ export default function AvatarBenchmarking () {
       rotation: new Quaternion(),
       scale: new Vector3(1, 1, 1)
     })
-    
+
     //Change material color to white
     model.traverse((obj) => {
       if (obj.isMesh) {
-        obj.material = new MeshPhongMaterial({color: new Color('white')})
+        obj.material = new MeshPhongMaterial({ color: new Color('white') })
       }
     })
 
@@ -240,10 +229,10 @@ export default function AvatarBenchmarking () {
     ac.mixer?.stopAllAction()
 
     //Apply SkeletonHelper
-    // const { rig } = getComponent(entity, AvatarAnimationComponent)
-    // const helper = new SkeletonHelper(rig.Hips)
-    // const helperEntity = createEntity()
-    // addComponent(helperEntity, Object3DComponent, {value: helper})
+    const { rig } = getComponent(entity, AvatarAnimationComponent)
+    const helper = new SkeletonHelper(rig.Hips)
+    const helperEntity = createEntity()
+    addComponent(helperEntity, Object3DComponent, { value: helper })
   }
 
   const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
@@ -263,10 +252,12 @@ export default function AvatarBenchmarking () {
         stateChanged: () => {}
       },
       rig: {} as BoneStructure,
-      rootYRatio: 1
+      bindRig: {} as BoneStructure,
+      rootYRatio: 1,
+      locomotion: new Vector3()
     })
     const model = await loadAvatarModelAsset(filename)
-    addComponent(entity, Object3DComponent, {value: model})
+    addComponent(entity, Object3DComponent, { value: model })
     setupAvatarModel(entity)(model)
     //Todo: transform
     addComponent(entity, TransformComponent, {
@@ -291,10 +282,10 @@ export default function AvatarBenchmarking () {
   }, [])
 
   return (
-    <Layout  useLoadingScreenOpacity pageTitle={'avatar animation'}>
+    <Layout useLoadingScreenOpacity pageTitle={'avatar animation'}>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene />
       <OfflineLocation />
-    </ Layout>
+    </Layout>
   )
 }

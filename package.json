@@ -5,7 +5,10 @@
   "main": "",
   "scripts": {
     "test": "mocha --config .mocharc.js --spec 'tests/**/*.test.ts'",
-    "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'"
+    "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
+    "format": "prettier --write \"packages/**/*.{ts,tsx}\"",
+    "format-scss": "stylelint \"packages/**/*.scss\" --fix",
+    "format-staged": "lint-staged"
   },
   "peerDependencies": {},
   "dependencies": {
@@ -19,6 +22,17 @@
   "devDependencies": {
     "mocha": "9.2.2",
     "trace-unhandled": "2.0.1"
+  },
+  "pre-commit": [
+    "format-staged"
+  ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.scss": [
+      "stylelint --fix"
+    ]
   },
   "license": "ISC"
 }
