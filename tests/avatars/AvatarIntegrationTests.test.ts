@@ -57,15 +57,13 @@ const fetchAvatarList = () => {
   return avatarList
 }
 
-before(async () => {
-  // const avatarPathAbsolute = path.join(appRootPath.path, avatarPath)
-  // assetPaths = getAllFiles(avatarPathAbsolute, [])
-  await loadDRACODecoder()
-  const animationGLTF = await AssetLoader.loadAsync(animGLB)
-  AnimationManager.instance.getAnimations(animationGLTF)
-})
 
 describe('avatarFunctions Integration', async () => {
+
+  before(async () => {
+    await loadDRACODecoder()
+  })
+
   beforeEach(async () => {
     createEngine()
     createMockNetwork()
@@ -73,6 +71,8 @@ describe('avatarFunctions Integration', async () => {
     Engine.instance.publicPath = ''
     await Physics.load()
     Engine.instance.currentWorld.physicsWorld = Physics.createWorld()
+    const animationGLTF = await AssetLoader.loadAsync(animGLB)
+    AnimationManager.instance.getAnimations(animationGLTF)
   })
 
   describe('loadAvatarForEntity', () => {
