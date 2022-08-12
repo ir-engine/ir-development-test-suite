@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { XREngineBot } from 'XREngine-bot/bot'
-import { BotHooks } from 'XREngine-bot/src/enums/BotHooks'
+import { XREngineBot } from '@xrengine/bot/bot'
+import { BotHooks } from '@xrengine/bot/src/enums/BotHooks'
 
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
 import { delay } from '@xrengine/engine/src/common/functions/delay'
