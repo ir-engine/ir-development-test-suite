@@ -57,9 +57,7 @@ const fetchAvatarList = () => {
   return avatarList
 }
 
-
 describe('avatarFunctions Integration', async () => {
-
   before(async () => {
     await loadDRACODecoder()
   })
