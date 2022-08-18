@@ -12,14 +12,6 @@
     "format-staged": "lint-staged"
   },
   "peerDependencies": {},
-  "dependencies": {
-    "@xrengine/bot": "0.5.6",
-    "@xrengine/client-core": "0.5.8",
-    "@xrengine/common": "0.5.8",
-    "@xrengine/engine": "0.5.8",
-    "@xrengine/hyperflux": "0.5.8",
-    "@xrengine/server-core": "0.5.8"
-  },
   "devDependencies": {
     "mocha": "9.2.2",
     "trace-unhandled": "2.0.1"
