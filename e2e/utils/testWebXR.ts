@@ -2,8 +2,6 @@ import assert from 'assert'
 import type { XREngineBot } from 'XREngine-bot/bot'
 import { XRBotHooks } from 'XREngine-bot/src/enums/BotHooks'
 
-import { compareArrays } from '@xrengine/engine/src/common/functions/MathRandomFunctions'
-
 export const setupXR = async (bot: XREngineBot) => {
   await bot.runHook(XRBotHooks.OverrideXR)
   await bot.runHook(XRBotHooks.StartXR)
