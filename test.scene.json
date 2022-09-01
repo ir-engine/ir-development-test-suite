@@ -727,6 +727,54 @@
       "index": 1,
       "name": "Image"
     },
+    "4866bafc-54e4-4c04-af7f-002ff3e76ad1": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 2.5,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": true,
+            "receive": true
+          }
+        },
+        {
+          "name": "image",
+          "props": {
+            "source": "__$project$__/XREngine-development-test-suite/assets/sample_etc1s.ktx2",
+            "alphaCutoff": 0.5,
+            "alphaMode": "Opaque",
+            "projection": "Flat",
+            "side": 2
+          }
+        }
+      ],
+      "parent": "4CFED0FA-42E3-4085-9879-476B405C4184",
+      "index": 2,
+      "name": "KTX2 Image"
+    },
     "ABAF0284-9A55-4B13-B29F-A0E7FD6F59A3": {
       "components": [
         {
