@@ -763,7 +763,7 @@
         {
           "name": "image",
           "props": {
-            "source": "__$project$__/XREngine-development-test-suite/assets/sample_etc1s.ktx2",
+            "source": "__$project$__/default-project/assets/sample_etc1s.ktx2",
             "alphaCutoff": 0.5,
             "alphaMode": "Opaque",
             "projection": "Flat",
