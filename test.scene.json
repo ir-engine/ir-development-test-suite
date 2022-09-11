@@ -1,7 +1,7 @@
 {
   "version": 4,
   "entities": {
-    "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC": {
+    "6806e598-6b5a-43b9-88f9-05189ade5d20": {
       "components": [
         {
           "name": "mtdata",
@@ -105,7 +105,7 @@
       ],
       "name": "empty_scene"
     },
-    "4C8BAAD5-617E-43C0-B902-DDC658724356": {
+    "7f554aa6-3eff-4b9e-acc9-f6446d541d54": {
       "components": [
         {
           "name": "transform",
@@ -136,11 +136,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 0,
       "name": "Static"
     },
-    "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD": {
+    "d26e7db6-4d68-4f70-972a-ae9d8f158af3": {
       "components": [
         {
           "name": "transform",
@@ -171,11 +171,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 1,
       "name": "Models"
     },
-    "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19": {
+    "54428fe4-ba6b-408a-ac65-77ad85a11372": {
       "components": [
         {
           "name": "transform",
@@ -206,11 +206,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 2,
       "name": "Lights"
     },
-    "4CFED0FA-42E3-4085-9879-476B405C4184": {
+    "05065113-cd26-41c1-866a-9d4a9a2f5174": {
       "components": [
         {
           "name": "transform",
@@ -241,11 +241,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 3,
       "name": "Media"
     },
-    "11569F89-CFE6-4C3C-877D-E92B38B85066": {
+    "f650f152-c0db-4d76-990a-46281218e713": {
       "components": [
         {
           "name": "transform",
@@ -276,11 +276,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 4,
       "name": "Environment"
     },
-    "BBF0DDF7-875E-487B-9795-1D29177AAEFA": {
+    "a395abfc-291a-4bb8-9706-5082335990b4": {
       "components": [
         {
           "name": "transform",
@@ -311,11 +311,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 5,
       "name": "Triggers"
     },
-    "3E0ECAC5-ACFB-4F31-9E52-B8CEB4964371": {
+    "85b71f2e-bb18-44aa-835f-6a6d44612cb4": {
       "components": [
         {
           "name": "transform",
@@ -346,11 +346,11 @@
           "props": {}
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 6,
       "name": "Misc"
     },
-    "34E05A8D-6590-4DA1-87FE-A2ECD05581F5": {
+    "b016ef44-c84d-4548-b338-0dc66ffe1903": {
       "components": [
         {
           "name": "transform",
@@ -395,11 +395,11 @@
           }
         }
       ],
-      "parent": "3E0ECAC5-ACFB-4F31-9E52-B8CEB4964371",
+      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
       "index": 0,
       "name": "Interior"
     },
-    "9AB179D1-7879-4E76-B451-60B6070A12FC": {
+    "ba5d55e7-f0a9-4c7a-972c-2c19c3f18c5a": {
       "components": [
         {
           "name": "transform",
@@ -453,11 +453,11 @@
           }
         }
       ],
-      "parent": "3E0ECAC5-ACFB-4F31-9E52-B8CEB4964371",
+      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
       "index": 1,
       "name": "CubemapBake"
     },
-    "1463EAC0-883F-493A-9A33-6757CC8FF48B": {
+    "fa15771c-2c41-4aec-ac7e-84658c956210": {
       "components": [
         {
           "name": "transform",
@@ -488,11 +488,11 @@
           "props": {}
         }
       ],
-      "parent": "3E0ECAC5-ACFB-4F31-9E52-B8CEB4964371",
+      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
       "index": 2,
       "name": "scene preview camera"
     },
-    "5887F05C-7BAF-470A-BC8A-5D125A00E26B": {
+    "3a57c992-e4a4-415f-9edc-54e1d7372cf1": {
       "components": [
         {
           "name": "transform",
@@ -527,11 +527,11 @@
           }
         }
       ],
-      "parent": "BBF0DDF7-875E-487B-9795-1D29177AAEFA",
+      "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
       "index": 0,
       "name": "Trigger Volume"
     },
-    "B0EEE291-8278-412A-B256-B0AF4040EDC8": {
+    "e91471e0-5700-47fc-803c-3d1c966f2315": {
       "components": [
         {
           "name": "transform",
@@ -564,11 +564,11 @@
           }
         }
       ],
-      "parent": "BBF0DDF7-875E-487B-9795-1D29177AAEFA",
+      "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
       "index": 1,
       "name": "Box Collider"
     },
-    "640917B9-B8D0-497C-912C-551220133239": {
+    "0fedac15-4c2c-472e-aee7-b37bbb8adc4b": {
       "components": [
         {
           "name": "transform",
@@ -637,11 +637,11 @@
           }
         }
       ],
-      "parent": "11569F89-CFE6-4C3C-877D-E92B38B85066",
+      "parent": "f650f152-c0db-4d76-990a-46281218e713",
       "index": 0,
       "name": "Cloud"
     },
-    "4E335D52-6DA5-4221-85AC-F6699E84D101": {
+    "87dcc76d-5461-41d2-ae1d-e632f5524e80": {
       "components": [
         {
           "name": "transform",
@@ -675,11 +675,11 @@
           }
         }
       ],
-      "parent": "4CFED0FA-42E3-4085-9879-476B405C4184",
+      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
       "index": 0,
       "name": "Google"
     },
-    "6A458143-42E4-4402-B55E-5E05BBC21FD7": {
+    "37883d75-4a31-410f-b847-33ab1160e0bf": {
       "components": [
         {
           "name": "transform",
@@ -723,11 +723,11 @@
           }
         }
       ],
-      "parent": "4CFED0FA-42E3-4085-9879-476B405C4184",
+      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
       "index": 1,
       "name": "Image"
     },
-    "ABAF0284-9A55-4B13-B29F-A0E7FD6F59A3": {
+    "20263a44-e696-4041-b319-7c37c10a78e7": {
       "components": [
         {
           "name": "transform",
@@ -778,11 +778,11 @@
           }
         }
       ],
-      "parent": "4CFED0FA-42E3-4085-9879-476B405C4184",
+      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
       "index": 2,
       "name": "Audio"
     },
-    "4E471DD3-7997-4289-95D2-6F5DA78421E2": {
+    "44f9ce07-27ef-46fd-a5a4-1cce8be64e4b": {
       "components": [
         {
           "name": "transform",
@@ -857,11 +857,11 @@
           }
         }
       ],
-      "parent": "4CFED0FA-42E3-4085-9879-476B405C4184",
+      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
       "index": 3,
       "name": "Video"
     },
-    "46BB52A2-E365-410F-BC37-5873691B48C9": {
+    "99462e2d-0842-4226-b0b4-d16e28db613f": {
       "components": [
         {
           "name": "transform",
@@ -905,11 +905,11 @@
           }
         }
       ],
-      "parent": "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19",
+      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
       "index": 0,
       "name": "directional light"
     },
-    "1B698484-C15A-4CEC-9247-03873520DF71": {
+    "da39130b-ed8c-4970-a5d4-ba1d2e5621ec": {
       "components": [
         {
           "name": "transform",
@@ -944,11 +944,11 @@
           }
         }
       ],
-      "parent": "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19",
+      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
       "index": 1,
       "name": "hemisphere light"
     },
-    "BB702B3A-77E3-4AD7-A5EE-B6AE1F104D9B": {
+    "54a93866-e7af-4bba-95f5-764a6fa2a4b5": {
       "components": [
         {
           "name": "transform",
@@ -982,11 +982,11 @@
           }
         }
       ],
-      "parent": "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19",
+      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
       "index": 2,
       "name": "Ambient Light"
     },
-    "07C5EE2C-C3B2-42E0-A075-B82FA2C3E169": {
+    "0984fdae-33c0-46d2-be72-ec16ad6bc71f": {
       "components": [
         {
           "name": "transform",
@@ -1027,11 +1027,11 @@
           }
         }
       ],
-      "parent": "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19",
+      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
       "index": 3,
       "name": "Spot Light"
     },
-    "C78B5571-9431-48C6-BF98-3C72A31F5175": {
+    "0275d378-675a-4631-a6a0-bca23d38621f": {
       "components": [
         {
           "name": "transform",
@@ -1070,11 +1070,11 @@
           }
         }
       ],
-      "parent": "0C2B4E5F-E4DD-41D3-82E8-FFF9C03FDB19",
+      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
       "index": 4,
       "name": "Point Light"
     },
-    "1B698482-C15A-4CEC-9247-03873520DF70": {
+    "07e77623-1495-4b89-b8c4-979d65617833": {
       "components": [
         {
           "name": "transform",
@@ -1115,11 +1115,11 @@
           }
         }
       ],
-      "parent": "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD",
+      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
       "index": 0,
       "name": "ground plane"
     },
-    "1B698483-C15A-4CEC-9247-03873520DF70": {
+    "7a060611-8203-4526-ab4e-0b76caf9c953": {
       "components": [
         {
           "name": "transform",
@@ -1150,11 +1150,11 @@
           "props": {}
         }
       ],
-      "parent": "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD",
+      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
       "index": 1,
       "name": "spawn point"
     },
-    "F8AA0C66-D5B8-42CF-B761-69EEB67A0F15": {
+    "02d68b67-ac10-491d-adf5-e6bf00a66dd4": {
       "components": [
         {
           "name": "transform",
@@ -1238,11 +1238,11 @@
           }
         }
       ],
-      "parent": "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD",
+      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
       "index": 2,
       "name": "Model"
     },
-    "1F7CAB34-F781-43D9-801D-C8D3756AD7F4": {
+    "f6ebd023-9624-4949-bc97-300b1c22888a": {
       "components": [
         {
           "name": "transform",
@@ -1302,11 +1302,11 @@
           }
         }
       ],
-      "parent": "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD",
+      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
       "index": 3,
       "name": "Portal"
     },
-    "9797A10C-963B-4AA8-8784-F87E21445B11": {
+    "6dba1124-6fa6-4966-ab77-a059a207f4d2": {
       "components": [
         {
           "name": "transform",
@@ -1373,11 +1373,11 @@
           }
         }
       ],
-      "parent": "B0056BEE-5238-4B7C-913B-9AAAAC9B78DD",
+      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
       "index": 4,
       "name": "Particle Emitter"
     },
-    "ED0888E7-4032-4DD9-9B43-59B02ECCCB7E": {
+    "81176605-12e6-4210-b48b-23586d23ec44": {
       "components": [
         {
           "name": "transform",
@@ -1422,11 +1422,11 @@
           }
         }
       ],
-      "parent": "4C8BAAD5-617E-43C0-B902-DDC658724356",
+      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
       "index": 0,
       "name": "skybox"
     },
-    "1B698484-C15A-4CEC-9247-03873520DF70": {
+    "1ebb48b0-e567-4e7d-8dde-5591ad51ed8e": {
       "components": [
         {
           "name": "transform",
@@ -1539,11 +1539,11 @@
           }
         }
       ],
-      "parent": "4C8BAAD5-617E-43C0-B902-DDC658724356",
+      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
       "index": 1,
       "name": "post processing"
     },
-    "ACED76A5-15C6-40D9-9F01-612ECAEC6C52": {
+    "9e2e0ba4-7efd-4890-8847-cd729fb50538": {
       "components": [
         {
           "name": "cameraproperties",
@@ -1570,11 +1570,11 @@
           }
         }
       ],
-      "parent": "4C8BAAD5-617E-43C0-B902-DDC658724356",
+      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
       "index": 2,
       "name": "Camera Properties"
     },
-    "45466A7F-8E12-4489-B018-55260A6A58A3": {
+    "0ae0b118-68a5-4dc8-983b-8812beb7c9a6": {
       "components": [
         {
           "name": "system",
@@ -1587,11 +1587,11 @@
           }
         }
       ],
-      "parent": "4C8BAAD5-617E-43C0-B902-DDC658724356",
+      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
       "index": 3,
       "name": "System"
     },
-    "e5f66241-2595-4747-9f0f-b88273c5b1a4": {
+    "97b94539-edf1-4aac-9114-ca87fdb4add9": {
       "components": [
         {
           "name": "transform",
@@ -1630,10 +1630,10 @@
           }
         }
       ],
-      "parent": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC",
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
       "index": 7,
       "name": "Fog"
     }
   },
-  "root": "2266BED7-6CC4-48A6-95DD-9BCD3CF9EAFC"
+  "root": "6806e598-6b5a-43b9-88f9-05189ade5d20"
 }

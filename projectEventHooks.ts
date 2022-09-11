@@ -15,7 +15,7 @@ const config = {
     await app.service('route-activate').create({ project: packageJson.name, route: '/examples', activate: true })
     return Promise.all([
       installAvatarsFromProject(app, avatarsFolder + '/mixamo'),
-      installAvatarsFromProject(app, avatarsFolder + '/reallusion')
+      installAvatarsFromProject(app, avatarsFolder + '/reallusion'),
       // installAvatarsFromProject(app, avatarsFolder + '/vrm'),
     ])
   },
