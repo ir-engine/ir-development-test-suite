@@ -11,16 +11,13 @@ import { AnimationManager } from '@xrengine/engine/src/avatar/AnimationManager'
 import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarComponent'
 import {
-  loadAvatarForUser,
   loadAvatarModelAsset,
   setupAvatarForUser
 } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
 import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar'
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
-import { addComponent, getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
+import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@xrengine/engine/src/initializeEngine'
-import { NetworkObjectComponent } from '@xrengine/engine/src/networking/components/NetworkObjectComponent'
 import { WorldNetworkAction } from '@xrengine/engine/src/networking/functions/WorldNetworkAction'
 import { WorldNetworkActionReceptor } from '@xrengine/engine/src/networking/functions/WorldNetworkActionReceptor'
 import { Physics } from '@xrengine/engine/src/physics/classes/Physics'
