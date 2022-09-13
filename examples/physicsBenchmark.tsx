@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Layout from '@xrengine/client-core/src/components/Layout'
 import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
@@ -7,41 +7,43 @@ import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineL
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
 import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
-import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
-import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { dispatchAction } from '@xrengine/hyperflux'
 import { AvatarService } from '@xrengine/client-core/src/user/services/AvatarService'
-import { accessAuthState } from '@xrengine/client-core/src/user/services/AuthService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
+import NumericInput from '@xrengine/editor/src/components/inputs/NumericInput'
+import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
+import { removeEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
+import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
+
+process.env['APP_ENV'] = 'test'
 
 export default function AvatarBenchmarking() {
   const engineState = useEngineState()
 
   const projectName = 'default-project'
   const sceneName = 'default'
+  
+  const [count, setCount] = useState(100)
+
+  const [entities, setEntities]  = useState([] as Entity[])
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-    matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
-  }, [])
-
-  const mockAvatars = () => {
-    const avatars = accessAuthState().avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
-    mockNetworkAvatars(avatars)
-    mockAnimAvatars(avatars)
-    mockTPoseAvatars(avatars)
-  }
-
-  useEffect(() => {
     dispatchAction(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
     loadSceneJsonOffline(projectName, sceneName)
   }, [])
 
+  useEffect(() => {
+    if (!engineState.joinedWorld.value) return
+    for (let i = 0; i < entities.length; i++) removeEntity(entities[i])    
+    setEntities(createPhysicsObjects(count))
+  }, [count, engineState.joinedWorld])
+
   return (
-    <Layout useLoadingScreenOpacity pageTitle={'Avatar Animation'}>
+    <Layout useLoadingScreenOpacity pageTitle={'Avatar Benchmark'}>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene />
       <OfflineLocation />
+      <NumericInput onChange={setCount} value={count}/>
     </Layout>
   )
 }

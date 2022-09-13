@@ -12,7 +12,7 @@ import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { dispatchAction, getState } from '@xrengine/hyperflux'
 import { AvatarService } from '@xrengine/client-core/src/user/services/AvatarService'
-import { mockNetworkAvatars, mockTPoseAvatars, mockAnimAvatars } from '../e2e/utils/loadAvatarHelpers'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
 
 export default function AvatarBenchmarking() {
   const engineState = useEngineState()
@@ -44,7 +44,7 @@ export default function AvatarBenchmarking() {
   }, [])
 
   return (
-    <Layout useLoadingScreenOpacity pageTitle={'avatar animation'}>
+    <Layout useLoadingScreenOpacity pageTitle={'Avatar Animation'}>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene />
       <OfflineLocation />

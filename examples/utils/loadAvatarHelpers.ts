@@ -26,33 +26,34 @@ export const getAvatarLists = () => {
 export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const avatarDetail = {
-      thumbnailURL: avatar.thumbnailResource?.url!,
-      avatarURL: avatar.modelResource?.url!,
-      avatarId: avatar.name!
-    }
-    const userId = ('user' + i) as UserId
-    const index = (1000 + i) as NetworkId
-    const column = (avatarList.length / 2 - i) * 2
 
-    const world = Engine.instance.currentWorld
-
-    NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world)
-    dispatchAction(
-      WorldNetworkAction.spawnAvatar({
-        position: new Vector3(0, 0, column),
-        rotation: new Quaternion(),
-        $from: userId
-      })
-    )
-    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
   }
+}
+
+export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
+  const world = Engine.instance.currentWorld
+  const avatarDetail = {
+    thumbnailURL: avatar.thumbnailResource?.url ?? '',
+    avatarURL: avatar.modelResource?.url ?? '',
+    avatarId: avatar.name ?? ''
+  }
+  const userId = ('user' + i) as UserId
+  const index = (1000 + i) as NetworkId
+  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world)
+  dispatchAction(
+    WorldNetworkAction.spawnAvatar({
+      position: new Vector3(0, 0, i * 2),
+      rotation: new Quaternion(),
+      $from: userId
+    })
+  )
+  dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
 }
 
 export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const column = (avatarList.length / 2 - i) * 2
+    const column = i * 2
     loadAssetWithAnimation(avatar.modelResource?.url, new Vector3(4, 0, column))
   }
 }
@@ -60,12 +61,12 @@ export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
 export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const column = (avatarList.length / 2 - i) * 2
+    const column = i * 2
     loadAssetTPose(avatar.modelResource?.url, new Vector3(8, 0, column))
   }
 }
 
-const loadAssetTPose = async (filename, position = new Vector3()) => {
+export const loadAssetTPose = async (filename, position = new Vector3()) => {
   const entity = createEntity()
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
@@ -102,9 +103,10 @@ const loadAssetTPose = async (filename, position = new Vector3()) => {
   const ac = getComponent(entity, AnimationComponent)
   //Apply tpose
   ac.mixer?.stopAllAction()
+  return entity
 }
 
-const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
+export const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
   const entity = createEntity()
   const animationComponent = addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
@@ -132,4 +134,5 @@ const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
   setupLoopableAvatarModel(object)
   animationComponent.mixer.stopAllAction()
   animateModel(entity)
+  return entity
 }
