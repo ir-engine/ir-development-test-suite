@@ -6,10 +6,10 @@ import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
 import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
-import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
+import { EngineState, useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
-import { dispatchAction } from '@xrengine/hyperflux'
+import { dispatchAction, getState } from '@xrengine/hyperflux'
 import { AvatarService } from '@xrengine/client-core/src/user/services/AvatarService'
 import { accessAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
@@ -22,6 +22,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
+    getState(EngineState).avatarLoadingEffect.set(false)
     matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
 

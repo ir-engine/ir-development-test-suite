@@ -26,7 +26,26 @@ export const getAvatarLists = () => {
 export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
+    const avatarDetail = {
+      thumbnailURL: avatar.thumbnailResource?.url!,
+      avatarURL: avatar.modelResource?.url!,
+      avatarId: avatar.name!
+    }
+    const userId = ('user' + i) as UserId
+    const index = (1000 + i) as NetworkId
+    const column = i * 2
 
+    const world = Engine.instance.currentWorld
+
+    NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world)
+    dispatchAction(
+      WorldNetworkAction.spawnAvatar({
+        position: new Vector3(0, 0, column),
+        rotation: new Quaternion(),
+        $from: userId
+      })
+    )
+    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
   }
 }
 

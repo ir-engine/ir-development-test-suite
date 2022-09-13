@@ -23,10 +23,11 @@ export const createPhysicsObject = () => {
   setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, Math.random() * 5, 2.5 - Math.random() * 5))
   
   const rigidBodyDesc = RigidBodyDesc.dynamic()
-  const colliderDesc = ColliderDesc.cuboid(0.1, 0.1, 0.1)
+  const colliderDesc = ColliderDesc.ball(0.1)
   colliderDesc.setCollisionGroups(
     getInteractionGroups(CollisionGroups.Default, DefaultCollisionMask)
   )
+  colliderDesc.setFriction(10).setRestitution(1)
 
   rigidBodyDesc.setCanSleep(false)
 
