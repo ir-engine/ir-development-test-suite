@@ -50,7 +50,7 @@ let entitiesLength = 0
 // }
 
 async function SimulateAvatarMovementSystem (world: World) {
-  return () => {
+  const execute = () => {
     if(entities.length !== entitiesLength) {
       entities = []
       for (let i = 0; i < entitiesLength; i++) {
@@ -66,6 +66,8 @@ async function SimulateAvatarMovementSystem (world: World) {
       linear.x = 1
     }
   }
+
+  return { execute, cleanup: async () => {} }
 }
 
 export default function AvatarBenchmarking() {
