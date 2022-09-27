@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-import Layout from '@xrengine/client-core/src/components/Layout'
+import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
 import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
 import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
-import { dispatchAction } from '@xrengine/hyperflux'
-import { AvatarService } from '@xrengine/client-core/src/user/services/AvatarService'
+import { dispatchAction, getState, useHookstate } from '@xrengine/hyperflux'
+import { AvatarService, AvatarState } from '@xrengine/client-core/src/user/services/AvatarService'
 import { accessAuthState, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import { SelectInput } from '@xrengine/editor/src/components/inputs/SelectInput'
 import NumericInput from '@xrengine/editor/src/components/inputs/NumericInput'
@@ -76,7 +76,7 @@ export default function AvatarBenchmarking() {
 
   const projectName = 'default-project'
   const sceneName = 'default'
-  const avatars = useAuthState()
+  const avatars = useHookstate(getState(AvatarState))
 
   const [count, setCount] = useState(100)
   const [avatar, setAvatar] = useState(null! as AvatarInterface)
@@ -121,7 +121,7 @@ export default function AvatarBenchmarking() {
   }, [count, avatar, engineState.joinedWorld])
 
   return (
-    <Layout useLoadingScreenOpacity pageTitle={'Avatar Benchmark'}>
+    <>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene injectedSystems={DefaultLocationSystems} />
       <OfflineLocation />
@@ -129,6 +129,7 @@ export default function AvatarBenchmarking() {
         <SelectInput options={avatars.avatarList.value.map(val => ({ value: val, label: val.name }))} onChange={setAvatar} value={avatar} />
         <NumericInput onChange={setCount} value={count} />
       </div>
-    </Layout>
+      <LocationIcons />
+    </>
   )
 }

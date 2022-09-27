@@ -1,4 +1,5 @@
 import { accessAuthState } from "@xrengine/client-core/src/user/services/AuthService"
+import { AvatarState } from "@xrengine/client-core/src/user/services/AvatarService"
 import { AvatarInterface } from "@xrengine/common/src/interfaces/AvatarInterface"
 import { NetworkId } from "@xrengine/common/src/interfaces/NetworkId"
 import { UserId } from "@xrengine/common/src/interfaces/UserId"
@@ -14,12 +15,12 @@ import { WorldNetworkAction } from "@xrengine/engine/src/networking/functions/Wo
 import { addObjectToGroup } from "@xrengine/engine/src/scene/components/GroupComponent"
 import { VisibleComponent } from "@xrengine/engine/src/scene/components/VisibleComponent"
 import { setTransformComponent } from "@xrengine/engine/src/transform/components/TransformComponent"
-import { dispatchAction } from "@xrengine/hyperflux"
+import { dispatchAction, getState } from "@xrengine/hyperflux"
 import { Vector3, Quaternion, AnimationMixer, Object3D, MeshPhongMaterial, Color } from "three"
 
 export const getAvatarLists = () => {
-  const authState = accessAuthState()
-  const avatarList = authState.avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
+  const avatarState = getState(AvatarState)
+  const avatarList = avatarState.avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
   return avatarList
 }
 

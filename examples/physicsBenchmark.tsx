@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import Layout from '@xrengine/client-core/src/components/Layout'
 import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
 import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
@@ -13,6 +12,7 @@ import NumericInput from '@xrengine/editor/src/components/inputs/NumericInput'
 import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
 import { removeEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
 import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
+import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
 
 process.env['APP_ENV'] = 'test'
 
@@ -21,10 +21,10 @@ export default function AvatarBenchmarking() {
 
   const projectName = 'default-project'
   const sceneName = 'default'
-  
+
   const [count, setCount] = useState(100)
 
-  const [entities, setEntities]  = useState([] as Entity[])
+  const [entities, setEntities] = useState([] as Entity[])
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
@@ -34,16 +34,17 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!engineState.joinedWorld.value) return
-    for (let i = 0; i < entities.length; i++) removeEntity(entities[i])    
+    for (let i = 0; i < entities.length; i++) removeEntity(entities[i])
     setEntities(createPhysicsObjects(count))
   }, [count, engineState.joinedWorld])
 
   return (
-    <Layout useLoadingScreenOpacity pageTitle={'Avatar Benchmark'}>
+    <>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene />
       <OfflineLocation />
-      <NumericInput onChange={setCount} value={count}/>
-    </Layout>
+      <NumericInput onChange={setCount} value={count} />
+      <LocationIcons />
+    </>
   )
 }
