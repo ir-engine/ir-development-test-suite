@@ -1,6 +1,6 @@
 import assert from 'assert'
-import type { XREngineBot } from 'XREngine-bot/bot'
-import { XRBotHooks } from 'XREngine-bot/src/enums/BotHooks'
+import type { XREngineBot } from 'XREngine-Bot/bot'
+import { XRBotHooks } from 'XREngine-Bot/src/enums/BotHooks'
 
 export const setupXR = async (bot: XREngineBot) => {
   await bot.runHook(XRBotHooks.OverrideXR)
