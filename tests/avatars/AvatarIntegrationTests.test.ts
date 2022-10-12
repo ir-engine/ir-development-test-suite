@@ -8,7 +8,7 @@ import { NetworkId } from '@xrengine/common/src/interfaces/NetworkId'
 import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
 import { loadDRACODecoder } from '@xrengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
 import { AnimationManager } from '@xrengine/engine/src/avatar/AnimationManager'
-import { AvatarAnimationComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarAnimationComponent, AvatarRigComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarComponent'
 import {
   loadAvatarModelAsset,
@@ -102,7 +102,7 @@ describe('avatarFunctions Integration', async () => {
         assert(avatarComponent.avatarHeight > 0)
         assert(avatarComponent.avatarHalfHeight > 0)
 
-        const { rig } = getComponent(entity, AvatarAnimationComponent)
+        const { rig } = getComponent(entity, AvatarRigComponent)
         assert(rig)
         assert(rig.Hips)
         assert(rig.Head)
