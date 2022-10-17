@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { LoadingCircle } from '@xrengine/client-core/src/components/LoadingCircle'
 import { LoadEngineWithScene } from '@xrengine/client-core/src/components/World/LoadEngineWithScene'
-import OfflineLocation from '@xrengine/client-core/src/components/World/OfflineLocation'
+import { OfflineLocation } from '@xrengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@xrengine/client-core/src/social/services/LocationService'
 import { accessAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
