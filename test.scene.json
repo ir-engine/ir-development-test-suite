@@ -1627,7 +1627,7 @@
         {
           "name": "system",
           "props": {
-            "filePath": "__$project$__/XREngine-development-test-suite/TestSystem.ts",
+            "filePath": "__$project$__/XREngine-development-test-suite/src/systems/TestSystem.ts",
             "systemUpdateType": "UPDATE",
             "enableClient": true,
             "enableServer": true,
