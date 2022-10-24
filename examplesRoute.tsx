@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-const avatarBenchmark = React.lazy(() => import(`./examples/avatarBenchmark`))
-const avatarTest = React.lazy(() => import(`./examples/avatarTest`))
-const avatarTestByIndex = React.lazy(() => import(`./examples/avatarTestByIndex`))
-const physicsBenchmark = React.lazy(() => import(`./examples/physicsBenchmark`))
+import avatarBenchmark from './examples/avatarBenchmark'
+import avatarTest from './examples/avatarTest'
+import avatarTestByIndex from './examples/avatarTestByIndex'
+import physicsBenchmark from './examples/physicsBenchmark'
 
 const ExampleRoutes = () => {
   return (
