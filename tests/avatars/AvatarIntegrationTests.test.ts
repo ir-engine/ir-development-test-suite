@@ -23,6 +23,7 @@ import { WorldNetworkActionReceptor } from '@xrengine/engine/src/networking/func
 import { Physics } from '@xrengine/engine/src/physics/classes/Physics'
 import { createMockNetwork } from '@xrengine/engine/tests/util/createMockNetwork'
 import { overrideFileLoaderLoad } from '@xrengine/engine/tests/util/loadGLTFAssetNode'
+import { createGLTFLoader } from '@xrengine/engine/src/assets/functions/createGLTFLoader'
 
 import packageJson from '../../package.json'
 
@@ -62,6 +63,7 @@ describe('avatarFunctions Integration', async () => {
   beforeEach(async () => {
     createEngine()
     createMockNetwork()
+    Engine.instance.gltfLoader = createGLTFLoader()
     Engine.instance.userId = Engine.instance.currentWorld.worldNetwork.hostId
     Engine.instance.publicPath = ''
     await Physics.load()
