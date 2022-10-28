@@ -101,8 +101,6 @@ export const loadAssetTPose = async (filename, position = new Vector3()) => {
       currentState: null!,
       stateChanged: () => { }
     },
-    rig: {} as BoneStructure,
-    bindRig: null!,
     rootYRatio: 1,
     locomotion: new Vector3()
   })
@@ -128,12 +126,13 @@ export const loadAssetTPose = async (filename, position = new Vector3()) => {
 
 export const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
   const entity = createEntity()
-  const animationComponent = addComponent(entity, AnimationComponent, {
+  addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
     animations: [],
     animationSpeed: 1
   })
+  const animationComponent = getComponent(entity, AnimationComponent)
   addComponent(entity, AvatarAnimationComponent, {
     animationGraph: {
       states: {},
@@ -141,8 +140,6 @@ export const loadAssetWithAnimation = async (filename, position = new Vector3())
       currentState: null!,
       stateChanged: null!
     },
-    rig: {} as BoneStructure,
-    bindRig: {} as BoneStructure,
     rootYRatio: 1,
     locomotion: new Vector3()
   })
