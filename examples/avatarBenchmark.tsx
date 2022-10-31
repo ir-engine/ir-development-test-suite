@@ -27,7 +27,7 @@ import { createViewCursor, sliceViewCursor } from '@xrengine/engine/src/networki
 import { DefaultLocationSystems } from '@xrengine/client-core/src/world/DefaultLocationSystems'
 import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
-import { VelocityComponent } from '@xrengine/engine/src/physics/components/VelocityComponent'
+import { RigidBodyComponent } from '@xrengine/engine/src/physics/components/RigidBodyComponent'
 
 let entities = [] as Entity[]
 let entitiesLength = 0
@@ -63,8 +63,8 @@ async function SimulateAvatarMovementSystem(world: World) {
     for (const entity of entities) {
       const { position } = getComponent(entity, TransformComponent)
       position.x = x
-      const { linear } = getComponent(entity, VelocityComponent)
-      linear.x = 1
+      const { linearVelocity } = getComponent(entity, RigidBodyComponent)
+      linearVelocity.x = 1
     }
   }
 
