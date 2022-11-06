@@ -30,7 +30,7 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
     const avatarDetail = {
       thumbnailURL: avatar.thumbnailResource?.url!,
       avatarURL: avatar.modelResource?.url!,
-      avatarId: avatar.name!
+      avatarId: avatar.id!
     }
     const userId = ('user' + i) as UserId
     const index = (1000 + i) as NetworkId
@@ -55,7 +55,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
   const avatarDetail = {
     thumbnailURL: avatar.thumbnailResource?.url ?? '',
     avatarURL: avatar.modelResource?.url ?? '',
-    avatarId: avatar.name ?? ''
+    avatarId: avatar.id ?? ''
   }
   const userId = ('user' + i) as UserId
   const index = (1000 + i) as NetworkId
