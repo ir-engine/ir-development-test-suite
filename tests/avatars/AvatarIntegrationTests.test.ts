@@ -14,7 +14,7 @@ import {
   loadAvatarModelAsset,
   setupAvatarForUser
 } from '@xrengine/engine/src/avatar/functions/avatarFunctions'
-import { createAvatar } from '@xrengine/engine/src/avatar/functions/createAvatar'
+import { spawnAvatarReceptor } from '@xrengine/engine/src/avatar/functions/spawnAvatarReceptor'
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@xrengine/engine/src/initializeEngine'
@@ -84,7 +84,7 @@ describe('avatarFunctions Integration', async () => {
         })
 
         WorldNetworkActionReceptor.receiveSpawnObject(spawnAction)
-        createAvatar(spawnAction)
+        spawnAvatarReceptor(spawnAction)
 
         const entity = Engine.instance.currentWorld.getUserAvatarEntity(Engine.instance.userId)
 
