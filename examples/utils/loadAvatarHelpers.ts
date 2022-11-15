@@ -2,6 +2,7 @@ import { accessAuthState } from "@xrengine/client-core/src/user/services/AuthSer
 import { AvatarState } from "@xrengine/client-core/src/user/services/AvatarService"
 import { AvatarInterface } from "@xrengine/common/src/interfaces/AvatarInterface"
 import { NetworkId } from "@xrengine/common/src/interfaces/NetworkId"
+import { PeerID } from "@xrengine/common/src/interfaces/PeerID"
 import { UserId } from "@xrengine/common/src/interfaces/UserId"
 import { BoneStructure } from "@xrengine/engine/src/avatar/AvatarBoneMatching"
 import { AnimationComponent } from "@xrengine/engine/src/avatar/components/AnimationComponent"
@@ -32,13 +33,13 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
       avatarURL: avatar.modelResource?.url!,
       avatarId: avatar.id!
     }
-    const userId = ('user' + i) as UserId
+    const userId = ('user' + i) as UserId & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
 
     const world = Engine.instance.currentWorld
 
-    NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world)
+  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
     dispatchAction(
       WorldNetworkAction.spawnAvatar({
         position: new Vector3(0, 0, column),
@@ -57,9 +58,9 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
     avatarURL: avatar.modelResource?.url ?? '',
     avatarId: avatar.id ?? ''
   }
-  const userId = ('user' + i) as UserId
+  const userId = ('user' + i) as UserId & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, world)
+  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
   dispatchAction(
     WorldNetworkAction.spawnAvatar({
       position: new Vector3(0, 0, i * 2),
