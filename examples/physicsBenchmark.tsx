@@ -12,7 +12,6 @@ import NumericInput from '@xrengine/editor/src/components/inputs/NumericInput'
 import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
 import { removeEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
 import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
-import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
 
 process.env['APP_ENV'] = 'test'
 
@@ -22,7 +21,7 @@ export default function AvatarBenchmarking() {
   const projectName = 'default-project'
   const sceneName = 'default'
 
-  const [count, setCount] = useState(100)
+  const [count, setCount] = useState(1000)
 
   const [entities, setEntities] = useState([] as Entity[])
 
@@ -43,8 +42,9 @@ export default function AvatarBenchmarking() {
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene />
       <OfflineLocation />
-      <NumericInput onChange={setCount} value={count} />
-      <LocationIcons />
+      <div style={{ pointerEvents: 'all' }}>
+        <NumericInput onChange={setCount} value={count} />
+      </div>
     </>
   )
 }
