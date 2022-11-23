@@ -1591,37 +1591,6 @@
       "index": 1,
       "name": "post processing"
     },
-    "9e2e0ba4-7efd-4890-8847-cd729fb50538": {
-      "components": [
-        {
-          "name": "cameraproperties",
-          "props": {
-            "fov": 50,
-            "cameraNearClip": 0.01,
-            "cameraFarClip": 100,
-            "projectionType": 1,
-            "minCameraDistance": 1,
-            "maxCameraDistance": 50,
-            "startCameraDistance": 5,
-            "cameraMode": 5,
-            "cameraModeDefault": 2,
-            "startInFreeLook": false,
-            "minPhi": -70,
-            "maxPhi": 85,
-            "startPhi": 10,
-            "raycastProps": {
-              "enabled": true,
-              "rayCount": 3,
-              "rayLength": 15,
-              "rayFrequency": 0.1
-            }
-          }
-        }
-      ],
-      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
-      "index": 2,
-      "name": "Camera Properties"
-    },
     "0ae0b118-68a5-4dc8-983b-8812beb7c9a6": {
       "components": [
         {
