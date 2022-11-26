@@ -28,6 +28,8 @@ import { DefaultLocationSystems } from '@xrengine/client-core/src/world/DefaultL
 import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
 import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
 import { RigidBodyComponent } from '@xrengine/engine/src/physics/components/RigidBodyComponent'
+import { useParams } from 'react-router-dom'
+import { AvatarHeadIKComponent, AvatarIKTargetsComponent, AvatarLeftHandIKComponent, AvatarRightHandIKComponent } from '@xrengine/engine/src/avatar/components/AvatarIKComponents'
 
 let entities = [] as Entity[]
 let entitiesLength = 0
@@ -57,6 +59,16 @@ async function SimulateAvatarMovementSystem(world: World) {
       for (let i = 0; i < entitiesLength; i++) {
         const eid = world.getUserAvatarEntity('user' + i as UserId)
         if (eid) entities.push(eid)
+      }
+      for (const entity of entities) {
+        setTimeout(() => {
+          const left = getComponent(entity, AvatarLeftHandIKComponent)
+          left.target.position.set(Math.random(), Math.random(), Math.random())
+          const right = getComponent(entity, AvatarRightHandIKComponent)
+          right.target.position.set(Math.random(), Math.random(), Math.random())
+          const head = getComponent(entity, AvatarHeadIKComponent)
+          head.target.position.set(Math.random(), Math.random(), Math.random())
+        }, 1000)
       }
     }
     const x = Math.sin(Date.now() / 1000) * 3
@@ -125,7 +137,7 @@ export default function AvatarBenchmarking() {
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
       <LoadEngineWithScene injectedSystems={DefaultLocationSystems} />
       <OfflineLocation />
-      <div style={{ width: '50%', display: 'flex', flexDirection: 'column', margin: 'auto', paddingTop: '100px' }}>
+      <div style={{ width: '50%', display: 'flex', flexDirection: 'column', margin: 'auto', paddingTop: '100px', pointerEvents: 'all' }}>
         <SelectInput options={avatars.avatarList.value.map(val => ({ value: val, label: val.name }))} onChange={setAvatar} value={avatar} />
         <NumericInput onChange={setCount} value={count} />
       </div>

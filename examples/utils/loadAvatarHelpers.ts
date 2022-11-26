@@ -69,6 +69,14 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
     })
   )
   dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
+  dispatchAction(
+    WorldNetworkAction.avatarIKTargets({
+      head: true,
+      leftHand: true,
+      rightHand: true,
+      $from: userId
+    })
+  )
 }
 
 export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
