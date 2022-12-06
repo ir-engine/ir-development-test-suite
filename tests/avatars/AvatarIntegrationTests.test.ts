@@ -94,7 +94,7 @@ describe('avatarFunctions Integration', async () => {
         avatar.avatarHalfHeight = 0
 
         // run the logic
-        const model = await loadAvatarModelAsset(modelURL)
+        const model = await loadAvatarModelAsset(modelURL) as any
         setupAvatarForUser(entity, model)
 
         // do assertions

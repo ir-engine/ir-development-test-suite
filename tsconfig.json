@@ -15,6 +15,7 @@
     "strict": false,
     "strictNullChecks": true,
     "noImplicitAny": false,
+    "strictBindCallApply": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -29,14 +30,11 @@
   },
   "exclude": [
     "**/node_modules/**",
-    "./old examples/**",
-    "./tests/**/*.ts"
+    "./old examples/**"
   ],
   "include": [
     "../../../server-core/src/*",
     "./**/*.ts",
-    "./**/*.tsx",
-    "../../../../PhysX.d.ts",
-    "../../../../PhysXDebug.d.ts"
+    "./**/*.tsx"
   ]
 }
