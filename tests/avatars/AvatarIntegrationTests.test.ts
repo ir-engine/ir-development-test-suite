@@ -100,7 +100,7 @@ describe('avatarFunctions Integration', async () => {
         // do assertions
         const avatarComponent = getComponent(entity, AvatarComponent)
 
-        assert(avatarComponent.modelContainer.children.length)
+        assert(avatarComponent.model.children.length)
         assert(avatarComponent.avatarHeight > 0)
         assert(avatarComponent.avatarHalfHeight > 0)
 
