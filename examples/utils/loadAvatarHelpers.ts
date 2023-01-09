@@ -17,7 +17,7 @@ import { addObjectToGroup } from "@xrengine/engine/src/scene/components/GroupCom
 import { VisibleComponent } from "@xrengine/engine/src/scene/components/VisibleComponent"
 import { setTransformComponent } from "@xrengine/engine/src/transform/components/TransformComponent"
 import { dispatchAction, getState } from "@xrengine/hyperflux"
-import { Vector3, Quaternion, AnimationMixer, Object3D, MeshPhongMaterial, Color } from "three"
+import { Vector3, Quaternion, AnimationMixer, Object3D, MeshPhongMaterial, Color, Mesh } from "three"
 
 export const getAvatarLists = () => {
   const avatarState = getState(AvatarState)
@@ -77,6 +77,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
       $from: userId
     })
   )
+  return userId
 }
 
 export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
@@ -93,6 +94,43 @@ export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
     const column = i * 2
     loadAssetTPose(avatar.modelResource?.url, new Vector3(8, 0, column))
   }
+}
+
+export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
+  for (let i = 0; i < avatarList.length; i++) {
+    const avatar = avatarList[i]
+    const column = i * 2
+    loadAssetWithIK(avatar, new Vector3(12, 0, column))
+  }
+}
+
+export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3) => {
+  const entity = createEntity()
+  addComponent(entity, AnimationComponent, {
+    // empty object3d as the mixer gets replaced when model is loaded
+    mixer: new AnimationMixer(new Object3D()),
+    animations: [],
+    animationSpeed: 1
+  })
+  addComponent(entity, AvatarAnimationComponent, {
+    animationGraph: {
+      states: {},
+      transitionRules: {},
+      currentState: null!,
+      stateChanged: () => { }
+    },
+    rootYRatio: 1,
+    locomotion: new Vector3()
+  })
+  setTransformComponent(entity, position)
+  loadAvatarModelAsset(avatar.modelResource!.url).then((model: Object3D) => {
+    addObjectToGroup(entity, model)
+    addComponent(entity, VisibleComponent, true)
+    boneMatchAvatarModel(entity)(model)
+    rigAvatarModel(entity)(model)
+  })
+  const userId = loadNetworkAvatar(avatar, 0)
+  dispatchAction(WorldNetworkAction.avatarIKTargets({ head: true, leftHand: true, rightHand: true, $from: userId }))
 }
 
 export const loadAssetTPose = async (filename, position = new Vector3()) => {
@@ -114,14 +152,14 @@ export const loadAssetTPose = async (filename, position = new Vector3()) => {
     locomotion: new Vector3()
   })
   setTransformComponent(entity, position)
-  const model = await loadAvatarModelAsset(filename)
+  const model = await loadAvatarModelAsset(filename) as Object3D
   addObjectToGroup(entity, model)
   addComponent(entity, VisibleComponent, true)
   boneMatchAvatarModel(entity)(model)
   rigAvatarModel(entity)(model)
 
   //Change material color to white
-  model.traverse((obj) => {
+  model.traverse((obj: Mesh) => {
     if (obj.isMesh) {
       obj.material = new MeshPhongMaterial({ color: new Color('white') })
     }
@@ -153,7 +191,7 @@ export const loadAssetWithAnimation = async (filename, position = new Vector3())
     locomotion: new Vector3()
   })
   setTransformComponent(entity, position)
-  const object = await loadAvatarModelAsset(filename)
+  const object = await loadAvatarModelAsset(filename) as Object3D
   addObjectToGroup(entity, object)
   addComponent(entity, VisibleComponent, true)
   const setupLoopableAvatarModel = setupAvatarModel(entity)

@@ -11,7 +11,7 @@ import { matchActionOnce } from '@xrengine/engine/src/networking/functions/match
 import { dispatchAction, getState } from '@xrengine/hyperflux'
 import { AvatarService, AvatarState } from '@xrengine/client-core/src/user/services/AvatarService'
 import { accessAuthState } from '@xrengine/client-core/src/user/services/AuthService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
 import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
 
 export default function AvatarBenchmarking() {
@@ -29,6 +29,7 @@ export default function AvatarBenchmarking() {
   const mockAvatars = () => {
     const avatars = getState(AvatarState).avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
     mockNetworkAvatars(avatars)
+    mockIKAvatars(avatars)
     mockAnimAvatars(avatars)
     mockTPoseAvatars(avatars)
   }

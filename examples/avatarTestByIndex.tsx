@@ -11,7 +11,7 @@ import { EngineActions } from '@xrengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@xrengine/engine/src/networking/functions/matchActionOnce'
 import { dispatchAction, getState } from '@xrengine/hyperflux'
 import { AvatarService, AvatarState } from '@xrengine/client-core/src/user/services/AvatarService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
 import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
 
 export default function AvatarBenchmarking() {
@@ -34,6 +34,7 @@ export default function AvatarBenchmarking() {
 
     const avatars = getState(AvatarState).avatarList.value
     mockNetworkAvatars([avatars[index]])
+    mockIKAvatars([avatars[index]])
     mockAnimAvatars([avatars[index]])
     mockTPoseAvatars([avatars[index]])
   }
