@@ -7,13 +7,15 @@ import { UserId } from "@xrengine/common/src/interfaces/UserId"
 import { BoneStructure } from "@xrengine/engine/src/avatar/AvatarBoneMatching"
 import { AnimationComponent } from "@xrengine/engine/src/avatar/components/AnimationComponent"
 import { AvatarAnimationComponent } from "@xrengine/engine/src/avatar/components/AvatarAnimationComponent"
+import { AvatarComponent } from "@xrengine/engine/src/avatar/components/AvatarComponent"
 import { loadAvatarModelAsset, boneMatchAvatarModel, rigAvatarModel, setupAvatarModel, animateModel } from "@xrengine/engine/src/avatar/functions/avatarFunctions"
 import { Engine } from "@xrengine/engine/src/ecs/classes/Engine"
-import { addComponent, getComponent } from "@xrengine/engine/src/ecs/functions/ComponentFunctions"
+import { addComponent, getComponent, setComponent } from "@xrengine/engine/src/ecs/functions/ComponentFunctions"
 import { createEntity } from "@xrengine/engine/src/ecs/functions/EntityFunctions"
 import { NetworkPeerFunctions } from "@xrengine/engine/src/networking/functions/NetworkPeerFunctions"
 import { WorldNetworkAction } from "@xrengine/engine/src/networking/functions/WorldNetworkAction"
 import { addObjectToGroup } from "@xrengine/engine/src/scene/components/GroupComponent"
+import { NameComponent } from "@xrengine/engine/src/scene/components/NameComponent"
 import { VisibleComponent } from "@xrengine/engine/src/scene/components/VisibleComponent"
 import { setTransformComponent } from "@xrengine/engine/src/transform/components/TransformComponent"
 import { dispatchAction, getState } from "@xrengine/hyperflux"
@@ -39,7 +41,7 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
 
     const world = Engine.instance.currentWorld
 
-  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
+    NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
     dispatchAction(
       WorldNetworkAction.spawnAvatar({
         position: new Vector3(0, 0, column),
@@ -84,7 +86,7 @@ export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
-    loadAssetWithAnimation(avatar.modelResource?.url, new Vector3(4, 0, column))
+    loadAssetWithAnimation(avatar.modelResource?.url, new Vector3(4, 0, column), i)
   }
 }
 
@@ -92,7 +94,7 @@ export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
-    loadAssetTPose(avatar.modelResource?.url, new Vector3(8, 0, column))
+    loadAssetTPose(avatar.modelResource?.url, new Vector3(8, 0, column), i)
   }
 }
 
@@ -100,12 +102,14 @@ export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
-    loadAssetWithIK(avatar, new Vector3(12, 0, column))
+    loadAssetWithIK(avatar, new Vector3(12, 0, column), i)
   }
 }
 
-export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3) => {
+export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: number) => {
   const entity = createEntity()
+  setComponent(entity, NameComponent, 'IK Avatar ' + i)
+  setComponent(entity, AvatarComponent)
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
@@ -129,12 +133,14 @@ export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3) => {
     boneMatchAvatarModel(entity)(model)
     rigAvatarModel(entity)(model)
   })
-  const userId = loadNetworkAvatar(avatar, 0)
+  const userId = loadNetworkAvatar(avatar, i)
   dispatchAction(WorldNetworkAction.avatarIKTargets({ head: true, leftHand: true, rightHand: true, $from: userId }))
 }
 
-export const loadAssetTPose = async (filename, position = new Vector3()) => {
+export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
+  setComponent(entity, NameComponent, 'TPose Avatar ' + i)
+  setComponent(entity, AvatarComponent)
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
@@ -171,8 +177,10 @@ export const loadAssetTPose = async (filename, position = new Vector3()) => {
   return entity
 }
 
-export const loadAssetWithAnimation = async (filename, position = new Vector3()) => {
+export const loadAssetWithAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
+  setComponent(entity, NameComponent, 'Anim Avatar ' + i)
+  setComponent(entity, AvatarComponent)
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
