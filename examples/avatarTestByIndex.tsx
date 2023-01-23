@@ -13,6 +13,7 @@ import { dispatchAction, getState } from '@xrengine/hyperflux'
 import { AvatarService, AvatarState } from '@xrengine/client-core/src/user/services/AvatarService'
 import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
 import { LocationIcons } from '@xrengine/client-core/src/components/LocationIcons'
+import { useSimulateMovement } from './utils/simulateMovement'
 
 export default function AvatarBenchmarking() {
   const engineState = useEngineState()
@@ -25,6 +26,8 @@ export default function AvatarBenchmarking() {
     AvatarService.fetchAvatarList()
     matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
+
+  useSimulateMovement()
 
   const mockAvatars = () => {
     const queryString = window.location.search

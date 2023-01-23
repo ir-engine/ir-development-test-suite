@@ -30,6 +30,7 @@ import { TransformComponent } from '@xrengine/engine/src/transform/components/Tr
 import { RigidBodyComponent } from '@xrengine/engine/src/physics/components/RigidBodyComponent'
 import { useParams } from 'react-router-dom'
 import { AvatarHeadIKComponent, AvatarIKTargetsComponent, AvatarLeftHandIKComponent, AvatarRightHandIKComponent } from '@xrengine/engine/src/avatar/components/AvatarIKComponents'
+import { useSimulateMovement } from './utils/simulateMovement'
 
 let entities = [] as Entity[]
 let entitiesLength = 0
@@ -52,37 +53,6 @@ let entitiesLength = 0
 //   }
 // }
 
-async function SimulateAvatarMovementSystem(world: World) {
-  const execute = () => {
-    if (entities.length !== entitiesLength) {
-      entities = []
-      for (let i = 0; i < entitiesLength; i++) {
-        const eid = world.getUserAvatarEntity('user' + i as UserId)
-        if (eid) entities.push(eid)
-      }
-      for (const entity of entities) {
-        setTimeout(() => {
-          const left = getComponent(entity, AvatarLeftHandIKComponent)
-          left?.target.position.set(Math.random(), Math.random(), Math.random())
-          const right = getComponent(entity, AvatarRightHandIKComponent)
-          right?.target.position.set(Math.random(), Math.random(), Math.random())
-          const head = getComponent(entity, AvatarHeadIKComponent)
-          head?.target.position.set(Math.random(), Math.random(), Math.random())
-        }, 1000)
-      }
-    }
-    const x = Math.sin(Date.now() / 1000) * 3
-    for (const entity of entities) {
-      const { position } = getComponent(entity, TransformComponent)
-      position.x = x
-      const { linearVelocity } = getComponent(entity, RigidBodyComponent)
-      linearVelocity.x = 1
-    }
-  }
-
-  return { execute, cleanup: async () => { } }
-}
-
 export default function AvatarBenchmarking() {
   const engineState = useEngineState()
 
@@ -94,6 +64,8 @@ export default function AvatarBenchmarking() {
   const [avatar, setAvatar] = useState(null! as AvatarInterface)
 
   const [entities, setEntities] = useState(0)
+
+  useSimulateMovement()
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
@@ -109,25 +81,12 @@ export default function AvatarBenchmarking() {
   }, [])
 
   useEffect(() => {
-    if (engineState.isEngineInitialized.value) {
-      initSystems(Engine.instance.currentWorld, [
-        {
-          systemLoader: () => Promise.resolve({ default: SimulateAvatarMovementSystem }),
-          uuid: 'SimulateAvatarMovement',
-          type: SystemUpdateType.FIXED
-        }
-      ])
-    }
-  }, [engineState.isEngineInitialized])
-
-  useEffect(() => {
     setAvatar(avatars[0].get({ noproxy: true }))
   }, [avatars])
 
   useEffect(() => {
     if (!avatar || !engineState.joinedWorld.value) return
     for (let i = 0; i < entities; i++) removeEntity(Engine.instance.currentWorld.getUserAvatarEntity('user' + i as UserId))
-    entitiesLength = count
     setEntities(count)
     for (let i = 0; i < count; i++) loadNetworkAvatar(avatar, i)
   }, [count, avatar, engineState.joinedWorld])
@@ -135,7 +94,7 @@ export default function AvatarBenchmarking() {
   return (
     <>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
-      <LoadEngineWithScene injectedSystems={DefaultLocationSystems} />
+      <LoadEngineWithScene spectate injectedSystems={DefaultLocationSystems} />
       <OfflineLocation />
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column', margin: 'auto', paddingTop: '100px', pointerEvents: 'all' }}>
         <SelectInput options={avatars.avatarList.value.map(val => ({ value: val, label: val.name }))} onChange={setAvatar} value={avatar} />
