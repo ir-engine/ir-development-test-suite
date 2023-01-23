@@ -39,8 +39,6 @@ async function SimulateAvatarMovementSystem(world: World) {
           left?.target.position.set(Math.random(), Math.random(), Math.random()).add(position)
           const right = getComponent(entity, AvatarRightHandIKComponent)
           right?.target.position.set(Math.random(), Math.random(), Math.random()).add(position)
-          const head = getComponent(entity, AvatarHeadIKComponent)
-          head?.target.position.set(Math.random(), Math.random(), Math.random()).add(position)
         }, 1000)
       }
     }
