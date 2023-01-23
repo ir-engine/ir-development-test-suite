@@ -47,7 +47,7 @@ export default function AvatarBenchmarking() {
   return (
     <>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
-      <LoadEngineWithScene />
+      <LoadEngineWithScene spectate/>
       <OfflineLocation />
       <LocationIcons />
     </>
