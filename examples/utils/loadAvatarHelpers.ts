@@ -116,7 +116,16 @@ export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: n
     animations: [],
     animationSpeed: 1
   })
-  addComponent(entity, AvatarAnimationComponent)
+  addComponent(entity, AvatarAnimationComponent, {
+    animationGraph: {
+      states: {},
+      transitionRules: {},
+      currentState: null!,
+      stateChanged: () => { }
+    },
+    rootYRatio: 1,
+    locomotion: new Vector3()
+  })
   setTransformComponent(entity, position)
   loadAvatarModelAsset(avatar.modelResource!.url).then((model: Object3D) => {
     addObjectToGroup(entity, model)
@@ -138,7 +147,16 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
     animations: [],
     animationSpeed: 1
   })
-  addComponent(entity, AvatarAnimationComponent)
+  addComponent(entity, AvatarAnimationComponent, {
+    animationGraph: {
+      states: {},
+      transitionRules: {},
+      currentState: null!,
+      stateChanged: () => { }
+    },
+    rootYRatio: 1,
+    locomotion: new Vector3()
+  })
   setTransformComponent(entity, position)
   const model = await loadAvatarModelAsset(filename) as Object3D
   addObjectToGroup(entity, model)
@@ -170,7 +188,16 @@ export const loadAssetWithAnimation = async (filename, position: Vector3, i: num
     animationSpeed: 1
   })
   const animationComponent = getComponent(entity, AnimationComponent)
-  addComponent(entity, AvatarAnimationComponent)
+  addComponent(entity, AvatarAnimationComponent, {
+    animationGraph: {
+      states: {},
+      transitionRules: {},
+      currentState: null!,
+      stateChanged: null!
+    },
+    rootYRatio: 1,
+    locomotion: new Vector3()
+  })
   setTransformComponent(entity, position)
   const object = await loadAvatarModelAsset(filename) as Object3D
   addObjectToGroup(entity, object)
