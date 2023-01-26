@@ -53,9 +53,10 @@ async function SimulateAvatarMovementSystem(world: World) {
       const head = getComponent(entity, AvatarHeadIKComponent)
       if (head) {
         const rigComponent = getComponent(entity, AvatarRigComponent)
-        const headToFeetLength = rigComponent.torsoLength + rigComponent.upperLegLength + rigComponent.lowerLegLength
+        const limitMultiplier = 1.1
+        const headToFeetLength = (rigComponent.torsoLength + rigComponent.upperLegLength + rigComponent.lowerLegLength) * limitMultiplier
         const pivotHalfLength = rigComponent.upperLegLength * 0.5
-        const minHeadHeight = pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight
+        const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
         const headTargetY =
           (Math.sin(Engine.instance.currentWorld.elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) +
           minHeadHeight
