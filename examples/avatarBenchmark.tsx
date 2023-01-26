@@ -29,7 +29,7 @@ import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFuncti
 import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
 import { RigidBodyComponent } from '@xrengine/engine/src/physics/components/RigidBodyComponent'
 import { useParams } from 'react-router-dom'
-import { AvatarHeadIKComponent, AvatarIKTargetsComponent, AvatarLeftHandIKComponent, AvatarRightHandIKComponent } from '@xrengine/engine/src/avatar/components/AvatarIKComponents'
+import { AvatarHeadIKComponent, AvatarIKTargetsComponent, AvatarLeftArmIKComponent, AvatarRightArmIKComponent } from '@xrengine/engine/src/avatar/components/AvatarIKComponents'
 import { useSimulateMovement } from './utils/simulateMovement'
 
 let entities = [] as Entity[]
