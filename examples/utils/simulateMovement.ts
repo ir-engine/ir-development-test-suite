@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { UserId } from "@xrengine/common/src/interfaces/UserId"
-import { AvatarLeftHandIKComponent, AvatarRightHandIKComponent, AvatarHeadIKComponent } from "@xrengine/engine/src/avatar/components/AvatarIKComponents"
+import { AvatarLeftArmIKComponent, AvatarRightArmIKComponent, AvatarHeadIKComponent } from "@xrengine/engine/src/avatar/components/AvatarIKComponents"
 import { Engine } from "@xrengine/engine/src/ecs/classes/Engine"
 import { useEngineState } from "@xrengine/engine/src/ecs/classes/EngineState"
 import { World } from "@xrengine/engine/src/ecs/classes/World"
@@ -35,9 +35,9 @@ async function SimulateAvatarMovementSystem(world: World) {
         // @todo improve this
         setInterval(() => {
           const { position } = getComponent(entity, RigidBodyComponent)
-          const left = getComponent(entity, AvatarLeftHandIKComponent)
+          const left = getComponent(entity, AvatarLeftArmIKComponent)
           left?.target.position.set(Math.random(), Math.random(), Math.random()).add(position)
-          const right = getComponent(entity, AvatarRightHandIKComponent)
+          const right = getComponent(entity, AvatarRightArmIKComponent)
           right?.target.position.set(Math.random(), Math.random(), Math.random()).add(position)
         }, 1000)
       }
