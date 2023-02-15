@@ -1158,7 +1158,7 @@
         {
           "name": "shadow",
           "props": {
-            "cast": true,
+            "cast": false,
             "receive": true
           }
         }
