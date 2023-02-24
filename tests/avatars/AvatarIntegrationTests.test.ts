@@ -68,8 +68,7 @@ describe('avatarFunctions Integration', async () => {
     Engine.instance.publicPath = ''
     await Physics.load()
     Engine.instance.currentWorld.physicsWorld = Physics.createWorld()
-    const animationGLTF = await AssetLoader.loadAsync(animGLB)
-    AnimationManager.instance.getAnimations(animationGLTF)
+    await AnimationManager.instance.loadDefaultAnimations(animGLB)
   })
 
   describe('loadAvatarForEntity', () => {
