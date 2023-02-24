@@ -9,30 +9,19 @@ import { loadSceneJsonOffline } from '@xrengine/client/src/pages/offline/utils'
 import { useEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
 import { dispatchAction, getState, useHookstate } from '@xrengine/hyperflux'
 import { AvatarService, AvatarState } from '@xrengine/client-core/src/user/services/AvatarService'
-import { accessAuthState, useAuthState } from '@xrengine/client-core/src/user/services/AuthService'
 import { SelectInput } from '@xrengine/editor/src/components/inputs/SelectInput'
 import NumericInput from '@xrengine/editor/src/components/inputs/NumericInput'
 import { AvatarInterface } from '@xrengine/common/src/interfaces/AvatarInterface'
 import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
 import { removeEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
-import { loadAssetWithAnimation, loadNetworkAvatar } from './utils/loadAvatarHelpers'
-import { Vector3 } from 'three'
+import { loadNetworkAvatar } from './utils/loadAvatarHelpers'
 import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
 import { UserId } from '@xrengine/common/src/interfaces/UserId'
-import { World } from '@xrengine/engine/src/ecs/classes/World'
-import { initSystems } from '@xrengine/engine/src/ecs/functions/SystemFunctions'
-import { SystemUpdateType } from '@xrengine/engine/src/ecs/functions/SystemUpdateType'
-import { createDataWriter, writeEntities, writeMetadata } from '@xrengine/engine/src/networking/serialization/DataWriter'
-import { createViewCursor, sliceViewCursor } from '@xrengine/engine/src/networking/serialization/ViewCursor'
 import { DefaultLocationSystems } from '@xrengine/client-core/src/world/DefaultLocationSystems'
-import { getComponent } from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
-import { TransformComponent } from '@xrengine/engine/src/transform/components/TransformComponent'
-import { RigidBodyComponent } from '@xrengine/engine/src/physics/components/RigidBodyComponent'
-import { useParams } from 'react-router-dom'
 import { useSimulateMovement } from './utils/simulateMovement'
 
-let entities = [] as Entity[]
-let entitiesLength = 0
+// let entities = [] as Entity[]
+// let entitiesLength = 0
 
 // async function SimulateNetworkAvatarMovementSystem (world: World) {
 //   const dataWriter = createDataWriter()
