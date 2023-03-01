@@ -1,7 +1,7 @@
 import { XREngineBot } from 'XREngine-Bot/bot'
 import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
 
-import { delay } from '@xrengine/engine/src/common/functions/delay'
+import { delay } from '@etherealengine/engine/src/common/functions/delay'
 
 import { setupXR, testWebXR } from '../utils/testWebXR'
 

@@ -1,12 +1,12 @@
-import { Engine } from "@xrengine/engine/src/ecs/classes/Engine"
-import { createEntity } from "@xrengine/engine/src/ecs/functions/EntityFunctions"
-import { Physics } from "@xrengine/engine/src/physics/classes/Physics"
-import { CollisionGroups, DefaultCollisionMask } from "@xrengine/engine/src/physics/enums/CollisionGroups"
-import { getInteractionGroups } from "@xrengine/engine/src/physics/functions/getInteractionGroups"
-import { setTransformComponent } from "@xrengine/engine/src/transform/components/TransformComponent"
+import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
+import { createEntity } from "@etherealengine/engine/src/ecs/functions/EntityFunctions"
+import { Physics } from "@etherealengine/engine/src/physics/classes/Physics"
+import { CollisionGroups, DefaultCollisionMask } from "@etherealengine/engine/src/physics/enums/CollisionGroups"
+import { getInteractionGroups } from "@etherealengine/engine/src/physics/functions/getInteractionGroups"
+import { setTransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
 import { Vector3 } from "three"
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d-compat'
-import { Entity } from "@xrengine/engine/src/ecs/classes/Entity"
+import { Entity } from "@etherealengine/engine/src/ecs/classes/Entity"
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]

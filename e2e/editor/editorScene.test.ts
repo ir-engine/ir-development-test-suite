@@ -2,9 +2,9 @@ import assert from 'assert'
 import { XREngineBot } from 'XREngine-Bot/bot'
 import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
 
-import { delay } from '@xrengine/engine/src/common/functions/delay'
-import type { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
-import { getEngineState } from '@xrengine/engine/src/ecs/classes/EngineState'
+import { delay } from '@etherealengine/engine/src/common/functions/delay'
+import type { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { getEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 
 const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/editor`

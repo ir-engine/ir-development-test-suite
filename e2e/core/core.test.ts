@@ -3,9 +3,9 @@ import { Vector3 } from 'three'
 import { XREngineBot } from 'XREngine-Bot/bot'
 import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
 
-import { UserId } from '@xrengine/common/src/interfaces/UserId'
-import { delay } from '@xrengine/engine/src/common/functions/delay'
-import { NetworkPeer } from '@xrengine/engine/src/networking/interfaces/NetworkPeer'
+import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { delay } from '@etherealengine/engine/src/common/functions/delay'
+import { NetworkPeer } from '@etherealengine/engine/src/networking/interfaces/NetworkPeer'
 
 const vector3 = new Vector3()
 

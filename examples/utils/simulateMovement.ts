@@ -1,20 +1,20 @@
 import { useEffect } from 'react'
 
-import { UserId } from "@xrengine/common/src/interfaces/UserId"
-import { AvatarLeftArmIKComponent, AvatarRightArmIKComponent, AvatarHeadIKComponent } from "@xrengine/engine/src/avatar/components/AvatarIKComponents"
-import { Engine } from "@xrengine/engine/src/ecs/classes/Engine"
-import { useEngineState } from "@xrengine/engine/src/ecs/classes/EngineState"
-import { World } from "@xrengine/engine/src/ecs/classes/World"
-import { defineQuery, getComponent } from "@xrengine/engine/src/ecs/functions/ComponentFunctions"
-import { initSystems } from "@xrengine/engine/src/ecs/functions/SystemFunctions"
-import { SystemUpdateType } from "@xrengine/engine/src/ecs/functions/SystemUpdateType"
-import { RigidBodyComponent } from "@xrengine/engine/src/physics/components/RigidBodyComponent"
-import { TransformComponent } from "@xrengine/engine/src/transform/components/TransformComponent"
-import { NetworkObjectComponent } from '@xrengine/engine/src/networking/components/NetworkObjectComponent'
-import { AvatarComponent } from '@xrengine/engine/src/avatar/components/AvatarComponent'
-import { AvatarRigComponent } from '@xrengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
-import { V_010 } from '@xrengine/engine/src/common/constants/MathConstants'
+import { UserId } from "@etherealengine/common/src/interfaces/UserId"
+import { AvatarLeftArmIKComponent, AvatarRightArmIKComponent, AvatarHeadIKComponent } from "@etherealengine/engine/src/avatar/components/AvatarIKComponents"
+import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
+import { useEngineState } from "@etherealengine/engine/src/ecs/classes/EngineState"
+import { World } from "@etherealengine/engine/src/ecs/classes/World"
+import { defineQuery, getComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
+import { initSystems } from "@etherealengine/engine/src/ecs/functions/SystemFunctions"
+import { SystemUpdateType } from "@etherealengine/engine/src/ecs/functions/SystemUpdateType"
+import { RigidBodyComponent } from "@etherealengine/engine/src/physics/components/RigidBodyComponent"
+import { TransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
+import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
+import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
+import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
+import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 import { Quaternion } from 'three'
 
 // quaternion that represents a 1 degree turn on the y axis

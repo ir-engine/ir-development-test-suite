@@ -2,9 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { API } from '@xrengine/client-core/src/API'
-import { AuthService } from '@xrengine/client-core/src/user/services/AuthService'
-import { OpenMatchTicketAssignment } from '@xrengine/matchmaking/src/interfaces'
+import { API } from '@etherealengine/client-core/src/API'
+import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
+import { OpenMatchTicketAssignment } from '@etherealengine/matchmaking/src/interfaces'
 
 const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()

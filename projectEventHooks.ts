@@ -1,9 +1,9 @@
 import path from 'path'
 
-import { createLocations } from '@xrengine/projects/createLocations'
-import { ProjectEventHooks } from '@xrengine/projects/ProjectConfigInterface'
-import { Application } from '@xrengine/server-core/declarations'
-import { installAvatarsFromProject } from '@xrengine/server-core/src/user/avatar/avatar-helper'
+import { createLocations } from '@etherealengine/projects/createLocations'
+import { ProjectEventHooks } from '@etherealengine/projects/ProjectConfigInterface'
+import { Application } from '@etherealengine/server-core/declarations'
+import { installAvatarsFromProject } from '@etherealengine/server-core/src/user/avatar/avatar-helper'
 
 import packageJson from './package.json'
 
