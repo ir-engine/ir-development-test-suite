@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { XREngineBot } from 'XREngine-Bot/bot'
-import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
+import { EtherealEngineBot } from 'ee-bot/bot'
+import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
@@ -14,7 +14,7 @@ const locationName = 'test'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
-  const bot = new XREngineBot({ name: 'bot', verbose: true })
+  const bot = new EtherealEngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
@@ -32,10 +32,10 @@ describe('My Bot Tests', () => {
 })
 
 describe('Multi-Bot Tests', () => {
-  const bots = [] as Array<XREngineBot>
+  const bots = [] as Array<EtherealEngineBot>
 
   async function addBot() {
-    const bot = new XREngineBot({ name: `bot-${bots.length}`, verbose: true })
+    const bot = new EtherealEngineBot({ name: `bot-${bots.length}`, verbose: true })
     bots.push(bot)
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
@@ -52,7 +52,7 @@ describe('Multi-Bot Tests', () => {
   // skip for now, as loading multiple uses seems to overload github actions and the test fails
   it('Can connect multiple players', async () => {
     const numPlayers = 3
-    const addedBots = [] as Promise<XREngineBot>[]
+    const addedBots = [] as Promise<EtherealEngineBot>[]
     for (let i = 0; i < numPlayers; i++) addedBots.push(addBot())
     await Promise.all(addedBots)
     const bot = bots[0]
@@ -67,7 +67,7 @@ describe('Multi-Bot Tests', () => {
   //   await bot.delay(1000)
   //   await bot.quit()
 
-  //   const bot2 = new XREngineBot({ name: 'bot-2', verbose: true })
+  //   const bot2 = new EtherealEngineBot({ name: 'bot-2', verbose: true })
   //   await bot2.launchBrowser()
   //   await bot2.enterLocation(`https://${domain}/location/${locationName}`)
   //   await bot2.awaitHookPromise(BotHooks.LocationLoaded)

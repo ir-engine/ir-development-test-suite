@@ -1,6 +1,6 @@
 import assert from 'assert'
-import { XREngineBot } from 'XREngine-Bot/bot'
-import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
+import { EtherealEngineBot } from 'ee-bot/bot'
+import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
 import type { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
@@ -10,7 +10,7 @@ const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/editor`
 
 describe('Editor Scene Tests', () => {
-  const bot = new XREngineBot({ name: 'bot', verbose: true, headless: false })
+  const bot = new EtherealEngineBot({ name: 'bot', verbose: true, headless: false })
   before(async () => {
     await bot.launchBrowser()
   })
@@ -24,7 +24,7 @@ describe('Editor Scene Tests', () => {
     await bot.navigate(editorUrl)
 
     // click on project
-    await bot.clickElementById('open-XREngine-development-test-suite')
+    await bot.clickElementById('open-ee-development-test-suite')
 
     // click on scene
     await bot.page.waitForSelector(`[class^='_sceneContainer']`, { visible: true })
