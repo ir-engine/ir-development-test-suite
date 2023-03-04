@@ -11,8 +11,8 @@ import {
   WebGLRenderer
 } from 'three'
 
-import { OrbitControls } from '@xrengine/engine/src/input/functions/OrbitControls'
-import TrailRenderer from '@xrengine/engine/src/scene/classes/TrailRenderer'
+import { OrbitControls } from '@etherealengine/engine/src/input/functions/OrbitControls'
+import TrailRenderer from '@etherealengine/engine/src/scene/classes/TrailRenderer'
 
 const canvasStyle = {
   zIndex: 0,

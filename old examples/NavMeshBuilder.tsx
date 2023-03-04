@@ -16,24 +16,24 @@ import {
 } from 'three'
 import { CellSpacePartitioning, EntityManager, FollowPathBehavior, Time } from 'yuka'
 
-import { Engine } from '@xrengine/engine/src/ecs/classes/Engine'
-import { Entity } from '@xrengine/engine/src/ecs/classes/Entity'
-import { World } from '@xrengine/engine/src/ecs/classes/World'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
+import { World } from '@etherealengine/engine/src/ecs/classes/World'
 import {
   addComponent,
   createMappedComponent,
   getComponent
-} from '@xrengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity } from '@xrengine/engine/src/ecs/functions/EntityFunctions'
-import { initSystems } from '@xrengine/engine/src/ecs/functions/SystemFunctions'
-import { useWorld } from '@xrengine/engine/src/ecs/functions/SystemHooks'
-import { SystemUpdateType } from '@xrengine/engine/src/ecs/functions/SystemUpdateType'
-import { createEngine } from '@xrengine/engine/src/initializeEngine'
-import { OrbitControls } from '@xrengine/engine/src/input/functions/OrbitControls'
-import { createCellSpaceHelper } from '@xrengine/engine/src/navigation/CellSpacePartitioningHelper'
-import { CustomVehicle } from '@xrengine/engine/src/navigation/CustomVehicle'
-import { createConvexRegionHelper } from '@xrengine/engine/src/navigation/NavMeshHelper'
-import { PathPlanner } from '@xrengine/engine/src/navigation/PathPlanner'
+} from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { initSystems } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
+import { useWorld } from '@etherealengine/engine/src/ecs/functions/SystemHooks'
+import { SystemUpdateType } from '@etherealengine/engine/src/ecs/functions/SystemUpdateType'
+import { createEngine } from '@etherealengine/engine/src/initializeEngine'
+import { OrbitControls } from '@etherealengine/engine/src/input/functions/OrbitControls'
+import { createCellSpaceHelper } from '@etherealengine/engine/src/navigation/CellSpacePartitioningHelper'
+import { CustomVehicle } from '@etherealengine/engine/src/navigation/CustomVehicle'
+import { createConvexRegionHelper } from '@etherealengine/engine/src/navigation/NavMeshHelper'
+import { PathPlanner } from '@etherealengine/engine/src/navigation/PathPlanner'
 
 type NavigationComponentType = {
   pathPlanner: PathPlanner

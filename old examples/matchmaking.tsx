@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { API } from '@xrengine/client-core/src/API'
-import { AuthService } from '@xrengine/client-core/src/user/services/AuthService'
-import { MatchmakingTicketAssignment, OpenMatchTicket } from '@xrengine/matchmaking/src/interfaces'
+import { API } from '@etherealengine/client-core/src/API'
+import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
+import { MatchmakingTicketAssignment, OpenMatchTicket } from '@etherealengine/matchmaking/src/interfaces'
 
 const gameModes = ['ctf', 'tournament']
 

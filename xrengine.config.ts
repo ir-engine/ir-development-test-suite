@@ -1,8 +1,8 @@
-import type { ProjectConfigInterface } from '@xrengine/projects/ProjectConfigInterface'
+import type { ProjectConfigInterface } from '@etherealengine/projects/ProjectConfigInterface'
 
 const config: ProjectConfigInterface = {
   onEvent: './projectEventHooks.ts',
-  thumbnail: '/static/xrengine_thumbnail.jpg',
+  thumbnail: '/static/etherealengine_thumbnail.jpg',
   routes: {
     '/examples': {
       component: () => import('./examplesRoute')

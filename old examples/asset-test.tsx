@@ -11,9 +11,9 @@ import {
   WebGLRenderer
 } from 'three'
 
-import { AssetLoader } from '@xrengine/engine/src/assets/classes/AssetLoader'
-import { SkeletonUtils } from '@xrengine/engine/src/avatar/SkeletonUtils'
-import { OrbitControls } from '@xrengine/engine/src/input/functions/OrbitControls'
+import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
+import { SkeletonUtils } from '@etherealengine/engine/src/avatar/SkeletonUtils'
+import { OrbitControls } from '@etherealengine/engine/src/input/functions/OrbitControls'
 
 const canvasStyle = {
   zIndex: 0,

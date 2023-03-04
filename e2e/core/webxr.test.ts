@@ -1,7 +1,7 @@
-import { XREngineBot } from 'XREngine-Bot/bot'
-import { BotHooks } from 'XREngine-Bot/src/enums/BotHooks'
+import { EtherealEngineBot } from 'ee-bot/bot'
+import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
-import { delay } from '@xrengine/engine/src/common/functions/delay'
+import { delay } from '@etherealengine/engine/src/common/functions/delay'
 
 import { setupXR, testWebXR } from '../utils/testWebXR'
 
@@ -9,7 +9,7 @@ const domain = process.env.APP_HOST
 const locationName = 'test'
 
 describe('WebXR Bot Tests', () => {
-  const bot = new XREngineBot({ name: 'bot-' + Date.now(), verbose: true })
+  const bot = new EtherealEngineBot({ name: 'bot-' + Date.now(), verbose: true })
 
   before(async () => {
     await bot.launchBrowser()

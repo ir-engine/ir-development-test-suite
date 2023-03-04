@@ -82,7 +82,7 @@
               "bakeType": 1,
               "resolution": 2048,
               "refreshMode": 0,
-              "envMapOrigin": "__$project$__/XREngine-development-test-suite/test.cubemap.png",
+              "envMapOrigin": "__$project$__/ee-development-test-suite/test.cubemap.png",
               "boxProjection": true,
               "bakePosition": {
                 "x": 0,
@@ -1596,7 +1596,7 @@
         {
           "name": "system",
           "props": {
-            "filePath": "__$project$__/XREngine-development-test-suite/src/systems/TestSystem.ts",
+            "filePath": "__$project$__/ee-development-test-suite/src/systems/TestSystem.ts",
             "systemUpdateType": "UPDATE",
             "enableClient": true,
             "enableServer": true,
