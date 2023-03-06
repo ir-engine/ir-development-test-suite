@@ -1,5 +1,3 @@
-import { World } from '@etherealengine/engine/src/ecs/classes/World'
-
 export default async function TempSystem() {
   let count = 0
 

@@ -18,7 +18,7 @@ import { CellSpacePartitioning, EntityManager, FollowPathBehavior, Time } from '
 
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
-import { World } from '@etherealengine/engine/src/ecs/classes/World'
+import { Scene } from '@etherealengine/engine/src/ecs/classes/Scene'
 import {
   addComponent,
   createMappedComponent,
