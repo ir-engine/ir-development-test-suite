@@ -64,10 +64,10 @@ describe('avatarFunctions Integration', async () => {
     createEngine()
     createMockNetwork()
     Engine.instance.gltfLoader = createGLTFLoader()
-    Engine.instance.userId = Engine.instance.currentWorld.worldNetwork.hostId
+    Engine.instance.userId = Engine.instance.worldNetwork.hostId
     Engine.instance.publicPath = ''
     await Physics.load()
-    Engine.instance.currentWorld.physicsWorld = Physics.createWorld()
+    Engine.instance.physicsWorld = Physics.createWorld()
     await AnimationManager.instance.loadDefaultAnimations(animGLB)
   })
 
@@ -85,7 +85,7 @@ describe('avatarFunctions Integration', async () => {
         WorldNetworkActionReceptor.receiveSpawnObject(spawnAction)
         spawnAvatarReceptor(spawnAction)
 
-        const entity = Engine.instance.currentWorld.getUserAvatarEntity(Engine.instance.userId)
+        const entity = Engine.instance.getUserAvatarEntity(Engine.instance.userId)
 
         const avatar = getComponent(entity, AvatarComponent)
         // make sure this is set later on

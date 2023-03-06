@@ -31,7 +31,7 @@ export const createPhysicsObject = () => {
 
   rigidBodyDesc.setCanSleep(false)
 
-  Physics.createRigidBody(entity, world.physicsWorld, rigidBodyDesc, [colliderDesc])
+  Physics.createRigidBody(entity, Engine.instance.physicsWorld, rigidBodyDesc, [colliderDesc])
 
   return entity
 }
