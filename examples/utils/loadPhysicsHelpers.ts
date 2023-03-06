@@ -17,7 +17,6 @@ export const createPhysicsObjects = (count: number) => {
 }
 
 export const createPhysicsObject = () => {
-  const world = Engine.instance.currentWorld
 
   const entity = createEntity()
   setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, Math.random() * 5, 2.5 - Math.random() * 5))
