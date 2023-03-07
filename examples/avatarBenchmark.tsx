@@ -7,7 +7,7 @@ import { OfflineLocation } from '@etherealengine/client-core/src/components/Worl
 import { LocationAction } from '@etherealengine/client-core/src/social/services/LocationService'
 import { loadSceneJsonOffline } from '@etherealengine/client/src/pages/offline/utils'
 import { useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { dispatchAction, getState, useHookstate } from '@etherealengine/hyperflux'
+import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarService, AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
@@ -46,7 +46,7 @@ export default function AvatarBenchmarking() {
 
   const projectName = 'default-project'
   const sceneName = 'default'
-  const avatars = useHookstate(getState(AvatarState))
+  const avatars = useHookstate(getMutableState(AvatarState))
 
   const [count, setCount] = useState(100)
   const [avatar, setAvatar] = useState(null! as AvatarInterface)

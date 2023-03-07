@@ -18,11 +18,11 @@ import { addObjectToGroup } from "@etherealengine/engine/src/scene/components/Gr
 import { NameComponent } from "@etherealengine/engine/src/scene/components/NameComponent"
 import { VisibleComponent } from "@etherealengine/engine/src/scene/components/VisibleComponent"
 import { setTransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
-import { dispatchAction, getState } from "@etherealengine/hyperflux"
+import { dispatchAction, getMutableState } from "@etherealengine/hyperflux"
 import { Vector3, Quaternion, AnimationMixer, Object3D, MeshPhongMaterial, Color, Mesh } from "three"
 
 export const getAvatarLists = () => {
-  const avatarState = getState(AvatarState)
+  const avatarState = getMutableState(AvatarState)
   const avatarList = avatarState.avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
   return avatarList
 }
