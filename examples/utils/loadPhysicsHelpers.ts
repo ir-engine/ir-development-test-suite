@@ -17,7 +17,6 @@ export const createPhysicsObjects = (count: number) => {
 }
 
 export const createPhysicsObject = () => {
-  const world = Engine.instance.currentWorld
 
   const entity = createEntity()
   setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, Math.random() * 5, 2.5 - Math.random() * 5))
@@ -31,7 +30,7 @@ export const createPhysicsObject = () => {
 
   rigidBodyDesc.setCanSleep(false)
 
-  Physics.createRigidBody(entity, world.physicsWorld, rigidBodyDesc, [colliderDesc])
+  Physics.createRigidBody(entity, Engine.instance.physicsWorld, rigidBodyDesc, [colliderDesc])
 
   return entity
 }

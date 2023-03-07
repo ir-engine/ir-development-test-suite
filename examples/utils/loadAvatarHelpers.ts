@@ -39,9 +39,8 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
     const index = (1000 + i) as NetworkId
     const column = i * 2
 
-    const world = Engine.instance.currentWorld
-
-    NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
+  
+    NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork, userId, index, userId, index, userId, world)
     dispatchAction(
       WorldNetworkAction.spawnAvatar({
         position: new Vector3(0, 0, column),
@@ -54,7 +53,6 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
 }
 
 export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
-  const world = Engine.instance.currentWorld
   const avatarDetail = {
     thumbnailURL: avatar.thumbnailResource?.url ?? '',
     avatarURL: avatar.modelResource?.url ?? '',
@@ -62,7 +60,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
   }
   const userId = ('user' + i) as UserId & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(world.worldNetwork, userId, index, userId, index, userId, world)
+  NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork, userId, index, userId, index, userId, world)
   dispatchAction(
     WorldNetworkAction.spawnAvatar({
       position: new Vector3(0, 0, i * 2),

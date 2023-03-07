@@ -4,7 +4,6 @@ import { UserId } from "@etherealengine/common/src/interfaces/UserId"
 import { AvatarLeftArmIKComponent, AvatarRightArmIKComponent, AvatarHeadIKComponent } from "@etherealengine/engine/src/avatar/components/AvatarIKComponents"
 import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
 import { useEngineState } from "@etherealengine/engine/src/ecs/classes/EngineState"
-import { World } from "@etherealengine/engine/src/ecs/classes/World"
 import { defineQuery, getComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
 import { initSystems } from "@etherealengine/engine/src/ecs/functions/SystemFunctions"
 import { SystemUpdateType } from "@etherealengine/engine/src/ecs/functions/SystemUpdateType"
@@ -20,7 +19,7 @@ import { Quaternion } from 'three'
 // quaternion that represents a 1 degree turn on the y axis
 const q = new Quaternion().setFromAxisAngle(V_010, Math.PI / 180)
 
-async function SimulateAvatarMovementSystem(world: World) {
+async function SimulateAvatarMovementSystem() {
   const entitiesQuery = defineQuery([NetworkObjectComponent, RigidBodyComponent, AvatarComponent, AvatarRigComponent])
   let entities = [] as Entity[]
   const execute = () => {
@@ -28,7 +27,7 @@ async function SimulateAvatarMovementSystem(world: World) {
     if (entities.length !== entitiesLength) {
       entities = []
       for (let i = 0; i < entitiesLength; i++) {
-        const eid = world.getUserAvatarEntity('user' + i as UserId)
+        const eid = Engine.instance.getUserAvatarEntity('user' + i as UserId)
         if (eid) entities.push(eid)
       }
       for (const entity of entities) {
@@ -58,7 +57,7 @@ async function SimulateAvatarMovementSystem(world: World) {
         const pivotHalfLength = rigComponent.upperLegLength * 0.5
         const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
         const headTargetY =
-          (Math.sin(Engine.instance.currentWorld.elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) +
+          (Math.sin(Engine.instance.elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) +
           minHeadHeight
         head.target.position.y = headTargetY + rigidbody.position.y
       }
@@ -73,7 +72,7 @@ export const useSimulateMovement = () => {
   const engineState = useEngineState()
   useEffect(() => {
     if (engineState.isEngineInitialized.value) {
-      initSystems(Engine.instance.currentWorld, [
+      initSystems([
         {
           systemLoader: () => Promise.resolve({ default: SimulateAvatarMovementSystem }),
           uuid: 'SimulateAvatarMovement',

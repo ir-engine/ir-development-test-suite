@@ -29,14 +29,14 @@ import { useSimulateMovement } from './utils/simulateMovement'
 //     if(entities.length !== entitiesLength) {
 //       entities = []
 //       for (let i = 0; i < entitiesLength; i++) {
-//         const eid = world.getUserAvatarEntity('user' + i as UserId)
+//         const eid = Engine.instance.getUserAvatarEntity('user' + i as UserId)
 //         if(eid) entities.push(eid)
 //       }
 //     }
-//     if(world.worldNetwork && entities.length) {
-//       const data = dataWriter(world, world.worldNetwork, entities)
+//     if(Engine.instance.worldNetwork && entities.length) {
+//       const data = dataWriter(world, Engine.instance.worldNetwork, entities)
 //       console.log(data)
-//       world.worldNetwork.incomingMessageQueueUnreliable.add(data)
+//       Engine.instance.worldNetwork.incomingMessageQueueUnreliable.add(data)
 //     }
 //   }
 // }
@@ -74,7 +74,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!avatar || !engineState.joinedWorld.value) return
-    for (let i = 0; i < entities; i++) removeEntity(Engine.instance.currentWorld.getUserAvatarEntity('user' + i as UserId))
+    for (let i = 0; i < entities; i++) removeEntity(Engine.instance.getUserAvatarEntity('user' + i as UserId))
     setEntities(count)
     for (let i = 0; i < count; i++) loadNetworkAvatar(avatar, i)
   }, [count, avatar, engineState.joinedWorld])
