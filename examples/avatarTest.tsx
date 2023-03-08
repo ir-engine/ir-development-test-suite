@@ -8,7 +8,7 @@ import { loadSceneJsonOffline } from '@etherealengine/client/src/pages/offline/u
 import { EngineState, useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { EngineActions } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@etherealengine/engine/src/networking/functions/matchActionOnce'
-import { dispatchAction, getState } from '@etherealengine/hyperflux'
+import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { AvatarService, AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { accessAuthState } from '@etherealengine/client-core/src/user/services/AuthService'
 import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
@@ -22,12 +22,12 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-    getState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(EngineState).avatarLoadingEffect.set(false)
     matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
 
   const mockAvatars = () => {
-    const avatars = getState(AvatarState).avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
+    const avatars = getMutableState(AvatarState).avatarList.value.filter((avatar) => !avatar.modelResource?.url!.endsWith('vrm'))
     mockNetworkAvatars(avatars)
     mockIKAvatars(avatars)
     mockAnimAvatars(avatars)

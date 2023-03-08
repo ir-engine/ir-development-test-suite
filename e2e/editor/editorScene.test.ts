@@ -36,7 +36,7 @@ describe('Editor Scene Tests', () => {
     await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
     const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
-    const engineState = serializedEngine.store.state['engine'] as any as ReturnType<typeof getEngineState>['value']
+    const engineState = serializedEngine.store.stateMap['engine'] as any as ReturnType<typeof getEngineState>['value']
     assert.equal(serializedEngine.isEditor, true)
     assert.equal(engineState.sceneLoaded, true)
   })

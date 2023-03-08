@@ -9,7 +9,7 @@ import { loadSceneJsonOffline } from '@etherealengine/client/src/pages/offline/u
 import { EngineState, useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { EngineActions } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@etherealengine/engine/src/networking/functions/matchActionOnce'
-import { dispatchAction, getState } from '@etherealengine/hyperflux'
+import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { AvatarService, AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
 import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
@@ -22,7 +22,7 @@ export default function AvatarBenchmarking() {
   const sceneName = 'default'
 
   useEffect(() => {
-    getState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(EngineState).avatarLoadingEffect.set(false)
     AvatarService.fetchAvatarList()
     matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
@@ -35,7 +35,7 @@ export default function AvatarBenchmarking() {
     const indexStr = urlParams.get('index') as any
     const index = parseInt(indexStr) | 0
 
-    const avatars = getState(AvatarState).avatarList.value
+    const avatars = getMutableState(AvatarState).avatarList.value
     mockNetworkAvatars([avatars[index]])
     mockIKAvatars([avatars[index]])
     mockAnimAvatars([avatars[index]])
