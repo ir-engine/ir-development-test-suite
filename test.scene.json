@@ -806,6 +806,7 @@
           "props": {
             "controls": false,
             "autoplay": false,
+            "paused": true,
             "autoStartTime": 0,
             "loop": false
           }
@@ -868,6 +869,7 @@
           "props": {
             "controls": false,
             "autoplay": false,
+            "paused": true,
             "autoStartTime": 0,
             "loop": false
           }

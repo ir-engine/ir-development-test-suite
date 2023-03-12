@@ -15,7 +15,7 @@ import {
   setupAvatarForUser
 } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { spawnAvatarReceptor } from '@etherealengine/engine/src/avatar/functions/spawnAvatarReceptor'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { destroyEngine, Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
 import { WorldNetworkAction } from '@etherealengine/engine/src/networking/functions/WorldNetworkAction'
@@ -28,6 +28,7 @@ import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/cr
 import packageJson from '../../package.json'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState } from '@etherealengine/hyperflux'
+import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 
 overrideFileLoaderLoad()
 
@@ -73,21 +74,27 @@ describe('avatarFunctions Integration', async () => {
     await AnimationManager.instance.loadDefaultAnimations(animGLB)
   })
 
+  afterEach(() => {
+    return destroyEngine()
+  })
+
   describe('loadAvatarForEntity', () => {
     const assetPaths = fetchAvatarList()
+    let i = 1
     for (const modelURL of assetPaths) {
       it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
+        const userId = `userId-${i}` as UserId
         const spawnAction = WorldNetworkAction.spawnAvatar({
-          $from: Engine.instance.userId,
+          $from: userId,
           position: new Vector3(),
           rotation: new Quaternion(),
-          networkId: 1 as NetworkId
+          networkId: i++ as NetworkId
         })
 
         WorldNetworkActionReceptor.receiveSpawnObject(spawnAction)
         spawnAvatarReceptor(spawnAction)
 
-        const entity = Engine.instance.getUserAvatarEntity(Engine.instance.userId)
+        const entity = Engine.instance.getUserAvatarEntity(userId)
 
         const avatar = getComponent(entity, AvatarComponent)
         // make sure this is set later on
