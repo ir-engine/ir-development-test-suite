@@ -12,6 +12,7 @@ import { loadAvatarModelAsset, boneMatchAvatarModel, rigAvatarModel, setupAvatar
 import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
 import { addComponent, getComponent, setComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
 import { createEntity } from "@etherealengine/engine/src/ecs/functions/EntityFunctions"
+import { Network } from "@etherealengine/engine/src/networking/classes/Network"
 import { NetworkPeerFunctions } from "@etherealengine/engine/src/networking/functions/NetworkPeerFunctions"
 import { WorldNetworkAction } from "@etherealengine/engine/src/networking/functions/WorldNetworkAction"
 import { addObjectToGroup } from "@etherealengine/engine/src/scene/components/GroupComponent"
@@ -40,15 +41,16 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
     const column = i * 2
 
   
-    NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork, userId, index, userId, index, userId, world)
+    NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
     dispatchAction(
       WorldNetworkAction.spawnAvatar({
         position: new Vector3(0, 0, column),
         rotation: new Quaternion(),
-        $from: userId
+        $from: userId,
+        uuid: userId
       })
     )
-    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
+    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail, uuid: userId }), $from: userId })
   }
 }
 
@@ -60,15 +62,16 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
   }
   const userId = ('user' + i) as UserId & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork, userId, index, userId, index, userId, world)
+  NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
   dispatchAction(
     WorldNetworkAction.spawnAvatar({
       position: new Vector3(0, 0, i * 2),
       rotation: new Quaternion(),
-      $from: userId
+      $from: userId,
+      uuid: userId
     })
   )
-  dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail }), $from: userId })
+  dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail, uuid: userId }), $from: userId })
   dispatchAction(
     WorldNetworkAction.avatarIKTargets({
       head: true,
