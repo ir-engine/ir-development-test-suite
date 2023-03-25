@@ -88,10 +88,11 @@ describe('avatarFunctions Integration', async () => {
           $from: userId,
           position: new Vector3(),
           rotation: new Quaternion(),
-          networkId: i++ as NetworkId
+          networkId: i++ as NetworkId,
+          uuid: userId
         })
 
-        WorldNetworkActionReceptor.receiveSpawnObject(spawnAction)
+        WorldNetworkActionReceptor.receiveSpawnObject(spawnAction as any)
         spawnAvatarReceptor(spawnAction)
 
         const entity = Engine.instance.getUserAvatarEntity(userId)
