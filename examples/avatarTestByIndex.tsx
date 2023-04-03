@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react'
 
 import { LoadingCircle } from '@etherealengine/client-core/src/components/LoadingCircle'
-import { LoadEngineWithScene } from '@etherealengine/client-core/src/components/World/LoadEngineWithScene'
-import { OfflineLocation } from '@etherealengine/client-core/src/components/World/OfflineLocation'
-import { LocationAction } from '@etherealengine/client-core/src/social/services/LocationService'
-import { accessAuthState } from '@etherealengine/client-core/src/user/services/AuthService'
-import { loadSceneJsonOffline } from '@etherealengine/client/src/pages/offline/utils'
 import { EngineState, useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { EngineActions } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { matchActionOnce } from '@etherealengine/engine/src/networking/functions/matchActionOnce'
@@ -14,6 +9,8 @@ import { AvatarService, AvatarState } from '@etherealengine/client-core/src/user
 import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
 import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
 import { useSimulateMovement } from './utils/simulateMovement'
+import { useOfflineScene, useLoadEngineWithScene } from '@etherealengine/client-core/src/components/World/EngineHooks'
+import { DefaultLocationSystems } from '@etherealengine/client-core/src/world/DefaultLocationSystems'
 
 export default function AvatarBenchmarking() {
   const engineState = useEngineState()
@@ -27,6 +24,8 @@ export default function AvatarBenchmarking() {
     matchActionOnce(EngineActions.joinedWorld.matches, mockAvatars)
   }, [])
 
+  useOfflineScene({ projectName, sceneName, spectate: true })
+  useLoadEngineWithScene({ injectedSystems: DefaultLocationSystems, spectate: true })
   useSimulateMovement()
 
   const mockAvatars = () => {
@@ -42,16 +41,9 @@ export default function AvatarBenchmarking() {
     mockTPoseAvatars([avatars[index]])
   }
 
-  useEffect(() => {
-    dispatchAction(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
-    loadSceneJsonOffline(projectName, sceneName)
-  }, [])
-
   return (
     <>
       {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
-      <LoadEngineWithScene spectate/>
-      <OfflineLocation />
       <LocationIcons />
     </>
   )

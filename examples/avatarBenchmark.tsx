@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
 import { LoadingCircle } from '@etherealengine/client-core/src/components/LoadingCircle'
-import { LoadEngineWithScene } from '@etherealengine/client-core/src/components/World/LoadEngineWithScene'
-import { OfflineLocation } from '@etherealengine/client-core/src/components/World/OfflineLocation'
 import { LocationAction } from '@etherealengine/client-core/src/social/services/LocationService'
-import { loadSceneJsonOffline } from '@etherealengine/client/src/pages/offline/utils'
-import { useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { EngineState, useEngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarService, AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
@@ -19,6 +16,9 @@ import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 import { DefaultLocationSystems } from '@etherealengine/client-core/src/world/DefaultLocationSystems'
 import { useSimulateMovement } from './utils/simulateMovement'
+import { useLoadEngineWithScene, useOfflineScene } from '@etherealengine/client-core/src/components/World/EngineHooks'
+import { AppLoadingState } from '@etherealengine/engine/src/common/AppLoadingService'
+import { useLoadLocationScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -42,7 +42,8 @@ import { useSimulateMovement } from './utils/simulateMovement'
 // }
 
 export default function AvatarBenchmarking() {
-  const engineState = useEngineState()
+  const engineState = useHookstate(getMutableState(EngineState))
+  const appState = useHookstate(getMutableState(AppLoadingState).state)
 
   const projectName = 'default-project'
   const sceneName = 'default'
@@ -55,11 +56,10 @@ export default function AvatarBenchmarking() {
 
   useSimulateMovement()
 
-  useEffect(() => {
-    AvatarService.fetchAvatarList()
-    dispatchAction(LocationAction.setLocationName({ locationName: `${projectName}/${sceneName}` }))
-    loadSceneJsonOffline(projectName, sceneName)
+  useLoadLocationScene()
+  useOfflineScene({ projectName, sceneName, spectate: true })
 
+  useEffect(() => {
     engineState.avatarLoadingEffect.set(false)
 
     const queryString = window.location.search
@@ -79,11 +79,11 @@ export default function AvatarBenchmarking() {
     for (let i = 0; i < count; i++) loadNetworkAvatar(avatar, i)
   }, [count, avatar, engineState.joinedWorld])
 
+  useLoadEngineWithScene({ injectedSystems: DefaultLocationSystems })
+
   return (
     <>
-      {engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}
-      <LoadEngineWithScene spectate injectedSystems={DefaultLocationSystems} />
-      <OfflineLocation />
+      {appState.value === 'START_STATE' && <LoadingCircle message={t('common:loader.loadingEngine')} />}
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column', margin: 'auto', paddingTop: '100px', pointerEvents: 'all' }}>
         <SelectInput options={avatars.avatarList.value.map(val => ({ value: val, label: val.name }))} onChange={setAvatar} value={avatar} />
         <NumericInput onChange={setCount} value={count} />
