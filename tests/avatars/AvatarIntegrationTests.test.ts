@@ -6,7 +6,7 @@ import { Quaternion, Vector3 } from 'three'
 
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
-import { loadDRACODecoder } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
+import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
 import { AnimationManager } from '@etherealengine/engine/src/avatar/AnimationManager'
 import { AvatarAnimationComponent, AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
@@ -60,7 +60,7 @@ const fetchAvatarList = () => {
 
 describe('avatarFunctions Integration', async () => {
   before(async () => {
-    await loadDRACODecoder()
+    await loadDRACODecoderNode()
   })
 
   beforeEach(async () => {
