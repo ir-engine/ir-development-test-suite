@@ -1,15 +1,14 @@
-export default async function TempSystem() {
-  let count = 0
+import { defineSystem } from "@etherealengine/engine/src/ecs/functions/SystemFunctions"
 
-  const execute = () => {
-    if (count++ % 300 === 0) {
-      console.log('Test System')
-    }
+let count = 0
+
+const execute = () => {
+  if (count++ % 300 === 0) {
+    console.log('Test System')
   }
-
-  const cleanup = async () => {
-    console.log('Test System Cleanup')
-  }
-
-  return { execute, cleanup }
 }
+
+export default defineSystem({
+  uuid: 'ee.engine.TempSystem',
+  execute
+})
