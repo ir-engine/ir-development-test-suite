@@ -1,7 +1,5 @@
-import { EtherealEngineBot } from 'ee-bot/bot'
+import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
-
-import { delay } from '@etherealengine/engine/src/common/functions/delay'
 
 import { setupXR, testWebXR } from '../utils/testWebXR'
 

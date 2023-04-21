@@ -1,5 +1,5 @@
 import assert from 'assert'
-import type { EtherealEngineBot } from 'ee-bot/bot'
+import type { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { XRBotHooks } from 'ee-bot/src/enums/BotHooks'
 
 export const setupXR = async (bot: EtherealEngineBot) => {

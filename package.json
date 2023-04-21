@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
+    "check-errors": "tsc --noemit",
     "test": "mocha --config .mocharc.js --spec 'tests/**/*.test.ts'",
     "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
     "precommit": "no-master-commits -b master",

@@ -56,8 +56,8 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
 
 export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
   const avatarDetail = {
-    thumbnailURL: avatar.thumbnailResource?.url ?? '',
-    avatarURL: avatar.modelResource?.url ?? '',
+    thumbnailURL: avatar.thumbnailResource?.LOD0_url ?? '',
+    avatarURL: avatar.modelResource?.LOD0_url ?? '',
     avatarId: avatar.id ?? ''
   }
   const userId = ('user' + i) as UserId & PeerID
@@ -72,14 +72,6 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number) => {
     })
   )
   dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail, uuid: userId }), $from: userId })
-  dispatchAction(
-    WorldNetworkAction.avatarIKTargets({
-      head: true,
-      leftHand: true,
-      rightHand: true,
-      $from: userId
-    })
-  )
   return userId
 }
 
@@ -134,8 +126,6 @@ export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: n
     boneMatchAvatarModel(entity)(model)
     rigAvatarModel(entity)(model)
   })
-  const userId = loadNetworkAvatar(avatar, i)
-  dispatchAction(WorldNetworkAction.avatarIKTargets({ head: true, leftHand: true, rightHand: true, $from: userId }))
 }
 
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {

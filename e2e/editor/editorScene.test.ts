@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { EtherealEngineBot } from 'ee-bot/bot'
+import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
@@ -35,7 +35,7 @@ describe('Editor Scene Tests', () => {
     // assert scene has loaded
     await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
-    const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) as Engine
+    const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine))// as Engine
     const engineState = serializedEngine.store.stateMap['engine'] as any as ReturnType<typeof getEngineState>['value']
     assert.equal(serializedEngine.isEditor, true)
     assert.equal(engineState.sceneLoaded, true)

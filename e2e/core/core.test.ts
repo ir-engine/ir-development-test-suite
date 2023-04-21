@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { EtherealEngineBot } from 'ee-bot/bot'
+import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'

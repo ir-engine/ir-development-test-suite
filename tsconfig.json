@@ -16,7 +16,6 @@
     "strictNullChecks": true,
     "strictBindCallApply": true,
     "noImplicitAny": false,
-    "strictBindCallApply": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -27,7 +26,8 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "declaration": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "types": ["vite/client", "mocha"]
   },
   "exclude": [
     "**/node_modules/**",
