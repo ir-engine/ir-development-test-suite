@@ -1583,8 +1583,8 @@
           "name": "system",
           "props": {
             "filePath": "__$project$__/ee-development-test-suite/src/systems/TestSystem.ts",
-            "insertUUID": "",
-            "insertOrder": "",
+            "insertUUID": "ee.engine.simulation-group",
+            "insertOrder": "with",
             "enableClient": true,
             "enableServer": true,
             "args": {}
