@@ -1,105 +1,41 @@
 {
-  "version": 4,
+  "version": 0,
   "entities": {
     "6806e598-6b5a-43b9-88f9-05189ade5d20": {
       "components": [
         {
-          "name": "mtdata",
-          "props": {
-            "meta_data": ""
-          }
+          "name": "visible",
+          "props": {}
         },
         {
-          "name": "audio-settings",
+          "name": "transform",
           "props": {
-            "usePositionalAudio": true,
-            "avatarDistanceModel": "inverse",
-            "avatarRolloffFactor": 2,
-            "avatarRefDistance": 1,
-            "avatarMaxDistance": 10000,
-            "mediaVolume": 1,
-            "mediaDistanceModel": "inverse",
-            "mediaRolloffFactor": 1,
-            "mediaRefDistance": 20,
-            "mediaMaxDistance": 10000,
-            "mediaConeInnerAngle": 360,
-            "mediaConeOuterAngle": 0,
-            "mediaConeOuterGain": 0
-          }
-        },
-        {
-          "name": "renderer-settings",
-          "props": {
-            "LODs": {
-              "x": 5,
-              "y": 15,
-              "z": 30
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
             },
-            "overrideRendererSettings": true,
-            "csm": false,
-            "toneMapping": 1,
-            "toneMappingExposure": 0.8,
-            "shadowMapType": 2
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
           }
         },
         {
           "name": "envmap",
           "props": {
-            "type": 1,
-            "envMapTextureType": 0,
+            "type": "None",
+            "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 16777215,
             "envMapSourceURL": "__$project$__/default-project/assets/skyboxsun25deg/",
-            "envMapIntensity": 1,
-            "envMapCubemapBake": {
-              "bakeType": 1,
-              "resolution": 2048,
-              "refreshMode": 0,
-              "envMapOrigin": "",
-              "boxProjection": true,
-              "bakePosition": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakePositionOffset": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakeScale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-              }
-            },
-            "forModel": false
-          }
-        },
-        {
-          "name": "cubemapbake",
-          "props": {
-            "options": {
-              "bakeType": 1,
-              "resolution": 2048,
-              "refreshMode": 0,
-              "envMapOrigin": "__$project$__/ee-development-test-suite/test.cubemap.png",
-              "boxProjection": true,
-              "bakePosition": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakePositionOffset": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakeScale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-              }
-            }
+            "envMapIntensity": 1
           }
         }
       ],
@@ -118,7 +54,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -129,10 +66,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -153,7 +86,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -164,10 +98,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -188,7 +118,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -199,10 +130,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -223,7 +150,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -234,10 +162,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -258,7 +182,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -269,10 +194,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -293,7 +214,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -304,10 +226,6 @@
         },
         {
           "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "group",
           "props": {}
         }
       ],
@@ -328,7 +246,40 @@
             "rotation": {
               "x": 0,
               "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        }
+      ],
+      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
+      "index": 6,
+      "name": "Misc"
+    },
+    "97b94539-edf1-4aac-9114-ca87fdb4add9": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
               "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -342,13 +293,21 @@
           "props": {}
         },
         {
-          "name": "group",
-          "props": {}
+          "name": "fog",
+          "props": {
+            "type": "linear",
+            "color": "#FFFFFF",
+            "density": 0.005,
+            "near": 1,
+            "far": 100,
+            "timeScale": 1,
+            "height": 0.05
+          }
         }
       ],
       "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 6,
-      "name": "Misc"
+      "index": 7,
+      "name": "Fog"
     },
     "b016ef44-c84d-4548-b338-0dc66ffe1903": {
       "components": [
@@ -363,7 +322,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -412,7 +372,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -424,33 +385,6 @@
         {
           "name": "visible",
           "props": {}
-        },
-        {
-          "name": "cubemapbake",
-          "props": {
-            "options": {
-              "bakeType": 1,
-              "resolution": 512,
-              "refreshMode": 0,
-              "envMapOrigin": "",
-              "boxProjection": true,
-              "bakePosition": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakePositionOffset": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakeScale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-              }
-            }
-          }
         }
       ],
       "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
@@ -468,9 +402,10 @@
               "z": 10
             },
             "rotation": {
-              "x": -0.4636000018424061,
+              "x": -0.22972975367287105,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 0.9732544581338438
             },
             "scale": {
               "x": 1,
@@ -505,7 +440,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -517,14 +453,6 @@
         {
           "name": "visible",
           "props": {}
-        },
-        {
-          "name": "trigger-volume",
-          "props": {
-            "target": "F8AA0C66-D5B8-42CF-B761-69EEB67A0F15",
-            "onEnter": "",
-            "onExit": ""
-          }
         }
       ],
       "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
@@ -544,7 +472,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -556,12 +485,6 @@
         {
           "name": "visible",
           "props": {}
-        },
-        {
-          "name": "box-collider",
-          "props": {
-            "isTrigger": true
-          }
         }
       ],
       "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
@@ -581,7 +504,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -654,7 +578,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -692,7 +617,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -715,9 +641,10 @@
         {
           "name": "image",
           "props": {
-            "imageSource": "__$project$__/default-project/assets/galaxyTexture.jpg",
-            "alphaCutoff": 0.5,
+            "source": "__$project$__/default-project/assets/galaxyTexture.jpg",
+            "resource": null,
             "alphaMode": "Opaque",
+            "alphaCutoff": 0.5,
             "projection": "Flat",
             "side": 2
           }
@@ -740,7 +667,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -763,9 +691,10 @@
         {
           "name": "image",
           "props": {
-            "source": "__$project$__/default-project/assets/sample_etc1s.ktx2",
-            "alphaCutoff": 0.5,
+            "source": "",
+            "resource": null,
             "alphaMode": "Opaque",
+            "alphaCutoff": 0.5,
             "projection": "Flat",
             "side": 2
           }
@@ -788,7 +717,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -805,19 +735,19 @@
           "name": "media",
           "props": {
             "controls": false,
-            "autoplay": false,
             "paused": true,
-            "autoStartTime": 0,
-            "loop": false
+            "paths": [],
+            "resources": [],
+            "volume": 1,
+            "synchronize": true,
+            "playMode": "loop",
+            "isMusic": false
           }
         },
         {
           "name": "audio",
           "props": {
-            "audioSource": "__$project$__/default-project/assets/SampleAudio.mp3",
-            "volume": 0.5,
-            "audioType": "Positional",
-            "distanceModel": "linear",
+            "distanceModel": "inverse",
             "rolloffFactor": 1,
             "refDistance": 20,
             "maxDistance": 1000,
@@ -828,7 +758,7 @@
         }
       ],
       "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 2,
+      "index": 3,
       "name": "Audio"
     },
     "44f9ce07-27ef-46fd-a5a4-1cce8be64e4b": {
@@ -844,7 +774,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -868,19 +799,19 @@
           "name": "media",
           "props": {
             "controls": false,
-            "autoplay": false,
             "paused": true,
-            "autoStartTime": 0,
-            "loop": false
+            "paths": [],
+            "resources": [],
+            "volume": 1,
+            "synchronize": true,
+            "playMode": "loop",
+            "isMusic": false
           }
         },
         {
           "name": "audio",
           "props": {
-            "audioSource": "",
-            "volume": 0.5,
-            "audioType": "Positional",
-            "distanceModel": "linear",
+            "distanceModel": "inverse",
             "rolloffFactor": 1,
             "refDistance": 20,
             "maxDistance": 1000,
@@ -892,9 +823,10 @@
         {
           "name": "image",
           "props": {
-            "imageSource": "",
-            "alphaCutoff": 0.5,
+            "source": "",
+            "resource": null,
             "alphaMode": "Opaque",
+            "alphaCutoff": 0.5,
             "projection": "Flat",
             "side": 2
           }
@@ -902,13 +834,18 @@
         {
           "name": "video",
           "props": {
-            "videoSource": "__$project$__/default-project/assets/SampleVideo.mp4",
-            "elementId": "video-1643691360070"
+            "mediaUUID": "",
+            "side": 2,
+            "size": {
+              "x": 1,
+              "y": 1
+            },
+            "fit": "contain"
           }
         }
       ],
       "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 3,
+      "index": 4,
       "name": "Video"
     },
     "99462e2d-0842-4226-b0b4-d16e28db613f": {
@@ -922,9 +859,10 @@
               "z": 0
             },
             "rotation": {
-              "x": -0.5235988068730657,
-              "y": 0.2617993967252117,
-              "z": -5.723765612287443e-11
+              "x": -0.25660482712073673,
+              "y": 0.12607862381097903,
+              "z": -0.03378266757544404,
+              "w": 0.957662192366261
             },
             "scale": {
               "x": 1,
@@ -942,16 +880,12 @@
           "props": {
             "color": 16777215,
             "intensity": 1,
+            "cameraFar": 100,
             "castShadow": true,
-            "shadowMapResolution": [
-              512,
-              512
-            ],
+            "shadowMapResolution": 512,
             "shadowBias": 0,
             "shadowRadius": 1,
-            "cameraFar": 100,
-            "showCameraHelper": false,
-            "useInCSM": false
+            "useInCSM": true
           }
         }
       ],
@@ -972,7 +906,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1011,7 +946,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1049,7 +985,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1065,13 +1002,10 @@
             "intensity": 10,
             "range": 0,
             "decay": 2,
-            "angle": 1.5707963267948966,
+            "angle": 1,
             "penumbra": 1,
             "castShadow": true,
-            "shadowMapResolution": [
-              256,
-              256
-            ],
+            "shadowMapResolution": 256,
             "shadowBias": 0.5,
             "shadowRadius": 1
           }
@@ -1094,7 +1028,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1111,10 +1046,7 @@
             "range": 0,
             "decay": 2,
             "castShadow": true,
-            "shadowMapResolution": [
-              256,
-              256
-            ],
+            "shadowMapResolution": 256,
             "shadowBias": 0.5,
             "shadowRadius": 1
           }
@@ -1137,7 +1069,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1154,7 +1087,7 @@
           "name": "ground-plane",
           "props": {
             "color": 8311585,
-            "generateNavmesh": false
+            "visible": true
           }
         },
         {
@@ -1180,9 +1113,10 @@
               "z": 0
             },
             "rotation": {
-              "x": -3.141592653589793,
-              "y": 1.2246468525851686e-16,
-              "z": -3.1415926535897922
+              "x": -5.053215498074303e-16,
+              "y": -1,
+              "z": -6.12323399573677e-17,
+              "w": -6.123234262925839e-17
             },
             "scale": {
               "x": 0.009999999776482582,
@@ -1197,7 +1131,9 @@
         },
         {
           "name": "spawn-point",
-          "props": {}
+          "props": {
+            "permissionedUsers": []
+          }
         }
       ],
       "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
@@ -1217,7 +1153,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1241,10 +1178,9 @@
           "name": "gltf-model",
           "props": {
             "src": "__$project$__/default-project/assets/cube.glb",
-            "textureOverride": "",
-            "matrixAutoUpdate": true,
-            "isUsingGPUInstancing": false,
-            "isDynamicObject": false
+            "resource": null,
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
           }
         },
         {
@@ -1257,34 +1193,11 @@
         {
           "name": "envmap",
           "props": {
-            "type": 3,
-            "envMapTextureType": 0,
+            "type": "None",
+            "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 1193046,
             "envMapSourceURL": "/hdr/cubemap/skyboxsun25deg/",
-            "envMapIntensity": 1,
-            "envMapCubemapBake": {
-              "bakeType": 1,
-              "resolution": 2048,
-              "refreshMode": 0,
-              "envMapOrigin": "",
-              "boxProjection": true,
-              "bakePosition": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakePositionOffset": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-              },
-              "bakeScale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-              }
-            },
-            "forModel": true
+            "envMapIntensity": 1
           }
         }
       ],
@@ -1305,7 +1218,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1326,11 +1240,29 @@
           }
         },
         {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": true,
+            "removeMesh": true,
+            "collisionLayer": 8,
+            "collisionMask": 2,
+            "restitution": 1,
+            "onEnter": "teleport",
+            "onExit": null,
+            "target": ""
+          }
+        },
+        {
           "name": "portal",
           "props": {
             "location": "",
             "linkedPortalId": "",
             "redirect": false,
+            "effectType": "None",
+            "previewType": "Simple",
+            "previewImageURL": "",
             "spawnPosition": {
               "x": 0,
               "y": 0,
@@ -1339,16 +1271,9 @@
             "spawnRotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             }
-          }
-        },
-        {
-          "name": "trigger-volume",
-          "props": {
-            "target": "F8AA0C66-D5B8-42CF-B761-69EEB67A0F15",
-            "onEnter": "",
-            "onExit": ""
           }
         }
       ],
@@ -1369,7 +1294,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1387,39 +1313,6 @@
           "props": {
             "cast": true,
             "receive": true
-          }
-        },
-        {
-          "name": "particle-emitter",
-          "props": {
-            "src": "__$project$__/default-project/assets/dot.png",
-            "startColor": 16777215,
-            "middleColor": 16777215,
-            "endColor": 16777215,
-            "startOpacity": 1,
-            "middleOpacity": 1,
-            "endOpacity": 1,
-            "colorCurve": "linear",
-            "sizeCurve": "linear",
-            "startSize": 0.25,
-            "endSize": 0.25,
-            "sizeRandomness": 0,
-            "ageRandomness": 10,
-            "lifetime": 5,
-            "lifetimeRandomness": 5,
-            "particleCount": 100,
-            "startVelocity": {
-              "x": 0,
-              "y": 0,
-              "z": 0.5
-            },
-            "endVelocity": {
-              "x": 0,
-              "y": 0,
-              "z": 0.5
-            },
-            "velocityCurve": "linear",
-            "angularVelocity": 0
           }
         }
       ],
@@ -1440,7 +1333,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1489,7 +1383,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1505,19 +1400,20 @@
         {
           "name": "postprocessing",
           "props": {
-            "options": {
+            "enabled": false,
+            "effects": {
               "SMAAEffect": {
                 "isActive": true,
-                "blendFunction": 13,
+                "blendFunction": 23,
                 "preset": 1,
                 "edgeDetectionMode": 2,
                 "predicationMode": 0
               },
               "OutlineEffect": {
                 "isActive": true,
-                "blendFunction": 16,
+                "blendFunction": 28,
                 "patternTexture": null,
-                "edgeStrength": 1,
+                "edgeStrength": 2,
                 "pulseSpeed": 0,
                 "visibleEdgeColor": 16777215,
                 "hiddenEdgeColor": 16777215,
@@ -1530,7 +1426,7 @@
               },
               "SSAOEffect": {
                 "isActive": false,
-                "blendFunction": 10,
+                "blendFunction": 21,
                 "distanceScaling": true,
                 "depthAwareUpsampling": true,
                 "samples": 16,
@@ -1543,16 +1439,43 @@
                 "intensity": 2,
                 "fade": 0.05
               },
+              "SSREffect": {
+                "isActive": false,
+                "intensity": 1,
+                "exponent": 1,
+                "distance": 10,
+                "fade": 0,
+                "roughnessFade": 1,
+                "thickness": 10,
+                "ior": 1.45,
+                "maxRoughness": 1,
+                "maxDepthDifference": 10,
+                "blend": 0,
+                "correction": 1,
+                "correctionRadius": 1,
+                "blur": 0.5,
+                "blurKernel": 1,
+                "blurSharpness": 10,
+                "jitter": 0,
+                "jitterRoughness": 0,
+                "steps": 20,
+                "refineSteps": 5,
+                "missedRays": true,
+                "useNormalMap": true,
+                "useRoughnessMap": true,
+                "resolutionScale": 1,
+                "velocityResolutionScale": 1
+              },
               "DepthOfFieldEffect": {
                 "isActive": false,
-                "blendFunction": 13,
+                "blendFunction": 23,
                 "focusDistance": 0.02,
                 "focalLength": 0.5,
                 "bokehScale": 1
               },
               "BloomEffect": {
                 "isActive": true,
-                "blendFunction": 16,
+                "blendFunction": 28,
                 "kernelSize": 2,
                 "luminanceThreshold": 1,
                 "luminanceSmoothing": 0.1,
@@ -1560,7 +1483,7 @@
               },
               "ToneMappingEffect": {
                 "isActive": false,
-                "blendFunction": 13,
+                "blendFunction": 23,
                 "adaptive": true,
                 "resolution": 512,
                 "middleGrey": 0.6,
@@ -1584,6 +1507,46 @@
               },
               "LinearTosRGBEffect": {
                 "isActive": false
+              },
+              "SSGIEffect": {
+                "isActive": false,
+                "distance": 10,
+                "thickness": 10,
+                "autoThickness": false,
+                "maxRoughness": 1,
+                "blend": 0.9,
+                "denoiseIterations": 1,
+                "denoiseKernel": 2,
+                "denoiseDiffuse": 10,
+                "denoiseSpecular": 10,
+                "depthPhi": 2,
+                "normalPhi": 50,
+                "roughnessPhi": 1,
+                "envBlur": 0.5,
+                "importanceSampling": true,
+                "directLightMultiplier": 1,
+                "steps": 20,
+                "refineSteps": 5,
+                "spp": 1,
+                "resolutionScale": 1,
+                "missedRays": false
+              },
+              "TRAAEffect": {
+                "isActive": false,
+                "blend": 0.8,
+                "constantBlend": true,
+                "dilation": true,
+                "blockySampling": false,
+                "logTransform": false,
+                "depthDistance": 10,
+                "worldDistance": 5,
+                "neighborhoodClamping": true
+              },
+              "MotionBlurEffect": {
+                "isActive": false,
+                "intensity": 1,
+                "jitter": 1,
+                "samples": 16
               }
             }
           }
@@ -1596,23 +1559,6 @@
     "0ae0b118-68a5-4dc8-983b-8812beb7c9a6": {
       "components": [
         {
-          "name": "system",
-          "props": {
-            "filePath": "__$project$__/ee-development-test-suite/src/systems/TestSystem.ts",
-            "systemUpdateType": "UPDATE",
-            "enableClient": true,
-            "enableServer": true,
-            "args": {}
-          }
-        }
-      ],
-      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
-      "index": 3,
-      "name": "System"
-    },
-    "97b94539-edf1-4aac-9114-ca87fdb4add9": {
-      "components": [
-        {
           "name": "transform",
           "props": {
             "position": {
@@ -1623,7 +1569,8 @@
             "rotation": {
               "x": 0,
               "y": 0,
-              "z": 0
+              "z": 0,
+              "w": 1
             },
             "scale": {
               "x": 1,
@@ -1633,25 +1580,20 @@
           }
         },
         {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "fog",
+          "name": "system",
           "props": {
-            "type": "linear",
-            "color": 16777215,
-            "near": 1,
-            "far": 100,
-            "density": 0.005,
-            "height": 0.05,
-            "timeScale": 1
+            "filePath": "__$project$__/ee-development-test-suite/src/systems/TestSystem.ts",
+            "insertUUID": "",
+            "insertOrder": "",
+            "enableClient": true,
+            "enableServer": true,
+            "args": {}
           }
         }
       ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 7,
-      "name": "Fog"
+      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
+      "index": 2,
+      "name": "System"
     }
   },
   "root": "6806e598-6b5a-43b9-88f9-05189ade5d20"
