@@ -1184,13 +1184,6 @@
           }
         },
         {
-          "name": "loop-animation",
-          "props": {
-            "activeClipIndex": -1,
-            "hasAvatarAnimations": false
-          }
-        },
-        {
           "name": "envmap",
           "props": {
             "type": "None",
