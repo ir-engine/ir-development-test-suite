@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
@@ -11,6 +11,9 @@ import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 import { useSimulateMovement } from './utils/simulateMovement'
 import { Template } from './template'
+import { XRAction } from '@etherealengine/engine/src/xr/XRState'
+import { xrTargetHeadSuffix, xrTargetLeftHandSuffix, xrTargetRightHandSuffix } from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -61,7 +64,12 @@ export default function AvatarBenchmarking() {
     if (!avatar || !engineState.connectedWorld.value) return
     for (let i = 0; i < entities; i++) removeEntity(Engine.instance.getUserAvatarEntity('user' + i as UserId))
     setEntities(count)
-    for (let i = 0; i < count; i++) loadNetworkAvatar(avatars.avatarList.value.find(val => val.id === avatar)!, i)
+    for (let i = 0; i < count; i++) {
+      const userId = loadNetworkAvatar(avatars.avatarList.value.find(val => val.id === avatar)!, i)
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', uuid: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', uuid: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', uuid: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
+    }
   }, [count, avatar, engineState.connectedWorld])
 
   return (
