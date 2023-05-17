@@ -23,13 +23,7 @@ let entities = [] as Entity[]
 const execute = () => {
   const entitiesLength = entitiesQuery().length
   if (entities.length !== entitiesLength) {
-    entities = []
-    for (let i = 0; i < entitiesLength; i++) {
-      const eid = Engine.instance.getUserAvatarEntity('user' + i as UserId)
-      if (eid) {
-        entities.push(eid)
-      }
-    }
+    entities = [...entitiesQuery()]
     for (const entity of entities) {
       // @todo improve this
       setInterval(() => {
