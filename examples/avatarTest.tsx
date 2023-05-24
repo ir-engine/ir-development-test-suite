@@ -18,9 +18,9 @@ export default function AvatarBenchmarking() {
     if (engineState.connectedWorld.value) {
       const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.LOD0_url?.endsWith('vrm'))
       mockNetworkAvatars(avatars)
-      mockIKAvatars(avatars)
-      mockAnimAvatars(avatars)
-      mockTPoseAvatars(avatars)
+      // mockIKAvatars(avatars)
+      // mockAnimAvatars(avatars)
+      // mockTPoseAvatars(avatars)
     }
   }, [engineState.connectedWorld, avatarList])
 
