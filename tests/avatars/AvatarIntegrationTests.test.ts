@@ -29,6 +29,7 @@ import packageJson from '../../package.json'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState } from '@etherealengine/hyperflux'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
 
 overrideFileLoaderLoad()
 
@@ -68,6 +69,7 @@ describe('avatarFunctions Integration', async () => {
     createMockNetwork()
     Engine.instance.gltfLoader = createGLTFLoader()
     Engine.instance.userId = Engine.instance.worldNetwork.hostId
+    Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()
     Engine.instance.physicsWorld = Physics.createWorld()
