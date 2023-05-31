@@ -415,10 +415,6 @@
           }
         },
         {
-          "name": "visible",
-          "props": {}
-        },
-        {
           "name": "scene-preview-camera",
           "props": {}
         }
