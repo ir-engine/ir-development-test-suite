@@ -16,7 +16,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (engineState.connectedWorld.value) {
-      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.LOD0_url?.endsWith('vrm'))
+      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.url?.endsWith('vrm'))
       mockNetworkAvatars(avatars)
       // mockIKAvatars(avatars)
       // mockAnimAvatars(avatars)
