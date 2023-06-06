@@ -28,12 +28,7 @@ const LODsDND = () => {
           const files = await Promise.all(
             entries.map((entry) => new Promise((resolve, reject) => entry.file(resolve, reject)))
           ) as File[]
-          console.log(files)
           filenames.set(files.map((file) => file.name))
-
-          const onProgress = (progress: number) => {
-            console.log(progress)
-          }
 
           const uploadPromise = uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
@@ -41,13 +36,13 @@ const LODsDND = () => {
               staticResourceType: 'model3d',
             },
             variants: true
-          }, onProgress)
+          })
 
           const result = await uploadPromise.promise as ModelInterface
 
           console.log(result)
 
-          const variants = result.glbStaticResource.variants
+          const variants = result.glbStaticResource?.variants ?? result.gltfStaticResource?.variants ?? result.fbxStaticResource?.variants ?? result.usdzStaticResource?.variants
 
           const entity = createEntity()
           setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
@@ -57,7 +52,17 @@ const LODsDND = () => {
           setComponent(entity, ModelComponent, {
             src: variants[0].url,
           })
-          // setComponent(entity, LODComponent, {})
+          setComponent(entity, LODComponent, {
+            target: entity,
+            levels: variants.map((variant, i) => ({
+              distance: (i + 1) * 5,
+              loaded: false,
+              src: variant.url,
+              model: null,
+              metadata: variant.metadata
+            })),
+            lodHeuristic: 'DISTANCE'
+          })
 
         } catch (err) {
           console.error(err)
@@ -71,8 +76,6 @@ const LODsDND = () => {
       isUploaded: !monitor.getItem()?.files
     })
   })
-
-  console.log(canDrop, isOver, isDragging, isUploaded)
 
   return <div style={{ height: '100%', width: '100%', background: 'white', fontSize: '20px' }} ref={onDropTarget}>
     Drag and drop LOD files here!
