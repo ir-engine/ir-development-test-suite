@@ -6,6 +6,7 @@ import AvatarTest from './examples/avatarTest'
 import AvatarTestByIndex from './examples/avatarTestByIndex'
 import PhysicsBenchmark from './examples/physicsBenchmark'
 import Ktx2 from './examples/ktx2'
+import LODs from './examples/LODs'
 
 const ExampleRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const ExampleRoutes = () => {
       <Route path="/avatarTestByIndex" element={<AvatarTestByIndex />} />
       <Route path="/physicsBenchmark" element={<PhysicsBenchmark />} />
       <Route path="/ktx2" element={<Ktx2 />} />
+      <Route path="/LODs" element={<LODs />} />
     </Routes>
   )
 }
