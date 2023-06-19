@@ -5,7 +5,7 @@ import NumericInput from '@etherealengine/editor/src/components/inputs/NumericIn
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
-import { Template } from './template'
+import { Template } from './avatarTemplate'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 export default function AvatarBenchmarking() {

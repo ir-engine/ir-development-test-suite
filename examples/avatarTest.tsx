@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
-import { Template } from './template'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/avatar/loadAvatarHelpers'
+import {Template } from './avatarTemplate'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))

@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 
-import { Template } from './template'
+import { Template } from './avatarTemplate'
 import { DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
