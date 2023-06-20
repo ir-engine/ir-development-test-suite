@@ -4,7 +4,7 @@ import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
+import { createPhysicsObjects } from './utils/common/loadPhysicsHelpers'
 import { Template } from './avatarTemplate'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 

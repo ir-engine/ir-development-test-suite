@@ -45,7 +45,6 @@ describe('Vehicle Functions Integration', async () => {
 
   describe('loadVehicleForEntity', () => {
     let i = 1
-    
     it('should spawn vehicle ', async function () {
       const userId = `userId-${i}` as UserId
 
