@@ -1,4 +1,3 @@
-import { useRouter } from '@etherealengine/client-core/src/common/services/RouterService'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -7,7 +6,6 @@ const buttonStyle = {
   height: '100%',
   fontSize: '1.5rem',
   fontWeight: 'bold',
-  // border: 'none',
   padding: '8px',
   margin: '10px',
   borderStyle: 'solid',
