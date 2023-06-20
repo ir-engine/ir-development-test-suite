@@ -19,7 +19,7 @@ export const createPhysicsObjects = (count: number) => {
 export const createPhysicsObject = () => {
 
   const entity = createEntity()
-  setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, Math.random() * 5, 2.5 - Math.random() * 5))
+  setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, 1 + Math.random() * 5, 2.5 - Math.random() * 5))
   
   const rigidBodyDesc = RigidBodyDesc.dynamic()
   const colliderDesc = ColliderDesc.ball(0.1)
