@@ -13,7 +13,6 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { LODComponent } from '@etherealengine/engine/src/scene/components/LODComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { ModelInterface } from '@etherealengine/common/src/interfaces/ModelInterface'
 
 const LODsDND = () => {
   const filenames = useHookstate<string[]>([])
@@ -38,11 +37,9 @@ const LODsDND = () => {
             variants: true
           })
 
-          const result = await uploadPromise.promise as ModelInterface
+          const result = await uploadPromise.promise as string[]
 
           console.log(result)
-
-          const variants = result.glbStaticResource?.variants ?? result.gltfStaticResource?.variants ?? result.fbxStaticResource?.variants ?? result.usdzStaticResource?.variants
 
           const entity = createEntity()
           setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
@@ -50,16 +47,16 @@ const LODsDND = () => {
           setComponent(entity, NameComponent, 'LOD Test')
           
           setComponent(entity, ModelComponent, {
-            src: variants[0].url,
+            src: result[0],
           })
           setComponent(entity, LODComponent, {
             target: entity,
-            levels: variants.map((variant, i) => ({
+            levels: result.map((variant, i) => ({
               distance: (i + 1) * 5,
               loaded: false,
-              src: variant.url,
+              src: variant,
               model: null,
-              metadata: variant.metadata
+              metadata: {}//variant.metadata
             })),
             lodHeuristic: 'DISTANCE'
           })
