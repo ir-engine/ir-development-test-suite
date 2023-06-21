@@ -17,19 +17,20 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { XRState } from '@etherealengine/engine/src/xr/XRState'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSystem'
 
 const LightProbe = () => {
-  const isEstimatingLight = useHookstate(getMutableState(XRState).isEstimatingLight)
+  const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState).environment)
 
   useEffect(() => {
-    if (!isEstimatingLight.value) return
+    if (!xrLightProbeState.value) return
 
     // const entity = createEntity()
 
     const ballGeometry = new SphereGeometry(0.5, 32, 32)
     const ballMaterial = new MeshStandardMaterial({
       color: 0xdddddd,
-      roughness: 1,
+      roughness: 0,
       metalness: 1
     })
     const ballMesh = new Mesh(ballGeometry, ballMaterial)
@@ -45,7 +46,7 @@ const LightProbe = () => {
       // removeObjectFromGroup(entity, outlineMesh)
       // removeComponent(entity, VisibleComponent)
     }
-  }, [isEstimatingLight])
+  }, [xrLightProbeState])
 
   return null
 }
