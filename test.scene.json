@@ -732,7 +732,6 @@
           "props": {
             "controls": false,
             "paused": true,
-            "paths": [],
             "resources": [],
             "volume": 1,
             "synchronize": true,
@@ -796,7 +795,6 @@
           "props": {
             "controls": false,
             "paused": true,
-            "paths": [],
             "resources": [],
             "volume": 1,
             "synchronize": true,

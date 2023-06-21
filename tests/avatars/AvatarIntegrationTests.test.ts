@@ -37,7 +37,7 @@ overrideFileLoaderLoad()
 console.warn = () => {}
 
 const avatarPath = `/packages/projects/projects/${packageJson.name}/avatars/`
-const animGLB = '/packages/client/public/default_assets/Animations.glb'
+const animGLB = '/packages/projects/default-project/assets/Animations.glb'
 
 const getAllFiles = (dirPath, arrayOfFiles) => {
   const avatarPathAbsolute = path.join(appRootPath.path, dirPath)
