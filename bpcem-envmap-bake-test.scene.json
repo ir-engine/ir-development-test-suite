@@ -498,7 +498,7 @@
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 4,
-      "name": "New Model"
+      "name": "hall-2"
     },
     "d95c5430-1fab-44a4-bf38-71f4fd3ac52e": {
       "components": [
@@ -605,7 +605,7 @@
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 5,
-      "name": "New Model 2"
+      "name": "hall-1"
     },
     "43086029-1f3a-4c2b-872c-5641a5be6438": {
       "components": [
@@ -655,14 +655,14 @@
             "bakeType": "Baked",
             "resolution": 1024,
             "refreshMode": "OnAwake",
-            "envMapOrigin": "__$project$__/ee-development-test-suite/envmaps-New-EnvMap%20Bake.ktx2",
+            "envMapOrigin": "__$project$__/ee-development-test-suite/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2",
             "boxProjection": true
           }
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 6,
-      "name": "New EnvMap Bake"
+      "name": "bpcem-hall-bake-1"
     },
     "undefined": {
       "components": [
@@ -712,14 +712,14 @@
             "bakeType": "Baked",
             "resolution": 1024,
             "refreshMode": "OnAwake",
-            "envMapOrigin": "__$project$__/ee-development-test-suite/envmaps-New-EnvMap%20Bake%202.ktx2",
+            "envMapOrigin": "__$project$__/ee-development-test-suite/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2",
             "boxProjection": true
           }
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 7,
-      "name": "New EnvMap Bake 2"
+      "name": "bpcem-hall-bake-2"
     }
   },
   "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
