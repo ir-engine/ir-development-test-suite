@@ -8,13 +8,10 @@ import { useDefaultLocationSystems } from '@etherealengine/client-core/src/world
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
 
-export function Template() {
+export function Template(props: { projectName?: string, sceneName?: string }) {
   const engineState = useHookstate(getMutableState(EngineState))
 
-  const projectName = 'default-project'
-  const sceneName = 'default'
-
-  useLoadScene({ projectName, sceneName })
+  useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'scene' })
   useOfflineScene({ spectate: true })
   useLoadLocationScene()
   useLoadEngineWithScene({ spectate: true })
