@@ -4,8 +4,7 @@ import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 
 import { Template } from './utils/template'
-import { DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
-import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
+import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
 let mesh
@@ -75,7 +74,7 @@ const KTX2DND = () => {
 export default function KTX2() {
 
   useEffect(() => {
-    const mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
+    mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
     mesh.position.y += 1
     mesh.updateMatrixWorld(true)
     Engine.instance.scene.add(mesh)
