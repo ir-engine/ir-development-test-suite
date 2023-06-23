@@ -11,7 +11,7 @@ import { AvatarService } from '@etherealengine/client-core/src/user/services/Ava
 export function Template(props: { projectName?: string, sceneName?: string }) {
   const engineState = useHookstate(getMutableState(EngineState))
 
-  useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'scene' })
+  useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
   useOfflineScene({ spectate: true })
   useLoadLocationScene()
   useLoadEngineWithScene({ spectate: true })
