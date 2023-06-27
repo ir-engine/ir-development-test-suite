@@ -19,26 +19,34 @@ const routes = import.meta.glob('./examples/*.tsx', { eager: true }) as Record<s
 
 const RoutesList = () => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const path = e.currentTarget.innerText
-    window.location.href = `/examples/${path}`
-  }
+    const path = e.currentTarget.innerText;
+    window.location.href = `/examples/${path}`;
+  };
 
   return (
-    <div style={{ pointerEvents: 'all'}}>
-      <center><h1>Examples</h1></center>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px'}}>
+    <div style={{ pointerEvents: 'all', overflow: 'auto', maxHeight: '100vh' }}>
+      <h1><center>Examples</center></h1>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, minmax(200px, 1fr))',
+          gap: '10px',
+          padding: '10px',
+        }}
+      >
         {Object.entries(routes).map(([route, { default: Element }]) => {
-          const path = route.replace('./examples/', '').replace('.tsx', '')
+          const path = route.replace('./examples/', '').replace('.tsx', '');
           return (
             <button style={buttonStyle} key={path} onClick={onClick}>
               {path}
             </button>
-          )
+          );
         })}
       </div>
     </div>
-  )
-}
+  );
+};
+
 
 
 
