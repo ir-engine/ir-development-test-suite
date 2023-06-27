@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/avatar/loadAvatarHelpers'
-import {Template } from './avatarTemplate'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
+import { Template } from './utils/template'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
@@ -16,7 +16,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (engineState.connectedWorld.value) {
-      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.LOD0_url?.endsWith('vrm'))
+      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.url?.endsWith('vrm'))
       mockNetworkAvatars(avatars)
       // mockIKAvatars(avatars)
       // mockAnimAvatars(avatars)

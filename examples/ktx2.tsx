@@ -1,17 +1,13 @@
-import React, { } from 'react'
+import React, {useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 
-import { Template } from './avatarTemplate'
-import { DoubleSide, Mesh, MeshBasicMaterial, MeshStandardMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
-import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
+import { Template } from './utils/template'
+import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
-const mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
-mesh.position.y += 1
-mesh.updateMatrixWorld(true)
-Engine.instance.scene.add(mesh)
+let mesh
 
 const KTX2DND = () => {
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
@@ -76,6 +72,13 @@ const KTX2DND = () => {
 }
 
 export default function KTX2() {
+
+  useEffect(() => {
+    mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
+    mesh.position.y += 1
+    mesh.updateMatrixWorld(true)
+    Engine.instance.scene.add(mesh)
+  }, [])
 
   return (
     <div id="dnd-container" style={{ height: '25%', width: '25%', pointerEvents: 'all' }}>

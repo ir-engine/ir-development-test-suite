@@ -33,8 +33,8 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const avatarDetail = {
-      thumbnailURL: avatar.thumbnailResource?.LOD0_url || avatar.thumbnailResource?.url || '',
-      avatarURL: avatar.modelResource?.LOD0_url || avatar.modelResource?.url || '',
+      thumbnailURL: avatar.thumbnailResource?.url || '',
+      avatarURL: avatar.modelResource?.url || '',
       avatarId: avatar.id!
     }
     const userId = ('user' + i) as UserId & PeerID
@@ -56,8 +56,8 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
 
 export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user', x = 0) => {
   const avatarDetail = {
-    thumbnailURL: avatar.thumbnailResource?.LOD0_url || avatar.thumbnailResource?.url || '',
-    avatarURL: avatar.modelResource?.LOD0_url || avatar.modelResource?.url || '',
+    thumbnailURL: avatar.thumbnailResource?.url || '',
+    avatarURL: avatar.modelResource?.url || '',
     avatarId: avatar.id ?? ''
   }
   const userId = u + i as UserId & PeerID
@@ -79,7 +79,7 @@ export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
-    loadAssetWithAnimation(avatar.modelResource?.LOD0_url || avatar.modelResource?.url || '', new Vector3(4, 0, column), i)
+    loadAssetWithAnimation(avatar.modelResource?.url || '', new Vector3(4, 0, column), i)
   }
 }
 
@@ -87,7 +87,7 @@ export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
-    loadAssetTPose(avatar.modelResource?.LOD0_url || avatar.modelResource?.url || '', new Vector3(8, 0, column), i)
+    loadAssetTPose(avatar.modelResource?.url || '', new Vector3(8, 0, column), i)
   }
 }
 

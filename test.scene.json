@@ -39,7 +39,7 @@
           }
         }
       ],
-      "name": "empty_scene"
+      "name": "test"
     },
     "7f554aa6-3eff-4b9e-acc9-f6446d541d54": {
       "components": [
@@ -732,7 +732,6 @@
           "props": {
             "controls": false,
             "paused": true,
-            "paths": [],
             "resources": [],
             "volume": 1,
             "synchronize": true,
@@ -796,7 +795,6 @@
           "props": {
             "controls": false,
             "paused": true,
-            "paths": [],
             "resources": [],
             "volume": 1,
             "synchronize": true,
