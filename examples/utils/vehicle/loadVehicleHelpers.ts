@@ -17,7 +17,7 @@ export const mockNetworkVehicles = (count :number) => {
 
     dispatchAction(
       WorldNetworkAction.spawnVehicle({
-        position: new Vector3(0, 10, column),
+        position: new Vector3(0,1, column),
         rotation: new Quaternion(),
         uuid: userId
       })

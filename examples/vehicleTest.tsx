@@ -10,7 +10,7 @@ export default function VehicleBenchmarking() {
 
   useEffect(() => {
     if (engineState.connectedWorld.value) {
-      mockNetworkVehicles(10)       // just keeping this empty , we can add in any details we might want to extarct from the gltf here, or anything else not included in the gltf
+      mockNetworkVehicles(1)       // just keeping this empty , we can add in any details we might want to extarct from the gltf here, or anything else not included in the gltf
     }
   }, [engineState.connectedWorld])
   
