@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { mockNetworkVehicles,} from './utils/vehicle/loadVehicleHelpers'
-import { Template } from './utils/vehicle/vehicleTemplate'
+import { Template } from './utils/template'
 
 export default function VehicleBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
