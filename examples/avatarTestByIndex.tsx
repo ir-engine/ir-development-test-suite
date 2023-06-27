@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/loadAvatarHelpers'
+import { mockNetworkAvatars, mockAnimAvatars, mockTPoseAvatars, mockIKAvatars } from './utils/avatar/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 

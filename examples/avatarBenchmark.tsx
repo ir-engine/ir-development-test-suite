@@ -9,7 +9,7 @@ import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFun
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
-import { useSimulateMovement } from './utils/simulateMovement'
+import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { xrTargetHeadSuffix, xrTargetLeftHandSuffix, xrTargetRightHandSuffix } from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
