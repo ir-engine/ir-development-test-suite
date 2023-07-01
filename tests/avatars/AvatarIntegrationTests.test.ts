@@ -30,6 +30,8 @@ import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState } from '@etherealengine/hyperflux'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
+import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 
 overrideFileLoaderLoad()
 
@@ -86,16 +88,16 @@ describe('avatarFunctions Integration', async () => {
     for (const modelURL of assetPaths) {
       it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
         const userId = `userId-${i}` as UserId
-        const spawnAction = WorldNetworkAction.spawnAvatar({
+        const spawnAction = AvatarNetworkAction.spawn({
           $from: userId,
           position: new Vector3(),
           rotation: new Quaternion(),
           networkId: i++ as NetworkId,
-          uuid: userId
+          entityUUID: userId as string as EntityUUID
         })
 
         WorldNetworkActionReceptor.receiveSpawnObject(spawnAction as any)
-        spawnAvatarReceptor(spawnAction)
+        spawnAvatarReceptor(userId as string as EntityUUID)
 
         const entity = Engine.instance.getUserAvatarEntity(userId)
 
