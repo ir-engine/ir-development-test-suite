@@ -66,9 +66,9 @@ export default function AvatarBenchmarking() {
     setEntities(count)
     for (let i = 0; i < count; i++) {
       const userId = loadNetworkAvatar(avatars.avatarList.value.find(val => val.id === avatar)!, i)
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', uuid: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', uuid: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', uuid: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
+      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
     }
   }, [count, avatar, engineState.connectedWorld])
 

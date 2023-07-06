@@ -4,6 +4,7 @@ import { EntityUUID } from "@etherealengine/common/src/interfaces/EntityUUID"
 import { NetworkId } from "@etherealengine/common/src/interfaces/NetworkId"
 import { PeerID } from "@etherealengine/common/src/interfaces/PeerID"
 import { UserId } from "@etherealengine/common/src/interfaces/UserId"
+import { AvatarNetworkAction } from "@etherealengine/engine/src/avatar/state/AvatarNetworkState"
 import { AnimationComponent } from "@etherealengine/engine/src/avatar/components/AnimationComponent"
 import { AvatarAnimationComponent } from "@etherealengine/engine/src/avatar/components/AvatarAnimationComponent"
 import { AvatarComponent } from "@etherealengine/engine/src/avatar/components/AvatarComponent"
@@ -32,11 +33,6 @@ export const getAvatarLists = () => {
 export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const avatarDetail = {
-      thumbnailURL: avatar.thumbnailResource?.url || '',
-      avatarURL: avatar.modelResource?.url || '',
-      avatarId: avatar.id!
-    }
     const userId = ('user' + i) as UserId & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
@@ -44,14 +40,14 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   
     NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
     dispatchAction(
-      WorldNetworkAction.spawnAvatar({
+      AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
         rotation: new Quaternion(),
         $from: userId,
-        uuid: userId
+        entityUUID: userId
       })
     )
-    dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail, uuid: userId }), $from: userId })
+    dispatchAction({ ...AvatarNetworkAction.setAvatarID({ avatarID: avatar.id, entityUUID: userId }), $from: userId })
   }
 }
 
@@ -65,14 +61,14 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user'
   const index = (1000 + i) as NetworkId
   NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
   dispatchAction(
-    WorldNetworkAction.spawnAvatar({
+    AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion(),
       $from: userId,
-      uuid: userId
+      entityUUID: userId
     })
   )
-  dispatchAction({ ...WorldNetworkAction.avatarDetails({ avatarDetail, uuid: userId }), $from: userId })
+  dispatchAction({ ...AvatarNetworkAction.setAvatarID({  avatarID: avatar.id, entityUUID: userId }), $from: userId })
   return userId
 }
 
@@ -103,9 +99,9 @@ export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
 export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: number) => {
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x) 
   setTimeout(() => {
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', uuid: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', uuid: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', uuid: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
+    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
+    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
+    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
   }, 100)
 }
 
