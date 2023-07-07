@@ -490,11 +490,11 @@
         {
           "name": "gltf-model",
           "props": {
-            "src": "__$project$__/eepro-avatar-pack-base/public/avatars/Racer-transformed.gltf",
+            "src": "__$project$__/ee-development-test-suite/assets/animations/Racer-transformed.gltf",
             "resource": {
               "src": "https://100.99.123.67:8642/static-resources/avatar/public/Brian-transformed.gltf"
             },
-            "generateBVH": true,
+            "generateBVH": false,
             "avoidCameraOcclusion": false
           }
         },
@@ -511,7 +511,7 @@
         {
           "name": "loop-animation",
           "props": {
-            "activeClipIndex": -1,
+            "activeClipIndex": 0,
             "hasAvatarAnimations": true
           }
         }
