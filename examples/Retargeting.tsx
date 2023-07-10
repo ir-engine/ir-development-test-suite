@@ -146,7 +146,9 @@ const RetargetingDND = () => {
     rootBone.traverse((bone: Bone) => {
       boneNames.push(bone.name)
     })
-    const file = new File([JSON.stringify(boneNames, null, 2)], fileNameWithoutExtension + '.json', { type: 'application/json' })
+    const file = new File([JSON.stringify(boneNames, null, 2)], fileNameWithoutExtension + '.json', {
+      type: 'application/json'
+    })
     const blobUrl = URL.createObjectURL(file)
     const link = document.createElement('a')
     link.href = blobUrl
@@ -218,7 +220,6 @@ const RetargetingDND = () => {
       Engine.instance.scene.add(helper)
 
       clone.traverse((bone: Bone) => {
-
         /** bones are oriented to the average position direction of their children from their position */
         const childAveragePosition = bone.children
           .reduce((acc, child) => {
@@ -347,15 +348,19 @@ const RetargetingDND = () => {
             value={boneName.value}
             onChange={changeBoneName}
           />{' '}
-          {mouseOver.value ? nextUnmatchedBoneName ? (
-            <button style={{ color: 'lightblue' }} onClick={boneMatch}>
-              - Make {nextUnmatchedBoneName}
-            </button>
+          {mouseOver.value ? (
+            nextUnmatchedBoneName ? (
+              <button style={{ color: 'lightblue' }} onClick={boneMatch}>
+                - Make {nextUnmatchedBoneName}
+              </button>
+            ) : (
+              <button style={{ color: 'red' }} onClick={clear}>
+                Clear
+              </button>
+            )
           ) : (
-            <button style={{ color: 'red' }} onClick={clear}>
-              Clear
-            </button>
-          ) : <></>}
+            <></>
+          )}
         </div>
         <div key={bone.uuid} style={{ paddingLeft: '5px' }}>
           {bone.children.map((child: Bone) => (
@@ -377,10 +382,18 @@ const RetargetingDND = () => {
 
   return (
     <div style={{ fontSize: '16px' }}>
-      {!assetScene && <>
-        <div>Asset<input type="file" name="avatarFile" accept={AVATAR_FILE_ALLOWED_EXTENSIONS} onChange={handleChangeFile} /></div>
-        <div>JSON Name Map<input type="file" name="jsonFile" accept={'.json'} onChange={onLoadNameMap} /></div>
-      </>}
+      {!assetScene && (
+        <>
+          <div>
+            Asset
+            <input type="file" name="avatarFile" accept={AVATAR_FILE_ALLOWED_EXTENSIONS} onChange={handleChangeFile} />
+          </div>
+          <div>
+            JSON Name Map
+            <input type="file" name="jsonFile" accept={'.json'} onChange={onLoadNameMap} />
+          </div>
+        </>
+      )}
       {assetScene && (
         <>
           {nextUnmatchedBoneName && (
@@ -393,7 +406,7 @@ const RetargetingDND = () => {
           {
             <div>
               <button className="outline outline-1" onClick={onTryRigging}>
-                {rigTestEntity.value ? "Remove Rig" : "Try Rig"}
+                {rigTestEntity.value ? 'Remove Rig' : 'Try Rig'}
               </button>
             </div>
           }

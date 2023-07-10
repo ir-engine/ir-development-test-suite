@@ -4,18 +4,24 @@ import fs from 'fs'
 import path from 'path'
 import { Quaternion, Vector3 } from 'three'
 
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
+import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
+import { UserId } from '@etherealengine/common/src/interfaces/UserId'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
+import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/createGLTFLoader'
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
 import { AnimationManager } from '@etherealengine/engine/src/avatar/AnimationManager'
-import { AvatarAnimationComponent, AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import {
-  loadAvatarModelAsset,
-  setupAvatarForUser
-} from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
+  AvatarAnimationComponent,
+  AvatarRigComponent
+} from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
+import { loadAvatarModelAsset, setupAvatarForUser } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { spawnAvatarReceptor } from '@etherealengine/engine/src/avatar/functions/spawnAvatarReceptor'
+import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
 import { destroyEngine, Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
 import { WorldNetworkAction } from '@etherealengine/engine/src/networking/functions/WorldNetworkAction'
@@ -23,15 +29,9 @@ import { WorldNetworkActionReceptor } from '@etherealengine/engine/src/networkin
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
 import { createMockNetwork } from '@etherealengine/engine/tests/util/createMockNetwork'
 import { overrideFileLoaderLoad } from '@etherealengine/engine/tests/util/loadGLTFAssetNode'
-import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/createGLTFLoader'
+import { getMutableState } from '@etherealengine/hyperflux'
 
 import packageJson from '../../package.json'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState } from '@etherealengine/hyperflux'
-import { UserId } from '@etherealengine/common/src/interfaces/UserId'
-import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
-import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 
 overrideFileLoaderLoad()
 
@@ -107,7 +107,7 @@ describe('avatarFunctions Integration', async () => {
         avatar.avatarHalfHeight = 0
 
         // run the logic
-        const model = await loadAvatarModelAsset(modelURL) as any
+        const model = (await loadAvatarModelAsset(modelURL)) as any
         setupAvatarForUser(entity, model)
 
         // do assertions

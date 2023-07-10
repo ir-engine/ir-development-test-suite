@@ -1,28 +1,39 @@
-import { AvatarState } from "@etherealengine/client-core/src/user/services/AvatarService"
-import { AvatarInterface } from "@etherealengine/common/src/interfaces/AvatarInterface"
-import { EntityUUID } from "@etherealengine/common/src/interfaces/EntityUUID"
-import { NetworkId } from "@etherealengine/common/src/interfaces/NetworkId"
-import { PeerID } from "@etherealengine/common/src/interfaces/PeerID"
-import { UserId } from "@etherealengine/common/src/interfaces/UserId"
-import { AvatarNetworkAction } from "@etherealengine/engine/src/avatar/state/AvatarNetworkState"
-import { AnimationComponent } from "@etherealengine/engine/src/avatar/components/AnimationComponent"
-import { AvatarAnimationComponent } from "@etherealengine/engine/src/avatar/components/AvatarAnimationComponent"
-import { AvatarComponent } from "@etherealengine/engine/src/avatar/components/AvatarComponent"
-import { xrTargetHeadSuffix, xrTargetLeftHandSuffix, xrTargetRightHandSuffix } from "@etherealengine/engine/src/avatar/components/AvatarIKComponents"
-import { loadAvatarModelAsset, boneMatchAvatarModel, rigAvatarModel, setupAvatarModel, animateModel } from "@etherealengine/engine/src/avatar/functions/avatarFunctions"
-import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
-import { addComponent, getComponent, setComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
-import { createEntity } from "@etherealengine/engine/src/ecs/functions/EntityFunctions"
-import { Network } from "@etherealengine/engine/src/networking/classes/Network"
-import { NetworkPeerFunctions } from "@etherealengine/engine/src/networking/functions/NetworkPeerFunctions"
-import { WorldNetworkAction } from "@etherealengine/engine/src/networking/functions/WorldNetworkAction"
-import { addObjectToGroup } from "@etherealengine/engine/src/scene/components/GroupComponent"
-import { NameComponent } from "@etherealengine/engine/src/scene/components/NameComponent"
-import { VisibleComponent } from "@etherealengine/engine/src/scene/components/VisibleComponent"
-import { setTransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
-import { XRAction } from "@etherealengine/engine/src/xr/XRState"
-import { dispatchAction, getMutableState } from "@etherealengine/hyperflux"
-import { Vector3, Quaternion, AnimationMixer, Object3D, MeshPhongMaterial, Color, Mesh } from "three"
+import { AnimationMixer, Color, Mesh, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
+
+import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
+import { AvatarInterface } from '@etherealengine/common/src/interfaces/AvatarInterface'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
+import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
+import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
+import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
+import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
+import {
+  xrTargetHeadSuffix,
+  xrTargetLeftHandSuffix,
+  xrTargetRightHandSuffix
+} from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
+import {
+  animateModel,
+  boneMatchAvatarModel,
+  loadAvatarModelAsset,
+  rigAvatarModel,
+  setupAvatarModel
+} from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
+import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { addComponent, getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { Network } from '@etherealengine/engine/src/networking/classes/Network'
+import { NetworkPeerFunctions } from '@etherealengine/engine/src/networking/functions/NetworkPeerFunctions'
+import { WorldNetworkAction } from '@etherealengine/engine/src/networking/functions/WorldNetworkAction'
+import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
+import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { XRAction } from '@etherealengine/engine/src/xr/XRState'
+import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -37,7 +48,6 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
     const index = (1000 + i) as NetworkId
     const column = i * 2
 
-  
     NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
     dispatchAction(
       AvatarNetworkAction.spawn({
@@ -57,7 +67,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user'
     avatarURL: avatar.modelResource?.url || '',
     avatarId: avatar.id ?? ''
   }
-  const userId = u + i as UserId & PeerID
+  const userId = (u + i) as UserId & PeerID
   const index = (1000 + i) as NetworkId
   NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
   dispatchAction(
@@ -68,7 +78,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user'
       entityUUID: userId
     })
   )
-  dispatchAction({ ...AvatarNetworkAction.setAvatarID({  avatarID: avatar.id, entityUUID: userId }), $from: userId })
+  dispatchAction({ ...AvatarNetworkAction.setAvatarID({ avatarID: avatar.id, entityUUID: userId }), $from: userId })
   return userId
 }
 
@@ -97,11 +107,20 @@ export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
 }
 
 export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: number) => {
-  const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x) 
+  const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   setTimeout(() => {
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
-    dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
+    dispatchAction({
+      ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
+      $from: userId
+    })
+    dispatchAction({
+      ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
+      $from: userId
+    })
+    dispatchAction({
+      ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID }),
+      $from: userId
+    })
   }, 100)
 }
 
@@ -120,13 +139,13 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
       states: {},
       transitionRules: {},
       currentState: null!,
-      stateChanged: () => { }
+      stateChanged: () => {}
     },
     rootYRatio: 1,
     locomotion: new Vector3()
   })
   setTransformComponent(entity, position)
-  const model = await loadAvatarModelAsset(filename) as Object3D
+  const model = (await loadAvatarModelAsset(filename)) as Object3D
   addObjectToGroup(entity, model)
   addComponent(entity, VisibleComponent, true)
   boneMatchAvatarModel(entity)(model)
@@ -167,7 +186,7 @@ export const loadAssetWithAnimation = async (filename, position: Vector3, i: num
     locomotion: new Vector3()
   })
   setTransformComponent(entity, position)
-  const object = await loadAvatarModelAsset(filename) as Object3D
+  const object = (await loadAvatarModelAsset(filename)) as Object3D
   addObjectToGroup(entity, object)
   addComponent(entity, VisibleComponent, true)
   const setupLoopableAvatarModel = setupAvatarModel(entity)

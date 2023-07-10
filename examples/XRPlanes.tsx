@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react'
-
-import { useEntityContext } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { Template } from './utils/template'
-import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
 import { Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
-import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
-import { removeComponent, setComponent, useComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+
 import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
-import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import {
+  removeComponent,
+  setComponent,
+  useComponent
+} from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { useEntityContext } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
+import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
+
+import { Template } from './utils/template'
 
 const DetectedPlanes = () => {
   const entity = useEntityContext()
@@ -19,7 +24,10 @@ const DetectedPlanes = () => {
   useEffect(() => {
     if (!xrPlane.geometry.value) return
     const outlineMesh = new Mesh(xrPlane.geometry.value, new MeshBasicMaterial({ wireframe: true }))
-    const transparentMesh = new Mesh(xrPlane.geometry.value, new MeshNormalMaterial({ opacity: 0.5, transparent: true }))
+    const transparentMesh = new Mesh(
+      xrPlane.geometry.value,
+      new MeshNormalMaterial({ opacity: 0.5, transparent: true })
+    )
     addObjectToGroup(entity, outlineMesh)
     addObjectToGroup(entity, transparentMesh)
     setComponent(entity, VisibleComponent)

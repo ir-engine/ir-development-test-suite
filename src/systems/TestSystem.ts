@@ -1,4 +1,4 @@
-import { defineSystem } from "@etherealengine/engine/src/ecs/functions/SystemFunctions"
+import { defineSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
 
 let count = 0
 

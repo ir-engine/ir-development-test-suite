@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
-import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
-import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { loadNetworkAvatar } from './utils/loadAvatarHelpers'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
+import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
+import {
+  xrTargetHeadSuffix,
+  xrTargetLeftHandSuffix,
+  xrTargetRightHandSuffix
+} from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { XRAction } from '@etherealengine/engine/src/xr/XRState'
+import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
+
+import { loadNetworkAvatar } from './utils/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/simulateMovement'
 import { Template } from './utils/template'
-import { XRAction } from '@etherealengine/engine/src/xr/XRState'
-import { xrTargetHeadSuffix, xrTargetLeftHandSuffix, xrTargetRightHandSuffix } from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -62,21 +67,46 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!avatar || !engineState.connectedWorld.value) return
-    for (let i = 0; i < entities; i++) removeEntity(Engine.instance.getUserAvatarEntity('user' + i as UserId))
+    for (let i = 0; i < entities; i++) removeEntity(Engine.instance.getUserAvatarEntity(('user' + i) as UserId))
     setEntities(count)
     for (let i = 0; i < count; i++) {
-      const userId = loadNetworkAvatar(avatars.avatarList.value.find(val => val.id === avatar)!, i)
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: userId + xrTargetHeadSuffix as EntityUUID }), $from: userId,  })
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: userId + xrTargetLeftHandSuffix as EntityUUID }), $from: userId,  })
-      dispatchAction({ ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: userId + xrTargetRightHandSuffix as EntityUUID }), $from: userId,  })
+      const userId = loadNetworkAvatar(avatars.avatarList.value.find((val) => val.id === avatar)!, i)
+      dispatchAction({
+        ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
+        $from: userId
+      })
+      dispatchAction({
+        ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
+        $from: userId
+      })
+      dispatchAction({
+        ...XRAction.spawnIKTarget({
+          handedness: 'right',
+          entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID
+        }),
+        $from: userId
+      })
     }
   }, [count, avatar, engineState.connectedWorld])
 
   return (
     <>
       <Template />
-      <div style={{ width: '50%', display: 'flex', flexDirection: 'column', margin: 'auto', paddingTop: '100px', pointerEvents: 'all' }}>
-        <SelectInput options={avatars.avatarList.value.map(val => ({ value: val.id, label: val.name }))} onChange={setAvatar} value={avatar} />
+      <div
+        style={{
+          width: '50%',
+          display: 'flex',
+          flexDirection: 'column',
+          margin: 'auto',
+          paddingTop: '100px',
+          pointerEvents: 'all'
+        }}
+      >
+        <SelectInput
+          options={avatars.avatarList.value.map((val) => ({ value: val.id, label: val.name }))}
+          onChange={setAvatar}
+          value={avatar}
+        />
         <NumericInput onChange={setCount} value={count} />
       </div>
     </>

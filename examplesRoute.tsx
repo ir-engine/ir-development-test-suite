@@ -18,7 +18,6 @@ const buttonStyle = {
 const routes = import.meta.glob('./examples/*.tsx', { eager: true }) as Record<string, { default: () => JSX.Element }>
 
 const RoutesList = () => {
-
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const path = e.currentTarget.innerText
     window.location.href = `/examples/${path}`
@@ -29,14 +28,18 @@ const RoutesList = () => {
       <h1>Examples</h1>
       {Object.entries(routes).map(([route, { default: Element }]) => {
         const path = route.replace('./examples/', '').replace('.tsx', '')
-        return <>
-          <button style={buttonStyle} key={path} onClick={onClick}>{path}</button><br />
-        </>
+        return (
+          <>
+            <button style={buttonStyle} key={path} onClick={onClick}>
+              {path}
+            </button>
+            <br />
+          </>
+        )
       })}
     </div>
   )
 }
-
 
 const ExampleRoutes = () => {
   return (
