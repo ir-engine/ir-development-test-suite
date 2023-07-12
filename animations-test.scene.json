@@ -491,9 +491,6 @@
           "name": "gltf-model",
           "props": {
             "src": "__$project$__/ee-development-test-suite/assets/animations/Racer-transformed.gltf",
-            "resource": {
-              "src": "https://100.99.123.67:8642/static-resources/avatar/public/Brian-transformed.gltf"
-            },
             "generateBVH": false,
             "avoidCameraOcclusion": false
           }

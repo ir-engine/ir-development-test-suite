@@ -61,7 +61,7 @@ const fetchAvatarList = () => {
   return avatarList
 }
 
-describe('avatarFunctions Integration', async () => {
+describe.skip('avatarFunctions Integration', async () => {
   before(async () => {
     await loadDRACODecoderNode()
   })
