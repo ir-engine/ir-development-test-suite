@@ -438,10 +438,11 @@
         {
           "name": "envmap",
           "props": {
-            "type": "Default",
+            "type": "Bake",
             "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 4095,
-            "envMapSourceURL": "__$project$__/ee-development-test-suite/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2",
+            "envMapSourceURL": "",
+            "envMapSourceEntityUUID": "43086029-1f3a-4c2b-872c-5641a5be6439",
             "envMapIntensity": 1
           }
         },
@@ -502,10 +503,11 @@
         {
           "name": "envmap",
           "props": {
-            "type": "Default",
+            "type": "Bake",
             "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 4095,
-            "envMapSourceURL": "__$project$__/ee-development-test-suite/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2",
+            "envMapSourceURL": "",
+            "envMapSourceEntityUUID": "43086029-1f3a-4c2b-872c-5641a5be6438",
             "envMapIntensity": 1
           }
         },
@@ -578,7 +580,7 @@
       "index": 6,
       "name": "bpcem-hall-bake-1"
     },
-    "undefined": {
+    "43086029-1f3a-4c2b-872c-5641a5be6439": {
       "components": [
         {
           "name": "transform",
