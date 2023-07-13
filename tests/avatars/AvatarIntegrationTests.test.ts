@@ -34,7 +34,7 @@ import packageJson from '../../package.json'
 import { EntityNetworkState } from '@etherealengine/engine/src/networking/state/EntityNetworkState'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
-import { renderComponentReactor } from '@etherealengine/engine/tests/util/ReactorHelpers'
+import { act } from '@testing-library/react'
 
 overrideFileLoaderLoad()
 
@@ -100,10 +100,10 @@ describe.skip('avatarFunctions Integration', async () => {
         }))
 
         applyIncomingActions()
-        receiveActions(EntityNetworkState)
   
+        await act(() => receiveActions(EntityNetworkState))
+
         const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
-        await renderComponentReactor(entity, NetworkObjectComponent)
   
         spawnAvatarReceptor(userId as string as EntityUUID)
 
