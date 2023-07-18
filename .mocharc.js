@@ -3,7 +3,6 @@ module.exports = {
   parallel: false,
   require: [
     'tests/mocha.env', // init env here
-    'ts-node/register',
     'jsdom-global/register'
   ],
   extension: [
