@@ -1,7 +1,6 @@
 import { AnimationMixer, Color, Mesh, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { AvatarInterface } from '@etherealengine/common/src/interfaces/AvatarInterface'
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
@@ -34,6 +33,7 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
+import { AvatarType } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -41,7 +41,7 @@ export const getAvatarLists = () => {
   return avatarList
 }
 
-export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
+export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const userId = ('user' + i) as UserId & PeerID
@@ -61,7 +61,7 @@ export const mockNetworkAvatars = (avatarList: AvatarInterface[]) => {
   }
 }
 
-export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user', x = 0) => {
+export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x = 0) => {
   const avatarDetail = {
     thumbnailURL: avatar.thumbnailResource?.url || '',
     avatarURL: avatar.modelResource?.url || '',
@@ -82,7 +82,7 @@ export const loadNetworkAvatar = (avatar: AvatarInterface, i: number, u = 'user'
   return userId
 }
 
-export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
+export const mockAnimAvatars = async (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
@@ -90,7 +90,7 @@ export const mockAnimAvatars = async (avatarList: AvatarInterface[]) => {
   }
 }
 
-export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
+export const mockTPoseAvatars = async (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
@@ -98,7 +98,7 @@ export const mockTPoseAvatars = async (avatarList: AvatarInterface[]) => {
   }
 }
 
-export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
+export const mockIKAvatars = async (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
     const column = i * 2
@@ -106,7 +106,7 @@ export const mockIKAvatars = async (avatarList: AvatarInterface[]) => {
   }
 }
 
-export const loadAssetWithIK = (avatar: AvatarInterface, position: Vector3, i: number) => {
+export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number) => {
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   setTimeout(() => {
     dispatchAction({
