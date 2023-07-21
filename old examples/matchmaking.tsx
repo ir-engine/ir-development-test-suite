@@ -35,7 +35,6 @@ const Page = () => {
   const [connection, setConnection] = useState<string | undefined>()
   const [instanceId, setInstanceId] = useState<string | undefined>()
   const [locationName, setLocationName] = useState<string | undefined>()
-  const locationService = API.instance.client.service('location')
   const ticketsService = API.instance.client.service('match-ticket')
   const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 

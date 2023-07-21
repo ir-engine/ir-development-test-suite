@@ -10,7 +10,6 @@ const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()
   const [ticketsIds, setTicketsIds] = useState<string[]>([])
   const connections = useRef<Record<string, string>>({})
-  const locationService = API.instance.client.service('location')
   const ticketsService = API.instance.client.service('match-ticket')
   const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 
