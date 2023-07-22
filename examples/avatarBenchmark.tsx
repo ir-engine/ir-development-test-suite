@@ -19,6 +19,7 @@ import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/h
 import { loadNetworkAvatar } from './utils/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/simulateMovement'
 import { Template } from './utils/template'
+import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -29,7 +30,7 @@ import { Template } from './utils/template'
 //     if(entities.length !== entitiesLength) {
 //       entities = []
 //       for (let i = 0; i < entitiesLength; i++) {
-//         const eid = Engine.instance.getUserAvatarEntity('user' + i as UserId)
+//         const eid = NetworkObjectComponent.getUserAvatarEntity('user' + i as UserId)
 //         if(eid) entities.push(eid)
 //       }
 //     }
@@ -67,7 +68,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!avatar || !engineState.connectedWorld.value) return
-    for (let i = 0; i < entities; i++) removeEntity(Engine.instance.getUserAvatarEntity(('user' + i) as UserId))
+    for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserId))
     setEntities(count)
     for (let i = 0; i < count; i++) {
       const userId = loadNetworkAvatar(avatars.avatarList.value.find((val) => val.id === avatar)!, i)

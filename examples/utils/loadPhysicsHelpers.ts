@@ -1,13 +1,14 @@
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d-compat'
 import { Vector3 } from 'three'
 
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
 import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/engine/src/physics/enums/CollisionGroups'
 import { getInteractionGroups } from '@etherealengine/engine/src/physics/functions/getInteractionGroups'
 import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { getState } from '@etherealengine/hyperflux'
+import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]
@@ -28,7 +29,8 @@ export const createPhysicsObject = () => {
 
   rigidBodyDesc.setCanSleep(false)
 
-  Physics.createRigidBody(entity, Engine.instance.physicsWorld, rigidBodyDesc, [colliderDesc])
+  const physicsWorld = getState(PhysicsState).physicsWorld
+  Physics.createRigidBody(entity, physicsWorld, rigidBodyDesc, [colliderDesc])
 
   return entity
 }

@@ -35,6 +35,7 @@ import { EntityNetworkState } from '@etherealengine/engine/src/networking/state/
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 import { act } from '@testing-library/react'
+import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
 
 overrideFileLoaderLoad()
 
@@ -77,7 +78,7 @@ describe.skip('avatarFunctions Integration', async () => {
     Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()
-    Engine.instance.physicsWorld = Physics.createWorld()
+    getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
     await AnimationManager.instance.loadDefaultAnimations(animGLB)
   })
 
