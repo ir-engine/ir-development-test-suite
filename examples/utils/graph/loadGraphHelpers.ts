@@ -6,17 +6,10 @@ import { getInteractionGroups } from "@etherealengine/engine/src/physics/functio
 import { setTransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
 import { Vector3 } from "three"
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d-compat'
-import { Entity } from "@etherealengine/engine/src/ecs/classes/Entity"
-import { getState } from "@etherealengine/hyperflux/functions/StateFunctions"
 import { PhysicsState } from "@etherealengine/engine/src/physics/state/PhysicsState"
-
-export const createPhysicsObjects = (count: number) => {
-  const entities = [] as Entity[]
-  for (let i = 0; i < count; i++) {
-    entities.push(createPhysicsObject())
-  }
-  return entities
-}
+import { getState } from "@etherealengine/hyperflux/functions/StateFunctions"
+import { setComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
+import { BehaveGraphComponent } from "@etherealengine/engine/src/behave-graph/components/BehaveGraphComponent"
 
 export const createPhysicsObject = () => {
 
@@ -32,7 +25,7 @@ export const createPhysicsObject = () => {
 
   rigidBodyDesc.setCanSleep(false)
 
-  Physics.createRigidBody(entity,getState(PhysicsState).physicsWorld, rigidBodyDesc, [colliderDesc])
-
+  Physics.createRigidBody(entity, getState(PhysicsState).physicsWorld, rigidBodyDesc, [colliderDesc])
+  setComponent(entity,BehaveGraphComponent,{run:true})
   return entity
 }
