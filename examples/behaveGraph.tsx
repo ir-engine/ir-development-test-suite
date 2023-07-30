@@ -7,7 +7,7 @@ import { createPhysicsObject } from './utils/graph/loadGraphHelpers'
 import defaultJson from './utils/graph/default-graph.json'
 import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { BehaveGraphComponent } from '@etherealengine/engine/src/behave-graph/components/BehaveGraphComponent'
-import { GraphJSON } from '@etherealengine/engine/src/behave-graph/nodes'
+import { GraphJSON } from '@behave-graph/core'
 export default function behaveGraphTest() {
   const engineState = useHookstate(getMutableState(EngineState))
   console.log("DEBUG started", engineState.connectedWorld.value)
