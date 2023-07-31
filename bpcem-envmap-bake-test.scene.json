@@ -431,49 +431,6 @@
           "name": "gltf-model",
           "props": {
             "src": "__$project$__/ee-development-test-suite/assets/envmaps/hall.glb",
-            "resource": {
-              "id": "5f035e70-1092-11ee-950f-67ebb62596fa",
-              "name": null,
-              "tags": null,
-              "createdAt": "2023-06-22T00:18:54.000Z",
-              "updatedAt": "2023-06-22T00:18:54.000Z",
-              "glbStaticResourceId": "5f046fe0-1092-11ee-950f-67ebb62596fa",
-              "gltfStaticResourceId": null,
-              "fbxStaticResourceId": null,
-              "usdzStaticResourceId": null,
-              "thumbnailId": null,
-              "glbStaticResource": {
-                "id": "5f046fe0-1092-11ee-950f-67ebb62596fa",
-                "sid": "UMquSMYd",
-                "hash": "3c1a862b4889333dac38eef70ed31b895690e289982ce16346c210050e404732",
-                "url": "https://192.168.50.227:8642/static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa/hall",
-                "key": "static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa",
-                "mimeType": "model/gltf-binary",
-                "metadata": null,
-                "project": null,
-                "driver": null,
-                "licensing": null,
-                "attribution": null,
-                "tags": null,
-                "createdAt": "2023-06-22T00:18:54.000Z",
-                "updatedAt": "2023-06-22T00:18:54.000Z",
-                "staticResourceType": "model3d",
-                "userId": null,
-                "parentResourceId": null,
-                "variants": [
-                  {
-                    "id": "5f04be00-1092-11ee-950f-67ebb62596fa",
-                    "url": "https://192.168.50.227:8642/static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa/hall",
-                    "metadata": "{\"size\":11370728}",
-                    "staticResourceId": "5f046fe0-1092-11ee-950f-67ebb62596fa"
-                  }
-                ]
-              },
-              "gltfStaticResource": null,
-              "fbxStaticResource": null,
-              "usdzStaticResource": null,
-              "thumbnail": null
-            },
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -481,10 +438,11 @@
         {
           "name": "envmap",
           "props": {
-            "type": "Default",
+            "type": "Bake",
             "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 4095,
-            "envMapSourceURL": "__$project$__/ee-development-test-suite/envmaps-New-EnvMap%20Bake%202.ktx2",
+            "envMapSourceURL": "",
+            "envMapSourceEntityUUID": "43086029-1f3a-4c2b-872c-5641a5be6439",
             "envMapIntensity": 1
           }
         },
@@ -538,49 +496,6 @@
           "name": "gltf-model",
           "props": {
             "src": "__$project$__/ee-development-test-suite/assets/envmaps/hall.glb",
-            "resource": {
-              "id": "5f035e70-1092-11ee-950f-67ebb62596fa",
-              "name": null,
-              "tags": null,
-              "createdAt": "2023-06-22T00:18:54.000Z",
-              "updatedAt": "2023-06-22T00:18:54.000Z",
-              "glbStaticResourceId": "5f046fe0-1092-11ee-950f-67ebb62596fa",
-              "gltfStaticResourceId": null,
-              "fbxStaticResourceId": null,
-              "usdzStaticResourceId": null,
-              "thumbnailId": null,
-              "glbStaticResource": {
-                "id": "5f046fe0-1092-11ee-950f-67ebb62596fa",
-                "sid": "UMquSMYd",
-                "hash": "3c1a862b4889333dac38eef70ed31b895690e289982ce16346c210050e404732",
-                "url": "https://192.168.50.227:8642/static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa/hall",
-                "key": "static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa",
-                "mimeType": "model/gltf-binary",
-                "metadata": null,
-                "project": null,
-                "driver": null,
-                "licensing": null,
-                "attribution": null,
-                "tags": null,
-                "createdAt": "2023-06-22T00:18:54.000Z",
-                "updatedAt": "2023-06-22T00:18:54.000Z",
-                "staticResourceType": "model3d",
-                "userId": null,
-                "parentResourceId": null,
-                "variants": [
-                  {
-                    "id": "5f04be00-1092-11ee-950f-67ebb62596fa",
-                    "url": "https://192.168.50.227:8642/static-resources/model/5f035e70-1092-11ee-950f-67ebb62596fa/hall",
-                    "metadata": "{\"size\":11370728}",
-                    "staticResourceId": "5f046fe0-1092-11ee-950f-67ebb62596fa"
-                  }
-                ]
-              },
-              "gltfStaticResource": null,
-              "fbxStaticResource": null,
-              "usdzStaticResource": null,
-              "thumbnail": null
-            },
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -588,10 +503,11 @@
         {
           "name": "envmap",
           "props": {
-            "type": "Default",
+            "type": "Bake",
             "envMapTextureType": "Equirectangular",
             "envMapSourceColor": 4095,
-            "envMapSourceURL": "__$project$__/ee-development-test-suite/envmaps-New-EnvMap%20Bake.ktx2",
+            "envMapSourceURL": "",
+            "envMapSourceEntityUUID": "43086029-1f3a-4c2b-872c-5641a5be6438",
             "envMapIntensity": 1
           }
         },
@@ -664,7 +580,7 @@
       "index": 6,
       "name": "bpcem-hall-bake-1"
     },
-    "undefined": {
+    "43086029-1f3a-4c2b-872c-5641a5be6439": {
       "components": [
         {
           "name": "transform",

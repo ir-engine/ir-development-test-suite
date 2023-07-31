@@ -1,14 +1,14 @@
-import { Engine } from "@etherealengine/engine/src/ecs/classes/Engine"
-import { createEntity } from "@etherealengine/engine/src/ecs/functions/EntityFunctions"
-import { Physics } from "@etherealengine/engine/src/physics/classes/Physics"
-import { CollisionGroups, DefaultCollisionMask } from "@etherealengine/engine/src/physics/enums/CollisionGroups"
-import { getInteractionGroups } from "@etherealengine/engine/src/physics/functions/getInteractionGroups"
-import { setTransformComponent } from "@etherealengine/engine/src/transform/components/TransformComponent"
-import { Vector3 } from "three"
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d-compat'
-import { Entity } from "@etherealengine/engine/src/ecs/classes/Entity"
-import { getState } from "@etherealengine/hyperflux/functions/StateFunctions"
-import { PhysicsState } from "@etherealengine/engine/src/physics/state/PhysicsState"
+import { Vector3 } from 'three'
+
+import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
+import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
+import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/engine/src/physics/enums/CollisionGroups'
+import { getInteractionGroups } from '@etherealengine/engine/src/physics/functions/getInteractionGroups'
+import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { getState } from '@etherealengine/hyperflux'
+import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]
@@ -19,20 +19,18 @@ export const createPhysicsObjects = (count: number) => {
 }
 
 export const createPhysicsObject = () => {
-
   const entity = createEntity()
   setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, 1 + Math.random() * 5, 2.5 - Math.random() * 5))
-  
+
   const rigidBodyDesc = RigidBodyDesc.dynamic()
   const colliderDesc = ColliderDesc.ball(0.1)
-  colliderDesc.setCollisionGroups(
-    getInteractionGroups(CollisionGroups.Default, DefaultCollisionMask)
-  )
+  colliderDesc.setCollisionGroups(getInteractionGroups(CollisionGroups.Default, DefaultCollisionMask))
   colliderDesc.setFriction(10).setRestitution(1)
 
   rigidBodyDesc.setCanSleep(false)
 
-  Physics.createRigidBody(entity,getState(PhysicsState).physicsWorld, rigidBodyDesc, [colliderDesc])
+  const physicsWorld = getState(PhysicsState).physicsWorld
+  Physics.createRigidBody(entity, physicsWorld, rigidBodyDesc, [colliderDesc])
 
   return entity
 }

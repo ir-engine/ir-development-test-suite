@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import { Mesh, MeshBasicMaterial, MeshNormalMaterial, MeshStandardMaterial, SphereGeometry } from 'three'
 
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
+import {
+  removeComponent,
+  setComponent,
+  useComponent
+} from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity, removeEntity, useEntityContext } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { createPhysicsObjects } from './utils/common/loadPhysicsHelpers'
-import { Template } from './utils/template'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
-import { Mesh, MeshBasicMaterial, MeshNormalMaterial, MeshStandardMaterial, SphereGeometry } from 'three'
 import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
-import { removeComponent, setComponent, useComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
-import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
-import { XRState } from '@etherealengine/engine/src/xr/XRState'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
 import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSystem'
+import { XRState } from '@etherealengine/engine/src/xr/XRState'
+
+import { createPhysicsObjects } from './utils/common/loadPhysicsHelpers'
+import { Template } from './utils/template'
 
 const LightProbe = () => {
   const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState).environment)

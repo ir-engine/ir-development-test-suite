@@ -1,11 +1,12 @@
-import React, {useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
+import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, sRGBEncoding, Texture } from 'three'
+
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
 import { Template } from './utils/template'
-import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, Texture, sRGBEncoding } from 'three'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
 let mesh
 
@@ -37,13 +38,13 @@ const KTX2DND = () => {
             mesh.material.map = texture
             mesh.material.needsUpdate = true
           },
-          () => { },
-          () => { }
+          () => {},
+          () => {}
         )
         return
       }
 
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.addEventListener('load', function (event) {
         function imgCallback(event) {
           const texture = new Texture(event.target)
@@ -68,11 +69,14 @@ const KTX2DND = () => {
     })
   })
 
-  return <div style={{ height: '100%', width: '100%', background: 'white' }} ref={onDropTarget}>Drag and drop textures here!</div>
+  return (
+    <div style={{ height: '100%', width: '100%', background: 'white' }} ref={onDropTarget}>
+      Drag and drop textures here!
+    </div>
+  )
 }
 
 export default function KTX2() {
-
   useEffect(() => {
     mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
     mesh.position.y += 1
