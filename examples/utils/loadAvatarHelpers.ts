@@ -13,27 +13,23 @@ import {
   xrTargetLeftHandSuffix,
   xrTargetRightHandSuffix
 } from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
-import {
-  animateModel,
-  boneMatchAvatarModel,
-  loadAvatarModelAsset,
-  rigAvatarModel,
-  setupAvatarModel
-} from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
+import { loadAvatarModelAsset, rigAvatarModel } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { addComponent, getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { Network } from '@etherealengine/engine/src/networking/classes/Network'
 import { NetworkPeerFunctions } from '@etherealengine/engine/src/networking/functions/NetworkPeerFunctions'
-import { WorldNetworkAction } from '@etherealengine/engine/src/networking/functions/WorldNetworkAction'
-import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { AvatarType } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
+import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { config } from '@etherealengine/common/src/config'
+import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -110,15 +106,15 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   setTimeout(() => {
     dispatchAction({
-      ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
+      ...XRAction.spawnIKTarget({ name: 'head', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
       $from: userId
     })
     dispatchAction({
-      ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
+      ...XRAction.spawnIKTarget({ name: 'lefthand', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
       $from: userId
     })
     dispatchAction({
-      ...XRAction.spawnIKTarget({ handedness: 'right', entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID }),
+      ...XRAction.spawnIKTarget({ name: 'righthand', entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID }),
       $from: userId
     })
   }, 100)
@@ -128,31 +124,29 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
   setComponent(entity, AvatarComponent)
-  addComponent(entity, AnimationComponent, {
+  setComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
     animations: [],
     animationSpeed: 1
   })
-  addComponent(entity, AvatarAnimationComponent, {
+  setComponent(entity, AvatarAnimationComponent, {
     animationGraph: {
       states: {},
       transitionRules: {},
-      currentState: null!,
-      stateChanged: () => {}
+      currentState: null!
     },
     rootYRatio: 1,
     locomotion: new Vector3()
   })
   setTransformComponent(entity, position)
-  const model = (await loadAvatarModelAsset(filename)) as Object3D
-  addObjectToGroup(entity, model)
-  addComponent(entity, VisibleComponent, true)
-  boneMatchAvatarModel(entity)(model)
+  const model = (await loadAvatarModelAsset(filename))!
+  setComponent(entity, VisibleComponent, true)
   rigAvatarModel(entity)(model)
+  addObjectToGroup(entity, model.scene)
 
   //Change material color to white
-  model.traverse((obj: Mesh) => {
+  model.scene.traverse((obj: Mesh) => {
     if (obj.isMesh) {
       obj.material = new MeshPhongMaterial({ color: new Color('white') })
     }
@@ -160,38 +154,20 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 
   const ac = getComponent(entity, AnimationComponent)
   //Apply tpose
-  ac.mixer?.stopAllAction()
+  ac.mixer.stopAllAction()
   return entity
 }
 
 export const loadAssetWithAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i)
-  setComponent(entity, AvatarComponent)
-  addComponent(entity, AnimationComponent, {
-    // empty object3d as the mixer gets replaced when model is loaded
-    mixer: new AnimationMixer(new Object3D()),
-    animations: [],
-    animationSpeed: 1
-  })
-  const animationComponent = getComponent(entity, AnimationComponent)
-  addComponent(entity, AvatarAnimationComponent, {
-    animationGraph: {
-      states: {},
-      transitionRules: {},
-      currentState: null!,
-      stateChanged: null!
-    },
-    rootYRatio: 1,
-    locomotion: new Vector3()
-  })
   setTransformComponent(entity, position)
-  const object = (await loadAvatarModelAsset(filename)) as Object3D
-  addObjectToGroup(entity, object)
-  addComponent(entity, VisibleComponent, true)
-  const setupLoopableAvatarModel = setupAvatarModel(entity)
-  setupLoopableAvatarModel(object)
-  animationComponent.mixer.stopAllAction()
-  animateModel(entity)
+  setComponent(entity, VisibleComponent, true)
+  setComponent(entity, ModelComponent, { src: filename })
+  setComponent(entity, LoopAnimationComponent, {
+    hasAvatarAnimations: true,
+    activeClipIndex: 0,
+    animationPack: `${config.client.fileServer}/projects/ee-development-test-suite/assets/animations/test-animation.fbx`
+  })
   return entity
 }

@@ -7,6 +7,7 @@ import { getMutableState, getState, useHookstate } from '@etherealengine/hyperfl
 import { mockAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/simulateMovement'
 import { Template } from './utils/template'
+import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
@@ -17,6 +18,7 @@ export default function AvatarBenchmarking() {
   }, [])
 
   useEffect(() => {
+    if (!Engine.instance.worldNetwork) return
     if (engineState.connectedWorld.value && avatarList.length) {
       const queryString = window.location.search
       const urlParams = new URLSearchParams(queryString)
