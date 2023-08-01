@@ -6,25 +6,27 @@ import { getMutableState, getState, useHookstate } from '@etherealengine/hyperfl
 
 import { mockAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 export default function AvatarTest() {
-  const worldNetwork = useHookstate(Engine.instance.worldNetworkState)
+  const worldNetworkID = useHookstate(getMutableState(NetworkState).hostIds.world)
   const avatarList = useHookstate(getMutableState(AvatarState).avatarList)
+  const spawned = useHookstate(false)
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {
-    if (worldNetwork.value) {
-      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.url?.endsWith('vrm'))
+    if (worldNetworkID.value && avatarList.length && !spawned.value) {
+      const avatars = getState(AvatarState).avatarList
       mockNetworkAvatars(avatars)
-      // mockIKAvatars(avatars)
-      // mockAnimAvatars(avatars)
-      // mockTPoseAvatars(avatars)
+      mockIKAvatars(avatars)
+      mockAnimAvatars(avatars)
+      mockTPoseAvatars(avatars)
+      spawned.set(true)
     }
-  }, [worldNetwork, avatarList])
+  }, [worldNetworkID, avatarList])
 
   return <Template />
 }

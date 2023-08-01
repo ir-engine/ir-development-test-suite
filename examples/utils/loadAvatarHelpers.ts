@@ -40,7 +40,7 @@ export const getAvatarLists = () => {
 export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const userId = ('user' + i) as UserId & PeerID
+    const userId = avatar.name + ' Networked' as UserId & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
 
@@ -103,7 +103,7 @@ export const mockIKAvatars = async (avatarList: AvatarType[]) => {
 }
 
 export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number) => {
-  const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
+  const userId = loadNetworkAvatar(avatar, i, avatar.name + ' IK', position.x)
   setTimeout(() => {
     dispatchAction({
       ...XRAction.spawnIKTarget({ name: 'head', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
@@ -120,29 +120,12 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   }, 100)
 }
 
-export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
+export const loadAssetTPose = async (filename: string, position: Vector3, i: number) => {
   const entity = createEntity()
-  setComponent(entity, NameComponent, 'TPose Avatar ' + i)
-  setComponent(entity, AvatarComponent)
-  setComponent(entity, AnimationComponent, {
-    // empty object3d as the mixer gets replaced when model is loaded
-    mixer: new AnimationMixer(new Object3D()),
-    animations: [],
-    animationSpeed: 1
-  })
-  setComponent(entity, AvatarAnimationComponent, {
-    animationGraph: {
-      states: {},
-      transitionRules: {},
-      currentState: null!
-    },
-    rootYRatio: 1,
-    locomotion: new Vector3()
-  })
+  setComponent(entity, NameComponent, filename.split('/').pop() + ' TPose ' + i)
   setTransformComponent(entity, position)
-  const model = (await loadAvatarModelAsset(filename))!
   setComponent(entity, VisibleComponent, true)
-  rigAvatarModel(entity)(model)
+  const model = (await loadAvatarModelAsset(filename))!
   addObjectToGroup(entity, model.scene)
 
   //Change material color to white
@@ -152,15 +135,12 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
     }
   })
 
-  const ac = getComponent(entity, AnimationComponent)
-  //Apply tpose
-  ac.mixer.stopAllAction()
   return entity
 }
 
-export const loadAssetWithAnimation = async (filename, position: Vector3, i: number) => {
+export const loadAssetWithAnimation = async (filename: string, position: Vector3, i: number) => {
   const entity = createEntity()
-  setComponent(entity, NameComponent, 'Anim Avatar ' + i)
+  setComponent(entity, NameComponent, filename.split('/').pop() + ' Anim ' + i)
   setTransformComponent(entity, position)
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, ModelComponent, { src: filename })
