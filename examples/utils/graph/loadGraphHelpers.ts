@@ -10,22 +10,12 @@ import { PhysicsState } from "@etherealengine/engine/src/physics/state/PhysicsSt
 import { getState } from "@etherealengine/hyperflux/functions/StateFunctions"
 import { setComponent } from "@etherealengine/engine/src/ecs/functions/ComponentFunctions"
 import { BehaveGraphComponent } from "@etherealengine/engine/src/behave-graph/components/BehaveGraphComponent"
+import { AnimationManager } from "@etherealengine/engine/src/avatar/AnimationManager"
 
-export const createPhysicsObject = () => {
+export const createDefaultObject = () => {
 
   const entity = createEntity()
-  setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, 1 + Math.random() * 5, 2.5 - Math.random() * 5))
+  setTransformComponent(entity, new Vector3(0,0,0))
   
-  const rigidBodyDesc = RigidBodyDesc.dynamic()
-  const colliderDesc = ColliderDesc.ball(0.1)
-  colliderDesc.setCollisionGroups(
-    getInteractionGroups(CollisionGroups.Default, DefaultCollisionMask)
-  )
-  colliderDesc.setFriction(10).setRestitution(1)
-
-  rigidBodyDesc.setCanSleep(false)
-
-  Physics.createRigidBody(entity, getState(PhysicsState).physicsWorld, rigidBodyDesc, [colliderDesc])
-  setComponent(entity,BehaveGraphComponent,{run:true})
   return entity
 }
