@@ -110,11 +110,11 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       $from: userId
     })
     dispatchAction({
-      ...XRAction.spawnIKTarget({ name: 'lefthand', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
+      ...XRAction.spawnIKTarget({ name: 'leftHand', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
       $from: userId
     })
     dispatchAction({
-      ...XRAction.spawnIKTarget({ name: 'righthand', entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID }),
+      ...XRAction.spawnIKTarget({ name: 'rightHand', entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID }),
       $from: userId
     })
   }, 100)
