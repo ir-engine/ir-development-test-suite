@@ -1,6 +1,240 @@
 {
   "nodes": [
     {
+      "id": "5e2460b1-fc4d-44c3-8552-ffdd90d6d600",
+      "type": "flow/doOnce",
+      "metadata": {
+        "positionX": "-1694.6775362056142",
+        "positionY": "532.7835243085257"
+      },
+      "flows": {
+        "flow": {
+          "nodeId": "cb4ca45b-5c02-47da-b00a-9378ccad53c1",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "a189cad0-95e0-4b09-b908-6dd5090388d8",
+      "type": "flow/doOnce",
+      "metadata": {
+        "positionX": "-1696.329291535486",
+        "positionY": "304.0154111213315"
+      },
+      "flows": {
+        "flow": {
+          "nodeId": "7d501972-ac59-450d-889e-3066af0fd1f3",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "fa79f21e-203c-4bb5-8686-61f98d6bdd2b",
+      "type": "flow/doOnce",
+      "metadata": {
+        "positionX": "-1692.199903210807",
+        "positionY": "55.42623397568016"
+      },
+      "flows": {
+        "flow": {
+          "nodeId": "463fd248-cd64-415e-a872-55a276eb15a0",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "8f01e9a4-e7d4-43e8-9f3b-a6af982704ca",
+      "type": "flow/doOnce",
+      "metadata": {
+        "positionX": "-1694.1820096066529",
+        "positionY": "-174.16775687644977"
+      },
+      "flows": {
+        "flow": {
+          "nodeId": "ebe57ac5-2b42-4978-91d4-265f0e35a878",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "25748546-49aa-4814-a973-b827a00e5762",
+      "type": "engine/sequence",
+      "metadata": {
+        "positionX": "-1114.8208161656876",
+        "positionY": "506.9166037563274"
+      },
+      "flows": {
+        "1": {
+          "nodeId": "8f01e9a4-e7d4-43e8-9f3b-a6af982704ca",
+          "socket": "reset"
+        },
+        "2": {
+          "nodeId": "fa79f21e-203c-4bb5-8686-61f98d6bdd2b",
+          "socket": "reset"
+        },
+        "3": {
+          "nodeId": "a189cad0-95e0-4b09-b908-6dd5090388d8",
+          "socket": "reset"
+        },
+        "4": {
+          "nodeId": "5e2460b1-fc4d-44c3-8552-ffdd90d6d600",
+          "socket": "reset"
+        }
+      }
+    },
+    {
+      "id": "ca40c7f9-5bc4-44aa-b5fb-1cbc099ed644",
+      "type": "engine/onButtonState",
+      "metadata": {
+        "positionX": "-2121.981983866258",
+        "positionY": "512.9293901106784"
+      },
+      "parameters": {
+        "button": {
+          "value": "KeyA"
+        }
+      },
+      "flows": {
+        "Down": {
+          "nodeId": "5e2460b1-fc4d-44c3-8552-ffdd90d6d600",
+          "socket": "flow"
+        },
+        "Up": {
+          "nodeId": "21d4eb97-b53e-4b86-9bd5-cc434b968af3",
+          "socket": "flow"
+        },
+        "Pressed": {
+          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "4d52ec2e-bcc3-4f9f-8bed-5bccdcc4dbdb",
+      "type": "engine/onButtonState",
+      "metadata": {
+        "positionX": "-2129.9988921232125",
+        "positionY": "290.06346866110624"
+      },
+      "parameters": {
+        "button": {
+          "value": "KeyD"
+        }
+      },
+      "flows": {
+        "Down": {
+          "nodeId": "a189cad0-95e0-4b09-b908-6dd5090388d8",
+          "socket": "flow"
+        },
+        "Up": {
+          "nodeId": "21d4eb97-b53e-4b86-9bd5-cc434b968af3",
+          "socket": "flow"
+        },
+        "Pressed": {
+          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "90c774be-4d17-4d7b-bc19-6b0375a571aa",
+      "type": "engine/onButtonState",
+      "metadata": {
+        "positionX": "-2124.899948708495",
+        "positionY": "54.80890987949175"
+      },
+      "parameters": {
+        "button": {
+          "value": "KeyS"
+        }
+      },
+      "flows": {
+        "Down": {
+          "nodeId": "fa79f21e-203c-4bb5-8686-61f98d6bdd2b",
+          "socket": "flow"
+        },
+        "Up": {
+          "nodeId": "21d4eb97-b53e-4b86-9bd5-cc434b968af3",
+          "socket": "flow"
+        },
+        "Pressed": {
+          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "d4e44f4d-5916-49ca-b384-f48f2e3ad431",
+      "type": "engine/onButtonState",
+      "metadata": {
+        "positionX": "-2129.568204448365",
+        "positionY": "-173.92052995243964"
+      },
+      "parameters": {
+        "button": {
+          "value": "KeyW"
+        }
+      },
+      "flows": {
+        "Down": {
+          "nodeId": "8f01e9a4-e7d4-43e8-9f3b-a6af982704ca",
+          "socket": "flow"
+        },
+        "Up": {
+          "nodeId": "21d4eb97-b53e-4b86-9bd5-cc434b968af3",
+          "socket": "flow"
+        },
+        "Pressed": {
+          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
+          "socket": "flow"
+        }
+      }
+    },
+    {
+      "id": "064d9ec1-a840-4259-827b-445369bd3955",
+      "type": "engine/getAvatarAnimations",
+      "metadata": {
+        "positionX": "-1802.1020656476016",
+        "positionY": "747.3117523451175"
+      },
+      "parameters": {
+        "animationName": {
+          "value": "idle"
+        }
+      }
+    },
+    {
+      "id": "21d4eb97-b53e-4b86-9bd5-cc434b968af3",
+      "type": "engine/playGltfAnimation",
+      "metadata": {
+        "positionX": "-1307.1713263461074",
+        "positionY": "541.1594711764892"
+      },
+      "parameters": {
+        "isAvatar": {
+          "value": true
+        },
+        "animationName": {
+          "link": {
+            "nodeId": "064d9ec1-a840-4259-827b-445369bd3955",
+            "socket": "animationName"
+          }
+        },
+        "entity": {
+          "link": {
+            "nodeId": "dbb446af-07f1-404b-bef8-a48c0270ddeb",
+            "socket": "result"
+          }
+        }
+      },
+      "flows": {
+        "flow": {
+          "nodeId": "25748546-49aa-4814-a973-b827a00e5762",
+          "socket": "flow"
+        }
+      }
+    },
+    {
       "id": "45789964-ed1c-4664-b804-625d66469764",
       "type": "engine/playGltfAnimation",
       "metadata": {
@@ -51,19 +285,6 @@
       }
     },
     {
-      "id": "d851b010-2348-40bc-a242-5eb2ea6fdb31",
-      "type": "debug/log",
-      "metadata": {
-        "positionX": "-597.4292312071652",
-        "positionY": "277.99040837629525"
-      },
-      "parameters": {
-        "text": {
-          "value": "DEBUG running"
-        }
-      }
-    },
-    {
       "id": "92f3de5a-b27a-4f43-9a4a-5f579c54cfc6",
       "type": "debug/log",
       "metadata": {
@@ -90,118 +311,6 @@
       }
     },
     {
-      "id": "7017d62b-f09c-4659-b0bc-8d9590bda6d1",
-      "type": "time/delay",
-      "metadata": {
-        "positionX": "-1040.4241900813997",
-        "positionY": "368.8735897229404"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "9b50815c-afd7-4f41-a41a-fb3309df2468",
-          "socket": "reset"
-        }
-      }
-    },
-    {
-      "id": "64420e8a-a923-42b0-9578-1834078e983d",
-      "type": "time/delay",
-      "metadata": {
-        "positionX": "-1035.9007297267858",
-        "positionY": "184.70413242795044"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "c9ba952f-4eb3-44e7-82af-86ea28e5ba51",
-          "socket": "reset"
-        }
-      }
-    },
-    {
-      "id": "99fe77e0-ae53-4a2c-b31b-53573a9bb6fc",
-      "type": "time/delay",
-      "metadata": {
-        "positionX": "-1034.5453037807033",
-        "positionY": "1.011714132469507"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "817b4820-1358-4d1b-912f-5b5f6767dedc",
-          "socket": "reset"
-        }
-      }
-    },
-    {
-      "id": "9b50815c-afd7-4f41-a41a-fb3309df2468",
-      "type": "flow/doOnce",
-      "metadata": {
-        "positionX": "-1404.9620007536391",
-        "positionY": "355.81621231687495"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "cb4ca45b-5c02-47da-b00a-9378ccad53c1",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "c9ba952f-4eb3-44e7-82af-86ea28e5ba51",
-      "type": "flow/doOnce",
-      "metadata": {
-        "positionX": "-1407.173404579576",
-        "positionY": "209.126425196411"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "7d501972-ac59-450d-889e-3066af0fd1f3",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "817b4820-1358-4d1b-912f-5b5f6767dedc",
-      "type": "flow/doOnce",
-      "metadata": {
-        "positionX": "-1389.9574682462921",
-        "positionY": "-8.6508361450733"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "463fd248-cd64-415e-a872-55a276eb15a0",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "28e9ca6b-23e7-4133-bc35-bc0f3c5ce2fa",
-      "type": "time/delay",
-      "metadata": {
-        "positionX": "-1014.1747384259934",
-        "positionY": "-207.7164065617999"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "bc27a004-b293-489f-ad84-b5ee61881578",
-          "socket": "reset"
-        }
-      }
-    },
-    {
-      "id": "bc27a004-b293-489f-ad84-b5ee61881578",
-      "type": "flow/doOnce",
-      "metadata": {
-        "positionX": "-1382.2880091261359",
-        "positionY": "-206.8007025826448"
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "ebe57ac5-2b42-4978-91d4-265f0e35a878",
-          "socket": "flow"
-        }
-      }
-    },
-    {
       "id": "495e4329-7d63-487b-a801-bd5d0e29da22",
       "type": "engine/getAvatarAnimations",
       "metadata": {
@@ -218,8 +327,8 @@
       "id": "dbb446af-07f1-404b-bef8-a48c0270ddeb",
       "type": "engine/entity",
       "metadata": {
-        "positionX": "-1407.6339639413293",
-        "positionY": "130.7288613875599"
+        "positionX": "-2303.669061655972",
+        "positionY": "200.48371731794927"
       },
       "parameters": {
         "a": {
@@ -231,116 +340,11 @@
       }
     },
     {
-      "id": "b89caaa6-7ad5-4906-8030-9811262d25d8",
-      "type": "flow/multiGate",
-      "metadata": {
-        "positionX": "-1685.470277866866",
-        "positionY": "312.9880146879081"
-      },
-      "parameters": {
-        "loop": {
-          "value": true
-        }
-      },
-      "flows": {
-        "1": {
-          "nodeId": "9b50815c-afd7-4f41-a41a-fb3309df2468",
-          "socket": "flow"
-        },
-        "2": {
-          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "67c1c573-a152-4d7b-aa01-da4e08224575",
-      "type": "flow/multiGate",
-      "metadata": {
-        "positionX": "-1687.3222858646855",
-        "positionY": "131.52838465056104"
-      },
-      "parameters": {
-        "loop": {
-          "value": true
-        }
-      },
-      "flows": {
-        "1": {
-          "nodeId": "c9ba952f-4eb3-44e7-82af-86ea28e5ba51",
-          "socket": "flow"
-        },
-        "2": {
-          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "d5056da3-9f37-4dd3-93b8-c6f2d429400c",
-      "type": "flow/multiGate",
-      "metadata": {
-        "positionX": "-1688.7983673836607",
-        "positionY": "-44.271430742662155"
-      },
-      "parameters": {
-        "loop": {
-          "value": true
-        }
-      },
-      "flows": {
-        "1": {
-          "nodeId": "817b4820-1358-4d1b-912f-5b5f6767dedc",
-          "socket": "flow"
-        },
-        "2": {
-          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "c5639fea-2c0c-4771-9593-26abccb3a975",
-      "type": "flow/multiGate",
-      "metadata": {
-        "positionX": "-1684.6924036143735",
-        "positionY": "-223.06044254035342"
-      },
-      "parameters": {
-        "loop": {
-          "value": true
-        }
-      },
-      "flows": {
-        "1": {
-          "nodeId": "bc27a004-b293-489f-ad84-b5ee61881578",
-          "socket": "flow"
-        },
-        "2": {
-          "nodeId": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
-          "socket": "flow"
-        }
-      }
-    },
-    {
       "id": "ad1bd2d6-c31a-46cf-a700-efe460e42ef8",
       "type": "engine/getAvatarAnimations",
       "metadata": {
-        "positionX": "-2597.28779882614",
-        "positionY": "356.21055951194785"
-      },
-      "parameters": {
-        "animationName": {
-          "value": "run_right"
-        }
-      }
-    },
-    {
-      "id": "94161bd0-6fd0-4bda-9683-faca3388ed10",
-      "type": "engine/getAvatarAnimations",
-      "metadata": {
-        "positionX": "-2603.55259240272",
-        "positionY": "163.1569212296189"
+        "positionX": "-2570.3144481576405",
+        "positionY": "559.3040233688803"
       },
       "parameters": {
         "animationName": {
@@ -349,11 +353,24 @@
       }
     },
     {
+      "id": "94161bd0-6fd0-4bda-9683-faca3388ed10",
+      "type": "engine/getAvatarAnimations",
+      "metadata": {
+        "positionX": "-2582.622684023881",
+        "positionY": "374.6985281954363"
+      },
+      "parameters": {
+        "animationName": {
+          "value": "run_right"
+        }
+      }
+    },
+    {
       "id": "1a5dca6a-48f8-4a01-8fcb-eba8c1032348",
       "type": "engine/getAvatarAnimations",
       "metadata": {
-        "positionX": "-2598.6727236651914",
-        "positionY": "1.2133010722027961"
+        "positionX": "-2584.3927144877507",
+        "positionY": "83.72002076408154"
       },
       "parameters": {
         "animationName": {
@@ -365,8 +382,8 @@
       "id": "cb4ca45b-5c02-47da-b00a-9378ccad53c1",
       "type": "engine/playGltfAnimation",
       "metadata": {
-        "positionX": "-1200.0529809119173",
-        "positionY": "374.04659425672804"
+        "positionX": "-1534.6068793614083",
+        "positionY": "492.82957448798055"
       },
       "parameters": {
         "isAvatar": {
@@ -374,8 +391,8 @@
         },
         "entity": {
           "link": {
-            "nodeId": "10299717-dd77-499b-92f6-7e3922df38c6",
-            "socket": "entity"
+            "nodeId": "dbb446af-07f1-404b-bef8-a48c0270ddeb",
+            "socket": "result"
           }
         },
         "animationName": {
@@ -384,20 +401,14 @@
             "socket": "animationName"
           }
         }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "7017d62b-f09c-4659-b0bc-8d9590bda6d1",
-          "socket": "flow"
-        }
       }
     },
     {
       "id": "7d501972-ac59-450d-889e-3066af0fd1f3",
       "type": "engine/playGltfAnimation",
       "metadata": {
-        "positionX": "-1198.321480085275",
-        "positionY": "180.2296248087295"
+        "positionX": "-1526.6918020965047",
+        "positionY": "246.4449578302536"
       },
       "parameters": {
         "isAvatar": {
@@ -415,20 +426,14 @@
             "socket": "animationName"
           }
         }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "64420e8a-a923-42b0-9578-1834078e983d",
-          "socket": "flow"
-        }
       }
     },
     {
       "id": "463fd248-cd64-415e-a872-55a276eb15a0",
       "type": "engine/playGltfAnimation",
       "metadata": {
-        "positionX": "-1195.3096830281338",
-        "positionY": "-9.736477392645654"
+        "positionX": "-1529.2103989815266",
+        "positionY": "30.76360944806237"
       },
       "parameters": {
         "isAvatar": {
@@ -436,8 +441,8 @@
         },
         "entity": {
           "link": {
-            "nodeId": "10299717-dd77-499b-92f6-7e3922df38c6",
-            "socket": "entity"
+            "nodeId": "dbb446af-07f1-404b-bef8-a48c0270ddeb",
+            "socket": "result"
           }
         },
         "animationName": {
@@ -446,20 +451,14 @@
             "socket": "animationName"
           }
         }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "99fe77e0-ae53-4a2c-b31b-53573a9bb6fc",
-          "socket": "flow"
-        }
       }
     },
     {
       "id": "5d30e282-2b36-42a2-b90a-2f3427a0405d",
       "type": "engine/getAvatarAnimations",
       "metadata": {
-        "positionX": "-2600.5214584263686",
-        "positionY": "-155.594512786817"
+        "positionX": "-2589.4147846216924",
+        "positionY": "-107.99448219534847"
       },
       "parameters": {
         "animationName": {
@@ -471,8 +470,8 @@
       "id": "ebe57ac5-2b42-4978-91d4-265f0e35a878",
       "type": "engine/playGltfAnimation",
       "metadata": {
-        "positionX": "-1183.6359763147807",
-        "positionY": "-205.96955664986365"
+        "positionX": "-1529.0655814433737",
+        "positionY": "-185.57943509967225"
       },
       "parameters": {
         "isAvatar": {
@@ -480,8 +479,8 @@
         },
         "entity": {
           "link": {
-            "nodeId": "10299717-dd77-499b-92f6-7e3922df38c6",
-            "socket": "entity"
+            "nodeId": "dbb446af-07f1-404b-bef8-a48c0270ddeb",
+            "socket": "result"
           }
         },
         "animationName": {
@@ -490,20 +489,14 @@
             "socket": "animationName"
           }
         }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "28e9ca6b-23e7-4133-bc35-bc0f3c5ce2fa",
-          "socket": "flow"
-        }
       }
     },
     {
       "id": "b9c9c3c6-3468-47a4-a382-214d2b388919",
       "type": "math/multiply/float",
       "metadata": {
-        "positionX": "-819.8260504813951",
-        "positionY": "-326.52577636794797"
+        "positionX": "-1248.472055705366",
+        "positionY": "-191.73096977188675"
       },
       "parameters": {
         "a": {
@@ -521,8 +514,8 @@
       "id": "4d05d4a0-c046-455d-9465-3d01993309c6",
       "type": "math/multiply/float",
       "metadata": {
-        "positionX": "-365.09415139558246",
-        "positionY": "-184.9355108008357"
+        "positionX": "-969.9724010280773",
+        "positionY": "14.289428620774899"
       },
       "parameters": {
         "b": {
@@ -543,8 +536,8 @@
       "id": "39ee8423-22d4-4490-8611-29f659f3cd12",
       "type": "math/multiply/float",
       "metadata": {
-        "positionX": "-357.4689166287067",
-        "positionY": "-294.65587313878837"
+        "positionX": "-973.3570225520871",
+        "positionY": "-89.54056708166945"
       },
       "parameters": {
         "b": {
@@ -573,8 +566,8 @@
       "id": "87a71c6f-6b0a-4236-90fe-d3f52fbd521a",
       "type": "engine/teleportEntity",
       "metadata": {
-        "positionX": "-811.0148814356845",
-        "positionY": "272.6595504080783"
+        "positionX": "-1305.7297558213816",
+        "positionY": "339.8466829030159"
       },
       "parameters": {
         "targetPosition": {
@@ -588,12 +581,6 @@
             "nodeId": "10299717-dd77-499b-92f6-7e3922df38c6",
             "socket": "entity"
           }
-        }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "d851b010-2348-40bc-a242-5eb2ea6fdb31",
-          "socket": "flow"
         }
       }
     },
@@ -669,8 +656,8 @@
       "id": "888de1ff-1826-467f-a2ff-cc0d5ca87272",
       "type": "math/add/vec3",
       "metadata": {
-        "positionX": "-802.0326490743608",
-        "positionY": "143.4129008559433"
+        "positionX": "-1048.5235293746202",
+        "positionY": "182.90181190173618"
       },
       "parameters": {
         "a": {
@@ -768,8 +755,8 @@
       "id": "9308ed0b-2033-47f6-9c6a-6d39d4061721",
       "type": "math/toVec3/float",
       "metadata": {
-        "positionX": "-570.6978181580192",
-        "positionY": "-28.348067560700585"
+        "positionX": "-1239.025672230673",
+        "positionY": "160.21187791221837"
       },
       "parameters": {
         "z": {
@@ -790,20 +777,20 @@
       "id": "6f109145-3475-4074-a5c9-a3ba39c24541",
       "type": "math/add/float",
       "metadata": {
-        "positionX": "-555.937731956908",
-        "positionY": "-288.48333833591494"
+        "positionX": "-1092.772479086735",
+        "positionY": "-90.21000514510995"
       },
       "parameters": {
+        "a": {
+          "link": {
+            "nodeId": "d4e44f4d-5916-49ca-b384-f48f2e3ad431",
+            "socket": "value"
+          }
+        },
         "b": {
           "link": {
             "nodeId": "a9288b03-6bfb-447d-b555-94fe760fa406",
             "socket": "result"
-          }
-        },
-        "a": {
-          "link": {
-            "nodeId": "49ab469f-d7f8-4b7d-b432-bcb7fcd8a86a",
-            "socket": "value"
           }
         }
       }
@@ -812,13 +799,13 @@
       "id": "bd606b87-b864-4d16-a60e-f6212a89446a",
       "type": "math/add/float",
       "metadata": {
-        "positionX": "-546.9167713152958",
-        "positionY": "-177.86000181248738"
+        "positionX": "-1090.2818212875536",
+        "positionY": "14.047161627406496"
       },
       "parameters": {
         "a": {
           "link": {
-            "nodeId": "633e11ad-da4d-4fd2-8923-04120107c9c2",
+            "nodeId": "ca40c7f9-5bc4-44aa-b5fb-1cbc099ed644",
             "socket": "value"
           }
         },
@@ -834,8 +821,8 @@
       "id": "6b7d8f20-222a-4da0-b9ca-2fd941ae2e21",
       "type": "math/multiply/float",
       "metadata": {
-        "positionX": "-752.7128450690383",
-        "positionY": "-88.55469795427847"
+        "positionX": "-1328.1806772278742",
+        "positionY": "19.838395970276594"
       },
       "parameters": {
         "b": {
@@ -843,7 +830,7 @@
         },
         "a": {
           "link": {
-            "nodeId": "801ecaee-b4e3-4c86-99e2-26764ea604c3",
+            "nodeId": "4d52ec2e-bcc3-4f9f-8bed-5bccdcc4dbdb",
             "socket": "value"
           }
         }
@@ -853,8 +840,8 @@
       "id": "a9288b03-6bfb-447d-b555-94fe760fa406",
       "type": "math/multiply/float",
       "metadata": {
-        "positionX": "-754.5602001884107",
-        "positionY": "-202.35173503888862"
+        "positionX": "-1324.2340509273115",
+        "positionY": "-95.31092319014627"
       },
       "parameters": {
         "b": {
@@ -862,97 +849,9 @@
         },
         "a": {
           "link": {
-            "nodeId": "cf9b9896-31c7-48ac-ae89-879c48739480",
+            "nodeId": "90c774be-4d17-4d7b-bc19-6b0375a571aa",
             "socket": "value"
           }
-        }
-      }
-    },
-    {
-      "id": "801ecaee-b4e3-4c86-99e2-26764ea604c3",
-      "type": "engine/onButtonState",
-      "metadata": {
-        "positionX": "-2099.416579306458",
-        "positionY": "324.9368280715831"
-      },
-      "parameters": {
-        "button": {
-          "value": "KeyD"
-        },
-        "buttonState": {
-          "value": "pressed"
-        }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "b89caaa6-7ad5-4906-8030-9811262d25d8",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "633e11ad-da4d-4fd2-8923-04120107c9c2",
-      "type": "engine/onButtonState",
-      "metadata": {
-        "positionX": "-2099.470140652675",
-        "positionY": "143.30121987042222"
-      },
-      "parameters": {
-        "button": {
-          "value": "KeyA"
-        },
-        "buttonState": {
-          "value": "pressed"
-        }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "67c1c573-a152-4d7b-aa01-da4e08224575",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "49ab469f-d7f8-4b7d-b432-bcb7fcd8a86a",
-      "type": "engine/onButtonState",
-      "metadata": {
-        "positionX": "-2095.2998842335837",
-        "positionY": "-179.93150036665193"
-      },
-      "parameters": {
-        "button": {
-          "value": "KeyW"
-        },
-        "buttonState": {
-          "value": "pressed"
-        }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "c5639fea-2c0c-4771-9593-26abccb3a975",
-          "socket": "flow"
-        }
-      }
-    },
-    {
-      "id": "cf9b9896-31c7-48ac-ae89-879c48739480",
-      "type": "engine/onButtonState",
-      "metadata": {
-        "positionX": "-2103.5566349432925",
-        "positionY": "-19.87065918016853"
-      },
-      "parameters": {
-        "button": {
-          "value": "KeyS"
-        },
-        "buttonState": {
-          "value": "pressed"
-        }
-      },
-      "flows": {
-        "flow": {
-          "nodeId": "d5056da3-9f37-4dd3-93b8-c6f2d429400c",
-          "socket": "flow"
         }
       }
     }
