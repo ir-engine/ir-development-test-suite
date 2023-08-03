@@ -628,7 +628,7 @@
       },
       "parameters": {
         "assetPath": {
-          "value": "__$project$__/projects/default-project/assets/avatars/CyberbotBlack.glb"
+          "value": "__$project$__/default-project/assets/avatars/CyberbotBlack.glb"
         }
       },
       "flows": {

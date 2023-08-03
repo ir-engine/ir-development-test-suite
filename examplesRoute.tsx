@@ -14,8 +14,8 @@ const buttonStyle = {
   boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)', // Adds a slight 3D effect with a box-shadow
   wordWrap: 'break-word',
   borderColor: 'rgba(31, 27, 72, 0.85)', // Sets the outline color to rgb(31, 27, 72, 0.85)
+} as React.CSSProperties;
 
-}
 const Navbar = () => {
   const navbarStyle = {
     display: 'flex',
