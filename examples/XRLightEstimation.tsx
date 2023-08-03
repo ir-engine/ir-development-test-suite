@@ -12,6 +12,7 @@ import {
   useComponent
 } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity, removeEntity, useEntityContext } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
 import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
@@ -19,9 +20,8 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
 import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSystem'
 import { XRState } from '@etherealengine/engine/src/xr/XRState'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { createPhysicsObjects } from './utils/loadPhysicsHelpers'
+import { createPhysicsObjects } from './utils/common/loadPhysicsHelpers'
 import { Template } from './utils/template'
 
 const LightProbe = () => {
