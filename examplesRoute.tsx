@@ -15,7 +15,7 @@ const buttonStyle = {
 }
 
 //@ts-ignore
-const routes = import.meta.glob('./examples/*.tsx', { eager: true }) as Record<string, { default: () => JSX.Element }>
+const routes = Object.fromEntries(Object.entries(import.meta.glob<any>('./examples/*.tsx')).map(([route, lazy]) => [route, React.lazy(lazy)]))
 
 const RoutesList = () => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,15 +26,15 @@ const RoutesList = () => {
   return (
     <div style={{ pointerEvents: 'all' }}>
       <h1>Examples</h1>
-      {Object.entries(routes).map(([route, { default: Element }]) => {
+      {Object.entries(routes).map(([route]) => {
         const path = route.replace('./examples/', '').replace('.tsx', '')
         return (
-          <>
-            <button style={buttonStyle} key={path} onClick={onClick}>
+          <div key={path} >
+            <button style={buttonStyle} onClick={onClick}>
               {path}
             </button>
             <br />
-          </>
+          </div>
         )
       })}
     </div>
@@ -44,9 +44,9 @@ const RoutesList = () => {
 const ExampleRoutes = () => {
   return (
     <Routes>
-      {Object.entries(routes).map(([route, { default: Element }]) => {
+      {Object.entries(routes).map(([route, Page]) => {
         const path = route.replace('./examples', '').replace('.tsx', '')
-        return <Route key={path} path={path} element={<Element />} />
+        return <Route key={path} path={path} element={<Page />} />
       })}
       <Route path={'/'} element={<RoutesList />} />
     </Routes>
