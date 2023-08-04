@@ -16,8 +16,8 @@ import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFun
 import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { loadNetworkAvatar } from './utils/loadAvatarHelpers'
-import { useSimulateMovement } from './utils/simulateMovement'
+import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
+import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 

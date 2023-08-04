@@ -47,7 +47,6 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     const userId = ('user' + i) as UserId & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
-
     NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
     dispatchAction(
       AvatarNetworkAction.spawn({

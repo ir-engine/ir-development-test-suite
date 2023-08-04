@@ -4,8 +4,8 @@ import { AvatarState } from '@etherealengine/client-core/src/user/services/Avata
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
-import { mockAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/loadAvatarHelpers'
-import { useSimulateMovement } from './utils/simulateMovement'
+import { mockAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/avatar/loadAvatarHelpers'
+import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 
 export default function AvatarBenchmarking() {
