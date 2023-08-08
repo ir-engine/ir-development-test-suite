@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
+    "quick-test":"mocha --config .mocharc.js --spec 'e2e/dev/*.test.ts'",
     "check-errors": "tsc --noemit",
     "test": "mocha --config .mocharc.js --spec 'tests/**/*.test.ts'",
     "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
