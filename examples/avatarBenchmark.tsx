@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
-import { UserId } from '@etherealengine/engine/src/schemas/user/user.schema'
+import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
 import {
@@ -30,7 +30,7 @@ import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/co
 //     if(entities.length !== entitiesLength) {
 //       entities = []
 //       for (let i = 0; i < entitiesLength; i++) {
-//         const eid = NetworkObjectComponent.getUserAvatarEntity('user' + i as UserId)
+//         const eid = NetworkObjectComponent.getUserAvatarEntity('user' + i as UserID)
 //         if(eid) entities.push(eid)
 //       }
 //     }
@@ -68,7 +68,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!avatar || !engineState.connectedWorld.value) return
-    for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserId))
+    for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserID))
     setEntities(count)
     for (let i = 0; i < count; i++) {
       const userId = loadNetworkAvatar(avatars.avatarList.value.find((val) => val.id === avatar)!, i)
