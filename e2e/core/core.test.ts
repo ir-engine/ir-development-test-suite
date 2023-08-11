@@ -3,7 +3,7 @@ import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
 
-import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
 import { NetworkPeer } from '@etherealengine/engine/src/networking/interfaces/NetworkPeer'
 
@@ -57,7 +57,7 @@ describe('Multi-Bot Tests', () => {
     await Promise.all(addedBots)
     const bot = bots[0]
     await delay(1000)
-    const clients = (await bot.runHook(BotHooks.GetWorldNetworkPeers)) as [UserId, NetworkPeer][]
+    const clients = (await bot.runHook(BotHooks.GetWorldNetworkPeers)) as [UserID, NetworkPeer][]
     const clientIds = clients.map(([id]) => id)
     // +1 is for the server
     assert.equal(clientIds.length, numPlayers + 1)

@@ -4,7 +4,7 @@ import { AvatarState } from '@etherealengine/client-core/src/user/services/Avata
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
-import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
 import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
@@ -44,7 +44,7 @@ export const getAvatarLists = () => {
 export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
-    const userId = ('user' + i) as UserId & PeerID
+    const userId = ('user' + i) as UserID & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
     NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
@@ -66,7 +66,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
     avatarURL: avatar.modelResource?.url || '',
     avatarId: avatar.id ?? ''
   }
-  const userId = (u + i) as UserId & PeerID
+  const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
   NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
   dispatchAction(

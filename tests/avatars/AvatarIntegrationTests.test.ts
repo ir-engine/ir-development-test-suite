@@ -7,7 +7,7 @@ import { Quaternion, Vector3 } from 'three'
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
-import { UserId } from '@etherealengine/common/src/interfaces/UserId'
+import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/createGLTFLoader'
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
@@ -74,7 +74,7 @@ describe.skip('avatarFunctions Integration', async () => {
     createEngine()
     createMockNetwork()
     Engine.instance.gltfLoader = createGLTFLoader()
-    Engine.instance.userId = Engine.instance.worldNetwork.hostId
+    Engine.instance.userID = Engine.instance.worldNetwork.hostId
     Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()
@@ -91,7 +91,7 @@ describe.skip('avatarFunctions Integration', async () => {
     let i = 1
     for (const modelURL of assetPaths) {
       it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
-        const userId = `userId-${i}` as UserId
+        const userId = `userId-${i}` as UserID
         dispatchAction(AvatarNetworkAction.spawn({
           $from: userId,
           position: new Vector3(),
