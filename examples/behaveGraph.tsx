@@ -9,7 +9,7 @@ import { GraphJSON } from '@behave-graph/core'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { Flow } from '@etherealengine/editor/src/components/graph/ee-flow'
 import '@etherealengine/editor/src/components/graph/ee-flow/styles.css'
-import { BehaveGraphSystemState } from '@etherealengine/engine/src/behave-graph/systems/BehaveGraphSystem'
+import { BehaveGraphState } from '@etherealengine/engine/src/behave-graph/state/BehaveGraphState'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import 'reactflow/dist/style.css'
 
@@ -30,7 +30,7 @@ export default function behaveGraphTest() {
             <Flow
               initialGraph={graphState?.value?.graph ?? {}}
               examples={{}}
-              registry={getState(BehaveGraphSystemState).registry}
+              registry={getState(BehaveGraphState).registry}
               onChangeGraph={(newGraph) => {
                 if (!graphState?.graph) return
                 graphState.graph.set(JSON.parse(JSON.stringify(newGraph)))
