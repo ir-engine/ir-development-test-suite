@@ -19,7 +19,7 @@ export function Template(props: { projectName?: string; sceneName?: string }) {
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-  }, [engineState.joinedWorld])
+  }, [engineState.connectedWorld])
 
   return <>{engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}</>
 }
