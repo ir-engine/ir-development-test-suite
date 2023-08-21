@@ -3,7 +3,6 @@ import { useDrop } from 'react-dnd'
 import { Vector3 } from 'three'
 
 import { uploadToFeathersService } from '@etherealengine/client-core/src/util/upload'
-import { StaticResourceInterface } from '@etherealengine/common/src/interfaces/StaticResourceInterface'
 import { AdminAssetUploadArgumentsType } from '@etherealengine/common/src/interfaces/UploadAssetInterface'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
@@ -21,6 +20,7 @@ import { TransformComponent } from '@etherealengine/engine/src/transform/compone
 import { useHookstate } from '@etherealengine/hyperflux'
 
 import { Template } from './utils/template'
+import { StaticResourceType } from '@etherealengine/engine/src/schemas/media/static-resource.schema'
 
 const LODsDND = () => {
   const filenames = useHookstate<string[]>([])
@@ -45,7 +45,7 @@ const LODsDND = () => {
             variants: true
           })
 
-          const result = (await uploadPromise.promise) as StaticResourceInterface[]
+          const result = (await uploadPromise.promise) as StaticResourceType[]
 
           console.log(result)
 
