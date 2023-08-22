@@ -130,8 +130,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
-    animations: [],
-    animationSpeed: 1
+    animations: []
   })
   addComponent(entity, AvatarAnimationComponent, {
     animationGraph: {
@@ -170,8 +169,7 @@ export const loadAssetWithAnimation = async (filename, position: Vector3, i: num
   addComponent(entity, AnimationComponent, {
     // empty object3d as the mixer gets replaced when model is loaded
     mixer: new AnimationMixer(new Object3D()),
-    animations: [],
-    animationSpeed: 1
+    animations: []
   })
   const animationComponent = getComponent(entity, AnimationComponent)
   addComponent(entity, AvatarAnimationComponent, {
