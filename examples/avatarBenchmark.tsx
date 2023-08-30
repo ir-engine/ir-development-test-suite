@@ -5,11 +5,6 @@ import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
-import {
-  xrTargetHeadSuffix,
-  xrTargetLeftHandSuffix,
-  xrTargetRightHandSuffix
-} from '@etherealengine/engine/src/avatar/components/AvatarIKComponents'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
@@ -20,6 +15,8 @@ import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
+import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
+import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -73,17 +70,17 @@ export default function AvatarBenchmarking() {
     for (let i = 0; i < count; i++) {
       const userId = loadNetworkAvatar(avatars.avatarList.value.find((val) => val.id === avatar)!, i)
       dispatchAction({
-        ...XRAction.spawnIKTarget({ handedness: 'none', entityUUID: (userId + xrTargetHeadSuffix) as EntityUUID }),
+        ...AvatarNetworkAction.spawnIKTarget({ name: 'head', entityUUID: (userId + ikTargets.rightHand) as EntityUUID }),
         $from: userId
       })
       dispatchAction({
-        ...XRAction.spawnIKTarget({ handedness: 'left', entityUUID: (userId + xrTargetLeftHandSuffix) as EntityUUID }),
+        ...AvatarNetworkAction.spawnIKTarget({ name: 'leftHand', entityUUID: (userId + ikTargets.leftHand) as EntityUUID }),
         $from: userId
       })
       dispatchAction({
-        ...XRAction.spawnIKTarget({
-          handedness: 'right',
-          entityUUID: (userId + xrTargetRightHandSuffix) as EntityUUID
+        ...AvatarNetworkAction.spawnIKTarget({
+          name: 'rightHand',
+          entityUUID: (userId + ikTargets.rightHand) as EntityUUID
         }),
         $from: userId
       })
