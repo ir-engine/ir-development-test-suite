@@ -7,6 +7,7 @@ import { mockLoopAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatar
 import { Template } from './utils/template'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { useSimulateMovement } from './utils/avatar/simulateMovement'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
@@ -23,12 +24,14 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (engineState.connectedWorld.value && avatarList.data.length > 0) {
-      // mockNetworkAvatars(avatarList.data)
-      // mockIKAvatars(avatarList.data)
+      mockNetworkAvatars(avatarList.data)
+      mockIKAvatars(avatarList.data)
       mockLoopAnimAvatars(avatarList.data)
-      // mockTPoseAvatars(avatarList.data)
+      mockTPoseAvatars(avatarList.data)
     }
   }, [engineState.connectedWorld, avatarList.data.length])
+
+  useSimulateMovement()
 
   return <Template />
 }

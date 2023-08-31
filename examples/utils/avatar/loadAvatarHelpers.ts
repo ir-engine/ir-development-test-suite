@@ -1,4 +1,4 @@
-import { AnimationMixer, Color, Mesh, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
+import { AnimationMixer, Color, Mesh, MeshNormalMaterial, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
@@ -124,39 +124,17 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
-  setComponent(entity, AvatarComponent)
-  setComponent(entity, AnimationComponent, {
-    // empty object3d as the mixer gets replaced when model is loaded
-    mixer: new AnimationMixer(new Object3D()),
-    animations: []
-  })
-  setComponent(entity, AvatarAnimationComponent, {
-    animationGraph: {
-      blendAnimation: undefined,
-      needsSkip: false,
-      blendStrength: 0,
-      layer: 0
-    },
-    rootYRatio: 1,
-    locomotion: new Vector3()
-  })
   setTransformComponent(entity, position)
   const vrm = (await loadAvatarModelAsset(filename)) as VRM
   addObjectToGroup(entity, vrm.scene)
   setComponent(entity, VisibleComponent, true)
-  // rigAvatarModel(entity)(vrm)
-  // computeTransformMatrix(entity)
 
-  //Change material color to white
   vrm.scene.traverse((obj: Mesh) => {
     if (obj.isMesh) {
-      obj.material = new MeshPhongMaterial({ color: new Color('white') })
+      obj.material = new MeshNormalMaterial()
     }
   })
 
-  const ac = getComponent(entity, AnimationComponent)
-  //Apply tpose
-  ac.mixer?.stopAllAction()
   return entity
 }
 
