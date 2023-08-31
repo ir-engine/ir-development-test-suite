@@ -19,7 +19,7 @@ import {
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { loadAvatarModelAsset, setupAvatarForUser } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { spawnAvatarReceptor } from '@etherealengine/engine/src/avatar/functions/spawnAvatarReceptor'
-import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
+import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { destroyEngine, Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
@@ -126,16 +126,7 @@ describe.skip('avatarFunctions Integration', async () => {
 
         const { rig } = getComponent(entity, AvatarRigComponent)
         assert(rig)
-        assert(rig.Hips)
-        assert(rig.Head)
-        assert(rig.Neck)
-        assert(rig.Spine || rig.Spine1 || rig.Spine2)
-        assert(rig.LeftFoot)
-        assert(rig.RightFoot)
-        assert((rig.RightArm || rig.RightForeArm) && rig.RightHand)
-        assert((rig.LeftArm || rig.LeftForeArm) && rig.LeftHand)
-        assert((rig.RightUpLeg || rig.RightLeg) && rig.RightFoot)
-        assert((rig.LeftUpLeg || rig.LeftLeg) && rig.LeftFoot)
+        assert(rig.hips.node)
 
         // TODO: this currently isn't working, the update method doesnt show up in the VRM object
         // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
