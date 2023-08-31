@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
@@ -24,10 +23,10 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (engineState.connectedWorld.value && avatarList.data.length > 0) {
-      mockNetworkAvatars(avatarList.data)
-      mockIKAvatars(avatarList.data)
+      // mockNetworkAvatars(avatarList.data)
+      // mockIKAvatars(avatarList.data)
       mockLoopAnimAvatars(avatarList.data)
-      mockTPoseAvatars(avatarList.data)
+      // mockTPoseAvatars(avatarList.data)
     }
   }, [engineState.connectedWorld, avatarList.data.length])
 
