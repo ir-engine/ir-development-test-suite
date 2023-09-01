@@ -29,8 +29,8 @@ const execute = () => {
       // @todo improve this
       setInterval(() => {
         const uuid = getComponent(entity, UUIDComponent)
-        const ikTargetLeftHand = NameComponent.entitiesByName[uuid + '_left']?.[0]
-        const ikTargetRightHand = NameComponent.entitiesByName[uuid + '_right']?.[0]
+        const ikTargetLeftHand = NameComponent.entitiesByName[uuid + '_leftHand']?.[0]
+        const ikTargetRightHand = NameComponent.entitiesByName[uuid + '_rightHand']?.[0]
         const transform = getComponent(entity, TransformComponent)
         if (ikTargetLeftHand) {
           const leftHandTransform = getComponent(ikTargetLeftHand, TransformComponent)
@@ -51,7 +51,7 @@ const execute = () => {
     rigidbody.body.setTranslation(rigidbody.position, true)
     rigidbody.targetKinematicRotation.multiply(q)
     const uuid = getComponent(entity, UUIDComponent)
-    const headTargetEntity = NameComponent.entitiesByName[uuid + '_none']?.[0]
+    const headTargetEntity = NameComponent.entitiesByName[uuid + '_head']?.[0]
     if (headTargetEntity) {
       const rigComponent = getComponent(entity, AvatarRigComponent)
       const limitMultiplier = 1.1

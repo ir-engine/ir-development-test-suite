@@ -1,29 +1,37 @@
 import React, { useEffect } from 'react'
 
-import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
-import { mockAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/avatar/loadAvatarHelpers'
+import { mockLoopAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
+import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { useSimulateMovement } from './utils/avatar/simulateMovement'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
-  const avatarList = useHookstate(getMutableState(AvatarState).avatarList)
+  const avatarList = useFind(avatarPath, { 
+    query: {
+      $skip: 0,
+      $limit: 100
+    }
+  })
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {
-    if (engineState.connectedWorld.value) {
-      const avatars = getState(AvatarState).avatarList.filter((avatar) => !avatar.modelResource?.url?.endsWith('vrm'))
-      mockNetworkAvatars(avatars)
-      // mockIKAvatars(avatars)
-      // mockAnimAvatars(avatars)
-      // mockTPoseAvatars(avatars)
+    if (engineState.connectedWorld.value && avatarList.data.length > 0) {
+      // mockNetworkAvatars(avatarList.data)
+      // mockIKAvatars(avatarList.data)
+      mockLoopAnimAvatars(avatarList.data)
+      // mockTPoseAvatars(avatarList.data)
     }
-  }, [engineState.connectedWorld, avatarList])
+  }, [engineState.connectedWorld, avatarList.data.length])
+
+  // useSimulateMovement()
 
   return <Template />
 }

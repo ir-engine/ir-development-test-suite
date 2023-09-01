@@ -13,8 +13,9 @@ import {
   SphereGeometry,
   Vector3
 } from 'three'
+import { VRM } from '@pixiv/three-vrm'
 
-import { resetAnimationLogic } from '@etherealengine/client-core/src/user/components/Panel3D/helperFunctions'
+import { loadAvatarForPreview, resetAnimationLogic } from '@etherealengine/client-core/src/user/components/Panel3D/helperFunctions'
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@etherealengine/common/src/constants/AvatarConstants'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
@@ -22,7 +23,6 @@ import createGLTFExporter from '@etherealengine/engine/src/assets/functions/crea
 import { GLTF } from '@etherealengine/engine/src/assets/loaders/gltf/GLTFLoader'
 import { BoneNames } from '@etherealengine/engine/src/avatar/AvatarBoneMatching'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { setupAvatarModel } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { SkeletonUtils } from '@etherealengine/engine/src/avatar/SkeletonUtils'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
@@ -34,6 +34,8 @@ import { setVisibleComponent } from '@etherealengine/engine/src/scene/components
 import { defineState, getMutableState, getState, NO_PROXY, none, useHookstate } from '@etherealengine/hyperflux'
 
 import { Template } from './utils/template'
+import { rigAvatarModel } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
+import { ObjectLayers } from '@etherealengine/engine/src/scene/constants/ObjectLayers'
 
 const bones = Object.keys(AvatarRigComponent.schema.rig)
 console.log({ bones })
@@ -48,43 +50,56 @@ const overrideNames = [] as string[]
 const sphere = new Mesh(new SphereGeometry(0.1, 8, 8), new MeshBasicMaterial({ color: 'purple' }))
 sphere.visible = false
 
-export const loadAvatarModelAsset = async (model: Scene) => {
-  const scene = model
-  if (!scene) return
-  const parent = new Group()
-  parent.name = 'model-parent'
-  const root = new Group()
-  root.name = 'model-root'
-  root.add(scene)
-  parent.add(root)
-  parent.userData = scene.userData
+// export const loadAvatarModelAsset = async (model: Scene) => {
+//   const scene = model
+//   if (!scene) return
+//   const parent = new Group()
+//   parent.name = 'model-parent'
+//   const root = new Group()
+//   root.name = 'model-root'
+//   root.add(scene)
+//   parent.add(root)
+//   parent.userData = scene.userData
 
-  scene.traverse((obj: Mesh<BufferGeometry, MeshBasicMaterial>) => {
-    //TODO: To avoid the changes of the source material
-    if (obj.material && obj.material.clone) {
-      obj.material = obj.material.clone()
-      //TODO: to fix alphablend issue of some models (mostly fbx converted models)
-      if (obj.material.opacity != 0) {
-        obj.material.depthWrite = true
-      } else {
-        obj.material.depthWrite = false
-      }
-      obj.material.depthTest = true
-    }
-    // Enable shadow for avatars
-    obj.castShadow = true
-  })
-  return SkeletonUtils.clone(parent) as Object3D
-}
+//   scene.traverse((obj: Mesh<BufferGeometry, MeshBasicMaterial>) => {
+//     //TODO: To avoid the changes of the source material
+//     if (obj.material && obj.material.clone) {
+//       obj.material = obj.material.clone()
+//       //TODO: to fix alphablend issue of some models (mostly fbx converted models)
+//       if (obj.material.opacity != 0) {
+//         obj.material.depthWrite = true
+//       } else {
+//         obj.material.depthWrite = false
+//       }
+//       obj.material.depthTest = true
+//     }
+//     // Enable shadow for avatars
+//     obj.castShadow = true
+//   })
+//   return SkeletonUtils.clone(parent) as Object3D
+// }
 
-export const loadAvatarForPreview = async (entity: Entity, object: Scene) => {
-  const parent = await loadAvatarModelAsset(object)
-  if (!parent) return
-  setupAvatarModel(entity)(parent)
-  removeGroupComponent(entity)
-  addObjectToGroup(entity, parent)
-  return parent
-}
+// export const loadAvatarForPreview = async (entity: Entity, object: Scene) => {
+//   const loaded = await loadAvatarModelAsset(object) as VRM
+//   if (!loaded) return
+//   let scene = undefined! as Object3D
+//   if (loaded.scene) scene = loaded.scene
+//   else scene = loaded
+
+//   //setupAvatarModel(entity)(loaded)
+//   removeGroupComponent(entity)
+
+//   if (scene) addObjectToGroup(entity, scene)
+//   scene.traverse((obj: Object3D) => {
+//     obj.layers.set(ObjectLayers.Panel)
+//   })
+//   scene.removeFromParent()
+
+//   // face the camera
+//   scene.rotateY(Math.PI)
+
+//   return loaded
+// }
 
 const RetargetingDND = () => {
   const assetFile = useHookstate(null as null | File)
