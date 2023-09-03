@@ -26,6 +26,7 @@ import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
+import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -43,7 +44,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     dispatchAction(
       AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
-        rotation: new Quaternion(),
+        rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         $from: userId,
         entityUUID: userId
       })
@@ -64,7 +65,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
   dispatchAction(
     AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),
-      rotation: new Quaternion(),
+      rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       $from: userId,
       entityUUID: userId
     })
@@ -124,7 +125,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
-  setTransformComponent(entity, position)
+  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
   const vrm = (await loadAvatarModelAsset(filename)) as VRM
   addObjectToGroup(entity, vrm.scene)
   setComponent(entity, VisibleComponent, true)
@@ -141,7 +142,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
-  setTransformComponent(entity, position)
+  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, LoopAnimationComponent, {
     hasAvatarAnimations: true,
