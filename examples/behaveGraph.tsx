@@ -23,7 +23,6 @@ export default function behaveGraphTest() {
   const graphComponent = useComponent(entity, BehaveGraphComponent)
   const behavegraphState = useHookstate(getMutableState(BehaveGraphState))
 
-  console.log("DEBUG called behaveGraphTest")
   return <>
     <Template />
     <div style={{ pointerEvents: 'all', position: 'absolute', marginRight: '0px', maxWidth: '500px', width: '500px', height: '100%' }}>
