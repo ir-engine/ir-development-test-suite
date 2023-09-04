@@ -61,15 +61,13 @@ const MocapAvatar = (props: { userID: UserID }) => {
     const timer = setInterval(() => {
       const dataChannelFunctions = getState(DataChannelRegistryState)[mocapDataChannelType]
       if (dataChannelFunctions) {
-        // const message = sendResults(data)
         const message = encode({
           timestamp: Date.now(),
           peerID: props.userID,
           results: data
         })
-        // console.log(dataChannelFunctions, message)
         for (const func of dataChannelFunctions)
-          func(Engine.instance.worldNetwork, mocapDataChannelType, Engine.instance.worldNetwork.hostPeerID, message) // assmume for now data is coming from the host
+          func(Engine.instance.worldNetwork, mocapDataChannelType, Engine.instance.worldNetwork.hostPeerID, message)
       }
     }, 500)
 
