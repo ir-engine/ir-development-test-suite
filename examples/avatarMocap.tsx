@@ -116,7 +116,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (!engineState.connectedWorld.value || !avatarList.data.length) return
-    userID.set(loadNetworkAvatar(avatarList.data[1], 0))
+    userID.set(loadNetworkAvatar(avatarList.data[0], 0))
   }, [engineState.connectedWorld, avatarList.data.length])
 
   return (
