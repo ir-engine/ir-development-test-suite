@@ -7,6 +7,7 @@ import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
 import { drawMocapDebug } from '@etherealengine/engine/src/mocap/UpdateAvatar'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
@@ -18,6 +19,8 @@ import { NormalizedLandmarkList } from '@mediapipe/holistic'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
+import { AvatarUISystem } from '@etherealengine/client-core/src/systems/AvatarUISystem'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -138,20 +141,49 @@ export default function AvatarMocap() {
     }
   })
 
+  const selectedAvatar = useHookstate(avatarList.data[0])
   const userID = useHookstate('' as UserID)
   const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value]).value
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
+    disableSystem(AvatarUISystem)
   }, [])
 
   useEffect(() => {
-    if (!engineState.connectedWorld.value || !avatarList.data.length) return
-    userID.set(loadNetworkAvatar(avatarList.data[0], 0))
-  }, [engineState.connectedWorld, avatarList.data.length])
+    if (!engineState.connectedWorld.value || !avatarList.data.length || !selectedAvatar.value) return
+    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id)
+    userID.set(userid)
+    return () => {
+      removeEntity(UUIDComponent.entitiesByUUID[userid])
+      userID.set('' as UserID)
+    }
+  }, [engineState.connectedWorld, avatarList.data.length, selectedAvatar])
 
   return (
     <>
+      <select
+        style={{
+          background: 'lightgrey',
+          color: 'grey',
+          padding: '0.5em',
+          margin: '0.5em',
+          borderRadius: '0.5em',
+          border: 'none',
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+          pointerEvents: 'all'
+        }}
+        onChange={(e) => selectedAvatar.set(avatarList.data.find((avatar) => avatar.id === e.target.value)!)}
+      >
+        {avatarList.data.map((avatar) => (
+          <option key={avatar.id} value={avatar.id}>
+            {avatar.name}
+          </option>
+        ))}
+      </select>
+
       <Template />
       <ActivePoseUI />
       {entity && <MocapAvatar userID={userID.value} />}
