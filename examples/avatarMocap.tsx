@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
@@ -11,6 +11,7 @@ import { mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCap
 import { drawMocapDebug } from '@etherealengine/engine/src/mocap/UpdateAvatar'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
+import { VisibleComponent, setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { NormalizedLandmarkList } from '@mediapipe/holistic'
@@ -46,13 +47,20 @@ getMocapTestData().then((data) => {
   console.log({ mocapTestData })
 })
 
+const ActivePoseState = createState<AvailablePoses>('mocapTPose')
+
 const mocapRawDataHelper = drawMocapDebug()
 
 const MocapAvatar = (props: { userID: UserID }) => {
   const { userID } = props
   const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID]).value
-  const activePose = useHookstate<AvailablePoses>('mocapTPose')
   const rig = useOptionalComponent(entity, AvatarRigComponent)
+  const activePose = useHookstate(ActivePoseState)
+  const visible = !!useOptionalComponent(entity, VisibleComponent)?.value
+
+  const setVisible = () => {
+    setVisibleComponent(entity, !visible)
+  }
 
   useEffect(() => {
     if (!rig?.value) return
@@ -76,6 +84,28 @@ const MocapAvatar = (props: { userID: UserID }) => {
 
   return (
     <>
+      <button
+        style={{
+          background: visible ? 'darkgreen' : 'lightgrey',
+          color: visible ? 'lightgreen' : 'grey',
+          padding: '0.5em',
+          margin: '0.5em',
+          borderRadius: '0.5em',
+          border: 'none',
+          pointerEvents: 'all'
+        }}
+        onClick={setVisible}
+      >
+        Show Avatar
+      </button>
+    </>
+  )
+}
+
+const ActivePoseUI = () => {
+  const activePose = useHookstate(ActivePoseState)
+  return (
+    <div style={{ position: 'absolute', right: 0, top: 0, zIndex: 1000 }}>
       {Object.keys(mocapTestData).map((pose: any) => (
         <div key={pose}>
           <button
@@ -95,11 +125,11 @@ const MocapAvatar = (props: { userID: UserID }) => {
           <br />
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
-export default function AvatarBenchmarking() {
+export default function AvatarMocap() {
   const engineState = useHookstate(getMutableState(EngineState))
   const avatarList = useFind(avatarPath, {
     query: {
@@ -109,6 +139,7 @@ export default function AvatarBenchmarking() {
   })
 
   const userID = useHookstate('' as UserID)
+  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value]).value
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
@@ -122,7 +153,8 @@ export default function AvatarBenchmarking() {
   return (
     <>
       <Template />
-      {userID.value && <MocapAvatar userID={userID.value} />}
+      <ActivePoseUI />
+      {entity && <MocapAvatar userID={userID.value} />}
     </>
   )
 }
