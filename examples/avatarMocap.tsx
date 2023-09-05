@@ -177,7 +177,7 @@ export default function AvatarMocap() {
         }}
         onChange={(e) => selectedAvatar.set(avatarList.data.find((avatar) => avatar.id === e.target.value)!)}
       >
-        {avatarList.data.map((avatar) => (
+        {[{ name: 'None', id: '' }, ...avatarList.data].map((avatar) => (
           <option key={avatar.id} value={avatar.id}>
             {avatar.name}
           </option>
