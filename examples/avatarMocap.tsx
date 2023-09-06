@@ -3,24 +3,24 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
+import { AvatarUISystem } from '@etherealengine/client-core/src/systems/AvatarUISystem'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
 import { mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
-import { drawMocapDebug } from '@etherealengine/engine/src/mocap/UpdateAvatar'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
+import { RendererState } from '@etherealengine/engine/src/renderer/RendererState'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
-import { NormalizedLandmarkList } from '@mediapipe/holistic'
+import { NormalizedLandmarkList } from '@mediapipe/pose'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { AvatarUISystem } from '@etherealengine/client-core/src/systems/AvatarUISystem'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -52,17 +52,20 @@ getMocapTestData().then((data) => {
 
 const ActivePoseState = createState<AvailablePoses>('mocapTPose')
 
-const mocapRawDataHelper = drawMocapDebug()
-
 const MocapAvatar = (props: { userID: UserID }) => {
   const { userID } = props
   const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID]).value
   const rig = useOptionalComponent(entity, AvatarRigComponent)
   const activePose = useHookstate(ActivePoseState)
   const visible = !!useOptionalComponent(entity, VisibleComponent)?.value
+  const avatarDebug = useHookstate(getMutableState(RendererState).avatarDebug)
 
   const setVisible = () => {
     setVisibleComponent(entity, !visible)
+  }
+
+  const setHelper = () => {
+    avatarDebug.set(!avatarDebug.value)
   }
 
   useEffect(() => {
@@ -100,6 +103,20 @@ const MocapAvatar = (props: { userID: UserID }) => {
         onClick={setVisible}
       >
         Show Avatar
+      </button>
+      <button
+        style={{
+          background: avatarDebug.value ? 'darkgreen' : 'lightgrey',
+          color: avatarDebug.value ? 'lightgreen' : 'grey',
+          padding: '0.5em',
+          margin: '0.5em',
+          borderRadius: '0.5em',
+          border: 'none',
+          pointerEvents: 'all'
+        }}
+        onClick={setHelper}
+      >
+        Show Helper
       </button>
     </>
   )

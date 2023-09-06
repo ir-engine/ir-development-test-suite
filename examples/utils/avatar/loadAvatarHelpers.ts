@@ -1,4 +1,4 @@
-import { AnimationMixer, Color, Mesh, MeshNormalMaterial, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
+import { Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
@@ -6,14 +6,12 @@ import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
-import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
-import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { loadAvatarModelAsset } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
+import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { Network } from '@etherealengine/engine/src/networking/classes/Network'
 import { NetworkPeerFunctions } from '@etherealengine/engine/src/networking/functions/NetworkPeerFunctions'
@@ -26,7 +24,6 @@ import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
-import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -102,20 +99,26 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   setTimeout(() => {
     dispatchAction({
-      ...AvatarNetworkAction.spawnIKTarget({ name: 'head', entityUUID: (userId + ikTargets.head) as EntityUUID }),
+      ...AvatarNetworkAction.spawnIKTarget({
+        name: 'head',
+        entityUUID: (userId + ikTargets.head) as EntityUUID,
+        blendWeight: 1
+      }),
       $from: userId
     })
     dispatchAction({
       ...AvatarNetworkAction.spawnIKTarget({
         name: 'leftHand',
-        entityUUID: (userId + ikTargets.leftHand) as EntityUUID
+        entityUUID: (userId + ikTargets.leftHand) as EntityUUID,
+        blendWeight: 1
       }),
       $from: userId
     })
     dispatchAction({
       ...AvatarNetworkAction.spawnIKTarget({
         name: 'rightHand',
-        entityUUID: (userId + ikTargets.rightHand) as EntityUUID
+        entityUUID: (userId + ikTargets.rightHand) as EntityUUID,
+        blendWeight: 1
       }),
       $from: userId
     })
