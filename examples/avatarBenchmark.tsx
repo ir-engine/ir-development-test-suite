@@ -11,7 +11,7 @@ import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFun
 import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
+import { loadAssetWithIK, loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
@@ -19,6 +19,7 @@ import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/Ava
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { Vector3 } from 'three'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -51,7 +52,7 @@ export default function AvatarBenchmarking() {
   })
 
   const [count, setCount] = useState(100)
-  const [avatar, setAvatar] = useState('')
+  const [avatarID, setAvatar] = useState('')
 
   const [entities, setEntities] = useState(0)
 
@@ -71,28 +72,14 @@ export default function AvatarBenchmarking() {
   }, [avatarList.data.length])
 
   useEffect(() => {
-    if (!avatar || !engineState.connectedWorld.value) return
+    if (!avatarID || !engineState.connectedWorld.value) return
     for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserID))
     setEntities(count)
     for (let i = 0; i < count; i++) {
-      const userId = loadNetworkAvatar(avatarList.data.find((val) => val.id === avatar)!, i)
-      dispatchAction({
-        ...AvatarNetworkAction.spawnIKTarget({ name: 'head', entityUUID: (userId + ikTargets.rightHand) as EntityUUID }),
-        $from: userId
-      })
-      dispatchAction({
-        ...AvatarNetworkAction.spawnIKTarget({ name: 'leftHand', entityUUID: (userId + ikTargets.leftHand) as EntityUUID }),
-        $from: userId
-      })
-      dispatchAction({
-        ...AvatarNetworkAction.spawnIKTarget({
-          name: 'rightHand',
-          entityUUID: (userId + ikTargets.rightHand) as EntityUUID
-        }),
-        $from: userId
-      })
+      const avatar = avatarList.data.find((val) => val.id === avatarID)!
+      loadAssetWithIK(avatar, new Vector3(0, 0, i * 2), i)
     }
-  }, [count, avatar, engineState.connectedWorld])
+  }, [count, avatarID, engineState.connectedWorld])
 
   return (
     <>
@@ -110,7 +97,7 @@ export default function AvatarBenchmarking() {
         <SelectInput
           options={avatarList.data.map((val) => ({ value: val.id, label: val.name }))}
           onChange={setAvatar}
-          value={avatar}
+          value={avatarID}
         />
         <NumericInput onChange={setCount} value={count} />
       </div>

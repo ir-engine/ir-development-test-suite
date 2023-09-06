@@ -11,7 +11,6 @@ import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/createGLTFLoader'
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
-import { AnimationManager } from '@etherealengine/engine/src/avatar/AnimationManager'
 import {
   AvatarAnimationComponent,
   AvatarRigComponent
@@ -79,7 +78,6 @@ describe.skip('avatarFunctions Integration', async () => {
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()
     getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
-    await AnimationManager.instance.loadDefaultAnimations(animGLB)
   })
 
   afterEach(() => {

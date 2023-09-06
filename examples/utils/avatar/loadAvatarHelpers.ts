@@ -1,4 +1,4 @@
-import { AnimationMixer, Color, Mesh, MeshNormalMaterial, MeshPhongMaterial, Object3D, Quaternion, Vector3 } from 'three'
+import { Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
@@ -6,14 +6,12 @@ import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
-import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
-import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { loadAvatarModelAsset } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
+import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { Network } from '@etherealengine/engine/src/networking/classes/Network'
 import { NetworkPeerFunctions } from '@etherealengine/engine/src/networking/functions/NetworkPeerFunctions'
@@ -43,7 +41,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     dispatchAction(
       AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
-        rotation: new Quaternion(),
+        rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         $from: userId,
         entityUUID: userId
       })
@@ -64,7 +62,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
   dispatchAction(
     AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),
-      rotation: new Quaternion(),
+      rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       $from: userId,
       entityUUID: userId
     })
@@ -101,20 +99,26 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   setTimeout(() => {
     dispatchAction({
-      ...AvatarNetworkAction.spawnIKTarget({ name: 'head', entityUUID: (userId + ikTargets.head) as EntityUUID }),
+      ...AvatarNetworkAction.spawnIKTarget({
+        name: 'head',
+        entityUUID: (userId + ikTargets.head) as EntityUUID,
+        blendWeight: 1
+      }),
       $from: userId
     })
     dispatchAction({
       ...AvatarNetworkAction.spawnIKTarget({
         name: 'leftHand',
-        entityUUID: (userId + ikTargets.leftHand) as EntityUUID
+        entityUUID: (userId + ikTargets.leftHand) as EntityUUID,
+        blendWeight: 1
       }),
       $from: userId
     })
     dispatchAction({
       ...AvatarNetworkAction.spawnIKTarget({
         name: 'rightHand',
-        entityUUID: (userId + ikTargets.rightHand) as EntityUUID
+        entityUUID: (userId + ikTargets.rightHand) as EntityUUID,
+        blendWeight: 1
       }),
       $from: userId
     })
@@ -124,7 +128,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
-  setTransformComponent(entity, position)
+  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
   const vrm = (await loadAvatarModelAsset(filename)) as VRM
   addObjectToGroup(entity, vrm.scene)
   setComponent(entity, VisibleComponent, true)
@@ -141,7 +145,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
-  setTransformComponent(entity, position)
+  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, LoopAnimationComponent, {
     hasAvatarAnimations: true,
