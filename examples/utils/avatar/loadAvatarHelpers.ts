@@ -79,6 +79,16 @@ export const mockLoopAnimAvatars = async (avatarList: AvatarType[]) => {
   }
 }
 
+export const CreateSkinnedMeshGrid = (avatarList: AvatarType[], size: number) => {
+  const square = Math.ceil(Math.sqrt(size))
+  for(let i = 0; i < size; i++){
+    const x = i % square
+    const y = Math.floor(i / square)
+    const avatarIndex = i % avatarList.length
+    loadAssetWithLoopAnimation(avatarList[avatarIndex].modelResource?.url ?? '', new Vector3(x * 2, 0, y * 2), i)
+  }
+}
+
 export const mockTPoseAvatars = async (avatarList: AvatarType[]) => {
   for (let i = 0; i < avatarList.length; i++) {
     const avatar = avatarList[i]
