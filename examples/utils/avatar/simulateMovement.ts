@@ -5,6 +5,7 @@ import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { defineQuery, getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { SimulationSystemGroup } from '@etherealengine/engine/src/ecs/functions/EngineFunctions'
@@ -14,6 +15,7 @@ import { RigidBodyComponent } from '@etherealengine/engine/src/physics/component
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { getState } from '@etherealengine/hyperflux'
 
 // quaternion that represents a 1 degree turn on the y axis
 const q = new Quaternion().setFromAxisAngle(V_010, Math.PI / 180)
@@ -53,6 +55,7 @@ const execute = () => {
     const uuid = getComponent(entity, UUIDComponent)
     const headTargetEntity = NameComponent.entitiesByName[uuid + '_head']?.[0]
     if (headTargetEntity) {
+      const elapsedSeconds = getState(EngineState).elapsedSeconds
       const rigComponent = getComponent(entity, AvatarRigComponent)
       const limitMultiplier = 1.1
       const headToFeetLength =
@@ -60,7 +63,7 @@ const execute = () => {
       const pivotHalfLength = rigComponent.upperLegLength * 0.5
       const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
       const headTargetY =
-        (Math.sin(Engine.instance.elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
+        (Math.sin(elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
       const head = getComponent(headTargetEntity, TransformComponent)
       head.position.y = headTargetY + rigidbody.position.y
     }
