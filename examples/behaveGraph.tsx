@@ -13,7 +13,7 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import 'reactflow/dist/style.css'
 import '@etherealengine/editor/src/components/graph/ee-flow/styles.css'
 import isEqual from 'lodash/isEqual';
-import targetJson from '../assets/graph/3dpersoncontroller.json'
+import targetJson from '../assets/graph/simpleController.json'
 
 
 const entity = createEntity()
