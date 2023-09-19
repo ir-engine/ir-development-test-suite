@@ -1,7 +1,7 @@
 {
   "name": "ee-development-test-suite",
   "version": "0.0.0",
-  "description": "",
+  "description": "Assets and tests for Ethereal Engine core development",
   "main": "",
   "scripts": {
     "quick-test":"mocha --config .mocharc.js --spec 'e2e/dev/*.test.ts'",
