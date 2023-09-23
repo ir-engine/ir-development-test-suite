@@ -21,7 +21,7 @@ import { NameComponent } from '@etherealengine/engine/src/scene/components/NameC
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { AvatarType } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
-import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
 
@@ -138,7 +138,10 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
-  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
+  setComponent(entity, TransformComponent, {
+    position,
+    rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
+  })
   const vrm = (await loadAvatarModelAsset(filename)) as VRM
   addObjectToGroup(entity, vrm.scene)
   setComponent(entity, VisibleComponent, true)
@@ -155,7 +158,10 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
-  setTransformComponent(entity, position, new Quaternion().setFromAxisAngle(V_010, Math.PI))
+  setComponent(entity, TransformComponent, {
+    position, 
+    rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
+  })
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, LoopAnimationComponent, {
     hasAvatarAnimations: true,
