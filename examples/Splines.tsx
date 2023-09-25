@@ -7,7 +7,7 @@ import { setComponent } from '@etherealengine/engine/src/ecs/functions/Component
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
 import { BoxGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, Quaternion, SphereGeometry, Vector3 } from 'three'
-import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
@@ -17,7 +17,7 @@ import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 const createSpline = (index = 0) => {
   const entity = createEntity()
 
-  setTransformComponent(entity)
+  setComponent(entity, TransformComponent)
   setComponent(entity, UUIDComponent, `Spline: ${index}` as EntityUUID)
   setComponent(entity, NameComponent, `Spline: ${index}`)
   setComponent(entity, VisibleComponent)

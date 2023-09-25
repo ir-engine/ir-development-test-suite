@@ -6,9 +6,10 @@ import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFun
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
 import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/engine/src/physics/enums/CollisionGroups'
 import { getInteractionGroups } from '@etherealengine/engine/src/physics/functions/getInteractionGroups'
-import { setTransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
+import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]
@@ -20,7 +21,9 @@ export const createPhysicsObjects = (count: number) => {
 
 export const createPhysicsObject = () => {
   const entity = createEntity()
-  setTransformComponent(entity, new Vector3(2.5 - Math.random() * 5, 1 + Math.random() * 5, 2.5 - Math.random() * 5))
+  setComponent(entity, TransformComponent, { 
+    position: new Vector3(2.5 - Math.random() * 5, 1 + Math.random() * 5, 2.5 - Math.random() * 5)
+  })
 
   const rigidBodyDesc = RigidBodyDesc.dynamic()
   const colliderDesc = ColliderDesc.ball(0.1)
