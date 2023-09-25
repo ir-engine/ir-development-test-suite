@@ -7,6 +7,8 @@ import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTy
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 
 import { Template } from './utils/template'
+import { getState } from '@etherealengine/hyperflux'
+import { AssetLoaderState } from '@etherealengine/engine/src/assets/state/AssetLoaderState'
 
 let mesh
 
@@ -27,7 +29,7 @@ const KTX2DND = () => {
 
       if (file.name.endsWith('.ktx2')) {
         const url = URL.createObjectURL(file)
-        const ktxLoader = Engine.instance.gltfLoader.ktx2Loader
+        const ktxLoader = getState(AssetLoaderState).gltfLoader.ktx2Loader
         if (!ktxLoader) throw new Error('KTX2Loader not yet initialized')
         ktxLoader.load(
           url,
