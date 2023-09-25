@@ -72,7 +72,6 @@ describe.skip('avatarFunctions Integration', async () => {
   beforeEach(async () => {
     createEngine()
     createMockNetwork()
-    Engine.instance.gltfLoader = createGLTFLoader()
     Engine.instance.userID = Engine.instance.worldNetwork.hostId
     Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
