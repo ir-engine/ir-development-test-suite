@@ -1,16 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { Vector3 } from 'three'
+import { Mesh, MeshBasicMaterial, SphereGeometry, TorusGeometry, Vector3 } from 'three'
 
 import { uploadToFeathersService } from '@etherealengine/client-core/src/util/upload'
 import { AdminAssetUploadArgumentsType } from '@etherealengine/common/src/interfaces/UploadAssetInterface'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
-import {
-  getComponent,
-  getMutableComponent,
-  setComponent
-} from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { getComponent, removeComponent, setComponent, useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
@@ -19,11 +15,95 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 
-import { Template } from './utils/template'
+import config from '@etherealengine/common/src/config'
+import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { StaticResourceType } from '@etherealengine/engine/src/schemas/media/static-resource.schema'
+import { Template } from './utils/template'
+import { GroupComponent, addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
+
+// create rings for each LOD
+const visualizeVariants = () => {
+  const entity = createEntity()
+  setComponent(entity, TransformComponent)
+  setComponent(entity, VisibleComponent)
+  setComponent(entity, NameComponent, 'LOD Visualizer')
+  return entity
+}
+
+const setVariant = (entity: Entity, result: StaticResourceType[]) => {
+  setComponent(entity, ModelComponent, {
+    src: result[0].url
+  })
+  setComponent(entity, VariantComponent, {
+    levels: result.map((variant, i) => ({
+      distance: (i + 1) * 5,
+      loaded: false,
+      src: variant.url,
+      model: null,
+      metadata: variant.metadata ?? {
+        minDistance: 0 + i * 5,
+        maxDistance: 0 + (i + 1) * 5
+      }
+    })),
+    heuristic: 'DISTANCE'
+  })
+}
 
 const LODsDND = () => {
   const filenames = useHookstate<string[]>([])
+
+  const entity = useHookstate(createEntity).value
+  const visualizerEntity = useHookstate(visualizeVariants).value
+  const variantComponent = useOptionalComponent(entity, VariantComponent)
+
+  useEffect(() => {
+    setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
+    setComponent(entity, VisibleComponent)
+    setComponent(entity, NameComponent, 'LOD Test')
+
+    const fileServerURL = config.client.fileServer!
+
+    setVariant(entity, [
+      {
+        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
+        metadata: {
+          minDistance: 0,
+          maxDistance: 5
+        }
+      },
+      {
+        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
+        metadata: {
+          minDistance: 5,
+          maxDistance: 10
+        }
+      },
+      {
+        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
+        metadata: {
+          minDistance: 10,
+          maxDistance: 15
+        }
+      }
+    ] as StaticResourceType[])
+
+    filenames.set(['Test_LOD0.glb', 'Test_LOD1.glb', 'Test_LOD2.glb'])
+  }, [])
+
+  useEffect(() => {
+    if (!variantComponent) return
+    getComponent(visualizerEntity, TransformComponent).position.copy(getComponent(entity, TransformComponent).position)
+    variantComponent.value.levels.map((level, i) => {
+      if (i === 0) return
+      addObjectToGroup(visualizerEntity, new Mesh(
+        new SphereGeometry(level.metadata['minDistance'], 32, 32).rotateX(Math.PI / 2),
+        new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 })
+      ))
+    })
+    return () => {
+      removeComponent(visualizerEntity, GroupComponent)
+    }
+  }, [variantComponent])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
     accept: [...SupportedFileTypes, '.glb'],
@@ -47,29 +127,9 @@ const LODsDND = () => {
 
           const result = (await uploadPromise.promise) as StaticResourceType[]
 
+          setVariant(entity, result)
+
           console.log(result)
-
-          const entity = createEntity()
-          setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
-          setComponent(entity, VisibleComponent)
-          setComponent(entity, NameComponent, 'LOD Test')
-
-          setComponent(entity, ModelComponent, {
-            src: result[0].url
-          })
-          setComponent(entity, VariantComponent, {
-            levels: result.map((variant, i) => ({
-              distance: (i + 1) * 5,
-              loaded: false,
-              src: variant.url,
-              model: null,
-              metadata: variant.metadata ?? {
-                minDistance: 0 + i * 5,
-                maxDistance: 0 + (i + 1) * 5
-              }
-            })),
-            heuristic: 'DISTANCE'
-          })
         } catch (err) {
           console.error(err)
         }
