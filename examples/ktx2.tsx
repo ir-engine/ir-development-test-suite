@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, sRGBEncoding, Texture } from 'three'
+import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, sRGBEncoding, Texture } from 'three'
 
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
@@ -35,7 +35,7 @@ const KTX2DND = () => {
           url,
           (texture) => {
             console.log('KTX2Loader loaded texture', texture)
-            texture.encoding = sRGBEncoding
+            texture.colorSpace = SRGBColorSpace
             texture.needsUpdate = true
             mesh.material.map = texture
             mesh.material.needsUpdate = true
@@ -50,7 +50,7 @@ const KTX2DND = () => {
       reader.addEventListener('load', function (event) {
         function imgCallback(event) {
           const texture = new Texture(event.target)
-          texture.encoding = sRGBEncoding
+          texture.colorSpace = SRGBColorSpace
           texture.needsUpdate = true
           mesh.material.map = texture
           mesh.material.needsUpdate = true

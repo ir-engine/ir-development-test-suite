@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react'
 
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { mockLoopAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/avatar/loadAvatarHelpers'
-import { Template } from './utils/template'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
-import { useSimulateMovement } from './utils/avatar/simulateMovement'
+import {
+  mockIKAvatars,
+  mockLoopAnimAvatars,
+  mockNetworkAvatars,
+  mockTPoseAvatars
+} from './utils/avatar/loadAvatarHelpers'
+import { Template } from './utils/template'
 
 export default function AvatarBenchmarking() {
   const engineState = useHookstate(getMutableState(EngineState))
-  const avatarList = useFind(avatarPath, { 
+  const avatarList = useFind(avatarPath, {
     query: {
       $skip: 0,
       $limit: 100
