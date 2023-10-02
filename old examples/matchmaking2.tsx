@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom'
 
 import { API } from '@etherealengine/client-core/src/API'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
+import { matchUserPath } from '@etherealengine/engine/src/schemas/matchmaking/match-user.schema'
 import { OpenMatchTicketAssignment } from '@etherealengine/matchmaking/src/interfaces'
+import { matchTicketAssignmentPath } from '@etherealengine/matchmaking/src/match-ticket-assignment.schema'
+import { matchTicketPath } from '@etherealengine/matchmaking/src/match-ticket.schema'
 
 const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()
   const [ticketsIds, setTicketsIds] = useState<string[]>([])
   const connections = useRef<Record<string, string>>({})
-  const ticketsService = API.instance.client.service('match-ticket')
-  const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 
   console.log('RENDER', ticketsIds, connections)
 
@@ -22,10 +23,10 @@ const Page = () => {
   async function newTicket() {
     let ticket
     try {
-      ticket = await ticketsService.create({ gamemode: 'mode.demo' })
+      ticket = await API.instance.client.service(matchTicketPath).create({ gamemode: 'mode.demo' })
     } catch (e) {
       alert('You already searching for game')
-      const matchUser = (await API.instance.client.service('match-user').find()).data[0]
+      const matchUser = (await API.instance.client.service(matchUserPath).find()).data[0]
       console.log('matchUser', matchUser)
       ticket = { id: matchUser.ticketId }
     }
@@ -47,7 +48,9 @@ const Page = () => {
   }
 
   function getAssignment(ticketId: string): Promise<OpenMatchTicketAssignment> {
-    return (ticketsAssignmentService.get(ticketId) as Promise<OpenMatchTicketAssignment>).then((assignment) => {
+    return (
+      API.instance.client.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
+    ).then((assignment) => {
       console.log('assignment', ticketId, assignment)
       connections.current[ticketId] = assignment.connection
       updRenderTrigger({})

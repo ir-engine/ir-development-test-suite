@@ -4,18 +4,21 @@ import { useHistory } from 'react-router-dom'
 
 import { API } from '@etherealengine/client-core/src/API'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
+import { matchUserPath } from '@etherealengine/engine/src/schemas/matchmaking/match-user.schema'
 import { MatchmakingTicketAssignment, OpenMatchTicket } from '@etherealengine/matchmaking/src/interfaces'
+import { matchTicketAssignmentPath } from '@etherealengine/matchmaking/src/match-ticket-assignment.schema'
+import { matchTicketPath } from '@etherealengine/matchmaking/src/match-ticket.schema'
 
 const gameModes = ['ctf', 'tournament']
 
 async function findCurrentTicketData() {
-  const { data } = await API.instance.client.service('match-user').find()
+  const { data } = await API.instance.client.service(matchUserPath).find()
   if (data.length) {
     const matchUser = data[0]
-    const ticket = await API.instance.client.service('match-ticket').get(matchUser.ticketId)
+    const ticket = await API.instance.client.service(matchTicketPath).get(matchUser.ticketId)
     if (!ticket) {
       // ticket is outdated - delete match-user row
-      await API.instance.client.service('match-user').remove(matchUser.id)
+      await API.instance.client.service(matchUserPath).remove(matchUser.id)
     } else {
       const gamemode = ticket.search_fields.tags[0]
       return { id: ticket.id, gamemode }
@@ -35,8 +38,6 @@ const Page = () => {
   const [connection, setConnection] = useState<string | undefined>()
   const [instanceId, setInstanceId] = useState<string | undefined>()
   const [locationName, setLocationName] = useState<string | undefined>()
-  const ticketsService = API.instance.client.service('match-ticket')
-  const ticketsAssignmentService = API.instance.client.service('match-ticket-assignment')
 
   console.log('RENDER', ticketData, connection)
 
@@ -83,15 +84,15 @@ const Page = () => {
     setIsUpdating(true)
     let serverTicket: OpenMatchTicket
     try {
-      serverTicket = await ticketsService.create({ gamemode })
+      serverTicket = await API.instance.client.service(matchTicketPath).create({ gamemode })
     } catch (e) {
-      const matchUser = (await API.instance.client.service('match-user').find()).data[0]
-      serverTicket = await ticketsService.get(matchUser.ticketId)
+      const matchUser = (await API.instance.client.service(matchUserPath).find()).data[0]
+      serverTicket = await API.instance.client.service(matchTicketPath).get(matchUser.ticketId)
       if (!serverTicket) {
         // cleanup
-        await API.instance.client.service('match-user').remove(matchUser.id)
+        await API.instance.client.service(matchUserPath).remove(matchUser.id)
         // create new
-        serverTicket = await ticketsService.create({ gamemode })
+        serverTicket = await API.instance.client.service(matchTicketPath).create({ gamemode })
       }
     }
 
@@ -113,13 +114,15 @@ const Page = () => {
     if (!ticketId) {
       return
     }
-    await ticketsService.remove(ticketId)
+    await API.instance.client.service(matchTicketPath).remove(ticketId)
     setTicketData(undefined)
     // setStatus('')
   }
 
   function getAssignment(ticketId: string): Promise<MatchmakingTicketAssignment> {
-    return (ticketsAssignmentService.get(ticketId) as Promise<MatchmakingTicketAssignment>).then((assignment) => {
+    return (
+      API.instance.client.service(matchTicketAssignmentPath).get(ticketId) as Promise<MatchmakingTicketAssignment>
+    ).then((assignment) => {
       console.log('assignment', ticketId, assignment)
       return assignment
     })
