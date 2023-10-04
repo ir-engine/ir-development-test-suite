@@ -35,6 +35,7 @@ import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDC
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 import { act } from '@testing-library/react'
 import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 overrideFileLoaderLoad()
 
@@ -72,7 +73,7 @@ describe.skip('avatarFunctions Integration', async () => {
   beforeEach(async () => {
     createEngine()
     createMockNetwork()
-    Engine.instance.userID = Engine.instance.worldNetwork.hostId
+    Engine.instance.userID = NetworkState.worldNetwork.hostId
     Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()

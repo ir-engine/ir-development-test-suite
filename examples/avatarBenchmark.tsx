@@ -34,10 +34,10 @@ import { Vector3 } from 'three'
 //         if(eid) entities.push(eid)
 //       }
 //     }
-//     if(Engine.instance.worldNetwork && entities.length) {
-//       const data = dataWriter(world, Engine.instance.worldNetwork, entities)
+//     if(NetworkState.worldNetwork && entities.length) {
+//       const data = dataWriter(world, NetworkState.worldNetwork, entities)
 //       console.log(data)
-//       Engine.instance.worldNetwork.incomingMessageQueueUnreliable.add(data)
+//       NetworkState.worldNetwork.incomingMessageQueueUnreliable.add(data)
 //     }
 //   }
 // }

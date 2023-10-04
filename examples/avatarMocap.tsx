@@ -21,6 +21,7 @@ import { NormalizedLandmarkList } from '@mediapipe/pose'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -81,7 +82,7 @@ const MocapAvatar = (props: { userID: UserID }) => {
           results: data
         })
         for (const func of dataChannelFunctions)
-          func(Engine.instance.worldNetwork, mocapDataChannelType, Engine.instance.worldNetwork.hostPeerID, message)
+          func(NetworkState.worldNetwork, mocapDataChannelType, NetworkState.worldNetwork.hostPeerID, message)
       }
     }, 500)
 

@@ -24,6 +24,7 @@ import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -37,7 +38,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     const userId = ('user' + i) as UserID & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
-    NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
+    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index, userId)
     dispatchAction(
       AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
@@ -58,7 +59,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
   }
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(Engine.instance.worldNetwork as Network, userId, index, userId, index, userId)
+  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index, userId)
   dispatchAction(
     AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),
