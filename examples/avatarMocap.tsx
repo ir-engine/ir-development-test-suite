@@ -10,7 +10,7 @@ import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
 import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
 import { RendererState } from '@etherealengine/engine/src/renderer/RendererState'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
@@ -45,7 +45,7 @@ type AvailablePoses =
   | 'mocapTurn45'
   | 'mocapTurn90'
 
-const mocapTestData = {} as Record<AvailablePoses, NormalizedLandmarkList>[]
+const mocapTestData = {} as Record<AvailablePoses, MotionCaptureResults>[]
 getMocapTestData().then((data) => {
   Object.assign(mocapTestData, data)
   console.log({ mocapTestData })
@@ -78,11 +78,10 @@ const MocapAvatar = (props: { userID: UserID }) => {
       if (dataChannelFunctions) {
         const message = encode({
           timestamp: Date.now(),
-          peerID: props.userID,
           results: data
         })
         for (const func of dataChannelFunctions)
-          func(NetworkState.worldNetwork, mocapDataChannelType, NetworkState.worldNetwork.hostPeerID, message)
+          func(NetworkState.worldNetwork, mocapDataChannelType, props.userID as any, message)
       }
     }, 500)
 
@@ -170,7 +169,7 @@ export default function AvatarMocap() {
 
   useEffect(() => {
     if (!engineState.connectedWorld.value || !avatarList.data.length || !selectedAvatar.value) return
-    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id)
+    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
       removeEntity(UUIDComponent.entitiesByUUID[userid])
