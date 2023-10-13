@@ -306,7 +306,7 @@
           "props": {
             "color": 16777215,
             "intensity": 1,
-            "cameraFar": 2000,
+            "cameraFar": 200,
             "castShadow": true,
             "shadowMapResolution": 512,
             "shadowBias": -0.00001,
