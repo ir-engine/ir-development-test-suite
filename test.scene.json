@@ -594,16 +594,51 @@
               "w": 1
             },
             "scale": {
-              "x": 0.050000000000000044,
-              "y": 0.050000000000000044,
-              "z": 0.050000000000000044
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "dynamic-load",
+          "props": {
+            "mode": "distance",
+            "distance": 5
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 8,
+      "name": "Dynamic Load Distance"
+    },
+    "60a15eb3-1ae8-44a8-8952-ea1f67fa8084": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.05,
+              "y": 0.05,
+              "z": 0.05
             }
           }
         },
         {
           "name": "gltf-model",
           "props": {
-            "src": "__$project$__/default-project/assets/apartment.glb",
+            "src": "__$project$__/default-project/assets/Skybase.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
           }
@@ -635,19 +670,13 @@
         {
           "name": "visible",
           "props": true
-        },
-        {
-          "name": "dynamic-load",
-          "props": {
-            "distance": 5
-          }
         }
       ],
-      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
-      "index": 7,
-      "name": "Dynamic Load"
+      "parent": "60a15eb3-1ae8-44a8-8952-ea1f67fa8083",
+      "index": 9,
+      "name": "Apartment"
     },
-    "fcbe4641-e0bb-4435-b30d-13ae64690b29": {
+    "fcbe4641-e0bb-4435-b30d-13ae64690b30": {
       "components": [
         {
           "name": "transform",
@@ -671,75 +700,38 @@
           }
         },
         {
-          "name": "load-volume",
+          "name": "dynamic-load",
           "props": {
-            "targets": [
-              {
-                "uuid": "30cc02ea-480c-4d30-a796-3e8975e4fa82",
-                "loaded": false,
-                "entities": [
-                  {
-                    "uuid": "30cc02ea-480c-4d30-a796-3e8975e4fa82",
-                    "name": "Video",
-                    "parent": "fcbe4641-e0bb-4435-b30d-13ae64690b29",
-                    "components": [
-                      {
-                        "name": "transform",
-                        "props": {
-                          "position": {
-                            "x": 2,
-                            "y": 4,
-                            "z": 2
-                          },
-                          "rotation": {
-                            "x": -6.123233995736766e-17,
-                            "y": -1,
-                            "z": -6.123233995736766e-17,
-                            "w": -6.123234262925839e-17
-                          },
-                          "scale": {
-                            "x": 1.6,
-                            "y": 1,
-                            "z": 1
-                          }
-                        }
-                      },
-                      {
-                        "name": "visible",
-                        "props": {}
-                      },
-                      {
-                        "name": "media",
-                        "props": {
-                          "controls": true,
-                          "autoplay": true,
-                          "resources": [
-                            "__$project$__/default-project/assets/SampleVideo.mp4"
-                          ],
-                          "volume": 1,
-                          "synchronize": true,
-                          "playMode": "loop",
-                          "isMusic": false,
-                          "seekTime": 0
-                        }
-                      },
-                      {
-                        "name": "video",
-                        "props": {
-                          "mediaUUID": "",
-                          "side": 2,
-                          "size": {
-                            "x": 1,
-                            "y": 1
-                          },
-                          "fit": "contain"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
+            "mode": "trigger",
+            "distance": 20
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 10,
+      "name": "Dynamic Load Volume Target"
+    },
+    "fcbe4641-e0bb-4435-b30d-13ae64690b31": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 0,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
           }
         },
         {
@@ -756,20 +748,74 @@
               {
                 "onEnter": "doLoad",
                 "onExit": "doUnload",
-                "target": "fcbe4641-e0bb-4435-b30d-13ae64690b29"
-              },
-              {
-                "target": "8bc5e323-e5b7-4776-93ee-827ca1951edb",
-                "onEnter": "doUnload",
-                "onExit": "doLoad"
+                "target": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
               }
             ]
           }
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
-      "index": 8,
-      "name": "Load Volume"
+      "index": 11,
+      "name": "Dynamic Load Volume Trigger"
+    },
+    "30cc02ea-480c-4d30-a796-3e8975e4fa82": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 2,
+              "y": 4,
+              "z": 2
+            },
+            "rotation": {
+              "x": -6.123233995736766e-17,
+              "y": -1,
+              "z": -6.123233995736766e-17,
+              "w": -6.123234262925839e-17
+            },
+            "scale": {
+              "x": 1.6,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "media",
+          "props": {
+            "controls": true,
+            "autoplay": true,
+            "resources": [
+              "__$project$__/default-project/assets/SampleVideo.mp4"
+            ],
+            "volume": 1,
+            "synchronize": true,
+            "playMode": "loop",
+            "isMusic": false,
+            "seekTime": 0
+          }
+        },
+        {
+          "name": "video",
+          "props": {
+            "mediaUUID": "",
+            "side": 2,
+            "size": {
+              "x": 1,
+              "y": 1
+            },
+            "fit": "contain"
+          }
+        }
+      ],
+      "name": "Video",
+      "index": 12,
+      "parent": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
     }
   },
   "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
