@@ -783,7 +783,7 @@
         },
         {
           "name": "visible",
-          "props": {}
+          "props": true
         },
         {
           "name": "media",
