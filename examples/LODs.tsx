@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { Mesh, MeshBasicMaterial, SphereGeometry, TorusGeometry, Vector3 } from 'three'
 
-import { uploadToFeathersService } from '@etherealengine/engine/src/assets/functions/upload'
+import { uploadToFeathersService } from '@etherealengine/client-core/src/util/upload'
 import { AdminAssetUploadArgumentsType } from '@etherealengine/common/src/interfaces/UploadAssetInterface'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
