@@ -23,6 +23,7 @@ import { XRState } from '@etherealengine/engine/src/xr/XRState'
 
 import { createPhysicsObjects } from './utils/common/loadPhysicsHelpers'
 import { Template } from './utils/template'
+import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 
 const LightProbe = () => {
   const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState).environment)
@@ -56,7 +57,8 @@ const LightProbe = () => {
   return null
 }
 
-export default function AvatarBenchmarking() {
+export default function XRLightEstimation() {
+  useLocationSpawnAvatar()
   return (
     <>
       <Template />

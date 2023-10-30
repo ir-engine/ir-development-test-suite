@@ -15,6 +15,7 @@ import { VisibleComponent } from '@etherealengine/engine/src/scene/components/Vi
 import { XRPlaneComponent } from '@etherealengine/engine/src/xr/XRComponents'
 
 import { Template } from './utils/template'
+import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 
 const DetectedPlanes = () => {
   const entity = useEntityContext()
@@ -43,6 +44,9 @@ const DetectedPlanes = () => {
 }
 
 export default function AvatarBenchmarking() {
+
+  useLocationSpawnAvatar()
+
   return (
     <>
       <Template />
