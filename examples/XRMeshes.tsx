@@ -16,7 +16,7 @@ import { Template } from './utils/template'
 const wireframeMaterial = new MeshBasicMaterial({ wireframe: true })
 const normalMaterial = new MeshNormalMaterial({ opacity: 0.5, transparent: true })
 
-const DetectedPlanes = () => {
+export const DetectedPlanes = () => {
   const entity = useEntityContext()
 
   const xrPlane = useComponent(entity, XRDetectedPlaneComponent)
@@ -34,7 +34,7 @@ const DetectedPlanes = () => {
   return null
 }
 
-const DetectedMeshes = () => {
+export const DetectedMeshes = () => {
   const entity = useEntityContext()
 
   const xrmesh = useComponent(entity, XRDetectedMeshComponent)

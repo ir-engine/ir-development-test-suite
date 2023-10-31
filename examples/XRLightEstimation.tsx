@@ -9,7 +9,7 @@ import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { Template } from './utils/template'
 
-const LightProbe = () => {
+export const LightProbe = () => {
   const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState).environment)
 
   useEffect(() => {
