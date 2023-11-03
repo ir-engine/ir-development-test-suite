@@ -74,7 +74,6 @@ describe.skip('avatarFunctions Integration', async () => {
     createEngine()
     createMockNetwork()
     Engine.instance.userID = NetworkState.worldNetwork.hostId
-    Engine.instance.peerID = 'peer id' as PeerID
     getMutableState(EngineState).publicPath.set('')
     await Physics.load()
     getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
