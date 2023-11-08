@@ -12,14 +12,14 @@ export function Template(props: { projectName?: string; sceneName?: string }) {
   const engineState = useHookstate(getMutableState(EngineState))
 
   useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
-  useOfflineNetwork({ spectate: true })
+  useOfflineNetwork()
   useLoadLocationScene()
   useLoadEngineWithScene({ spectate: true })
   useDefaultLocationSystems(true)
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-  }, [engineState.connectedWorld])
+  }, [])
 
   return <>{engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}</>
 }
