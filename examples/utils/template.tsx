@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 
-import { LoadingCircle } from '@etherealengine/client-core/src/components/LoadingCircle'
 import { useLoadEngineWithScene, useOfflineNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadLocationScene, useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
@@ -21,5 +20,5 @@ export function Template(props: { projectName?: string; sceneName?: string }) {
     AvatarService.fetchAvatarList()
   }, [engineState.connectedWorld])
 
-  return <>{engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}</>
+  return <></>
 }
