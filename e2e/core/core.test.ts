@@ -18,7 +18,7 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationReady)
+    await bot.awaitHookPromise(BotHooks.LocationLoaded)
   })
 
   after(async () => {
@@ -39,7 +39,7 @@ describe('Multi-Bot Tests', () => {
     bots.push(bot)
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationReady)
+    await bot.awaitHookPromise(BotHooks.LocationLoaded)
     return bot
   }
 
