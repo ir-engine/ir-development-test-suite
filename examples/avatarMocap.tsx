@@ -3,25 +3,21 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
-import { AvatarUISystem } from '@etherealengine/client-core/src/systems/AvatarUISystem'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
 import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
 import { RendererState } from '@etherealengine/engine/src/renderer/RendererState'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
-import { NormalizedLandmarkList } from '@mediapipe/pose'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -164,7 +160,6 @@ export default function AvatarMocap() {
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
-    disableSystem(AvatarUISystem)
   }, [])
 
   useEffect(() => {

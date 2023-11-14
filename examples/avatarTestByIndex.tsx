@@ -5,7 +5,6 @@ import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
 import { mockLoopAnimAvatars, mockIKAvatars, mockNetworkAvatars, mockTPoseAvatars } from './utils/avatar/loadAvatarHelpers'
-import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
@@ -37,8 +36,6 @@ export default function AvatarBenchmarking() {
       mockTPoseAvatars([avatars[index]])
     }
   }, [engineState.connectedWorld, avatarList.data])
-
-  useSimulateMovement()
 
   return <Template />
 }
