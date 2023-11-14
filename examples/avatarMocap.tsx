@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
@@ -146,7 +147,7 @@ const ActivePoseUI = () => {
 }
 
 export default function AvatarMocap() {
-  const engineState = useHookstate(getMutableState(EngineState))
+  const network = useWorldNetwork()
   const avatarList = useFind(avatarPath, {
     query: {
       $skip: 0,
@@ -163,14 +164,14 @@ export default function AvatarMocap() {
   }, [])
 
   useEffect(() => {
-    if (!engineState.connectedWorld.value || !avatarList.data.length || !selectedAvatar.value) return
+    if (!network?.ready.value || !avatarList.data.length || !selectedAvatar.value) return
     const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
       removeEntity(UUIDComponent.entitiesByUUID[userid])
       userID.set('' as UserID)
     }
-  }, [engineState.connectedWorld, avatarList.data.length, selectedAvatar])
+  }, [network?.ready, avatarList.data.length, selectedAvatar])
 
   return (
     <>

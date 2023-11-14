@@ -19,6 +19,7 @@ import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { Vector3 } from 'three'
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -42,7 +43,7 @@ import { Vector3 } from 'three'
 // }
 
 export default function AvatarBenchmarking() {
-  const engineState = useHookstate(getMutableState(EngineState))
+  const network = useWorldNetwork()
   const avatarList = useFind(avatarPath, { 
     query: {
       $skip: 0,
@@ -56,7 +57,7 @@ export default function AvatarBenchmarking() {
   const [entities, setEntities] = useState(0)
 
   useEffect(() => {
-    engineState.avatarLoadingEffect.set(false)
+    getMutableState(EngineState).avatarLoadingEffect.set(false)
 
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
@@ -69,14 +70,14 @@ export default function AvatarBenchmarking() {
   }, [avatarList.data.length])
 
   useEffect(() => {
-    if (!avatarID || !engineState.connectedWorld.value) return
+    if (!avatarID || !network?.ready.value) return
     for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserID))
     setEntities(count)
     for (let i = 0; i < count; i++) {
       const avatar = avatarList.data.find((val) => val.id === avatarID)!
       loadAssetWithIK(avatar, new Vector3(0, 0, i * 2), i)
     }
-  }, [count, avatarID, engineState.connectedWorld])
+  }, [count, avatarID, network?.ready])
 
   return (
     <>
