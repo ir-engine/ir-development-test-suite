@@ -22,6 +22,7 @@ import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -150,7 +151,7 @@ const ActivePoseUI = () => {
 }
 
 export default function AvatarMocap() {
-  const engineState = useHookstate(getMutableState(EngineState))
+  const network = useWorldNetwork()
   const avatarList = useFind(avatarPath, {
     query: {
       $skip: 0,
@@ -168,14 +169,14 @@ export default function AvatarMocap() {
   }, [])
 
   useEffect(() => {
-    if (!engineState.connectedWorld.value || !avatarList.data.length || !selectedAvatar.value) return
+    if (!network?.ready.value || !avatarList.data.length || !selectedAvatar.value) return
     const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
       removeEntity(UUIDComponent.entitiesByUUID[userid])
       userID.set('' as UserID)
     }
-  }, [engineState.connectedWorld, avatarList.data.length, selectedAvatar])
+  }, [network?.ready, avatarList.data.length, selectedAvatar])
 
   return (
     <>
