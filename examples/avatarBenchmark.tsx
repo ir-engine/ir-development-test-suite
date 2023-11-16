@@ -12,7 +12,6 @@ import { XRAction } from '@etherealengine/engine/src/xr/XRState'
 import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { loadAssetWithIK, loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
-import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
@@ -56,8 +55,6 @@ export default function AvatarBenchmarking() {
   const [avatarID, setAvatar] = useState('')
 
   const [entities, setEntities] = useState(0)
-
-  useSimulateMovement()
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)

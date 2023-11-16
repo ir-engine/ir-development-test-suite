@@ -25,7 +25,7 @@ export const DetectedPlanes = () => {
     if (!xrPlane.geometry.value) return
     const transparentMesh = new Mesh(xrPlane.geometry.value, normalMaterial)
     addObjectToGroup(entity, transparentMesh)
-    setComponent(entity, NameComponent, 'Plane ' + xrPlane.plane.value.semanticLabel ?? xrPlane.plane.orientation.value)
+    setComponent(entity, NameComponent, 'Plane ' + (xrPlane.plane.value as any).semanticLabel ?? xrPlane.plane.orientation.value)
     return () => {
       removeObjectFromGroup(entity, transparentMesh)
     }

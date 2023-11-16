@@ -36,7 +36,5 @@ export default function AvatarBenchmarking() {
     }
   }, [network?.ready, avatarList.data.length])
 
-  // useSimulateMovement()
-
   return <Template />
 }

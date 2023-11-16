@@ -13,7 +13,6 @@ import {
   mockNetworkAvatars,
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
-import { useSimulateMovement } from './utils/avatar/simulateMovement'
 import { Template } from './utils/template'
 
 export default function AvatarBenchmarking() {
@@ -43,8 +42,6 @@ export default function AvatarBenchmarking() {
       mockTPoseAvatars([avatars[index]])
     }
   }, [network?.ready, avatarList.data])
-
-  useSimulateMovement()
 
   return <Template />
 }
