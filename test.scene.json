@@ -816,6 +816,510 @@
       "name": "Video",
       "index": 12,
       "parent": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
+    },
+    "511ad793-2a07-4f04-a14d-b26762967552": {
+      "name": "Particle System",
+      "components": [
+        {
+          "name": "particle-system",
+          "props": {
+            "systemParameters": {
+              "version": "1.0",
+              "autoDestroy": false,
+              "looping": true,
+              "prewarm": false,
+              "material": "",
+              "duration": 5,
+              "shape": {
+                "type": "point"
+              },
+              "startLife": {
+                "type": "IntervalValue",
+                "a": 1,
+                "b": 2
+              },
+              "startSpeed": {
+                "type": "IntervalValue",
+                "a": 0.1,
+                "b": 5
+              },
+              "startRotation": {
+                "type": "IntervalValue",
+                "a": 0,
+                "b": 300
+              },
+              "startSize": {
+                "type": "IntervalValue",
+                "a": 0.025,
+                "b": 0.45
+              },
+              "startColor": {
+                "type": "ConstantColor",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 0.1
+                }
+              },
+              "emissionOverTime": {
+                "type": "ConstantValue",
+                "value": 400
+              },
+              "emissionOverDistance": {
+                "type": "ConstantValue",
+                "value": 0
+              },
+              "emissionBursts": [],
+              "onlyUsedByOther": false,
+              "rendererEmitterSettings": {
+                "startLength": {
+                  "type": "ConstantValue",
+                  "value": 1
+                },
+                "followLocalOrigin": true
+              },
+              "renderMode": 0,
+              "texture": "/static/editor/dot.png",
+              "instancingGeometry": "",
+              "startTileIndex": {
+                "type": "ConstantValue",
+                "value": 0
+              },
+              "uTileCount": 1,
+              "vTileCount": 1,
+              "blending": 2,
+              "behaviors": [],
+              "worldSpace": true
+            },
+            "behaviorParameters": []
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": -10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 10
+    },
+    "7bca6953-d646-459b-abe5-673e6ba9f510": {
+      "name": "Grabbable Cube",
+      "components": [
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/default-project/assets/test-equippable.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 0.5,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 0,
+            "shapeType": 1,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": []
+          }
+        },
+        {
+          "name": "equippable",
+          "props": {}
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 11
+    },
+    "95d108b6-fbe2-44f0-b4b3-0dbcece3a8ba": {
+      "name": "Point Light",
+      "components": [
+        {
+          "name": "point-light",
+          "props": {
+            "color": 16777215,
+            "intensity": 1,
+            "range": 0,
+            "decay": 2,
+            "castShadow": false,
+            "shadowBias": 0.5,
+            "shadowRadius": 1
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 1,
+              "z": -10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 12
+    },
+    "458586fa-a587-442c-a40e-44a4ef7e22f0": {
+      "name": "Spot Light",
+      "components": [
+        {
+          "name": "spot-light",
+          "props": {
+            "color": 16777215,
+            "intensity": 10,
+            "range": 0,
+            "decay": 2,
+            "angle": 1.0471975511965976,
+            "penumbra": 1,
+            "castShadow": false,
+            "shadowBias": 0.00001,
+            "shadowRadius": 1
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 3,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 13
+    },
+    "68130937-16a1-4b95-a0db-7e32b99212fa": {
+      "name": "Avatar Animation",
+      "components": [
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/default-project/assets/avatars/male_01.vrm",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": true,
+            "activeClipIndex": 0,
+            "animationPack": "__$project$__/default-project/assets/animations/wave.fbx",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 14
+    },
+    "8a58e8bf-ded9-4a21-a761-230df82d9ad0": {
+      "name": "gltf-model",
+      "components": [
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/ee-development-test-suite/assets/animations/rings.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 1,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": false,
+            "activeClipIndex": 0,
+            "animationPack": "",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 15
+    },
+    "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5": {
+      "name": "Chair",
+      "components": [
+        {
+          "name": "primitive-geometry",
+          "props": {
+            "geometryType": 8,
+            "geometryParams": {
+              "radius": 1,
+              "detail": 0
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 5,
+              "y": 0.5,
+              "z": -5
+            },
+            "rotation": {
+              "x": -0.2588190451025207,
+              "y": 0,
+              "z": 0,
+              "w": 0.9659258262890683
+            },
+            "scale": {
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0.5
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 16
+    },
+    "adaa4d16-df22-47fa-9c0d-4111a8383f13": {
+      "name": "Mount Point",
+      "components": [
+        {
+          "name": "mount-point",
+          "props": {
+            "type": "seat",
+            "dismountOffset": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0.9000000000000001,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0.5
+            }
+          }
+        }
+      ],
+      "parent": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
+      "index": 0
+    },
+    "72fd50ee-4000-4d34-ac4f-9a6c14bd8ad2": {
+      "name": "collider",
+      "components": [
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": [
+              {
+                "onEnter": null,
+                "onExit": null,
+                "target": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0.25881904510252074,
+              "y": 0,
+              "z": 0,
+              "w": 0.9659258262890683
+            },
+            "scale": {
+              "x": 0.75,
+              "y": 0.75,
+              "z": 0.75
+            }
+          }
+        }
+      ],
+      "parent": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
+      "index": 1
     }
   },
   "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
