@@ -15,7 +15,7 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationLoaded)
+    await bot.awaitHookPromise(BotHooks.LocationReady)
     await bot.moveBot('forward',3000)
     await bot.moveBot('left',2000)
     await bot.moveBot('backward',4000)

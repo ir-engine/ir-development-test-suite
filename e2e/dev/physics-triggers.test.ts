@@ -16,11 +16,11 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     //await bot.enterLocation(`https://${domain}`)
-    //await bot.awaitHookPromise(BotHooks.LocationLoaded)
+    //await bot.awaitHookPromise(BotHooks.LocationReady)
     await bot.enterEditor(`https://${domain}/studio/default-project/apartment`,`https://${domain}` )
     await bot.physics_triggers()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationLoaded)
+    await bot.awaitHookPromise(BotHooks.LocationReady)
     await bot.moveBot('forward',2000)
   })
 
