@@ -27,9 +27,6 @@ export default function XRSuite() {
   return (
     <>
       <Template />
-      <div style={{ pointerEvents: 'all' }}>
-        <MediaIconsBox />
-      </div>
       <QueryReactor Components={[XRDetectedPlaneComponent]} ChildEntityReactor={DetectedPlanes} />
       <QueryReactor Components={[XRDetectedMeshComponent]} ChildEntityReactor={DetectedMeshes} />
       <LightProbe />
