@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react'
 import { Mesh, MeshStandardMaterial, SphereGeometry } from 'three'
 
-import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSystem'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
+import { getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEntity, removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
+import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { Template } from './utils/template'
 
 export const LightProbe = () => {
-  const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState).environment)
+  const xrLightProbeState = useHookstate(getMutableState(XRLightProbeState))
 
   useEffect(() => {
     if (!xrLightProbeState.value) return
 
-    // const entity = createEntity()
+    const entity = createEntity()
 
     const ballGeometry = new SphereGeometry(0.5, 32, 32)
     const ballMaterial = new MeshStandardMaterial({
@@ -25,16 +29,12 @@ export const LightProbe = () => {
     })
     const ballMesh = new Mesh(ballGeometry, ballMaterial)
 
-    Engine.instance.scene.add(ballMesh)
-    // ballGroup.add(ballMesh);
-
-    // const outlineMesh = new Mesh(isEstimatingLight.geometry.value, new MeshBasicMaterial({ wireframe: true }))
-    // addObjectToGroup(entity, outlineMesh)
-    // setComponent(entity, VisibleComponent)
-    // setComponent(entity, NameComponent, 'Plane ' + isEstimatingLight.plane.orientation.value)
+    addObjectToGroup(entity, ballMesh)
+    getComponent(entity, TransformComponent).position.set(0, 2, 0)
+    setComponent(entity, VisibleComponent)
+    setComponent(entity, NameComponent, 'Light Estimation Helper')
     return () => {
-      // removeObjectFromGroup(entity, outlineMesh)
-      // removeComponent(entity, VisibleComponent)
+      removeEntity(entity)
     }
   }, [xrLightProbeState])
 
@@ -46,9 +46,6 @@ export default function XRLightEstimation() {
   return (
     <>
       <Template />
-      <div style={{ pointerEvents: 'all' }}>
-        <MediaIconsBox />
-      </div>
       <LightProbe />
     </>
   )
