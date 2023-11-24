@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 
-
-import { Template } from './utils/template'
-import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { EntityTreeComponent } from '@etherealengine/engine/src/ecs/functions/EntityTree'
+import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
+import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
-import { BoxGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, Quaternion, SphereGeometry, Vector3 } from 'three'
-import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
-import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
-import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
+import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { BoxGeometry, Mesh, MeshBasicMaterial, Quaternion, SphereGeometry, Vector3 } from 'three'
+import { Template } from './utils/template'
 
 const createSpline = (index = 0) => {
   const entity = createEntity()
@@ -45,11 +45,11 @@ const createSpline = (index = 0) => {
 }
 
 export default function Splines() {
-
   useEffect(() => {
     const trackEntity = createEntity()
     setComponent(trackEntity, NameComponent, `Track`)
     setComponent(trackEntity, VisibleComponent)
+    setComponent(trackEntity, EntityTreeComponent)
     const mesh = new Mesh(new SphereGeometry(1), new MeshBasicMaterial({ color: 0xff00ff }))
     const pointerMesh = new Mesh(new BoxGeometry(1, 1, 2), new MeshBasicMaterial({ color: 0x0000ff }))
     pointerMesh.translateZ(1)

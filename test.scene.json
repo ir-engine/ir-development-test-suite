@@ -790,9 +790,7 @@
           "props": {
             "controls": true,
             "autoplay": true,
-            "resources": [
-              "__$project$__/default-project/assets/SampleVideo.mp4"
-            ],
+            "resources": ["__$project$__/default-project/assets/SampleVideo.mp4"],
             "volume": 1,
             "synchronize": true,
             "playMode": "loop",
@@ -1128,63 +1126,6 @@
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 14
     },
-    "8a58e8bf-ded9-4a21-a761-230df82d9ad0": {
-      "name": "gltf-model",
-      "components": [
-        {
-          "name": "gltf-model",
-          "props": {
-            "src": "__$project$__/ee-development-test-suite/assets/animations/rings.glb",
-            "generateBVH": true,
-            "avoidCameraOcclusion": false
-          }
-        },
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -10,
-              "y": 1,
-              "z": 10
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "loop-animation",
-          "props": {
-            "hasAvatarAnimations": false,
-            "activeClipIndex": 0,
-            "animationPack": "",
-            "paused": false,
-            "time": 0,
-            "timeScale": 1,
-            "blendMode": 2500,
-            "loop": 2201,
-            "clampWhenFinished": false,
-            "zeroSlopeAtStart": true,
-            "zeroSlopeAtEnd": true,
-            "weight": 1
-          }
-        }
-      ],
-      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
-      "index": 15
-    },
     "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5": {
       "name": "Chair",
       "components": [
@@ -1320,6 +1261,292 @@
       ],
       "parent": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
       "index": 1
+    },
+    "1e2f7f35-92d9-4726-ba0c-164eefc8d71f": {
+      "name": "Portal 1",
+      "components": [
+        {
+          "name": "portal",
+          "props": {
+            "location": "",
+            "linkedPortalId": "360a1b2e-a10a-4f99-8ca4-41b19890de64",
+            "redirect": false,
+            "effectType": "None",
+            "previewType": "Spherical",
+            "previewImageURL": "",
+            "spawnPosition": {
+              "x": 5,
+              "y": 0,
+              "z": 5
+            },
+            "spawnRotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 5,
+              "y": 0,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 17
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de64": {
+      "name": "Portal 2",
+      "components": [
+        {
+          "name": "portal",
+          "props": {
+            "location": "",
+            "linkedPortalId": "1e2f7f35-92d9-4726-ba0c-164eefc8d71f",
+            "redirect": false,
+            "effectType": "None",
+            "previewType": "Spherical",
+            "previewImageURL": "",
+            "spawnPosition": {
+              "x": -5,
+              "y": 0,
+              "z": 5
+            },
+            "spawnRotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -5,
+              "y": 0,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 18
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de65": {
+      "name": "Spline",
+      "components": [
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "spline",
+          "props": {
+            "elements": [
+              {
+                "position": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "quaternion": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1
+                }
+              },
+              {
+                "position": {
+                  "x": 10,
+                  "y": 0,
+                  "z": 0
+                },
+                "quaternion": {
+                  "x": 0.7071067811865475,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.7071067811865476
+                }
+              },
+              {
+                "position": {
+                  "x": 10,
+                  "y": 0,
+                  "z": 10
+                },
+                "quaternion": {
+                  "x": 1,
+                  "y": 0,
+                  "z": 0,
+                  "w": 6.123233995736766e-17
+                }
+              },
+              {
+                "position": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 10
+                },
+                "quaternion": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0.7071067811865476,
+                  "w": -0.7071067811865475
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -5,
+              "y": 1,
+              "z": -5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 19
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de66": {
+      "name": "Spline Follower",
+      "components": [
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "spline-track",
+          "props": {
+            "splineEntityUUID": "360a1b2e-a10a-4f99-8ca4-41b19890de65",
+            "velocity": 5,
+            "enableRotation": false,
+            "lockToXZPlane": true,
+            "loop": true
+          }
+        },
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/ee-development-test-suite/assets/animations/rings.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": false,
+            "activeClipIndex": 0,
+            "animationPack": "",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": true,
+            "receive": true
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 2,
+            "shapeType": 6,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": []
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 20
     }
   },
   "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
