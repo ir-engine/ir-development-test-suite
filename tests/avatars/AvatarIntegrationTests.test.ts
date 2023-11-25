@@ -6,36 +6,30 @@ import { Quaternion, Vector3 } from 'three'
 
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
-import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
-import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
-import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
-import { createGLTFLoader } from '@etherealengine/engine/src/assets/functions/createGLTFLoader'
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
-import {
-  AvatarAnimationComponent,
-  AvatarRigComponent
-} from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { loadAvatarModelAsset, setupAvatarForUser } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { spawnAvatarReceptor } from '@etherealengine/engine/src/avatar/functions/spawnAvatarReceptor'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
-import { destroyEngine, Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { Engine, destroyEngine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
-import { WorldNetworkAction } from '@etherealengine/engine/src/networking/functions/WorldNetworkAction'
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
+import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { createMockNetwork } from '@etherealengine/engine/tests/util/createMockNetwork'
 import { overrideFileLoaderLoad } from '@etherealengine/engine/tests/util/loadGLTFAssetNode'
 import { applyIncomingActions, dispatchAction, getMutableState, receiveActions } from '@etherealengine/hyperflux'
 
-import packageJson from '../../package.json'
-import { EntityNetworkState } from '@etherealengine/engine/src/networking/state/EntityNetworkState'
-import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
-import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
-import { act } from '@testing-library/react'
-import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
+import { EntityNetworkState } from '@etherealengine/engine/src/networking/state/EntityNetworkState'
+import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
+import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
+import { act } from '@testing-library/react'
+import packageJson from '../../package.json'
+
+import '@etherealengine/engine/src/EngineModule'
 
 overrideFileLoaderLoad()
 
@@ -89,20 +83,22 @@ describe.skip('avatarFunctions Integration', async () => {
     for (const modelURL of assetPaths) {
       it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
         const userId = `userId-${i}` as UserID
-        dispatchAction(AvatarNetworkAction.spawn({
-          $from: userId,
-          position: new Vector3(),
-          rotation: new Quaternion(),
-          networkId: i++ as NetworkId,
-          entityUUID: userId as string as EntityUUID
-        }))
+        dispatchAction(
+          AvatarNetworkAction.spawn({
+            $from: userId,
+            position: new Vector3(),
+            rotation: new Quaternion(),
+            networkId: i++ as NetworkId,
+            entityUUID: userId as string as EntityUUID
+          })
+        )
 
         applyIncomingActions()
-  
+
         await act(() => receiveActions(EntityNetworkState))
 
         const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
-  
+
         spawnAvatarReceptor(userId as string as EntityUUID)
 
         const avatar = getComponent(entity, AvatarComponent)
