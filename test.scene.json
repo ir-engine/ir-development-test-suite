@@ -790,7 +790,9 @@
           "props": {
             "controls": true,
             "autoplay": true,
-            "resources": ["__$project$__/default-project/assets/SampleVideo.mp4"],
+            "resources": [
+              "__$project$__/default-project/assets/SampleVideo.mp4"
+            ],
             "volume": 1,
             "synchronize": true,
             "playMode": "loop",
@@ -1547,6 +1549,65 @@
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 20
+    },
+    "174d63bd-4177-4dc3-ad87-90894320986b": {
+      "name": "Link",
+      "components": [
+        {
+          "name": "link",
+          "props": {
+            "url": "https://www.etherealengine.org",
+            "sceneNav": false,
+            "location": ""
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 1.5,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.10000000000000009,
+              "y": 0.10000000000000009,
+              "z": 0.10000000000000009
+            }
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": true,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": [
+              {
+                "onEnter": null,
+                "onExit": null,
+                "target": null
+              }
+            ]
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 21
     }
   },
   "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
