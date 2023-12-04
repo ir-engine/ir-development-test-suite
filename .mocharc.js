@@ -2,9 +2,7 @@ module.exports = {
   'fail-zero': false,
   parallel: false,
   require: [
-    'tests/mocha.env', // init env here
-    'ts-node/register',
-    'jsdom-global/register'
+    'tests/mocha.env'
   ],
   extension: [
     'ts'
