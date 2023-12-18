@@ -8,6 +8,8 @@ import { useLoadScene } from '@etherealengine/client-core/src/components/World/L
 import { XRLoading } from '@etherealengine/client-core/src/components/XRLoading'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
 
+import './avatar/simulateMovement'
+
 export function Template(props: { projectName?: string; sceneName?: string }) {
   useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
   useOfflineNetwork()

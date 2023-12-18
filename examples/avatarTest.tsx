@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
@@ -22,19 +22,21 @@ export default function AvatarBenchmarking() {
       $limit: 100
     }
   })
+  const created = useHookstate(false)
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {
-    if (network?.ready.value && avatarList.data.length > 0) {
+    if (network?.value && avatarList.data.length > 0 && !created.value) {
+      created.set(true)
       mockNetworkAvatars(avatarList.data)
       mockIKAvatars(avatarList.data)
       mockLoopAnimAvatars(avatarList.data)
       mockTPoseAvatars(avatarList.data)
     }
-  }, [network?.ready, avatarList.data.length])
+  }, [network, avatarList.data.length])
 
   return <Template />
 }
