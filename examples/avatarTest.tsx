@@ -29,14 +29,14 @@ export default function AvatarBenchmarking() {
   }, [])
 
   useEffect(() => {
-    if (network?.value && avatarList.data.length > 0 && !created.value) {
+    if (network?.ready?.value && avatarList.data.length > 0 && !created.value) {
       created.set(true)
       mockNetworkAvatars(avatarList.data)
       mockIKAvatars(avatarList.data)
       mockLoopAnimAvatars(avatarList.data)
       mockTPoseAvatars(avatarList.data)
     }
-  }, [network, avatarList.data.length])
+  }, [network?.ready, avatarList.data.length])
 
   return <Template />
 }
