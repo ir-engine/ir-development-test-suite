@@ -12,7 +12,7 @@ import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/co
 import { RigidBodyComponent } from '@etherealengine/engine/src/physics/components/RigidBodyComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
-import { LocalTransformComponent, TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 
 // quaternion that represents a 1 degree turn on the y axis
@@ -33,11 +33,11 @@ const execute = () => {
         const ikTargetRightHand = NameComponent.entitiesByName[uuid + '_rightHand']?.[0]
         const transform = getComponent(entity, TransformComponent)
         if (ikTargetLeftHand) {
-          const leftHandTransform = getComponent(ikTargetLeftHand, LocalTransformComponent)
+          const leftHandTransform = getComponent(ikTargetLeftHand, TransformComponent)
           leftHandTransform.position.set(Math.random(), Math.random(), Math.random()).add(transform.position)
         }
         if (ikTargetRightHand) {
-          const rightHandTransform = getComponent(ikTargetRightHand, LocalTransformComponent)
+          const rightHandTransform = getComponent(ikTargetRightHand, TransformComponent)
           rightHandTransform.position.set(Math.random(), Math.random(), Math.random()).add(transform.position)
         }
       }, 1000)
@@ -61,7 +61,7 @@ const execute = () => {
       const pivotHalfLength = rigComponent.upperLegLength * 0.5
       const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
       const headTargetY = (Math.sin(elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
-      const head = getComponent(headTargetEntity, LocalTransformComponent)
+      const head = getComponent(headTargetEntity, TransformComponent)
       head.position.copy(rigidbody.position)
       head.position.y += headTargetY
     }

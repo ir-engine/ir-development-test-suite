@@ -1,4 +1,4 @@
-import { Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
+import { MathUtils, Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
@@ -26,6 +26,7 @@ import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -135,6 +136,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
+  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position,
     rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
@@ -151,6 +153,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
+  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position, 
     rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
@@ -159,7 +162,7 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
   setComponent(entity, LoopAnimationComponent, {
     hasAvatarAnimations: true,
     activeClipIndex: 0,
-    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/wave.fbx'
+    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes/wave.fbx'
   })
   setComponent(entity, ModelComponent, { src: filename, generateBVH: false, avoidCameraOcclusion: true })
   return entity

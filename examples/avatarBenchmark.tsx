@@ -74,7 +74,8 @@ export default function AvatarBenchmarking() {
     setEntities(count)
     for (let i = 0; i < count; i++) {
       const avatar = avatarList.data.find((val) => val.id === avatarID)!
-      loadAssetWithIK(avatar, new Vector3(0, 0, i * 2), i)
+      // loadAssetWithIK(avatar, new Vector3(0, 0, i * 2), i)
+      loadNetworkAvatar(avatar, i)
     }
     return () => {
       for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserID))

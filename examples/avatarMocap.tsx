@@ -168,7 +168,7 @@ export default function AvatarMocap() {
     const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
-      removeEntity(UUIDComponent.entitiesByUUID[userid])
+      removeEntity(UUIDComponent.entitiesByUUIDState[userid].value)
       userID.set('' as UserID)
     }
   }, [network?.ready, avatarList.data.length, selectedAvatar])
