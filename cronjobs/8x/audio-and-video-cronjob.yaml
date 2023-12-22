@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ee-bot-test-run-audio-video-8x
+spec:
+  schedule: "0 22 * * *"  # Run every hour
+  jobTemplate:
+    spec:
+      parallelism: 8
+      template:
+        spec:
+          containers:
+            - name: e2e-test
+              image: etherealengine/etherealengine-testbot:0.0.7  # Replace with your Docker image and tag
+              resources:
+                limits:
+                  cpu: "8"
+                requests:
+                  cpu: "6"
+              env:
+                - name: DOMAIN
+                  value: "test2.etherealengine.com" # Pass domain on which you have to perform bot-testing
+                - name: LOCATION
+                  value: "default"
+                - name: MOVEMENT
+                  value: "false"
+                - name: AUDIO
+                  value: "true"
+                - name: VIDEO
+                  value: "true"
+                - name: END_MINUTE
+                  value: "59"
+          restartPolicy: Never
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: eks.amazonaws.com/nodegroup
+                        operator: In
+                        values:
+                          - ng-bot-test-1

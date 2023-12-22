@@ -8,6 +8,7 @@
     "check-errors": "tsc --noemit",
     "test": "mocha --config .mocharc.js --spec 'tests/**/*.test.ts'",
     "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
+    "benchmark": "mocha --config .mocharc.js --timeout 3700000 --spec 'e2e/benchmark/basic.test.ts'",
     "precommit": "no-master-commits -b main",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "format-scss": "stylelint \"**/*.scss\" --fix",
@@ -16,7 +17,6 @@
   "etherealEngine": {
     "version": "1.6.0"
   },
-  "devDependencies": {},
   "pre-commit": [
     "format-staged"
   ],

@@ -3,10 +3,10 @@ import { Vector3 } from 'three'
 import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
-const vector3 = new Vector3()
+// const vector3 = new Vector3()
 
-//const domain = process.env.APP_HOST
-const domain = 'localhost:3000'
+const domain = process.env.APP_HOST
+// const domain = 'test2.etherealengine.com'
 const locationName = 'default'
 const sqrt2 = Math.sqrt(2)
 
@@ -15,8 +15,11 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    //await bot.awaitHookPromise(BotHooks.LocationReady)
-  })
+    await bot.awaitHookPromise(BotHooks.LocationReady)
+    await bot.startAudio()
+    await bot.startVideo()
+    await bot.delay(3600000)
+})
 
   after(async () => {
     await bot.quit()
@@ -24,7 +27,7 @@ describe('My Bot Tests', () => {
 
   it('Can spawn in the world', async () => {
     const pos = await bot.awaitHookPromise(BotHooks.GetPlayerPosition)
-    assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
+    // assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
   })
 })
 

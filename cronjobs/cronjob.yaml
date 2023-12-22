@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ee-bot-test-run
+spec:
+  schedule: "0 * * * *"  # Run every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: e2e-test
+            image: etherealengine/etherealengine-testbot:0.0.0  # Replace with your Docker image and tag
+            env: 
+            - name: APP_HOST
+              value: "test2.etherealengine.com" # Pass domain on which you have to perform bot-testing
+          restartPolicy: Never
