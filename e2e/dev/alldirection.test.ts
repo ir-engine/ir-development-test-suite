@@ -11,7 +11,7 @@ const locationName = 'apartment'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
-  const bot = new EtherealEngineBot({ name: 'bot', headless:false, verbose: true })
+  const bot = new EtherealEngineBot({ name: 'bot', headless:true, verbose: true })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
