@@ -1079,7 +1079,8 @@
           "props": {
             "src": "__$project$__/default-project/assets/avatars/male_01.vrm",
             "generateBVH": true,
-            "avoidCameraOcclusion": false
+            "avoidCameraOcclusion": false,
+            "convertToVRM": true
           }
         },
         {
@@ -1110,7 +1111,6 @@
         {
           "name": "loop-animation",
           "props": {
-            "hasAvatarAnimations": true,
             "activeClipIndex": 0,
             "animationPack": "__$project$__/default-project/assets/animations/emotes/wave.fbx",
             "paused": false,
