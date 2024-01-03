@@ -6,7 +6,7 @@ import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 const vector3 = new Vector3()
 
 //const domain = process.env.APP_HOST
-const domain = 'app.etherealengine.com'
+const domain = 'test2.etherealengine.com'
 const locationName = 'default'
 const sqrt2 = Math.sqrt(2)
 
@@ -15,7 +15,7 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    //await bot.awaitHookPromise(BotHooks.LocationReady)
+    await bot.awaitHookPromise(BotHooks.LocationReady)
   })
 
   after(async () => {
