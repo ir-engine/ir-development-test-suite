@@ -18,6 +18,7 @@ export default function PostProcessing() {
   const sceneLoaded = useHookstate(getMutableState(EngineState).sceneLoaded)
 
   useEffect(() => {
+    if (!sceneLoaded.value) return
     entity.set(SceneState.getRootEntity())
     EditorControlFunctions.modifyProperty = (entities, component, properties) => {
       setComponent(entity.value!, PostProcessingComponent, properties)
