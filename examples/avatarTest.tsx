@@ -12,30 +12,31 @@ import {
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 
 export default function AvatarBenchmarking() {
-  const engineState = useHookstate(getMutableState(EngineState))
+  const network = useWorldNetwork()
   const avatarList = useFind(avatarPath, {
     query: {
       $skip: 0,
       $limit: 100
     }
   })
+  const created = useHookstate(false)
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {
-    if (engineState.connectedWorld.value && avatarList.data.length > 0) {
+    if (network?.ready?.value && avatarList.data.length > 0 && !created.value) {
+      created.set(true)
       mockNetworkAvatars(avatarList.data)
       mockIKAvatars(avatarList.data)
       mockLoopAnimAvatars(avatarList.data)
       mockTPoseAvatars(avatarList.data)
     }
-  }, [engineState.connectedWorld, avatarList.data.length])
-
-  // useSimulateMovement()
+  }, [network?.ready, avatarList.data.length])
 
   return <Template />
 }

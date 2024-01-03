@@ -1,11 +1,11 @@
 {
   "version": 0,
   "entities": {
-    "6806e598-6b5a-43b9-88f9-05189ade5d20": {
+    "d32b1c4e-d08e-4fb0-9107-4c88a281ee71": {
       "components": [
         {
           "name": "visible",
-          "props": {}
+          "props": true
         },
         {
           "name": "transform",
@@ -29,268 +29,29 @@
           }
         },
         {
-          "name": "envmap",
+          "name": "envmapbake",
           "props": {
-            "type": "None",
-            "envMapTextureType": "Equirectangular",
-            "envMapSourceColor": 16777215,
-            "envMapSourceURL": "__$project$__/default-project/assets/skyboxsun25deg/",
-            "envMapIntensity": 1
-          }
-        }
-      ],
-      "name": "test"
-    },
-    "7f554aa6-3eff-4b9e-acc9-f6446d541d54": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
+            "bakePosition": {
               "x": 0,
               "y": 0,
               "z": 0
             },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 0,
-      "name": "Static"
-    },
-    "d26e7db6-4d68-4f70-972a-ae9d8f158af3": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
+            "bakePositionOffset": {
               "x": 0,
               "y": 0,
               "z": 0
             },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
+            "bakeScale": {
               "x": 1,
               "y": 1,
               "z": 1
-            }
+            },
+            "bakeType": "Baked",
+            "resolution": 2048,
+            "refreshMode": "OnAwake",
+            "envMapOrigin": "__$project$__/default-project/default.envmap.ktx2",
+            "boxProjection": true
           }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 1,
-      "name": "Models"
-    },
-    "54428fe4-ba6b-408a-ac65-77ad85a11372": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 2,
-      "name": "Lights"
-    },
-    "05065113-cd26-41c1-866a-9d4a9a2f5174": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 10
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 3,
-      "name": "Media"
-    },
-    "f650f152-c0db-4d76-990a-46281218e713": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 20
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 4,
-      "name": "Environment"
-    },
-    "a395abfc-291a-4bb8-9706-5082335990b4": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 5,
-      "name": "Triggers"
-    },
-    "85b71f2e-bb18-44aa-835f-6a6d44612cb4": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 6,
-      "name": "Misc"
-    },
-    "97b94539-edf1-4aac-9114-ca87fdb4add9": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
         },
         {
           "name": "fog",
@@ -299,1118 +60,32 @@
             "color": "#FFFFFF",
             "density": 0.005,
             "near": 1,
-            "far": 100,
+            "far": 1000,
             "timeScale": 1,
             "height": 0.05
           }
-        }
-      ],
-      "parent": "6806e598-6b5a-43b9-88f9-05189ade5d20",
-      "index": 7,
-      "name": "Fog"
-    },
-    "b016ef44-c84d-4548-b338-0dc66ffe1903": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -13,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
         },
         {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
+          "name": "camera-settings",
           "props": {
-            "cast": true,
-            "receive": true
+            "fov": 50,
+            "cameraNearClip": 0.1,
+            "cameraFarClip": 500,
+            "projectionType": 1,
+            "minCameraDistance": 1,
+            "maxCameraDistance": 50,
+            "startCameraDistance": 3,
+            "cameraMode": 5,
+            "cameraModeDefault": 2,
+            "minPhi": -70,
+            "maxPhi": 85
           }
-        },
-        {
-          "name": "interior",
-          "props": {
-            "cubeMap": "__$project$__/default-project/assets/cube.dds",
-            "tiling": 1,
-            "size": {
-              "x": 1,
-              "y": 1
-            }
-          }
-        }
-      ],
-      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
-      "index": 0,
-      "name": "Interior"
-    },
-    "ba5d55e7-f0a9-4c7a-972c-2c19c3f18c5a": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 15,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
-      "index": 1,
-      "name": "CubemapBake"
-    },
-    "fa15771c-2c41-4aec-ac7e-84658c956210": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 5,
-              "z": 10
-            },
-            "rotation": {
-              "x": -0.22972975367287105,
-              "y": 0,
-              "z": 0,
-              "w": 0.9732544581338438
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "scene-preview-camera",
-          "props": {}
-        }
-      ],
-      "parent": "85b71f2e-bb18-44aa-835f-6a6d44612cb4",
-      "index": 2,
-      "name": "scene preview camera"
-    },
-    "3a57c992-e4a4-415f-9edc-54e1d7372cf1": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -5,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
-      "index": 0,
-      "name": "Trigger Volume"
-    },
-    "e91471e0-5700-47fc-803c-3d1c966f2315": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 10,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        }
-      ],
-      "parent": "a395abfc-291a-4bb8-9706-5082335990b4",
-      "index": 1,
-      "name": "Box Collider"
-    },
-    "0fedac15-4c2c-472e-aee7-b37bbb8adc4b": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 150,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "cloud",
-          "props": {
-            "texture": "__$project$__/default-project/assets/cloud.png",
-            "worldScale": {
-              "x": 1000,
-              "y": 150,
-              "z": 1000
-            },
-            "dimensions": {
-              "x": 8,
-              "y": 4,
-              "z": 8
-            },
-            "noiseZoom": {
-              "x": 7,
-              "y": 11,
-              "z": 7
-            },
-            "noiseOffset": {
-              "x": 0,
-              "y": 4000,
-              "z": 3137
-            },
-            "spriteScaleRange": {
-              "x": 50,
-              "y": 100
-            },
-            "fogColor": 4555956,
-            "fogRange": {
-              "x": -100,
-              "y": 3000
-            }
-          }
-        }
-      ],
-      "parent": "f650f152-c0db-4d76-990a-46281218e713",
-      "index": 0,
-      "name": "Cloud"
-    },
-    "87dcc76d-5461-41d2-ae1d-e632f5524e80": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -10,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        }
-      ],
-      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 0,
-      "name": "Google"
-    },
-    "37883d75-4a31-410f-b847-33ab1160e0bf": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -5,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "image",
-          "props": {
-            "source": "__$project$__/default-project/assets/galaxyTexture.jpg",
-            "resource": null,
-            "alphaMode": "Opaque",
-            "alphaCutoff": 0.5,
-            "projection": "Flat",
-            "side": 2
-          }
-        }
-      ],
-      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 1,
-      "name": "Image"
-    },
-    "4866bafc-54e4-4c04-af7f-002ff3e76ad1": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "image",
-          "props": {
-            "source": "",
-            "resource": null,
-            "alphaMode": "Opaque",
-            "alphaCutoff": 0.5,
-            "projection": "Flat",
-            "side": 2
-          }
-        }
-      ],
-      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 2,
-      "name": "KTX2 Image"
-    },
-    "ABAF0284-9A55-4B13-B29F-A0E7FD6F59A3": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "media",
-          "props": {
-            "controls": false,
-            "paused": true,
-            "resources": [],
-            "volume": 1,
-            "synchronize": true,
-            "playMode": "loop",
-            "isMusic": false
-          }
-        },
-        {
-          "name": "audio",
-          "props": {
-            "distanceModel": "inverse",
-            "rolloffFactor": 1,
-            "refDistance": 20,
-            "maxDistance": 1000,
-            "coneInnerAngle": 120,
-            "coneOuterAngle": 180,
-            "coneOuterGain": 0
-          }
-        }
-      ],
-      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 3,
-      "name": "Audio"
-    },
-    "44f9ce07-27ef-46fd-a5a4-1cce8be64e4b": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 5,
-              "y": 2.5,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "media",
-          "props": {
-            "controls": false,
-            "paused": true,
-            "resources": [],
-            "volume": 1,
-            "synchronize": true,
-            "playMode": "loop",
-            "isMusic": false
-          }
-        },
-        {
-          "name": "audio",
-          "props": {
-            "distanceModel": "inverse",
-            "rolloffFactor": 1,
-            "refDistance": 20,
-            "maxDistance": 1000,
-            "coneInnerAngle": 120,
-            "coneOuterAngle": 180,
-            "coneOuterGain": 0
-          }
-        },
-        {
-          "name": "image",
-          "props": {
-            "source": "",
-            "resource": null,
-            "alphaMode": "Opaque",
-            "alphaCutoff": 0.5,
-            "projection": "Flat",
-            "side": 2
-          }
-        },
-        {
-          "name": "video",
-          "props": {
-            "mediaUUID": "",
-            "side": 2,
-            "size": {
-              "x": 1,
-              "y": 1
-            },
-            "fit": "contain"
-          }
-        }
-      ],
-      "parent": "05065113-cd26-41c1-866a-9d4a9a2f5174",
-      "index": 4,
-      "name": "Video"
-    },
-    "99462e2d-0842-4226-b0b4-d16e28db613f": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 10,
-              "z": 0
-            },
-            "rotation": {
-              "x": -0.25660482712073673,
-              "y": 0.12607862381097903,
-              "z": -0.03378266757544404,
-              "w": 0.957662192366261
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "directional-light",
-          "props": {
-            "color": 16777215,
-            "intensity": 1,
-            "cameraFar": 100,
-            "castShadow": true,
-            "shadowMapResolution": 512,
-            "shadowBias": 0,
-            "shadowRadius": 1,
-            "useInCSM": true
-          }
-        }
-      ],
-      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
-      "index": 0,
-      "name": "directional light"
-    },
-    "da39130b-ed8c-4970-a5d4-ba1d2e5621ec": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 10,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "hemisphere-light",
-          "props": {
-            "skyColor": 16777215,
-            "groundColor": 16777215,
-            "intensity": 1
-          }
-        }
-      ],
-      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
-      "index": 1,
-      "name": "hemisphere light"
-    },
-    "54a93866-e7af-4bba-95f5-764a6fa2a4b5": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "ambient-light",
-          "props": {
-            "color": 16777215,
-            "intensity": 1
-          }
-        }
-      ],
-      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
-      "index": 2,
-      "name": "Ambient Light"
-    },
-    "0984fdae-33c0-46d2-be72-ec16ad6bc71f": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "spot-light",
-          "props": {
-            "color": 16777215,
-            "intensity": 10,
-            "range": 0,
-            "decay": 2,
-            "angle": 1,
-            "penumbra": 1,
-            "castShadow": true,
-            "shadowMapResolution": 256,
-            "shadowBias": 0.5,
-            "shadowRadius": 1
-          }
-        }
-      ],
-      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
-      "index": 3,
-      "name": "Spot Light"
-    },
-    "0275d378-675a-4631-a6a0-bca23d38621f": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "point-light",
-          "props": {
-            "color": 16777215,
-            "intensity": 1,
-            "range": 0,
-            "decay": 2,
-            "castShadow": true,
-            "shadowMapResolution": 256,
-            "shadowBias": 0.5,
-            "shadowRadius": 1
-          }
-        }
-      ],
-      "parent": "54428fe4-ba6b-408a-ac65-77ad85a11372",
-      "index": 4,
-      "name": "Point Light"
-    },
-    "07e77623-1495-4b89-b8c4-979d65617833": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "ground-plane",
-          "props": {
-            "color": 8311585,
-            "visible": true
-          }
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": false,
-            "receive": true
-          }
-        }
-      ],
-      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
-      "index": 0,
-      "name": "ground plane"
-    },
-    "7a060611-8203-4526-ab4e-0b76caf9c953": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": -5.053215498074303e-16,
-              "y": -1,
-              "z": -6.12323399573677e-17,
-              "w": -6.123234262925839e-17
-            },
-            "scale": {
-              "x": 0.009999999776482582,
-              "y": 0.009999999776482582,
-              "z": 0.009999999776482582
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "spawn-point",
-          "props": {
-            "permissionedUsers": []
-          }
-        }
-      ],
-      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
-      "index": 1,
-      "name": "spawn point"
-    },
-    "02d68b67-ac10-491d-adf5-e6bf00a66dd4": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -5,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "gltf-model",
-          "props": {
-            "src": "__$project$__/default-project/assets/cube.glb",
-            "resource": null,
-            "generateBVH": true,
-            "avoidCameraOcclusion": false
-          }
-        },
-        {
-          "name": "envmap",
-          "props": {
-            "type": "None",
-            "envMapTextureType": "Equirectangular",
-            "envMapSourceColor": 1193046,
-            "envMapSourceURL": "/hdr/cubemap/skyboxsun25deg/",
-            "envMapIntensity": 1
-          }
-        }
-      ],
-      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
-      "index": 2,
-      "name": "Model"
-    },
-    "f6ebd023-9624-4949-bc97-300b1c22888a": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": -10.5,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        },
-        {
-          "name": "collider",
-          "props": {
-            "bodyType": 1,
-            "shapeType": 1,
-            "isTrigger": true,
-            "removeMesh": true,
-            "collisionLayer": 8,
-            "collisionMask": 2,
-            "restitution": 1,
-            "onEnter": "teleport",
-            "onExit": null,
-            "target": ""
-          }
-        },
-        {
-          "name": "portal",
-          "props": {
-            "location": "",
-            "linkedPortalId": "",
-            "redirect": false,
-            "effectType": "None",
-            "previewType": "Simple",
-            "previewImageURL": "",
-            "spawnPosition": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "spawnRotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            }
-          }
-        }
-      ],
-      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
-      "index": 3,
-      "name": "Portal"
-    },
-    "6dba1124-6fa6-4966-ab77-a059a207f4d2": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": -10
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "shadow",
-          "props": {
-            "cast": true,
-            "receive": true
-          }
-        }
-      ],
-      "parent": "d26e7db6-4d68-4f70-972a-ae9d8f158af3",
-      "index": 4,
-      "name": "Particle Emitter"
-    },
-    "81176605-12e6-4210-b48b-23586d23ec44": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
-        },
-        {
-          "name": "skybox",
-          "props": {
-            "backgroundColor": 0,
-            "equirectangularPath": "",
-            "cubemapPath": "__$project$__/default-project/assets/skyboxsun25deg/",
-            "backgroundType": 1,
-            "skyboxProps": {
-              "turbidity": 10,
-              "rayleigh": 1,
-              "luminance": 1,
-              "mieCoefficient": 0.004999999999999893,
-              "mieDirectionalG": 0.99,
-              "inclination": 0.10471975511965978,
-              "azimuth": 0.16666666666666666
-            }
-          }
-        }
-      ],
-      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
-      "index": 0,
-      "name": "skybox"
-    },
-    "1ebb48b0-e567-4e7d-8dde-5591ad51ed8e": {
-      "components": [
-        {
-          "name": "transform",
-          "props": {
-            "position": {
-              "x": 0,
-              "y": 0,
-              "z": 0
-            },
-            "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
-            },
-            "scale": {
-              "x": 1,
-              "y": 1,
-              "z": 1
-            }
-          }
-        },
-        {
-          "name": "visible",
-          "props": {}
         },
         {
           "name": "postprocessing",
           "props": {
             "enabled": false,
             "effects": {
-              "SMAAEffect": {
-                "isActive": true,
-                "blendFunction": 23,
-                "preset": 1,
-                "edgeDetectionMode": 2,
-                "predicationMode": 0
-              },
-              "OutlineEffect": {
-                "isActive": true,
-                "blendFunction": 28,
-                "patternTexture": null,
-                "edgeStrength": 2,
-                "pulseSpeed": 0,
-                "visibleEdgeColor": 16777215,
-                "hiddenEdgeColor": 16777215,
-                "resolutionScale": 0.5,
-                "width": -1,
-                "height": -1,
-                "kernelSize": 0,
-                "blur": false,
-                "xRay": true
-              },
               "SSAOEffect": {
                 "isActive": false,
                 "blendFunction": 21,
@@ -1428,30 +103,26 @@
               },
               "SSREffect": {
                 "isActive": false,
-                "intensity": 1,
-                "exponent": 1,
                 "distance": 10,
-                "fade": 0,
-                "roughnessFade": 1,
                 "thickness": 10,
-                "ior": 1.45,
+                "autoThickness": false,
                 "maxRoughness": 1,
-                "maxDepthDifference": 10,
-                "blend": 0,
-                "correction": 1,
-                "correctionRadius": 1,
-                "blur": 0.5,
-                "blurKernel": 1,
-                "blurSharpness": 10,
-                "jitter": 0,
-                "jitterRoughness": 0,
+                "blend": 0.9,
+                "denoiseIterations": 1,
+                "denoiseKernel": 2,
+                "denoiseDiffuse": 10,
+                "denoiseSpecular": 10,
+                "depthPhi": 2,
+                "normalPhi": 50,
+                "roughnessPhi": 1,
+                "envBlur": 0.5,
+                "importanceSampling": true,
+                "directLightMultiplier": 1,
                 "steps": 20,
                 "refineSteps": 5,
-                "missedRays": true,
-                "useNormalMap": true,
-                "useRoughnessMap": true,
+                "spp": 1,
                 "resolutionScale": 1,
-                "velocityResolutionScale": 1
+                "missedRays": false
               },
               "DepthOfFieldEffect": {
                 "isActive": false,
@@ -1537,13 +208,65 @@
               }
             }
           }
+        },
+        {
+          "name": "media-settings",
+          "props": {
+            "immersiveMedia": false,
+            "refDistance": 20,
+            "rolloffFactor": 1,
+            "maxDistance": 10000,
+            "distanceModel": "linear",
+            "coneInnerAngle": 360,
+            "coneOuterAngle": 0,
+            "coneOuterGain": 0
+          }
+        },
+        {
+          "name": "render-settings",
+          "props": {
+            "csm": true,
+            "toneMapping": 1,
+            "toneMappingExposure": 0.8,
+            "shadowMapType": 2
+          }
         }
       ],
-      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
-      "index": 1,
-      "name": "post processing"
+      "name": "default"
     },
-    "0ae0b118-68a5-4dc8-983b-8812beb7c9a6": {
+    "bb362197-f14d-4da7-9c3c-1ed834386423": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 2.5,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "scene-preview-camera",
+          "props": {}
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 0,
+      "name": "scene preview camera"
+    },
+    "e7d6bfb1-6390-4a8b-b744-da83b059c2d3": {
       "components": [
         {
           "name": "transform",
@@ -1567,21 +290,1325 @@
           }
         },
         {
-          "name": "system",
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "skybox",
           "props": {
-            "filePath": "__$project$__/ee-development-test-suite/src/systems/TestSystem.ts",
-            "insertUUID": "ee.engine.simulation-group",
-            "insertOrder": "with",
-            "enableClient": true,
-            "enableServer": true,
-            "args": {}
+            "backgroundColor": 0,
+            "equirectangularPath": "",
+            "cubemapPath": "__$project$__/default-project/assets/skyboxsun25deg/",
+            "backgroundType": 1,
+            "skyboxProps": {
+              "turbidity": 10,
+              "rayleigh": 1,
+              "luminance": 1,
+              "mieCoefficient": 0.004999999999999893,
+              "mieDirectionalG": 0.99,
+              "inclination": 0.10471975511965978,
+              "azimuth": 0.16666666666666666
+            }
           }
         }
       ],
-      "parent": "7f554aa6-3eff-4b9e-acc9-f6446d541d54",
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 1,
+      "name": "skybox"
+    },
+    "38793f94-0b92-4ea1-af7b-5ec0e117628d": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "ground-plane",
+          "props": {
+            "color": 8311585,
+            "visible": true
+          }
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": false,
+            "receive": true
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 2,
-      "name": "System"
+      "name": "ground plane"
+    },
+    "3e8a430e-9dcf-440e-990c-44ecb8051762": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": -5.053215498074303e-16,
+              "y": -1,
+              "z": -6.12323399573677e-17,
+              "w": -6.123234262925839e-17
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "spawn-point",
+          "props": {
+            "permissionedUsers": []
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 3,
+      "name": "spawn point"
+    },
+    "f77dc4c6-c9a6-433d-8102-4a9a8e1c0ce9": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "hemisphere-light",
+          "props": {
+            "skyColor": 16777215,
+            "groundColor": 16777215,
+            "intensity": 1
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 4,
+      "name": "hemisphere light"
+    },
+    "cb045cfd-8daf-4a2b-b764-35625be54a11": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 10,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0.24690793740359293,
+              "y": 0.28965548016032816,
+              "z": 0.07761295437009141,
+              "w": 0.9214729527089438
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "directional-light",
+          "props": {
+            "color": 16777215,
+            "intensity": 1,
+            "cameraFar": 200,
+            "castShadow": true,
+            "shadowBias": -0.00001,
+            "shadowRadius": 1,
+            "useInCSM": true
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 5,
+      "name": "directional light"
+    },
+    "b62536da-bbf2-4c83-aaef-9a8cd59d85e4": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": false,
+            "activeClipIndex": -1,
+            "animationPack": "",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": true,
+            "receive": true
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "variant",
+          "props": {
+            "levels": [
+              {
+                "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
+                "metadata": {
+                  "minDistance": 0,
+                  "maxDistance": 5
+                }
+              },
+              {
+                "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
+                "metadata": {
+                  "minDistance": 5,
+                  "maxDistance": 10
+                }
+              },
+              {
+                "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+                "metadata": {
+                  "minDistance": 10,
+                  "maxDistance": 15
+                }
+              }
+            ],
+            "heuristic": "DISTANCE"
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 6,
+      "name": "Variant"
+    },
+    "60a15eb3-1ae8-44a8-8952-ea1f67fa8083": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 0,
+              "z": -10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "dynamic-load",
+          "props": {
+            "mode": "distance",
+            "distance": 5
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 8,
+      "name": "Dynamic Load Distance"
+    },
+    "60a15eb3-1ae8-44a8-8952-ea1f67fa8084": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.05,
+              "y": 0.05,
+              "z": 0.05
+            }
+          }
+        },
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/default-project/assets/Skybase.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": false,
+            "activeClipIndex": -1,
+            "animationPack": "",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": true,
+            "receive": true
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        }
+      ],
+      "parent": "60a15eb3-1ae8-44a8-8952-ea1f67fa8083",
+      "index": 9,
+      "name": "Apartment"
+    },
+    "fcbe4641-e0bb-4435-b30d-13ae64690b30": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 0,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "dynamic-load",
+          "props": {
+            "mode": "trigger",
+            "distance": 20
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 10,
+      "name": "Dynamic Load Volume Target"
+    },
+    "fcbe4641-e0bb-4435-b30d-13ae64690b31": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 0,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": true,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": [
+              {
+                "onEnter": "doLoad",
+                "onExit": "doUnload",
+                "target": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
+              }
+            ]
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 11,
+      "name": "Dynamic Load Volume Trigger"
+    },
+    "30cc02ea-480c-4d30-a796-3e8975e4fa82": {
+      "components": [
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 2,
+              "y": 4,
+              "z": 2
+            },
+            "rotation": {
+              "x": -6.123233995736766e-17,
+              "y": -1,
+              "z": -6.123233995736766e-17,
+              "w": -6.123234262925839e-17
+            },
+            "scale": {
+              "x": 1.6,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "media",
+          "props": {
+            "controls": true,
+            "autoplay": true,
+            "resources": [
+              "__$project$__/default-project/assets/SampleVideo.mp4"
+            ],
+            "volume": 1,
+            "synchronize": true,
+            "playMode": "loop",
+            "isMusic": false,
+            "seekTime": 0
+          }
+        },
+        {
+          "name": "video",
+          "props": {
+            "mediaUUID": "",
+            "side": 2,
+            "size": {
+              "x": 1,
+              "y": 1
+            },
+            "fit": "contain"
+          }
+        }
+      ],
+      "name": "Video",
+      "index": 12,
+      "parent": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
+    },
+    "511ad793-2a07-4f04-a14d-b26762967552": {
+      "name": "Particle System",
+      "components": [
+        {
+          "name": "particle-system",
+          "props": {
+            "systemParameters": {
+              "version": "1.0",
+              "autoDestroy": false,
+              "looping": true,
+              "prewarm": false,
+              "material": "",
+              "duration": 5,
+              "shape": {
+                "type": "point"
+              },
+              "startLife": {
+                "type": "IntervalValue",
+                "a": 1,
+                "b": 2
+              },
+              "startSpeed": {
+                "type": "IntervalValue",
+                "a": 0.1,
+                "b": 5
+              },
+              "startRotation": {
+                "type": "IntervalValue",
+                "a": 0,
+                "b": 300
+              },
+              "startSize": {
+                "type": "IntervalValue",
+                "a": 0.025,
+                "b": 0.45
+              },
+              "startColor": {
+                "type": "ConstantColor",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 0.1
+                }
+              },
+              "emissionOverTime": {
+                "type": "ConstantValue",
+                "value": 400
+              },
+              "emissionOverDistance": {
+                "type": "ConstantValue",
+                "value": 0
+              },
+              "emissionBursts": [],
+              "onlyUsedByOther": false,
+              "rendererEmitterSettings": {
+                "startLength": {
+                  "type": "ConstantValue",
+                  "value": 1
+                },
+                "followLocalOrigin": true
+              },
+              "renderMode": 0,
+              "texture": "/static/editor/dot.png",
+              "instancingGeometry": "",
+              "startTileIndex": {
+                "type": "ConstantValue",
+                "value": 0
+              },
+              "uTileCount": 1,
+              "vTileCount": 1,
+              "blending": 2,
+              "behaviors": [],
+              "worldSpace": true
+            },
+            "behaviorParameters": []
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": -10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 10
+    },
+    "7bca6953-d646-459b-abe5-673e6ba9f510": {
+      "name": "Grabbable Cube",
+      "components": [
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/default-project/assets/test-equippable.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 0.5,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 0,
+            "shapeType": 1,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": []
+          }
+        },
+        {
+          "name": "equippable",
+          "props": {}
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 11
+    },
+    "95d108b6-fbe2-44f0-b4b3-0dbcece3a8ba": {
+      "name": "Point Light",
+      "components": [
+        {
+          "name": "point-light",
+          "props": {
+            "color": 16777215,
+            "intensity": 1,
+            "range": 0,
+            "decay": 2,
+            "castShadow": false,
+            "shadowBias": 0.5,
+            "shadowRadius": 1
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 1,
+              "z": -10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 12
+    },
+    "458586fa-a587-442c-a40e-44a4ef7e22f0": {
+      "name": "Spot Light",
+      "components": [
+        {
+          "name": "spot-light",
+          "props": {
+            "color": 16777215,
+            "intensity": 10,
+            "range": 0,
+            "decay": 2,
+            "angle": 1.0471975511965976,
+            "penumbra": 1,
+            "castShadow": false,
+            "shadowBias": 0.00001,
+            "shadowRadius": 1
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 10,
+              "y": 3,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 13
+    },
+    "68130937-16a1-4b95-a0db-7e32b99212fa": {
+      "name": "Avatar Animation",
+      "components": [
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/default-project/assets/avatars/male_01.vrm",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false,
+            "convertToVRM": true
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 10
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "activeClipIndex": 0,
+            "animationPack": "__$project$__/default-project/assets/animations/emotes/wave.fbx",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 14
+    },
+    "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5": {
+      "name": "Chair",
+      "components": [
+        {
+          "name": "primitive-geometry",
+          "props": {
+            "geometryType": 8,
+            "geometryParams": {
+              "radius": 1,
+              "detail": 0
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 5,
+              "y": 0.5,
+              "z": -5
+            },
+            "rotation": {
+              "x": -0.2588190451025207,
+              "y": 0,
+              "z": 0,
+              "w": 0.9659258262890683
+            },
+            "scale": {
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0.5
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 16
+    },
+    "adaa4d16-df22-47fa-9c0d-4111a8383f13": {
+      "name": "Mount Point",
+      "components": [
+        {
+          "name": "mount-point",
+          "props": {
+            "type": "seat",
+            "dismountOffset": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0.9000000000000001,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0.5
+            }
+          }
+        }
+      ],
+      "parent": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
+      "index": 0
+    },
+    "72fd50ee-4000-4d34-ac4f-9a6c14bd8ad2": {
+      "name": "collider",
+      "components": [
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": [
+              {
+                "onEnter": null,
+                "onExit": null,
+                "target": null
+              }
+            ]
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0.25881904510252074,
+              "y": 0,
+              "z": 0,
+              "w": 0.9659258262890683
+            },
+            "scale": {
+              "x": 0.5,
+              "y": 0.5,
+              "z": 0.5
+            }
+          }
+        }
+      ],
+      "parent": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
+      "index": 1
+    },
+    "1e2f7f35-92d9-4726-ba0c-164eefc8d71f": {
+      "name": "Portal 1",
+      "components": [
+        {
+          "name": "portal",
+          "props": {
+            "location": "",
+            "linkedPortalId": "360a1b2e-a10a-4f99-8ca4-41b19890de64",
+            "redirect": false,
+            "effectType": "None",
+            "previewType": "Spherical",
+            "previewImageURL": "",
+            "spawnPosition": {
+              "x": 5,
+              "y": 0,
+              "z": 5
+            },
+            "spawnRotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 5,
+              "y": 0,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 17
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de64": {
+      "name": "Portal 2",
+      "components": [
+        {
+          "name": "portal",
+          "props": {
+            "location": "",
+            "linkedPortalId": "1e2f7f35-92d9-4726-ba0c-164eefc8d71f",
+            "redirect": false,
+            "effectType": "None",
+            "previewType": "Spherical",
+            "previewImageURL": "",
+            "spawnPosition": {
+              "x": -5,
+              "y": 0,
+              "z": 5
+            },
+            "spawnRotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            }
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -5,
+              "y": 0,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 18
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de65": {
+      "name": "Spline",
+      "components": [
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "spline",
+          "props": {
+            "elements": [
+              {
+                "position": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0
+                },
+                "quaternion": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0,
+                  "w": 1
+                }
+              },
+              {
+                "position": {
+                  "x": 10,
+                  "y": 0,
+                  "z": 0
+                },
+                "quaternion": {
+                  "x": 0.7071067811865475,
+                  "y": 0,
+                  "z": 0,
+                  "w": 0.7071067811865476
+                }
+              },
+              {
+                "position": {
+                  "x": 10,
+                  "y": 0,
+                  "z": 10
+                },
+                "quaternion": {
+                  "x": 1,
+                  "y": 0,
+                  "z": 0,
+                  "w": 6.123233995736766e-17
+                }
+              },
+              {
+                "position": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 10
+                },
+                "quaternion": {
+                  "x": 0,
+                  "y": 0,
+                  "z": 0.7071067811865476,
+                  "w": -0.7071067811865475
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -5,
+              "y": 1,
+              "z": -5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 19
+    },
+    "360a1b2e-a10a-4f99-8ca4-41b19890de66": {
+      "name": "Spline Follower",
+      "components": [
+        {
+          "name": "visible",
+          "props": true
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 1,
+              "y": 1,
+              "z": 1
+            }
+          }
+        },
+        {
+          "name": "spline-track",
+          "props": {
+            "splineEntityUUID": "360a1b2e-a10a-4f99-8ca4-41b19890de65",
+            "velocity": 5,
+            "enableRotation": false,
+            "lockToXZPlane": true,
+            "loop": true
+          }
+        },
+        {
+          "name": "gltf-model",
+          "props": {
+            "src": "__$project$__/ee-development-test-suite/assets/animations/rings.glb",
+            "generateBVH": true,
+            "avoidCameraOcclusion": false
+          }
+        },
+        {
+          "name": "loop-animation",
+          "props": {
+            "hasAvatarAnimations": false,
+            "activeClipIndex": 0,
+            "animationPack": "",
+            "paused": false,
+            "time": 0,
+            "timeScale": 1,
+            "blendMode": 2500,
+            "loop": 2201,
+            "clampWhenFinished": false,
+            "zeroSlopeAtStart": true,
+            "zeroSlopeAtEnd": true,
+            "weight": 1
+          }
+        },
+        {
+          "name": "shadow",
+          "props": {
+            "cast": true,
+            "receive": true
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 2,
+            "shapeType": 6,
+            "isTrigger": false,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": []
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 20
+    },
+    "174d63bd-4177-4dc3-ad87-90894320986b": {
+      "name": "Link",
+      "components": [
+        {
+          "name": "link",
+          "props": {
+            "url": "https://www.etherealengine.org",
+            "sceneNav": false,
+            "location": ""
+          }
+        },
+        {
+          "name": "visible",
+          "props": {}
+        },
+        {
+          "name": "transform",
+          "props": {
+            "position": {
+              "x": -10,
+              "y": 1.5,
+              "z": 5
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "scale": {
+              "x": 0.10000000000000009,
+              "y": 0.10000000000000009,
+              "z": 0.10000000000000009
+            }
+          }
+        },
+        {
+          "name": "collider",
+          "props": {
+            "bodyType": 1,
+            "shapeType": 1,
+            "isTrigger": true,
+            "removeMesh": false,
+            "collisionLayer": 1,
+            "collisionMask": 7,
+            "restitution": 0.5,
+            "triggers": [
+              {
+                "onEnter": null,
+                "onExit": null,
+                "target": null
+              }
+            ]
+          }
+        }
+      ],
+      "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
+      "index": 21
     }
   },
-  "root": "6806e598-6b5a-43b9-88f9-05189ade5d20"
+  "root": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71"
 }

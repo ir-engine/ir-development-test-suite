@@ -3,25 +3,22 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
-import { AvatarUISystem } from '@etherealengine/client-core/src/systems/AvatarUISystem'
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { useOptionalComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { disableSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
 import { RendererState } from '@etherealengine/engine/src/renderer/RendererState'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
-import { NormalizedLandmarkList } from '@mediapipe/pose'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -45,7 +42,7 @@ type AvailablePoses =
   | 'mocapTurn45'
   | 'mocapTurn90'
 
-const mocapTestData = {} as Record<AvailablePoses, NormalizedLandmarkList>[]
+const mocapTestData = {} as Record<AvailablePoses, MotionCaptureResults>[]
 getMocapTestData().then((data) => {
   Object.assign(mocapTestData, data)
   console.log({ mocapTestData })
@@ -78,11 +75,10 @@ const MocapAvatar = (props: { userID: UserID }) => {
       if (dataChannelFunctions) {
         const message = encode({
           timestamp: Date.now(),
-          peerID: props.userID,
           results: data
         })
         for (const func of dataChannelFunctions)
-          func(NetworkState.worldNetwork, mocapDataChannelType, NetworkState.worldNetwork.hostPeerID, message)
+          func(NetworkState.worldNetwork, mocapDataChannelType, props.userID as any, message)
       }
     }, 500)
 
@@ -151,7 +147,7 @@ const ActivePoseUI = () => {
 }
 
 export default function AvatarMocap() {
-  const engineState = useHookstate(getMutableState(EngineState))
+  const network = useWorldNetwork()
   const avatarList = useFind(avatarPath, {
     query: {
       $skip: 0,
@@ -165,18 +161,17 @@ export default function AvatarMocap() {
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
-    disableSystem(AvatarUISystem)
   }, [])
 
   useEffect(() => {
-    if (!engineState.connectedWorld.value || !avatarList.data.length || !selectedAvatar.value) return
-    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id)
+    if (!network?.ready.value || !avatarList.data.length || !selectedAvatar.value) return
+    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
-      removeEntity(UUIDComponent.entitiesByUUID[userid])
+      removeEntity(UUIDComponent.entitiesByUUIDState[userid].value)
       userID.set('' as UserID)
     }
-  }, [engineState.connectedWorld, avatarList.data.length, selectedAvatar])
+  }, [network?.ready, avatarList.data.length, selectedAvatar])
 
   return (
     <>

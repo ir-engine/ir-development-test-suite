@@ -1,6 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+import '@etherealengine/client-core/src/world/LocationModule'
+
 const buttonStyle = {
   width: 'auto',
   height: '100%',

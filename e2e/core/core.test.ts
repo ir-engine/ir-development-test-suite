@@ -18,7 +18,7 @@ describe('My Bot Tests', () => {
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationLoaded)
+    await bot.awaitHookPromise(BotHooks.LocationReady)
   })
 
   after(async () => {
@@ -39,7 +39,7 @@ describe('Multi-Bot Tests', () => {
     bots.push(bot)
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationLoaded)
+    await bot.awaitHookPromise(BotHooks.LocationReady)
     return bot
   }
 
@@ -70,7 +70,7 @@ describe('Multi-Bot Tests', () => {
   //   const bot2 = new EtherealEngineBot({ name: 'bot-2', verbose: true })
   //   await bot2.launchBrowser()
   //   await bot2.enterLocation(`https://${domain}/location/${locationName}`)
-  //   await bot2.awaitHookPromise(BotHooks.LocationLoaded)
+  //   await bot2.awaitHookPromise(BotHooks.LocationReady)
 
   //   expect(
   //     vector3.copy(await bot.runHook(BotHooks.GetPlayerPosition)).length()

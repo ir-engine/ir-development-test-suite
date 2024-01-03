@@ -1,25 +1,32 @@
 import React, { useEffect } from 'react'
 
-import { LoadingCircle } from '@etherealengine/client-core/src/components/LoadingCircle'
+import { ARPlacement } from '@etherealengine/client-core/src/components/ARPlacement'
+import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
+import { Shelves } from '@etherealengine/client-core/src/components/Shelves'
 import { useLoadEngineWithScene, useOfflineNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { useLoadLocationScene, useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
+import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
+import { XRLoading } from '@etherealengine/client-core/src/components/XRLoading'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { useDefaultLocationSystems } from '@etherealengine/client-core/src/world/useDefaultLocationSystems'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+
+import './avatar/simulateMovement'
 
 export function Template(props: { projectName?: string; sceneName?: string }) {
-  const engineState = useHookstate(getMutableState(EngineState))
-
   useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
-  useOfflineNetwork({ spectate: true })
-  useLoadLocationScene()
+  useOfflineNetwork()
   useLoadEngineWithScene({ spectate: true })
-  useDefaultLocationSystems(true)
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-  }, [engineState.connectedWorld])
+  }, [])
 
-  return <>{engineState.isEngineInitialized.value ? <></> : <LoadingCircle />}</>
+  return (
+    <>
+      <div style={{ pointerEvents: 'all' }}>
+        <Shelves />
+        <ARPlacement />
+        <XRLoading />
+        <MediaIconsBox />
+      </div>
+    </>
+  )
 }

@@ -1,15 +1,13 @@
 import { Quaternion } from 'three'
 
-import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { V_010 } from '@etherealengine/engine/src/common/constants/MathConstants'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { defineQuery, getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { SimulationSystemGroup } from '@etherealengine/engine/src/ecs/functions/EngineFunctions'
-import { defineSystem, useSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
+import { PresentationSystemGroup } from '@etherealengine/engine/src/ecs/functions/EngineFunctions'
+import { defineSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 import { RigidBodyComponent } from '@etherealengine/engine/src/physics/components/RigidBodyComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
@@ -62,19 +60,16 @@ const execute = () => {
         (rigComponent.torsoLength + rigComponent.upperLegLength + rigComponent.lowerLegLength) * limitMultiplier
       const pivotHalfLength = rigComponent.upperLegLength * 0.5
       const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
-      const headTargetY =
-        (Math.sin(elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
+      const headTargetY = (Math.sin(elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
       const head = getComponent(headTargetEntity, TransformComponent)
-      head.position.y = headTargetY + rigidbody.position.y
+      head.position.copy(rigidbody.position)
+      head.position.y += headTargetY
     }
   }
 }
 
-const SimulateAvatarMovementSystem = defineSystem({
+export const SimulateAvatarMovementSystem = defineSystem({
   uuid: 'ee.development-test-suite.SimulateAvatarMovementSystem',
+  insert: { after: PresentationSystemGroup },
   execute
 })
-
-export const useSimulateMovement = () => {
-  useSystem(SimulateAvatarMovementSystem, { with: SimulationSystemGroup })
-}

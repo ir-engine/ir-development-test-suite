@@ -1,4 +1,4 @@
-import { Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
+import { MathUtils, Mesh, MeshNormalMaterial, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
@@ -25,6 +25,8 @@ import { TransformComponent } from '@etherealengine/engine/src/transform/compone
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { VRM } from '@pixiv/three-vrm'
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
+import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
+import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -52,11 +54,6 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
 }
 
 export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x = 0) => {
-  const avatarDetail = {
-    thumbnailURL: avatar.thumbnailResource?.url || '',
-    avatarURL: avatar.modelResource?.url || '',
-    avatarId: avatar.id ?? ''
-  }
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
   NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index, userId)
@@ -139,26 +136,24 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'TPose Avatar ' + i)
+  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position,
     rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
   })
-  const vrm = (await loadAvatarModelAsset(filename)) as VRM
-  addObjectToGroup(entity, vrm.scene)
-  setComponent(entity, VisibleComponent, true)
-
-  vrm.scene.traverse((obj: Mesh) => {
-    if (obj.isMesh) {
-      obj.material = new MeshNormalMaterial()
-    }
+  loadAvatarModelAsset(entity, filename)
+  setComponent(entity, AvatarAnimationComponent, {
+    rootYRatio: 1,
+    locomotion: new Vector3()
   })
-
+  setComponent(entity, VisibleComponent, true)
   return entity
 }
 
 export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i: number) => {
   const entity = createEntity()
   setComponent(entity, NameComponent, 'Anim Avatar ' + i + ' ' + filename.split('/').pop())
+  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position, 
     rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
@@ -167,7 +162,7 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
   setComponent(entity, LoopAnimationComponent, {
     hasAvatarAnimations: true,
     activeClipIndex: 0,
-    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/wave.fbx'
+    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes/wave.fbx'
   })
   setComponent(entity, ModelComponent, { src: filename, generateBVH: false, avoidCameraOcclusion: true })
   return entity
