@@ -6,8 +6,8 @@ import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 const vector3 = new Vector3()
 
 //const domain = process.env.APP_HOST
-const domain = 'localhost:3000'
-const locationName = 'default'
+const domain = 'test2.etherealengine.com'
+const locationName = 'apartment'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
