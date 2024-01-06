@@ -76,53 +76,53 @@ describe.skip('avatarFunctions Integration', async () => {
     return destroyEngine()
   })
 
-  describe('loadAvatarForEntity', () => {
-    const assetPaths = fetchAvatarList()
-    let i = 1
-    for (const modelURL of assetPaths) {
-      it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
-        const userId = `userId-${i}` as UserID
-        dispatchAction(
-          AvatarNetworkAction.spawn({
-            $from: userId,
-            position: new Vector3(),
-            rotation: new Quaternion(),
-            networkId: i++ as NetworkId,
-            entityUUID: userId as string as EntityUUID
-          })
-        )
+  // describe('loadAvatarForEntity', () => {
+  //   const assetPaths = fetchAvatarList()
+  //   let i = 1
+  //   for (const modelURL of assetPaths) {
+  //     it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
+  //       const userId = `userId-${i}` as UserID
+  //       dispatchAction(
+  //         AvatarNetworkAction.spawn({
+  //           $from: userId,
+  //           position: new Vector3(),
+  //           rotation: new Quaternion(),
+  //           networkId: i++ as NetworkId,
+  //           entityUUID: userId as string as EntityUUID
+  //         })
+  //       )
 
-        applyIncomingActions()
+  //       applyIncomingActions()
 
-        await act(() => receiveActions(EntityNetworkState))
+  //       await act(() => receiveActions(EntityNetworkState))
 
-        const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
+  //       const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
 
-        spawnAvatarReceptor(userId as string as EntityUUID)
+  //       spawnAvatarReceptor(userId as string as EntityUUID)
 
-        const avatar = getComponent(entity, AvatarComponent)
-        // make sure this is set later on
-        avatar.avatarHeight = 0
-        avatar.avatarHalfHeight = 0
+  //       const avatar = getComponent(entity, AvatarComponent)
+  //       // make sure this is set later on
+  //       avatar.avatarHeight = 0
+  //       avatar.avatarHalfHeight = 0
 
-        // run the logic
-        const model = (await loadAvatarModelAsset(modelURL)) as any
-        setupAvatarForUser(entity, model)
+  //       // run the logic
+  //       const model = (await loadAvatarModelAsset(modelURL)) as any
+  //       setupAvatarForUser(entity, model)
 
-        // do assertions
-        const avatarComponent = getComponent(entity, AvatarComponent)
+  //       // do assertions
+  //       const avatarComponent = getComponent(entity, AvatarComponent)
 
-        assert(avatarComponent.model!.children.length)
-        assert(avatarComponent.avatarHeight > 0)
-        assert(avatarComponent.avatarHalfHeight > 0)
+  //       assert(avatarComponent.model!.children.length)
+  //       assert(avatarComponent.avatarHeight > 0)
+  //       assert(avatarComponent.avatarHalfHeight > 0)
 
-        const { rig } = getComponent(entity, AvatarRigComponent)
-        assert(rig)
-        assert(rig.hips.node)
+  //       const { rig } = getComponent(entity, AvatarRigComponent)
+  //       assert(rig)
+  //       assert(rig.hips.node)
 
-        // TODO: this currently isn't working, the update method doesnt show up in the VRM object
-        // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
-      })
-    }
-  })
+  //       // TODO: this currently isn't working, the update method doesnt show up in the VRM object
+  //       // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
+  //     })
+  //   }
+  // })
 })

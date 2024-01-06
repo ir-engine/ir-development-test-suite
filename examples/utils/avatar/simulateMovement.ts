@@ -37,7 +37,7 @@ const execute = () => {
     const transform = getComponent(entity, TransformComponent)
     if (headTargetEntity) {
       const elapsedSeconds = getState(EngineState).elapsedSeconds
-      const rigComponent = getComponent(entity, AvatarRigComponent)
+      const rigComponent = getComponent(entity, AvatarComponent)
       const limitMultiplier = 1.1
       const headToFeetLength =
         (rigComponent.torsoLength + rigComponent.upperLegLength + rigComponent.lowerLegLength) * limitMultiplier
