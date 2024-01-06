@@ -3,7 +3,7 @@ import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
 
-import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
+import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
 import { NetworkPeer } from '@etherealengine/engine/src/networking/interfaces/NetworkPeer'
 

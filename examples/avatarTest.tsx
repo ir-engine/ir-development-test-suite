@@ -4,7 +4,7 @@ import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,

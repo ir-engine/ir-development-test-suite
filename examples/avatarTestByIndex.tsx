@@ -5,7 +5,7 @@ import { getMutableState } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
