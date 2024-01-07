@@ -130,7 +130,23 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       }),
       $from: userId
     })
-  }, 100)
+    dispatchAction({
+      ...AvatarNetworkAction.spawnIKTarget({
+        name: 'leftFoot',
+        entityUUID: (userId + ikTargets.leftFoot) as EntityUUID,
+        blendWeight: 1
+      }),
+      $from: userId
+    })
+    dispatchAction({
+      ...AvatarNetworkAction.spawnIKTarget({
+        name: 'rightFoot',
+        entityUUID: (userId + ikTargets.rightFoot) as EntityUUID,
+        blendWeight: 1
+      }),
+      $from: userId
+    })
+  }, 5000)
 }
 
 export const loadAssetTPose = async (filename, position: Vector3, i: number) => {

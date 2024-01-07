@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getMutableState } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
@@ -22,13 +22,15 @@ export default function AvatarBenchmarking() {
       $limit: 100
     }
   })
+  const created = useHookstate(false)
 
   useEffect(() => {
     getMutableState(EngineState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {
-    if (network?.ready.value && avatarList.data.length) {
+    if (network?.ready.value && avatarList.data.length && !created.value) {
+      created.set(true)
       const queryString = window.location.search
       const urlParams = new URLSearchParams(queryString)
       const indexStr = urlParams.get('index') as any
