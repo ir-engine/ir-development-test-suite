@@ -2,7 +2,7 @@ import { Quaternion } from 'three'
 
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
-import { V_010, Y_180 } from '@etherealengine/engine/src/common/constants/MathConstants'
+import { V_010, V_100, Q_Y_180 } from '@etherealengine/engine/src/common/constants/MathConstants'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { defineQuery, getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
@@ -15,9 +15,16 @@ import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDC
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { leftControllerOffset, rightControllerOffset } from '@etherealengine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
+import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
+import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 
 // quaternion that represents a 1 degree turn on the y axis
 const q = new Quaternion()
+
+const footRotationOffset = new Quaternion()
+  .setFromAxisAngle(V_100, Math.PI / 2)
+  .multiply(new Quaternion().setFromAxisAngle(V_010, Math.PI))
+  // .multiply(new Quaternion().setFromAxisAngle(V_100, -Math.PI / 6))
 
 const entitiesQuery = defineQuery([NetworkObjectComponent, RigidBodyComponent, AvatarComponent, AvatarRigComponent])
 
@@ -31,34 +38,43 @@ const execute = () => {
     rigidbody.body.setTranslation(rigidbody.position, true)
     rigidbody.targetKinematicRotation.multiply(q)
     const uuid = getComponent(entity, UUIDComponent)
-    const headTargetEntity = NameComponent.entitiesByName[uuid + '_head']?.[0]
-    const ikTargetLeftHand = NameComponent.entitiesByName[uuid + '_leftHand']?.[0]
-    const ikTargetRightHand = NameComponent.entitiesByName[uuid + '_rightHand']?.[0]
+    const headTargetEntity = UUIDComponent.getEntityByUUID((uuid + ikTargets.head) as EntityUUID)
+    const ikTargetLeftHand = UUIDComponent.getEntityByUUID((uuid + ikTargets.leftHand) as EntityUUID)
+    const ikTargetRightHand = UUIDComponent.getEntityByUUID((uuid + ikTargets.rightHand) as EntityUUID)
+    const ikTargetLeftFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.leftFoot) as EntityUUID)
+    const ikTargetRightFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.rightFoot) as EntityUUID)
     const transform = getComponent(entity, TransformComponent)
+    const elapsedSeconds = getState(EngineState).elapsedSeconds
+    const movementFactor = (Math.sin(elapsedSeconds * 2) + 1) * 0.5
     if (headTargetEntity) {
-      const elapsedSeconds = getState(EngineState).elapsedSeconds
       const rigComponent = getComponent(entity, AvatarComponent)
-      const limitMultiplier = 1.1
-      const headToFeetLength =
-        (rigComponent.torsoLength + rigComponent.upperLegLength + rigComponent.lowerLegLength) * limitMultiplier
-      const pivotHalfLength = rigComponent.upperLegLength * 0.5
-      const minHeadHeight = (pivotHalfLength + rigComponent.lowerLegLength + rigComponent.footHeight) / limitMultiplier
       const head = getComponent(headTargetEntity, TransformComponent)
       head.position.copy(rigidbody.position)
-      // const headTargetY = (Math.sin(elapsedSeconds * 2) + 1) * 0.5 * (headToFeetLength - minHeadHeight) + minHeadHeight
-      // head.position.y += headTargetY
-      head.position.y += 2
+      const headTargetY = (Math.sin(elapsedSeconds * 2) + 1) * 0.5
+      head.position.y += headTargetY + 1
       head.rotation.copy(transform.rotation)
     }
+    const avatar = getComponent(entity, AvatarComponent)
+  
     if (ikTargetLeftHand) {
       const leftHandTransform = getComponent(ikTargetLeftHand, TransformComponent)
-      leftHandTransform.position.set(0.4, 2, 0.2).applyQuaternion(transform.rotation).add(transform.position)
-      leftHandTransform.rotation.multiplyQuaternions(transform.rotation, Y_180).multiply(leftControllerOffset)
+      leftHandTransform.position.set(0.4, 1.2, 0.1 + movementFactor * 0.3).applyQuaternion(transform.rotation).add(transform.position)
+      leftHandTransform.rotation.multiplyQuaternions(transform.rotation, Q_Y_180).multiply(leftControllerOffset)
     }
     if (ikTargetRightHand) {
       const rightHandTransform = getComponent(ikTargetRightHand, TransformComponent)
-      rightHandTransform.position.set(-0.4, 2, 0.2).applyQuaternion(transform.rotation).add(transform.position)
-      rightHandTransform.rotation.multiplyQuaternions(transform.rotation, Y_180).multiply(rightControllerOffset)
+      rightHandTransform.position.set(-0.4, 1.2, 0.1 + movementFactor * 0.3).applyQuaternion(transform.rotation).add(transform.position)
+      rightHandTransform.rotation.multiplyQuaternions(transform.rotation, Q_Y_180).multiply(rightControllerOffset)
+    }
+    if (ikTargetLeftFoot) {
+      const leftFootTransform = getComponent(ikTargetLeftFoot, TransformComponent)
+      leftFootTransform.position.set(avatar.footGap, avatar.footHeight, 0).applyQuaternion(transform.rotation).add(transform.position)
+      leftFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
+    }
+    if (ikTargetRightFoot) {
+      const rightFootTransform = getComponent(ikTargetRightFoot, TransformComponent)
+      rightFootTransform.position.set(-avatar.footGap, avatar.footHeight, 0).applyQuaternion(transform.rotation).add(transform.position)
+      rightFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
     }
   }
 }
