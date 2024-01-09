@@ -31,10 +31,11 @@ export default function AvatarBenchmarking() {
   useEffect(() => {
     if (network?.ready?.value && avatarList.data.length > 0 && !created.value) {
       created.set(true)
-      mockNetworkAvatars(avatarList.data)
-      mockIKAvatars(avatarList.data)
-      mockLoopAnimAvatars(avatarList.data)
-      mockTPoseAvatars(avatarList.data)
+      const data = [...avatarList.data]
+      mockNetworkAvatars(data)
+      mockIKAvatars(data)
+      mockLoopAnimAvatars(data)
+      mockTPoseAvatars(data)
     }
   }, [network?.ready, avatarList.data.length])
 

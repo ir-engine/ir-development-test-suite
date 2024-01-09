@@ -24,7 +24,7 @@ export default function AvatarBenchmarking() {
 
   useEffect(() => {
     if (network?.ready.value && avatarList.data.length > 0) {
-      CreateSkinnedMeshGrid(avatarList.data, 64)
+      CreateSkinnedMeshGrid([...avatarList.data], 64)
     }
   }, [network?.ready, avatarList.data.length])
 
