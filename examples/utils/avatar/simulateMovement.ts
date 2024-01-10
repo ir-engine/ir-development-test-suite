@@ -22,10 +22,6 @@ import { getState } from '@etherealengine/hyperflux'
 
 const q = new Quaternion()
 
-const footRotationOffset = new Quaternion()
-  .setFromAxisAngle(V_100, Math.PI / 2)
-  .multiply(new Quaternion().setFromAxisAngle(V_010, Math.PI))
-
 const entitiesQuery = defineQuery([NetworkObjectComponent, RigidBodyComponent, AvatarComponent, AvatarRigComponent])
 
 let enabled = true
@@ -73,7 +69,7 @@ const execute = () => {
     if (ikTargetLeftHand) {
       const leftHandTransform = getComponent(ikTargetLeftHand, TransformComponent)
       leftHandTransform.position
-        .set(0.4, 1.2, 0.1 + movementFactor * 0.3)
+        .set(0.2, 1.2, 0.1 + movementFactor * 0.3)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
       leftHandTransform.rotation.multiplyQuaternions(transform.rotation, Q_Y_180).multiply(leftControllerOffset)
@@ -81,7 +77,7 @@ const execute = () => {
     if (ikTargetRightHand) {
       const rightHandTransform = getComponent(ikTargetRightHand, TransformComponent)
       rightHandTransform.position
-        .set(-0.4, 1.2, 0.1 + movementFactor * 0.3)
+        .set(-0.2, 1.2, 0.1 + movementFactor * 0.3)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
       rightHandTransform.rotation.multiplyQuaternions(transform.rotation, Q_Y_180).multiply(rightControllerOffset)
@@ -92,7 +88,7 @@ const execute = () => {
         .set(avatar.footGap, avatar.footHeight, 0)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
-      leftFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
+      leftFootTransform.rotation.copy(transform.rotation)
     }
     if (ikTargetRightFoot) {
       const rightFootTransform = getComponent(ikTargetRightFoot, TransformComponent)
@@ -100,7 +96,7 @@ const execute = () => {
         .set(-avatar.footGap, avatar.footHeight, 0)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
-      rightFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
+      rightFootTransform.rotation.copy(transform.rotation)
     }
   }
 }
