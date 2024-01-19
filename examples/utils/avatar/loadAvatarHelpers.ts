@@ -43,10 +43,10 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         $from: userId,
-        entityUUID: userId
+        entityUUID: userId,
+        avatarID: avatar.id
       })
     )
-    dispatchAction({ ...AvatarNetworkAction.setAvatarID({ avatarID: avatar.id, entityUUID: userId }), $from: userId })
   }
 }
 
@@ -59,10 +59,10 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       $from: userId,
-      entityUUID: userId
+      entityUUID: userId,
+      avatarID: avatar.id
     })
   )
-  dispatchAction({ ...AvatarNetworkAction.setAvatarID({ avatarID: avatar.id, entityUUID: userId }), $from: userId })
   return userId
 }
 
