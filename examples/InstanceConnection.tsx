@@ -7,15 +7,15 @@ import { useLoadLocation } from '@etherealengine/client-core/src/components/Worl
 import { LocationSeed, LocationState } from '@etherealengine/client-core/src/social/services/LocationService'
 import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/transports/SocketWebRTCClientFunctions'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
+import { LocationType } from '@etherealengine/common/src/schema.type.module'
 import { Button } from '@etherealengine/editor/src/components/inputs/Button'
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
-import { LocationType } from '@etherealengine/engine/src/schemas/social/location.schema'
-import { getMutableState, getState } from '@etherealengine/hyperflux'
-
-globalThis.NetworkState = NetworkState
+import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { Network } from '@etherealengine/engine/src/networking/classes/Network'
 
 export default function InstanceConnection() {
-  useNetwork({ online: true })
+  const online = useHookstate(false)
+  useNetwork({ online: online.value })
 
   useLoadLocation({ locationName: 'default' })
 
@@ -26,14 +26,16 @@ export default function InstanceConnection() {
   /** Mimic a server choosing to close our connection */
   const onNetworkDisconnect = () => {
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
-    const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork
-    network.transport.primus.end()
+    const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
+    if ('primus' in network.transport)
+      network.transport.primus.end()
   }
 
   const onNetworkLostConnection = () => {
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
-    const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork
-    clearInterval(network.transport.heartbeat)
+    const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
+    if ('heartbeat' in network.transport)
+      clearInterval(network.transport.heartbeat)
     /** in 10 seconds, the server will end the connection to the client and remove it's peer */
   }
 
@@ -63,6 +65,14 @@ export default function InstanceConnection() {
   return (
     <>
       <div style={{ pointerEvents: 'all', position: 'absolute', top: '50%', left: '50%' }}>
+        <Button
+          onClick={() => {
+            online.set((val) => !val)
+            console.log('debug SWITCH', online.value)
+          }}
+        >
+          Go {online.value ? 'Offline' : 'Online'}
+        </Button>
         <Button onClick={onNetworkDisconnect}>Disconnect Network</Button>
         <Button onClick={onNetworkLostConnection}>Lose Connection</Button>
         {/* <Button onClick={onLeaveLocation}>Leave Location</Button> */}
