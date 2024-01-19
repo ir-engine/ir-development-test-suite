@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
-import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
+import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
 import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
@@ -17,7 +17,7 @@ import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/co
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { Vector3 } from 'three'
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 

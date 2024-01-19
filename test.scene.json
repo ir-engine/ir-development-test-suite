@@ -4,10 +4,6 @@
     "d32b1c4e-d08e-4fb0-9107-4c88a281ee71": {
       "components": [
         {
-          "name": "visible",
-          "props": true
-        },
-        {
           "name": "transform",
           "props": {
             "position": {
@@ -69,8 +65,8 @@
           "name": "camera-settings",
           "props": {
             "fov": 50,
-            "cameraNearClip": 0.01,
-            "cameraFarClip": 10000,
+            "cameraNearClip": 0.1,
+            "cameraFarClip": 500,
             "projectionType": 1,
             "minCameraDistance": 1,
             "maxCameraDistance": 50,
@@ -230,6 +226,10 @@
             "toneMappingExposure": 0.8,
             "shadowMapType": 2
           }
+        },
+        {
+          "name": "visible",
+          "props": true
         }
       ],
       "name": "default"
@@ -997,10 +997,6 @@
           }
         },
         {
-          "name": "visible",
-          "props": {}
-        },
-        {
           "name": "transform",
           "props": {
             "position": {
@@ -1020,6 +1016,10 @@
               "z": 1
             }
           }
+        },
+        {
+          "name": "visible",
+          "props": true
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
@@ -1043,10 +1043,6 @@
           }
         },
         {
-          "name": "visible",
-          "props": {}
-        },
-        {
           "name": "transform",
           "props": {
             "position": {
@@ -1055,10 +1051,10 @@
               "z": 0
             },
             "rotation": {
-              "x": 0,
-              "y": 0,
-              "z": 0,
-              "w": 1
+              "x": 0.7071067811865477,
+              "y": 1.2325951644078307e-32,
+              "z": 1.2325951644078312e-32,
+              "w": 0.7071067811865474
             },
             "scale": {
               "x": 1,
@@ -1066,6 +1062,10 @@
               "z": 1
             }
           }
+        },
+        {
+          "name": "visible",
+          "props": true
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
@@ -1079,12 +1079,9 @@
           "props": {
             "src": "__$project$__/default-project/assets/avatars/male_01.vrm",
             "generateBVH": true,
-            "avoidCameraOcclusion": false
+            "avoidCameraOcclusion": false,
+            "convertToVRM": true
           }
-        },
-        {
-          "name": "visible",
-          "props": {}
         },
         {
           "name": "transform",
@@ -1110,7 +1107,6 @@
         {
           "name": "loop-animation",
           "props": {
-            "hasAvatarAnimations": true,
             "activeClipIndex": 0,
             "animationPack": "__$project$__/default-project/assets/animations/emotes/wave.fbx",
             "paused": false,
@@ -1123,6 +1119,10 @@
             "zeroSlopeAtEnd": true,
             "weight": 1
           }
+        },
+        {
+          "name": "visible",
+          "props": true
         }
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",

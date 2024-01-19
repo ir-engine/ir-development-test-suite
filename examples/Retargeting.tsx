@@ -15,7 +15,7 @@ import {
 } from 'three'
 import { VRM } from '@pixiv/three-vrm'
 
-import { loadAvatarForPreview, resetAnimationLogic } from '@etherealengine/client-core/src/user/components/Panel3D/helperFunctions'
+import { resetAnimationLogic } from '@etherealengine/client-core/src/user/components/Panel3D/helperFunctions'
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@etherealengine/common/src/constants/AvatarConstants'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
@@ -34,10 +34,8 @@ import { setVisibleComponent } from '@etherealengine/engine/src/scene/components
 import { defineState, getMutableState, getState, NO_PROXY, none, useHookstate } from '@etherealengine/hyperflux'
 
 import { Template } from './utils/template'
-import { rigAvatarModel } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
-import { ObjectLayers } from '@etherealengine/engine/src/scene/constants/ObjectLayers'
 
-const bones = Object.keys(AvatarRigComponent.schema.rig)
+const bones = Object.keys(AvatarRigComponent.schema!.rig)
 console.log({ bones })
 
 const BoneMatchedState = defineState({
@@ -127,19 +125,19 @@ const RetargetingDND = () => {
 
     resetAnimationLogic(entity)
 
-    const avatar = await loadAvatarForPreview(entity, SkeletonUtils.clone(scene))
-    if (!entityExists(entity)) return
+    // const avatar = await loadAvatarForPreview(entity, SkeletonUtils.clone(scene))
+    // if (!entityExists(entity)) return
 
-    if (!avatar) {
-      removeEntity(entity)
-      return
-    }
+    // if (!avatar) {
+    //   removeEntity(entity)
+    //   return
+    // }
 
-    rigTestEntity.set(entity)
+    // rigTestEntity.set(entity)
 
-    addObjectToGroup(entity, avatar)
-    setVisibleComponent(entity, true)
-    setComponent(entity, NameComponent, assetFile.value!.name)
+    // addObjectToGroup(entity, avatar)
+    // setVisibleComponent(entity, true)
+    // setComponent(entity, NameComponent, assetFile.value!.name)
   }
 
   const onLoadNameMap = (ev) => {

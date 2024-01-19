@@ -1,9 +1,7 @@
 import React from 'react'
 
-import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
-
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
+import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/QueryFunctions'
 import { XRDetectedMeshComponent } from '@etherealengine/engine/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/engine/src/xr/XRDetectedPlaneComponent'
 import { LightProbe } from './XRLightEstimation'
@@ -14,7 +12,7 @@ import { Template } from './utils/template'
  * All supported WebXR Features
  * - light estimation
  * - detected planes
- * @todo 
+ * @todo
  * - grabbables in hand
  * - depth occlusion
  * - hit test on detected planes and meshes

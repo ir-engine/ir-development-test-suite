@@ -1,31 +1,17 @@
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
-import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
-import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
-import { loadAvatarModelAsset, setupAvatarForUser } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
-import { spawnAvatarReceptor } from '@etherealengine/engine/src/avatar/functions/spawnAvatarReceptor'
-import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { Engine, destroyEngine } from '@etherealengine/engine/src/ecs/classes/Engine'
 import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
-import { UserID } from '@etherealengine/engine/src/schemas/user/user.schema'
 import { createMockNetwork } from '@etherealengine/engine/tests/util/createMockNetwork'
 import { overrideFileLoaderLoad } from '@etherealengine/engine/tests/util/loadGLTFAssetNode'
-import { applyIncomingActions, dispatchAction, getMutableState, receiveActions } from '@etherealengine/hyperflux'
+import { getMutableState } from '@etherealengine/hyperflux'
 import appRootPath from 'app-root-path'
-import assert from 'assert'
 import fs from 'fs'
 import path from 'path'
-import { Quaternion, Vector3 } from 'three'
 
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
-import { EntityNetworkState } from '@etherealengine/engine/src/networking/state/EntityNetworkState'
 import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
-import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
-import { act } from '@testing-library/react'
 import packageJson from '../../package.json'
 
 import '@etherealengine/engine/src/EngineModule'
@@ -76,53 +62,53 @@ describe.skip('avatarFunctions Integration', async () => {
     return destroyEngine()
   })
 
-  describe('loadAvatarForEntity', () => {
-    const assetPaths = fetchAvatarList()
-    let i = 1
-    for (const modelURL of assetPaths) {
-      it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
-        const userId = `userId-${i}` as UserID
-        dispatchAction(
-          AvatarNetworkAction.spawn({
-            $from: userId,
-            position: new Vector3(),
-            rotation: new Quaternion(),
-            networkId: i++ as NetworkId,
-            entityUUID: userId as string as EntityUUID
-          })
-        )
+  // describe('loadAvatarForEntity', () => {
+  //   const assetPaths = fetchAvatarList()
+  //   let i = 1
+  //   for (const modelURL of assetPaths) {
+  //     it('should bone match, and rig avatar ' + modelURL.replace(avatarPath, ''), async function () {
+  //       const userId = `userId-${i}` as UserID
+  //       dispatchAction(
+  //         AvatarNetworkAction.spawn({
+  //           $from: userId,
+  //           position: new Vector3(),
+  //           rotation: new Quaternion(),
+  //           networkId: i++ as NetworkId,
+  //           entityUUID: userId as string as EntityUUID
+  //         })
+  //       )
 
-        applyIncomingActions()
+  //       applyIncomingActions()
 
-        await act(() => receiveActions(EntityNetworkState))
+  //       await act(() => receiveActions(EntityNetworkState))
 
-        const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
+  //       const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
 
-        spawnAvatarReceptor(userId as string as EntityUUID)
+  //       spawnAvatarReceptor(userId as string as EntityUUID)
 
-        const avatar = getComponent(entity, AvatarComponent)
-        // make sure this is set later on
-        avatar.avatarHeight = 0
-        avatar.avatarHalfHeight = 0
+  //       const avatar = getComponent(entity, AvatarComponent)
+  //       // make sure this is set later on
+  //       avatar.avatarHeight = 0
+  //       avatar.avatarHalfHeight = 0
 
-        // run the logic
-        const model = (await loadAvatarModelAsset(modelURL)) as any
-        setupAvatarForUser(entity, model)
+  //       // run the logic
+  //       const model = (await loadAvatarModelAsset(modelURL)) as any
+  //       setupAvatarForUser(entity, model)
 
-        // do assertions
-        const avatarComponent = getComponent(entity, AvatarComponent)
+  //       // do assertions
+  //       const avatarComponent = getComponent(entity, AvatarComponent)
 
-        assert(avatarComponent.model!.children.length)
-        assert(avatarComponent.avatarHeight > 0)
-        assert(avatarComponent.avatarHalfHeight > 0)
+  //       assert(avatarComponent.model!.children.length)
+  //       assert(avatarComponent.avatarHeight > 0)
+  //       assert(avatarComponent.avatarHalfHeight > 0)
 
-        const { rig } = getComponent(entity, AvatarRigComponent)
-        assert(rig)
-        assert(rig.hips.node)
+  //       const { rig } = getComponent(entity, AvatarRigComponent)
+  //       assert(rig)
+  //       assert(rig.hips.node)
 
-        // TODO: this currently isn't working, the update method doesnt show up in the VRM object
-        // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
-      })
-    }
-  })
+  //       // TODO: this currently isn't working, the update method doesnt show up in the VRM object
+  //       // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
+  //     })
+  //   }
+  // })
 })

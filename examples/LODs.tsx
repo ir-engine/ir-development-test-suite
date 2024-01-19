@@ -17,7 +17,7 @@ import { useHookstate } from '@etherealengine/hyperflux'
 
 import config from '@etherealengine/common/src/config'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
-import { StaticResourceType } from '@etherealengine/engine/src/schemas/media/static-resource.schema'
+import { StaticResourceType } from '@etherealengine/common/src/schemas/media/static-resource.schema'
 import { Template } from './utils/template'
 import { GroupComponent, addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 

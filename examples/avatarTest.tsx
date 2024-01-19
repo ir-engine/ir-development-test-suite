@@ -4,7 +4,7 @@ import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/engine/src/schemas/user/avatar.schema'
+import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
@@ -31,10 +31,11 @@ export default function AvatarBenchmarking() {
   useEffect(() => {
     if (network?.ready?.value && avatarList.data.length > 0 && !created.value) {
       created.set(true)
-      mockNetworkAvatars(avatarList.data)
-      mockIKAvatars(avatarList.data)
-      mockLoopAnimAvatars(avatarList.data)
-      mockTPoseAvatars(avatarList.data)
+      const data = [...avatarList.data]
+      mockNetworkAvatars(data)
+      mockIKAvatars(data)
+      mockLoopAnimAvatars(data)
+      mockTPoseAvatars(data)
     }
   }, [network?.ready, avatarList.data.length])
 
