@@ -32,6 +32,7 @@ export default function InstanceConnection() {
   }
 
   const onNetworkLostConnection = () => {
+    console.log('debug onNetworkLostConnection')
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
     if ('heartbeat' in network.transport)
@@ -73,8 +74,8 @@ export default function InstanceConnection() {
         >
           Go {online.value ? 'Offline' : 'Online'}
         </Button>
-        <Button onClick={onNetworkDisconnect}>Disconnect Network</Button>
-        <Button onClick={onNetworkLostConnection}>Lose Connection</Button>
+        <Button onClick={onNetworkDisconnect}>End Connection</Button>
+        <Button onClick={onNetworkLostConnection}>Stop Heartbeat</Button>
         {/* <Button onClick={onLeaveLocation}>Leave Location</Button> */}
       </div>
       <LocationIcons />
