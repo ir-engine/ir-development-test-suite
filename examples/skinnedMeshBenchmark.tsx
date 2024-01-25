@@ -8,6 +8,7 @@ import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHoo
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { CreateSkinnedMeshGrid } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 export default function AvatarBenchmarking() {
   const network = useWorldNetwork()
@@ -19,7 +20,7 @@ export default function AvatarBenchmarking() {
   })
 
   useEffect(() => {
-    getMutableState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(AnimationState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {

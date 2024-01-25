@@ -19,6 +19,7 @@ import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -160,7 +161,7 @@ export default function AvatarMocap() {
   const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value]).value
 
   useEffect(() => {
-    getMutableState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(AnimationState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {

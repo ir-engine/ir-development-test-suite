@@ -6,7 +6,6 @@ import { LocationIcons } from '@etherealengine/client-core/src/components/Locati
 import { PostProcessingSettingsEditor } from '@etherealengine/editor/src/components/properties/PostProcessingSettingsEditor'
 import { EditorControlFunctions } from '@etherealengine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@etherealengine/editor/src/services/SelectionServices'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
 import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
 import { SceneState } from '@etherealengine/engine/src/ecs/classes/Scene'
 import { updateComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
@@ -19,7 +18,7 @@ export default function PostProcessing() {
   const [params] = useSearchParams()
   const sceneName = params.get('sceneName')!
   const projectName = params.get('projectName')!
-  const sceneLoaded = useHookstate(getMutableState(EngineState).sceneLoaded)
+  const sceneLoaded = useHookstate(getMutableState(SceneState).sceneLoaded)
 
   useEffect(() => {
     if (!sceneLoaded.value) return

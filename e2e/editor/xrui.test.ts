@@ -3,8 +3,7 @@ import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { delay } from '@etherealengine/engine/src/common/functions/delay'
-import type { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { SceneState } from '@etherealengine/engine/src/ecs/classes/Scene'
 
 const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/studio`
@@ -13,7 +12,7 @@ describe('Editor Scene Tests', () => {
   const bot = new EtherealEngineBot({ name: 'bot', verbose: true, headless: false })
   before(async () => {
     await bot.launchBrowser()
-    await bot.enterEditor(`https://${domain}/studio/`,`https://${domain}`)
+    await bot.enterEditor(`https://${domain}/studio/`, `https://${domain}`)
   })
 
   after(async () => {
@@ -37,7 +36,7 @@ describe('Editor Scene Tests', () => {
     await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
     const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) // as Engine
-    const engineState = serializedEngine.store.stateMap['engine'] as any as typeof EngineState._TYPE
+    const engineState = serializedEngine.store.stateMap['engine'] as any as typeof SceneState._TYPE
     assert.equal(serializedEngine.isEditor, true)
     assert.equal(engineState.sceneLoaded, true)
   })

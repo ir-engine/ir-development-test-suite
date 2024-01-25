@@ -20,6 +20,8 @@ import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHoo
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { Vector3 } from 'three'
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
+import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -30,7 +32,7 @@ import { useWorldNetwork } from '@etherealengine/client-core/src/common/services
 //     if(entities.length !== entitiesLength) {
 //       entities = []
 //       for (let i = 0; i < entitiesLength; i++) {
-//         const eid = NetworkObjectComponent.getUserAvatarEntity('user' + i as UserID)
+//         const eid = AvatarComponent.getUserAvatarEntity('user' + i as UserID)
 //         if(eid) entities.push(eid)
 //       }
 //     }
@@ -57,7 +59,7 @@ export default function AvatarBenchmarking() {
   const [entities, setEntities] = useState(0)
 
   useEffect(() => {
-    getMutableState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(AnimationState).avatarLoadingEffect.set(false)
 
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
@@ -78,7 +80,7 @@ export default function AvatarBenchmarking() {
       loadNetworkAvatar(avatar, i)
     }
     return () => {
-      for (let i = 0; i < entities; i++) removeEntity(NetworkObjectComponent.getUserAvatarEntity(('user' + i) as UserID))
+      for (let i = 0; i < entities; i++) removeEntity(AvatarComponent.getUserAvatarEntity(('user' + i) as UserID))
     }
   }, [count, avatarID, network?.ready])
 
