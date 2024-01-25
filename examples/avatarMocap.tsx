@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/ecs/src/EngineState'
+import { EngineState } from '@etherealengine/engine/src/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
@@ -12,7 +12,7 @@ import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engi
 import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
 import { DataChannelRegistryState } from '@etherealengine/engine/src/networking/systems/DataChannelRegistry'
 import { RendererState } from '@etherealengine/engine/src/renderer/RendererState'
-import { UUIDComponent } from '@etherealengine/ecs/src/UUIDComponent'
+import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
