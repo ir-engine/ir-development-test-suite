@@ -1,15 +1,15 @@
 import { ColliderDesc, RigidBodyDesc } from '@dimforge/rapier3d-compat'
 import { Vector3 } from 'three'
 
-import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
-import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { Entity } from '@etherealengine/ecs/src/Entity'
+import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
 import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/engine/src/physics/enums/CollisionGroups'
 import { getInteractionGroups } from '@etherealengine/engine/src/physics/functions/getInteractionGroups'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
-import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
+import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]

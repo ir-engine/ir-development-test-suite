@@ -1,6 +1,6 @@
 import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
-import { Engine, destroyEngine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { Engine, destroyEngine } from '@etherealengine/ecs/src/Engine'
+import { EngineState } from '@etherealengine/ecs/src/EngineState'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
 import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
 import { createMockNetwork } from '@etherealengine/engine/tests/util/createMockNetwork'

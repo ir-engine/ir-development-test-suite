@@ -16,18 +16,18 @@ import {
 } from 'three'
 import { CellSpacePartitioning, EntityManager, FollowPathBehavior, Time } from 'yuka'
 
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
-import { Entity } from '@etherealengine/engine/src/ecs/classes/Entity'
-import { Scene } from '@etherealengine/engine/src/ecs/classes/Scene'
+import { Engine } from '@etherealengine/ecs/src/Engine'
+import { Entity } from '@etherealengine/ecs/src/Entity'
+import { Scene } from '@etherealengine/engine/src/scene/Scene'
 import {
   addComponent,
   createMappedComponent,
   getComponent
-} from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { initSystems } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { useWorld } from '@etherealengine/engine/src/ecs/functions/SystemHooks'
-import { SystemUpdateType } from '@etherealengine/engine/src/ecs/functions/SystemUpdateType'
+} from '@etherealengine/ecs/src/ComponentFunctions'
+import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
+import { initSystems } from '@etherealengine/ecs/src/SystemFunctions'
+import { useWorld } from '@etherealengine/ecs/src/SystemHooks'
+import { SystemUpdateType } from '@etherealengine/ecs/src/SystemUpdateType'
 import { createEngine } from '@etherealengine/engine/src/initializeEngine'
 import { OrbitControls } from '@etherealengine/engine/src/input/functions/OrbitControls'
 import { createCellSpaceHelper } from '@etherealengine/engine/src/navigation/CellSpacePartitioningHelper'

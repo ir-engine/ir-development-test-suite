@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { EngineState } from '@etherealengine/ecs/src/EngineState'
 import { getMutableState } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'

@@ -4,7 +4,7 @@ import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, sRG
 
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
-import { Engine } from '@etherealengine/engine/src/ecs/classes/Engine'
+import { Engine } from '@etherealengine/ecs/src/Engine'
 
 import { Template } from './utils/template'
 import { getState } from '@etherealengine/hyperflux'

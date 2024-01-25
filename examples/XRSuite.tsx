@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/QueryFunctions'
+import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
 import { XRDetectedMeshComponent } from '@etherealengine/engine/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/engine/src/xr/XRDetectedPlaneComponent'
 import { LightProbe } from './XRLightEstimation'

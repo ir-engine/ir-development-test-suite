@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { EngineState } from '@etherealengine/ecs/src/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'

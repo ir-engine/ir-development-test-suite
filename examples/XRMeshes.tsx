@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 
-import { setComponent, useComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { useEntityContext } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { setComponent, useComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { useEntityContext } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 
@@ -10,7 +10,7 @@ import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/componen
 import { XRDetectedMeshComponent } from '@etherealengine/engine/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/engine/src/xr/XRDetectedPlaneComponent'
 import { Template } from './utils/template'
-import { QueryReactor } from '@etherealengine/engine/src/ecs/functions/QueryFunctions'
+import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
 
 const wireframeMaterial = new MeshBasicMaterial({ wireframe: true })
 const normalMaterial = new MeshNormalMaterial({ opacity: 0.5, transparent: true })

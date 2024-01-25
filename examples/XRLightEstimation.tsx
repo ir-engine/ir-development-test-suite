@@ -5,8 +5,8 @@ import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSys
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { getComponent, setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity, removeEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
+import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
