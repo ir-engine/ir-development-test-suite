@@ -10,16 +10,17 @@ import {
   rightControllerOffset
 } from '@etherealengine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
 import { Q_Y_180, V_010, V_100 } from '@etherealengine/engine/src/common/constants/MathConstants'
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
-import { getComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { defineQuery } from '@etherealengine/engine/src/ecs/functions/QueryFunctions'
-import { defineSystem } from '@etherealengine/engine/src/ecs/functions/SystemFunctions'
-import { PresentationSystemGroup } from '@etherealengine/engine/src/ecs/functions/SystemGroups'
+import { EngineState } from '@etherealengine/engine/src/EngineState'
+import { getComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { defineQuery } from '@etherealengine/ecs/src/QueryFunctions'
+import { defineSystem } from '@etherealengine/ecs/src/SystemFunctions'
+import { PresentationSystemGroup } from '@etherealengine/ecs/src/SystemGroups'
 import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
 import { RigidBodyComponent } from '@etherealengine/engine/src/physics/components/RigidBodyComponent'
 import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
+import { ECSState } from '@etherealengine/ecs/src/ECSState'
 
 const q = new Quaternion()
 
@@ -37,7 +38,7 @@ window.addEventListener('keydown', (ev) => {
 
 const execute = () => {
   const entities = entitiesQuery()
-  q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(EngineState).deltaSeconds * 60)
+  q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
   for (const entity of entities) {
     const uuid = getComponent(entity, UUIDComponent)
     const headTargetEntity = UUIDComponent.getEntityByUUID((uuid + ikTargets.head) as EntityUUID)
@@ -60,7 +61,7 @@ const execute = () => {
     rigidbody.body.setTranslation(rigidbody.position, true)
     rigidbody.targetKinematicRotation.multiply(q)
     const transform = getComponent(entity, TransformComponent)
-    const elapsedSeconds = getState(EngineState).elapsedSeconds
+    const elapsedSeconds = getState(ECSState).elapsedSeconds
     const movementFactor = (Math.sin(elapsedSeconds * 2) + 1) * 0.5
     if (headTargetEntity) {
       const head = getComponent(headTargetEntity, TransformComponent)

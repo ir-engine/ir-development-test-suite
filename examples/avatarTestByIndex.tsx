@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/engine/src/ecs/classes/EngineState'
+import { EngineState } from '@etherealengine/engine/src/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
@@ -13,6 +13,7 @@ import {
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 export default function AvatarBenchmarking() {
   const network = useWorldNetwork()
@@ -25,7 +26,7 @@ export default function AvatarBenchmarking() {
   const created = useHookstate(false)
 
   useEffect(() => {
-    getMutableState(EngineState).avatarLoadingEffect.set(false)
+    getMutableState(AnimationState).avatarLoadingEffect.set(false)
   }, [])
 
   useEffect(() => {

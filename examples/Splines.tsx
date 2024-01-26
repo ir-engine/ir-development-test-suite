@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
 import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
-import { setComponent } from '@etherealengine/engine/src/ecs/functions/ComponentFunctions'
-import { createEntity } from '@etherealengine/engine/src/ecs/functions/EntityFunctions'
-import { EntityTreeComponent } from '@etherealengine/engine/src/ecs/functions/EntityTree'
+import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
+import { EntityTreeComponent } from '@etherealengine/engine/src/transform/components/EntityTree'
 import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
 import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
