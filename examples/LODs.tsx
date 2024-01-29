@@ -11,7 +11,7 @@ import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
 import { VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
-import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { VisibleComponent } from '@etherealengine/engine/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 
@@ -19,7 +19,7 @@ import config from '@etherealengine/common/src/config'
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { StaticResourceType } from '@etherealengine/common/src/schemas/media/static-resource.schema'
 import { Template } from './utils/template'
-import { GroupComponent, addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
+import { GroupComponent, addObjectToGroup } from '@etherealengine/engine/src/renderer/components/GroupComponent'
 
 // create rings for each LOD
 const visualizeVariants = () => {
