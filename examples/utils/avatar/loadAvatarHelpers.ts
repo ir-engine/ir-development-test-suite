@@ -19,9 +19,9 @@ import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState
 import { Network } from '@etherealengine/engine/src/networking/classes/Network'
 import { NetworkPeerFunctions } from '@etherealengine/engine/src/networking/functions/NetworkPeerFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
-import { UUIDComponent } from '@etherealengine/engine/src/scene/components/UUIDComponent'
-import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
+import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
+import { UUIDComponent } from '@etherealengine/engine/src/common/UUIDComponent'
+import { VisibleComponent } from '@etherealengine/engine/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 
