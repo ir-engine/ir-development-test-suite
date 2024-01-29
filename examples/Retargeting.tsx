@@ -29,7 +29,7 @@ import { Entity } from '@etherealengine/ecs/src/Entity'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity, entityExists, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup, removeGroupComponent } from '@etherealengine/engine/src/scene/components/GroupComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
 import { setVisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { defineState, getMutableState, getState, NO_PROXY, none, useHookstate } from '@etherealengine/hyperflux'
 

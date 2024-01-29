@@ -8,7 +8,7 @@ import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/componen
 import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
 import { Template } from './utils/template'

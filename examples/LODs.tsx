@@ -9,7 +9,7 @@ import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTy
 import { getComponent, removeComponent, setComponent, useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
 import { VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { VisibleComponent } from '@etherealengine/engine/src/scene/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'

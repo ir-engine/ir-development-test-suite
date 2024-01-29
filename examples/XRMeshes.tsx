@@ -4,7 +4,7 @@ import { Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 import { setComponent, useComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { useEntityContext } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/engine/src/scene/components/GroupComponent'
-import { NameComponent } from '@etherealengine/engine/src/scene/components/NameComponent'
+import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
 
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { XRDetectedMeshComponent } from '@etherealengine/engine/src/xr/XRDetectedMeshComponent'
