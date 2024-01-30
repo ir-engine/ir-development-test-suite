@@ -4,7 +4,7 @@ import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
 import { delay } from '@etherealengine/spatial/src/common/functions/delay'
 import type { Engine } from '@etherealengine/ecs/src/Engine'
-import { EngineState } from '@etherealengine/engine/src/EngineState'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { SceneState } from '@etherealengine/engine/src/scene/Scene'
 
 const domain = process.env.APP_HOST || 'localhost:3000'

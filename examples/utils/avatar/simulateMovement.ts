@@ -10,7 +10,7 @@ import {
   rightControllerOffset
 } from '@etherealengine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
 import { Q_Y_180, V_010, V_100 } from '@etherealengine/spatial/src/common/constants/MathConstants'
-import { EngineState } from '@etherealengine/engine/src/EngineState'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { getComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { defineQuery } from '@etherealengine/ecs/src/QueryFunctions'
 import { defineSystem } from '@etherealengine/ecs/src/SystemFunctions'
