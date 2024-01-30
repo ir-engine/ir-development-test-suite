@@ -13,7 +13,7 @@ import {
 
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import { SkeletonUtils } from '@etherealengine/engine/src/avatar/SkeletonUtils'
-import { OrbitControls } from '@etherealengine/engine/src/input/functions/OrbitControls'
+import { OrbitControls } from '@etherealengine/spatial/src/input/functions/OrbitControls'
 
 const canvasStyle = {
   zIndex: 0,

@@ -9,16 +9,16 @@ import {
   leftControllerOffset,
   rightControllerOffset
 } from '@etherealengine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
-import { Q_Y_180, V_010, V_100 } from '@etherealengine/engine/src/common/constants/MathConstants'
+import { Q_Y_180, V_010, V_100 } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { EngineState } from '@etherealengine/engine/src/EngineState'
 import { getComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { defineQuery } from '@etherealengine/ecs/src/QueryFunctions'
 import { defineSystem } from '@etherealengine/ecs/src/SystemFunctions'
 import { PresentationSystemGroup } from '@etherealengine/ecs/src/SystemGroups'
-import { NetworkObjectComponent } from '@etherealengine/engine/src/networking/components/NetworkObjectComponent'
-import { RigidBodyComponent } from '@etherealengine/engine/src/physics/components/RigidBodyComponent'
-import { UUIDComponent } from '@etherealengine/engine/src/common/UUIDComponent'
-import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { NetworkObjectComponent } from '@etherealengine/spatial/src/networking/components/NetworkObjectComponent'
+import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
+import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
+import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { ECSState } from '@etherealengine/ecs/src/ECSState'
 

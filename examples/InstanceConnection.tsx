@@ -9,9 +9,9 @@ import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/trans
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
 import { LocationType } from '@etherealengine/common/src/schema.type.module'
 import { Button } from '@etherealengine/editor/src/components/inputs/Button'
-import { NetworkState } from '@etherealengine/engine/src/networking/NetworkState'
+import { NetworkState } from '@etherealengine/spatial/src/networking/NetworkState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
-import { Network } from '@etherealengine/engine/src/networking/classes/Network'
+import { Network } from '@etherealengine/spatial/src/networking/classes/Network'
 
 export default function InstanceConnection() {
   const online = useHookstate(false)

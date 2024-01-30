@@ -2,7 +2,7 @@ import assert from 'assert'
 import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
 import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 
-import { delay } from '@etherealengine/engine/src/common/functions/delay'
+import { delay } from '@etherealengine/spatial/src/common/functions/delay'
 import type { Engine } from '@etherealengine/ecs/src/Engine'
 import { EngineState } from '@etherealengine/engine/src/EngineState'
 import { SceneState } from '@etherealengine/engine/src/scene/Scene'

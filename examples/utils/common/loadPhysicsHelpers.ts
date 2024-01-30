@@ -3,12 +3,12 @@ import { Vector3 } from 'three'
 
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { Physics } from '@etherealengine/engine/src/physics/classes/Physics'
-import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/engine/src/physics/enums/CollisionGroups'
-import { getInteractionGroups } from '@etherealengine/engine/src/physics/functions/getInteractionGroups'
-import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { Physics } from '@etherealengine/spatial/src/physics/classes/Physics'
+import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/spatial/src/physics/enums/CollisionGroups'
+import { getInteractionGroups } from '@etherealengine/spatial/src/physics/functions/getInteractionGroups'
+import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
-import { PhysicsState } from '@etherealengine/engine/src/physics/state/PhysicsState'
+import { PhysicsState } from '@etherealengine/spatial/src/physics/state/PhysicsState'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 
 export const createPhysicsObjects = (count: number) => {
