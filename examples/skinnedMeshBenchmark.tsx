@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/engine/src/EngineState'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { getMutableState } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { useFind } from '@etherealengine/engine/src/common/functions/FeathersHooks'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { CreateSkinnedMeshGrid } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { Mesh, MeshStandardMaterial, SphereGeometry } from 'three'
 
-import { XRLightProbeState } from '@etherealengine/engine/src/xr/XRLightProbeSystem'
+import { XRLightProbeState } from '@etherealengine/spatial/src/xr/XRLightProbeSystem'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { addObjectToGroup } from '@etherealengine/engine/src/renderer/components/GroupComponent'
-import { NameComponent } from '@etherealengine/engine/src/common/NameComponent'
-import { VisibleComponent } from '@etherealengine/engine/src/renderer/components/VisibleComponent'
-import { TransformComponent } from '@etherealengine/engine/src/transform/components/TransformComponent'
+import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
+import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
+import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { Template } from './utils/template'
 
 export const LightProbe = () => {
