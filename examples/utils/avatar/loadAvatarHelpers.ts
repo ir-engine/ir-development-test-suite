@@ -172,7 +172,7 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, LoopAnimationComponent, {
     activeClipIndex: 0,
-    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes/wave.fbx'
+    animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb'
   })
   setComponent(entity, ModelComponent, { src: filename, convertToVRM: true, cameraOcclusion: false })
   return entity

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
 import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import {
   mockIKAvatars,
@@ -13,7 +13,6 @@ import {
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 export default function AvatarBenchmarking() {
   const network = useWorldNetwork()
