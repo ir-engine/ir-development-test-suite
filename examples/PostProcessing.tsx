@@ -3,13 +3,14 @@ import React, { useEffect } from 'react'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
+import { getComponent, updateComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { Entity } from '@etherealengine/ecs/src/Entity'
 import { PostProcessingSettingsEditor } from '@etherealengine/editor/src/components/properties/PostProcessingSettingsEditor'
 import { EditorControlFunctions } from '@etherealengine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@etherealengine/editor/src/services/SelectionServices'
-import { Entity } from '@etherealengine/ecs/src/Entity'
 import { SceneState } from '@etherealengine/engine/src/scene/Scene'
-import { updateComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { PostProcessingComponent } from '@etherealengine/engine/src/scene/components/PostProcessingComponent'
+import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
 import { useSearchParams } from 'react-router-dom'
 import { Template } from './utils/template'
 
@@ -26,7 +27,7 @@ export default function PostProcessing() {
     EditorControlFunctions.modifyProperty = (entities, component, properties) => {
       updateComponent(entity.value!, PostProcessingComponent, properties)
     }
-    getMutableState(SelectionState).selectedEntities.set([entity.value!])
+    SelectionState.updateSelection([getComponent(entity.value!, UUIDComponent)!])
   }, [sceneLoaded])
 
   return (
