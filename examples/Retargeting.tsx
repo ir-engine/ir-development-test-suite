@@ -1,37 +1,17 @@
 import React, { useEffect } from 'react'
-import {
-  Bone,
-  BufferGeometry,
-  ConeGeometry,
-  Group,
-  Mesh,
-  MeshBasicMaterial,
-  Object3D,
-  Quaternion,
-  Scene,
-  SkeletonHelper,
-  SphereGeometry,
-  Vector3
-} from 'three'
-import { VRM } from '@pixiv/three-vrm'
+import { Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
 
-import { resetAnimationLogic } from '@etherealengine/client-core/src/user/components/Panel3D/helperFunctions'
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@etherealengine/common/src/constants/AvatarConstants'
+import { Engine } from '@etherealengine/ecs/src/Engine'
+import { Entity } from '@etherealengine/ecs/src/Entity'
+import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import createGLTFExporter from '@etherealengine/engine/src/assets/functions/createGLTFExporter'
 import { GLTF } from '@etherealengine/engine/src/assets/loaders/gltf/GLTFLoader'
 import { BoneNames } from '@etherealengine/engine/src/avatar/AvatarBoneMatching'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { SkeletonUtils } from '@etherealengine/engine/src/avatar/SkeletonUtils'
-import { Engine } from '@etherealengine/ecs/src/Engine'
-import { Entity } from '@etherealengine/ecs/src/Entity'
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity, entityExists, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { addObjectToGroup, removeGroupComponent } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { defineState, getMutableState, getState, NO_PROXY, none, useHookstate } from '@etherealengine/hyperflux'
+import { NO_PROXY, defineState, getMutableState, getState, none, useHookstate } from '@etherealengine/hyperflux'
 
 import { Template } from './utils/template'
 
@@ -123,7 +103,7 @@ const RetargetingDND = () => {
 
     const entity = createEntity()
 
-    resetAnimationLogic(entity)
+    // resetAnimationLogic(entity)
 
     // const avatar = await loadAvatarForPreview(entity, SkeletonUtils.clone(scene))
     // if (!entityExists(entity)) return
