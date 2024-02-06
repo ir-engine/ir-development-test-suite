@@ -516,23 +516,6 @@
           }
         },
         {
-          "name": "loop-animation",
-          "props": {
-            "hasAvatarAnimations": false,
-            "activeClipIndex": -1,
-            "animationPack": "",
-            "paused": false,
-            "time": 0,
-            "timeScale": 1,
-            "blendMode": 2500,
-            "loop": 2201,
-            "clampWhenFinished": false,
-            "zeroSlopeAtStart": true,
-            "zeroSlopeAtEnd": true,
-            "weight": 1
-          }
-        },
-        {
           "name": "shadow",
           "props": {
             "cast": true,
@@ -641,23 +624,6 @@
             "src": "__$project$__/default-project/assets/Skybase.glb",
             "generateBVH": true,
             "avoidCameraOcclusion": false
-          }
-        },
-        {
-          "name": "loop-animation",
-          "props": {
-            "hasAvatarAnimations": false,
-            "activeClipIndex": -1,
-            "animationPack": "",
-            "paused": false,
-            "time": 0,
-            "timeScale": 1,
-            "blendMode": 2500,
-            "loop": 2201,
-            "clampWhenFinished": false,
-            "zeroSlopeAtStart": true,
-            "zeroSlopeAtEnd": true,
-            "weight": 1
           }
         },
         {
@@ -1107,8 +1073,8 @@
         {
           "name": "loop-animation",
           "props": {
-            "activeClipIndex": 0,
-            "animationPack": "__$project$__/default-project/assets/animations/emotes/wave.fbx",
+            "activeClipIndex": 3,
+            "animationPack": "__$project$__/default-project/assets/animations/emotes.glb",
             "paused": false,
             "time": 0,
             "timeScale": 1,
