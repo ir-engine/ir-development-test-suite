@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
+import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
+import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
+import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { NetworkState } from '@etherealengine/spatial/src/networking/NetworkState'
 import { DataChannelRegistryState } from '@etherealengine/spatial/src/networking/systems/DataChannelRegistry'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
-import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
-import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { encode } from 'msgpackr'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
