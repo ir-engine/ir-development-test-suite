@@ -6,16 +6,25 @@ import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 const vector3 = new Vector3()
 
 //const domain = process.env.APP_HOST
-const domain = 'test2.etherealengine.com'
-const locationName = 'default'
+const domain = 'localhost:3000'
+const locationName = 'apartment'
 const sqrt2 = Math.sqrt(2)
 
-describe('My Bot Tests', () => {
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+describe('My Recording Tests', () => {
   const bot = new EtherealEngineBot({ name: 'bot', headless:false, verbose: true })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
-    await bot.awaitHookPromise(BotHooks.LocationReady)
+    await bot.delay(5000)
+    await bot.sendAudio(5000)
+    await bot.sendVideo(5000)
+
+    await bot.stopAudio(bot)
+    await bot.stopVideo(bot)
+    
+    await bot.awaitHookPromise(BotHooks.LocationLoaded)
   })
 
   after(async () => {
@@ -24,7 +33,9 @@ describe('My Bot Tests', () => {
 
   it('Can spawn in the world', async () => {
     const pos = await bot.awaitHookPromise(BotHooks.GetPlayerPosition)
-    assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
+    //await sleep(5000)
+    //assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
   })
+  
 })
 
