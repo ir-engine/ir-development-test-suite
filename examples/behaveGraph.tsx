@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { GraphJSON } from '@behave-graph/core'
-import { ActiveBehaveGraph } from '@etherealengine/editor/src/components/graph/BehaveFlow'
+import { ActiveVisualScript } from '@etherealengine/editor/src/components/visualScript/VisualFlow'
 import '@etherealengine/editor/src/components/graph/ee-flow/styles.css'
-import { BehaveGraphComponent } from '@etherealengine/engine/src/behave-graph/components/BehaveGraphComponent'
+import { VisualScriptComponent } from '@etherealengine/engine/src/visual-script/components/VisualScriptComponent'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -12,9 +12,9 @@ import targetJson from '../assets/graph/simpleController.json'
 import { Template } from './utils/template'
 
 const entity = createEntity()
-setComponent(entity, BehaveGraphComponent, { graph: targetJson as unknown as GraphJSON })
+setComponent(entity, VisualScriptComponent, { graph: targetJson as unknown as GraphJSON })
 
-export default function behaveGraphTest() {
+export default function VisualScriptTest() {
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function behaveGraphTest() {
         <AutoSizer>
           {({ width, height }) => (
             <div style={{ width, height }}>
-              <ActiveBehaveGraph entity={entity} />
+              <ActiveVisualScript entity={entity} />
             </div>
           )}
         </AutoSizer>
