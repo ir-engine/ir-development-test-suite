@@ -12,7 +12,7 @@ import targetJson from '../assets/graph/simpleController.json'
 import { Template } from './utils/template'
 
 const entity = createEntity()
-setComponent(entity, VisualScriptComponent, { graph: targetJson as unknown as GraphJSON })
+setComponent(entity, VisualScriptComponent, { visualScript: targetJson as unknown as GraphJSON })
 
 export default function VisualScriptTest() {
 
