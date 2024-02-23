@@ -59,7 +59,6 @@ const execute = () => {
     // rigidbody.position.x = x
     // rigidbody.targetKinematicPosition.x = x
     rigidbody.body.setTranslation(rigidbody.position, true)
-    rigidbody.targetKinematicRotation.multiply(q)
     const transform = getComponent(entity, TransformComponent)
     const elapsedSeconds = getState(ECSState).elapsedSeconds
     const movementFactor = (Math.sin(elapsedSeconds * 2) + 1) * 0.5

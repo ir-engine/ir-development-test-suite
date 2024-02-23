@@ -92,9 +92,9 @@ export const mockTPoseAvatars = async (avatarList: AvatarType[]) => {
   }
 }
 
-export const mockIKAvatars = async (avatarList: AvatarType[]) => {
-  for (let i = 0; i < avatarList.length; i++) {
-    const avatar = avatarList[i]
+export const mockIKAvatars = async (avatarList: AvatarType[], avatarAmount = null as null | number) => {
+  for (let i = 0; i < (avatarAmount ?? avatarList.length); i++) {
+    const avatar = avatarList[avatarAmount ? i % avatarList.length : i]
     const column = i * 2
     loadAssetWithIK(avatar, new Vector3(12, 0, column), i)
   }
@@ -106,7 +106,8 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
     ...AvatarNetworkAction.spawnIKTarget({
       name: 'head',
       entityUUID: (userId + ikTargets.head) as EntityUUID,
-      blendWeight: 0
+      blendWeight: 0,
+      position
     }),
     $from: userId
   })
