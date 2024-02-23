@@ -4,11 +4,11 @@
     "d32b1c4e-d08e-4fb0-9107-4c88a281ee71": {
       "components": [
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -29,7 +29,7 @@
           }
         },
         {
-          "name": "envmapbake",
+          "name": "EE_envmapbake",
           "props": {
             "bakePosition": {
               "x": 0,
@@ -54,7 +54,7 @@
           }
         },
         {
-          "name": "fog",
+          "name": "EE_fog",
           "props": {
             "type": "linear",
             "color": "#FFFFFF",
@@ -66,7 +66,7 @@
           }
         },
         {
-          "name": "render-settings",
+          "name": "EE_render_settings",
           "props": {
             "csm": false,
             "toneMapping": 4,
@@ -75,7 +75,7 @@
           }
         },
         {
-          "name": "postprocessing",
+          "name": "EE_postprocessing",
           "props": {
             "enabled": true,
             "effects": {
@@ -234,7 +234,7 @@
     "bb362197-f14d-4da7-9c3c-1ed834386423": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": -3.8693052603680407,
@@ -255,7 +255,7 @@
           }
         },
         {
-          "name": "scene-preview-camera",
+          "name": "EE_scene_preview_camera",
           "props": {}
         }
       ],
@@ -266,7 +266,7 @@
     "e7d6bfb1-6390-4a8b-b744-da83b059c2d3": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -287,11 +287,11 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "skybox",
+          "name": "EE_skybox",
           "props": {
             "backgroundColor": 0,
             "equirectangularPath": "",
@@ -311,12 +311,12 @@
       ],
       "parent": "d32b1c4e-d08e-4fb0-9107-4c88a281ee71",
       "index": 1,
-      "name": "skybox"
+      "name": "EE_skybox"
     },
     "38793f94-0b92-4ea1-af7b-5ec0e117628d": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -337,14 +337,14 @@
           }
         },
         {
-          "name": "ground-plane",
+          "name": "EE_ground_plane",
           "props": {
             "color": 8311585,
             "visible": true
           }
         },
         {
-          "name": "shadow",
+          "name": "EE_shadow",
           "props": {
             "cast": false,
             "receive": true
@@ -358,7 +358,7 @@
     "3e8a430e-9dcf-440e-990c-44ecb8051762": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -379,11 +379,11 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "spawn-point",
+          "name": "EE_spawn_point",
           "props": {
             "permissionedUsers": []
           }
@@ -396,7 +396,7 @@
     "b8a19e3b-67da-4710-b066-1b338fff24eb": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -417,18 +417,18 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "shadow",
+          "name": "EE_shadow",
           "props": {
             "cast": true,
             "receive": true
           }
         },
         {
-          "name": "gltf-model",
+          "name": "EE_model",
           "props": {
             "src": "__$project$__/ee-development-test-suite/assets/envmaps/hall.glb",
             "generateBVH": true,
@@ -436,7 +436,7 @@
           }
         },
         {
-          "name": "envmap",
+          "name": "EE_envmap",
           "props": {
             "type": "Bake",
             "envMapTextureType": "Equirectangular",
@@ -447,7 +447,7 @@
           }
         },
         {
-          "name": "loop-animation",
+          "name": "EE_loop_animation",
           "props": {
             "activeClipIndex": -1,
             "hasAvatarAnimations": false
@@ -461,7 +461,7 @@
     "d95c5430-1fab-44a4-bf38-71f4fd3ac52e": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -482,18 +482,18 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "shadow",
+          "name": "EE_shadow",
           "props": {
             "cast": true,
             "receive": true
           }
         },
         {
-          "name": "gltf-model",
+          "name": "EE_model",
           "props": {
             "src": "__$project$__/ee-development-test-suite/assets/envmaps/hall.glb",
             "generateBVH": true,
@@ -501,7 +501,7 @@
           }
         },
         {
-          "name": "envmap",
+          "name": "EE_envmap",
           "props": {
             "type": "Bake",
             "envMapTextureType": "Equirectangular",
@@ -512,7 +512,7 @@
           }
         },
         {
-          "name": "loop-animation",
+          "name": "EE_loop_animation",
           "props": {
             "activeClipIndex": -1,
             "hasAvatarAnimations": false
@@ -526,7 +526,7 @@
     "43086029-1f3a-4c2b-872c-5641a5be6438": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -547,11 +547,11 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "envmapbake",
+          "name": "EE_envmapbake",
           "props": {
             "bakePosition": {
               "x": 0,
@@ -583,7 +583,7 @@
     "43086029-1f3a-4c2b-872c-5641a5be6439": {
       "components": [
         {
-          "name": "transform",
+          "name": "EE_transform",
           "props": {
             "position": {
               "x": 0,
@@ -604,11 +604,11 @@
           }
         },
         {
-          "name": "visible",
+          "name": "EE_visible",
           "props": {}
         },
         {
-          "name": "envmapbake",
+          "name": "EE_envmapbake",
           "props": {
             "bakePosition": {
               "x": 0,
