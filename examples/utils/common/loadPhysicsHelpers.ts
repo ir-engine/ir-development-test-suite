@@ -33,7 +33,8 @@ export const createPhysicsObject = () => {
   rigidBodyDesc.setCanSleep(false)
 
   const physicsWorld = getState(PhysicsState).physicsWorld
-  Physics.createRigidBody(entity, physicsWorld, rigidBodyDesc, [colliderDesc])
+  const body = Physics.createRigidBody(entity, physicsWorld, rigidBodyDesc)
+  physicsWorld.createCollider(colliderDesc, body)
 
   return entity
 }
