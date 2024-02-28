@@ -3,12 +3,12 @@ import React, { useEffect } from 'react'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
 import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
+import { useQuery } from '@etherealengine/ecs'
 import { getComponent, updateComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { PostProcessingSettingsEditor } from '@etherealengine/editor/src/components/properties/PostProcessingSettingsEditor'
 import { EditorControlFunctions } from '@etherealengine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@etherealengine/editor/src/services/SelectionServices'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
 import { PostProcessingComponent } from '@etherealengine/engine/src/scene/components/PostProcessingComponent'
 import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
 import { useSearchParams } from 'react-router-dom'
@@ -19,16 +19,16 @@ export default function PostProcessing() {
   const [params] = useSearchParams()
   const sceneName = params.get('sceneName')!
   const projectName = params.get('projectName')!
-  const sceneLoaded = useHookstate(getMutableState(SceneState).sceneLoaded)
+  const postProEnt = useQuery([PostProcessingComponent])
 
   useEffect(() => {
-    if (!sceneLoaded.value) return
-    entity.set(SceneState.getRootEntity())
+    if (!postProEnt.length) return
+    entity.set(postProEnt[0])
     EditorControlFunctions.modifyProperty = (entities, component, properties) => {
       updateComponent(entity.value!, PostProcessingComponent, properties)
     }
     getMutableState(SelectionState).selectedEntities.set([getComponent(entity.value!, UUIDComponent)])
-  }, [sceneLoaded])
+  }, [postProEnt])
 
   return (
     <>
