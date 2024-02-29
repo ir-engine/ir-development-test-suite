@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { Vector3 } from 'three'
+import { Color, Vector3 } from 'three'
 
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { getMutableComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
@@ -16,9 +16,8 @@ import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
 import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
 import { Template } from './utils/template'
 
-import config from '@etherealengine/common/src/config'
-
-const fileServerURL = config.client.fileServer!
+import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'
+import { SceneState } from '@etherealengine/engine/src/scene/Scene'
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])
@@ -30,9 +29,8 @@ const GLTF = () => {
     setComponent(entity, VisibleComponent)
     setComponent(entity, NameComponent, 'GLTF Viewer')
     setComponent(entity, UUIDComponent, 'GLTF Viewer' as EntityUUID)
-    setComponent(entity, ModelComponent, {
-      src: `${fileServerURL}/projects/default-project/assets/sky-station-scene.gltf`
-    })
+    setComponent(entity, ModelComponent)
+    getMutableState(SceneState).background.set(new Color('grey'))
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
@@ -48,9 +46,12 @@ const GLTF = () => {
           filenames.set(files.map((file) => file.name))
 
           const gltfFile = files[0]
-
-          // todo need to support blob URLs
-          // setComponent(entity, ModelComponent, { src: URL.createObjectURL(gltfFile) })
+          const model = getMutableComponent(entity, ModelComponent)
+          model.src.set(URL.createObjectURL(gltfFile))
+          const assetType = gltfFile.type
+            ? MimeTypeToAssetType[gltfFile.type]
+            : ExtensionToAssetType[gltfFile.name.split('.').pop()!.toLocaleLowerCase()]
+          model.assetTypeOverride.set(assetType)
 
           console.log(gltfFile)
         } catch (err) {
