@@ -21,12 +21,9 @@ import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { ECSState } from '@etherealengine/ecs/src/ECSState'
+import { lerp } from '@etherealengine/spatial/src/common/functions/MathLerpFunctions'
 
 const q = new Quaternion()
-
-const footRotationOffset = new Quaternion()
-  .setFromAxisAngle(V_100, Math.PI / 2)
-  .multiply(new Quaternion().setFromAxisAngle(V_010, Math.PI))
 
 const entitiesQuery = defineQuery([NetworkObjectComponent, RigidBodyComponent, AvatarComponent, AvatarRigComponent])
 
@@ -38,7 +35,7 @@ window.addEventListener('keydown', (ev) => {
 
 const execute = () => {
   const entities = entitiesQuery()
-  q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
+  //q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
   for (const entity of entities) {
     const uuid = getComponent(entity, UUIDComponent)
     const headTargetEntity = UUIDComponent.getEntityByUUID((uuid + ikTargets.head) as EntityUUID)
@@ -47,19 +44,17 @@ const execute = () => {
     const ikTargetLeftFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.leftFoot) as EntityUUID)
     const ikTargetRightFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.rightFoot) as EntityUUID)
 
-    if (headTargetEntity) AvatarIKTargetComponent.blendWeight[headTargetEntity] = enabled ? 1 : 0
-    if (ikTargetLeftHand) AvatarIKTargetComponent.blendWeight[ikTargetLeftHand] = enabled ? 1 : 0
-    if (ikTargetRightHand) AvatarIKTargetComponent.blendWeight[ikTargetRightHand] = enabled ? 1 : 0
-    if (ikTargetLeftFoot) AvatarIKTargetComponent.blendWeight[ikTargetLeftFoot] = enabled ? 1 : 0
-    if (ikTargetRightFoot) AvatarIKTargetComponent.blendWeight[ikTargetRightFoot] = enabled ? 1 : 0
+    const strength = lerp(AvatarIKTargetComponent.blendWeight[headTargetEntity], enabled ? 1 : 0, getState(ECSState).deltaSeconds)
+    if (headTargetEntity) AvatarIKTargetComponent.blendWeight[headTargetEntity] = strength
+    if (ikTargetLeftHand) AvatarIKTargetComponent.blendWeight[ikTargetLeftHand] = strength
+    if (ikTargetRightHand) AvatarIKTargetComponent.blendWeight[ikTargetRightHand] = strength
+    if (ikTargetLeftFoot) AvatarIKTargetComponent.blendWeight[ikTargetLeftFoot] = strength
+    if (ikTargetRightFoot) AvatarIKTargetComponent.blendWeight[ikTargetRightFoot] = strength
 
     if (!enabled) continue
 
     const rigidbody = getComponent(entity, RigidBodyComponent)
-    // rigidbody.position.x = x
-    // rigidbody.targetKinematicPosition.x = x
-    rigidbody.body.setTranslation(rigidbody.position, true)
-    rigidbody.targetKinematicRotation.multiply(q)
+    //rigidbody.body.setTranslation(rigidbody.position, true)
     const transform = getComponent(entity, TransformComponent)
     const elapsedSeconds = getState(ECSState).elapsedSeconds
     const movementFactor = (Math.sin(elapsedSeconds * 2) + 1) * 0.5
@@ -94,7 +89,8 @@ const execute = () => {
         .set(avatar.footGap, avatar.footHeight, 0)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
-      leftFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
+      leftFootTransform.rotation.copy(transform.rotation)
+
     }
     if (ikTargetRightFoot) {
       const rightFootTransform = getComponent(ikTargetRightFoot, TransformComponent)
@@ -102,7 +98,7 @@ const execute = () => {
         .set(-avatar.footGap, avatar.footHeight, 0)
         .applyQuaternion(transform.rotation)
         .add(transform.position)
-      rightFootTransform.rotation.copy(transform.rotation).multiply(footRotationOffset)
+      rightFootTransform.rotation.copy(transform.rotation)
     }
   }
 }
