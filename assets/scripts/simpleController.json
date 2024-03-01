@@ -323,7 +323,7 @@
     },
     {
       "id": "da02103d-f513-49b7-a542-81a4016e29ae",
-      "type": "lifecycle/onTick",
+      "type": "lifecycle/onExecute",
       "metadata": {
         "positionX": "-2325.5167121651425",
         "positionY": "-325.71867710270004"
