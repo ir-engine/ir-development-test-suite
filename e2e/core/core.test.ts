@@ -5,7 +5,7 @@ import { Vector3 } from 'three'
 
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { delay } from '@etherealengine/spatial/src/common/functions/delay'
-import { NetworkPeer } from '@etherealengine/spatial/src/networking/interfaces/NetworkPeer'
+import { NetworkPeer } from '@etherealengine/network'
 
 const vector3 = new Vector3()
 

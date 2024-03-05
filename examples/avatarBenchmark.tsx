@@ -13,7 +13,7 @@ import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/h
 
 import { loadAssetWithIK, loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { NetworkObjectComponent } from '@etherealengine/spatial/src/networking/components/NetworkObjectComponent'
+import { NetworkObjectComponent } from '@etherealengine/network'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
