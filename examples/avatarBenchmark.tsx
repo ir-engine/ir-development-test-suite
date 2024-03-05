@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
+import { EntityUUID } from '@etherealengine/ecs'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
