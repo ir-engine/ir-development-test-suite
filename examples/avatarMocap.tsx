@@ -11,7 +11,7 @@ import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManag
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
 import { DataChannelRegistryState, NetworkState } from '@etherealengine/network'
-import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
+import { UUIDComponent } from '@etherealengine/network'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
