@@ -13,7 +13,7 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 
 import { EntityUUID } from '@etherealengine/ecs'
-import { UUIDComponent } from '@etherealengine/network'
+import { UUIDComponent } from '@etherealengine/ecs'
 import { Template } from './utils/template'
 
 import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'

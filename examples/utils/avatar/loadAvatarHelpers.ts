@@ -18,7 +18,7 @@ import { ModelComponent } from '@etherealengine/engine/src/scene/components/Mode
 import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { Network, NetworkPeerFunctions, NetworkState } from '@etherealengine/network'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { UUIDComponent } from '@etherealengine/network'
+import { UUIDComponent } from '@etherealengine/ecs'
 import { V_010 } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
