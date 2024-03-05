@@ -2,28 +2,26 @@ import { MathUtils, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
+import { EntityUUID } from '@etherealengine/ecs'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
 import { AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
+import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { loadAvatarModelAsset } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
-import { V_010 } from '@etherealengine/spatial/src/common/constants/MathConstants'
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { NetworkState } from '@etherealengine/spatial/src/networking/NetworkState'
-import { Network } from '@etherealengine/spatial/src/networking/classes/Network'
-import { NetworkPeerFunctions } from '@etherealengine/spatial/src/networking/functions/NetworkPeerFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
+import { Network, NetworkPeerFunctions, NetworkState } from '@etherealengine/network'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
+import { UUIDComponent } from '@etherealengine/network'
+import { V_010 } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
-import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 
 export const getAvatarLists = () => {
   const avatarState = getMutableState(AvatarState)
@@ -37,7 +35,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     const userId = ('user' + i) as UserID & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
-    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index, userId)
+    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
     dispatchAction(
       AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
@@ -53,7 +51,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
 export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x = 0) => {
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index, userId)
+  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
   dispatchAction(
     AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),

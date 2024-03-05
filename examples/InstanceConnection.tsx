@@ -9,9 +9,8 @@ import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/trans
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
 import { LocationType } from '@etherealengine/common/src/schema.type.module'
 import { Button } from '@etherealengine/editor/src/components/inputs/Button'
-import { NetworkState } from '@etherealengine/spatial/src/networking/NetworkState'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
-import { Network } from '@etherealengine/spatial/src/networking/classes/Network'
+import { Network, NetworkState } from '@etherealengine/network'
 
 export default function InstanceConnection() {
   const online = useHookstate(false)
@@ -27,16 +26,14 @@ export default function InstanceConnection() {
   const onNetworkDisconnect = () => {
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
-    if ('primus' in network.transport)
-      network.transport.primus.end()
+    if ('primus' in network.transport) network.transport.primus.end()
   }
 
   const onNetworkLostConnection = () => {
     console.log('debug onNetworkLostConnection')
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
-    if ('heartbeat' in network.transport)
-      clearInterval(network.transport.heartbeat)
+    if ('heartbeat' in network.transport) clearInterval(network.transport.heartbeat)
     /** in 10 seconds, the server will end the connection to the client and remove it's peer */
   }
 

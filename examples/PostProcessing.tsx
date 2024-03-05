@@ -10,7 +10,7 @@ import { PostProcessingSettingsEditor } from '@etherealengine/editor/src/compone
 import { EditorControlFunctions } from '@etherealengine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@etherealengine/editor/src/services/SelectionServices'
 import { PostProcessingComponent } from '@etherealengine/engine/src/scene/components/PostProcessingComponent'
-import { UUIDComponent } from '@etherealengine/spatial/src/common/UUIDComponent'
+import { UUIDComponent } from '@etherealengine/network'
 import { useSearchParams } from 'react-router-dom'
 import { Template } from './utils/template'
 

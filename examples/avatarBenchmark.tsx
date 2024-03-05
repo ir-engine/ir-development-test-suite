@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
-import { EntityUUID } from '@etherealengine/common/src/interfaces/EntityUUID'
+import { EntityUUID } from '@etherealengine/ecs'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import NumericInput from '@etherealengine/editor/src/components/inputs/NumericInput'
 import { SelectInput } from '@etherealengine/editor/src/components/inputs/SelectInput'
@@ -13,7 +13,7 @@ import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/h
 
 import { loadAssetWithIK, loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { NetworkObjectComponent } from '@etherealengine/spatial/src/networking/components/NetworkObjectComponent'
+import { NetworkObjectComponent } from '@etherealengine/network'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
