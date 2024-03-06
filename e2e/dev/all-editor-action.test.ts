@@ -7,7 +7,7 @@ const vector3 = new Vector3()
 
 //const domain = process.env.APP_HOST
 const domain = 'localhost:3000'
-const locationName = 'apartment'
+const locationName = 'default'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
