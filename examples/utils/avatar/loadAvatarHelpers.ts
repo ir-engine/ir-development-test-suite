@@ -4,7 +4,7 @@ import { AvatarState } from '@etherealengine/client-core/src/user/services/Avata
 import config from '@etherealengine/common/src/config'
 import { EntityUUID } from '@etherealengine/ecs'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
-import { PeerID } from '@etherealengine/common/src/interfaces/PeerID'
+import { PeerID } from '@etherealengine/hyperflux'
 import { AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
@@ -40,7 +40,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
       AvatarNetworkAction.spawn({
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
-        $from: userId,
+        ownerID: userId,
         entityUUID: userId,
         avatarID: avatar.id
       })
@@ -56,7 +56,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
     AvatarNetworkAction.spawn({
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
-      $from: userId,
+      ownerID: userId,
       entityUUID: userId,
       avatarID: avatar.id
     })
@@ -107,7 +107,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       blendWeight: 0,
       position
     }),
-    $from: userId
+    ownerID: userId
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
@@ -115,7 +115,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       entityUUID: (userId + ikTargets.leftHand) as EntityUUID,
       blendWeight: 0
     }),
-    $from: userId
+    ownerID: userId
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
@@ -123,7 +123,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       entityUUID: (userId + ikTargets.rightHand) as EntityUUID,
       blendWeight: 0
     }),
-    $from: userId
+    ownerID: userId
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
@@ -131,7 +131,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       entityUUID: (userId + ikTargets.leftFoot) as EntityUUID,
       blendWeight: 0
     }),
-    $from: userId
+    ownerID: userId
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
@@ -139,7 +139,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
       entityUUID: (userId + ikTargets.rightFoot) as EntityUUID,
       blendWeight: 0
     }),
-    $from: userId
+    ownerID: userId
   })
 }
 
