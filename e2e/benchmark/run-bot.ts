@@ -34,7 +34,7 @@ cli.main(async () => {
         endTime.setMinutes(endMinute)
         const bot = new EtherealEngineBot({ name: 'bot', headless: true, verbose: true })
 
-        await bot.launchBrowser(options.enableGPU === 'true')
+        await bot.launchBrowser()
         await bot.enterLocation(`https://${options.domain}/location/${options.location}`)
         await bot.awaitHookPromise(BotHooks.LocationReady)
         if (options.audio === 'true') await bot.startAudio()
