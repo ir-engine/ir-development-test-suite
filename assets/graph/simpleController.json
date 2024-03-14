@@ -204,7 +204,7 @@
     },
     {
       "id": "639f54bd-6788-4ae1-8d08-9240f7d2336e",
-      "type": "lifecycle/onStart",
+      "type": "flow/lifecycle/onStart",
       "metadata": {
         "positionX": "-2325.026564774522",
         "positionY": "-396.76627857049175"

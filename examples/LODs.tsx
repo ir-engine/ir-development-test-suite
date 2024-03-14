@@ -10,7 +10,7 @@ import { getComponent, removeComponent, setComponent, useOptionalComponent } fro
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
+import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
@@ -45,7 +45,7 @@ const setVariant = (entity: Entity, result: StaticResourceType[]) => {
         maxDistance: 0 + (i + 1) * 5
       }
     })),
-    heuristic: 'DISTANCE'
+    heuristic: Heuristic.DISTANCE
   })
 }
 
