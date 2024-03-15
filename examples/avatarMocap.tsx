@@ -51,7 +51,7 @@ const ActivePoseState = createState<AvailablePoses>('mocapTPose')
 
 const MocapAvatar = (props: { userID: UserID }) => {
   const { userID } = props
-  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID]).value
+  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID + '_avatar']).value
   const rig = useOptionalComponent(entity, AvatarRigComponent)
   const activePose = useHookstate(ActivePoseState)
   const visible = !!useOptionalComponent(entity, VisibleComponent)?.value
@@ -156,7 +156,7 @@ export default function AvatarMocap() {
 
   const selectedAvatar = useHookstate(avatarList.data[0])
   const userID = useHookstate('' as UserID)
-  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value]).value
+  const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value + '_avatar']).value
 
   useEffect(() => {
     getMutableState(AnimationState).avatarLoadingEffect.set(false)
@@ -167,7 +167,7 @@ export default function AvatarMocap() {
     const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
-      removeEntity(UUIDComponent.entitiesByUUIDState[userid].value)
+      removeEntity(UUIDComponent.entitiesByUUIDState[userid + '_avatar'].value)
       userID.set('' as UserID)
     }
   }, [network?.ready, avatarList.data.length, selectedAvatar])

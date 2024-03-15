@@ -2,11 +2,10 @@ import { MathUtils, Quaternion, Vector3 } from 'three'
 
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
-import { EntityUUID } from '@etherealengine/ecs'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
-import { PeerID } from '@etherealengine/hyperflux'
 import { AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
+import { EntityUUID, UUIDComponent } from '@etherealengine/ecs'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
@@ -15,10 +14,9 @@ import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/compon
 import { loadAvatarModelAsset } from '@etherealengine/engine/src/avatar/functions/avatarFunctions'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { dispatchAction, getMutableState } from '@etherealengine/hyperflux'
+import { PeerID, dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { Network, NetworkPeerFunctions, NetworkState } from '@etherealengine/network'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { UUIDComponent } from '@etherealengine/ecs'
 import { V_010 } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
@@ -41,7 +39,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         ownerID: userId,
-        entityUUID: userId,
+        entityUUID: (userId + '_avatar') as EntityUUID,
         avatarID: avatar.id
       })
     )
@@ -57,7 +55,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       ownerID: userId,
-      entityUUID: userId,
+      entityUUID: (userId + '_avatar') as EntityUUID,
       avatarID: avatar.id
     })
   )
