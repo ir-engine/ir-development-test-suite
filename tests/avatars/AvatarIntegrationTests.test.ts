@@ -45,22 +45,22 @@ const fetchAvatarList = () => {
 }
 
 describe.skip('avatarFunctions Integration', async () => {
-  before(async () => {
-    await loadDRACODecoderNode()
-  })
+  // before(async () => {
+  //   await loadDRACODecoderNode()
+  // })
 
-  beforeEach(async () => {
-    createEngine()
-    createMockNetwork()
-    Engine.instance.userID = NetworkState.worldNetwork.hostId
-    getMutableState(EngineState).publicPath.set('')
-    await Physics.load()
-    getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
-  })
+  // beforeEach(async () => {
+  //   createEngine()
+  //   createMockNetwork()
+  //   Engine.instance.userID = NetworkState.worldNetwork.hostId
+  //   getMutableState(EngineState).publicPath.set('')
+  //   await Physics.load()
+  //   getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
+  // })
 
-  afterEach(() => {
-    return destroyEngine()
-  })
+  // afterEach(() => {
+  //   return destroyEngine()
+  // })
 
   // describe('loadAvatarForEntity', () => {
   //   const assetPaths = fetchAvatarList()
