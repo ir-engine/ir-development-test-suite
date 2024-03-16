@@ -7,10 +7,63 @@ import { useLoadLocation } from '@etherealengine/client-core/src/components/Worl
 import { LocationSeed, LocationState } from '@etherealengine/client-core/src/social/services/LocationService'
 import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/transports/SocketWebRTCClientFunctions'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
-import { LocationType } from '@etherealengine/common/src/schema.type.module'
+import { InstanceID, LocationType } from '@etherealengine/common/src/schema.type.module'
 import { Button } from '@etherealengine/editor/src/components/inputs/Button'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
-import { Network, NetworkState } from '@etherealengine/network'
+import {
+  MediasoupDataProducerConsumerState,
+  MediasoupTransportState,
+  Network,
+  NetworkState
+} from '@etherealengine/network'
+
+const TransportInfo = (props: { networkID: InstanceID; transportID: string }) => {
+  const transportState = useHookstate(
+    getMutableState(MediasoupTransportState)[props.networkID][props.transportID]
+  ).value
+  const dataState = useHookstate(getMutableState(MediasoupDataProducerConsumerState)[props.networkID]).value
+  return (
+    <div>
+      {transportState.direction} - {transportState.connected ? 'Connected' : 'Not Connected'}
+      {dataState?.producers && (
+        <div>
+          Producers
+          {Object.entries(dataState?.producers)
+            .filter(([_, producer]) => producer.transportID === props.transportID)
+            .map(([key, value]) => (
+              <div key={key}> - {value.dataChannel}</div>
+            ))}
+        </div>
+      )}
+      {dataState?.consumers && (
+        <div>
+          Consumers
+          {Object.entries(dataState?.consumers)
+            .filter(([_, consumer]) => consumer.transportID === props.transportID)
+            .map(([key, value]) => (
+              <div key={key}> - {value.dataChannel}</div>
+            ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+const NetworkInfo = (props: { networkID: InstanceID }) => {
+  const transportState = useHookstate(getMutableState(MediasoupTransportState)[props.networkID]).value
+  if (!transportState) return <></>
+  return (
+    <>
+      <h3>{getState(NetworkState).networks[props.networkID].topic} Network ID: {props.networkID}</h3>
+      {Object.entries(transportState).map(([key, value]) => (
+        <div key={key}>
+          <br />
+          <TransportInfo networkID={props.networkID} transportID={key} />
+        </div>
+      ))}
+    </>
+  )
+}
 
 export default function InstanceConnection() {
   const online = useHookstate(false)
@@ -21,6 +74,8 @@ export default function InstanceConnection() {
   AuthService.useAPIListeners()
 
   useLoadEngineWithScene()
+
+  const networks = useHookstate(getMutableState(NetworkState).networks)
 
   /** Mimic a server choosing to close our connection */
   const onNetworkDisconnect = () => {
@@ -62,7 +117,7 @@ export default function InstanceConnection() {
 
   return (
     <>
-      <div style={{ pointerEvents: 'all', position: 'absolute', top: '50%', left: '50%' }}>
+      <div style={{ pointerEvents: 'all', position: 'absolute', top: '20%', left: '70%' }}>
         <Button
           onClick={() => {
             online.set((val) => !val)
@@ -74,6 +129,12 @@ export default function InstanceConnection() {
         <Button onClick={onNetworkDisconnect}>End Connection</Button>
         <Button onClick={onNetworkLostConnection}>Stop Heartbeat</Button>
         {/* <Button onClick={onLeaveLocation}>Leave Location</Button> */}
+        {networks.keys.map((networkID: InstanceID) => (
+          <div key={networkID}>
+            <br />
+            <NetworkInfo networkID={networkID} />
+          </div>
+        ))}
       </div>
       <LocationIcons />
     </>
