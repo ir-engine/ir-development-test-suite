@@ -12,6 +12,7 @@ import { Button } from '@etherealengine/editor/src/components/inputs/Button'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import {
   MediasoupDataProducerConsumerState,
+  MediasoupMediaProducerConsumerState,
   MediasoupTransportState,
   Network,
   NetworkState
@@ -21,17 +22,20 @@ const TransportInfo = (props: { networkID: InstanceID; transportID: string }) =>
   const transportState = useHookstate(
     getMutableState(MediasoupTransportState)[props.networkID][props.transportID]
   ).value
-  const dataState = useHookstate(getMutableState(MediasoupDataProducerConsumerState)[props.networkID]).value
+  const dataState = {
+    ...useHookstate(getMutableState(MediasoupDataProducerConsumerState)[props.networkID]).value,
+    ...useHookstate(getMutableState(MediasoupMediaProducerConsumerState)[props.networkID]).value
+  }
   return (
     <div>
-      {transportState.direction} - {transportState.connected ? 'Connected' : 'Not Connected'}
+    {transportState.direction} - {transportState.connected ? 'Active' : 'Waiting'}
       {dataState?.producers && (
         <div>
           Producers
           {Object.entries(dataState?.producers)
             .filter(([_, producer]) => producer.transportID === props.transportID)
             .map(([key, value]) => (
-              <div key={key}> - {value.dataChannel}</div>
+              <div key={key}> - {(value as any).dataChannel ?? value.mediaTag}</div>
             ))}
         </div>
       )}
@@ -41,7 +45,7 @@ const TransportInfo = (props: { networkID: InstanceID; transportID: string }) =>
           {Object.entries(dataState?.consumers)
             .filter(([_, consumer]) => consumer.transportID === props.transportID)
             .map(([key, value]) => (
-              <div key={key}> - {value.dataChannel}</div>
+              <div key={key}> - {(value as any).dataChannel ?? value.mediaTag}</div>
             ))}
         </div>
       )}
