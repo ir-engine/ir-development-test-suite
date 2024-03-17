@@ -83,6 +83,7 @@ export default function InstanceConnection() {
 
   /** Mimic a server choosing to close our connection */
   const onNetworkDisconnect = () => {
+    console.log('onNetworkDisconnect')
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
     if ('primus' in network.transport) network.transport.primus.end()
