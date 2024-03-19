@@ -37,12 +37,12 @@ const execute = () => {
   const entities = entitiesQuery()
   //q.setFromAxisAngle(V_010, (Math.PI / 180) * getState(ECSState).deltaSeconds * 60)
   for (const entity of entities) {
-    const uuid = getComponent(entity, UUIDComponent)
-    const headTargetEntity = UUIDComponent.getEntityByUUID((uuid + ikTargets.head) as EntityUUID)
-    const ikTargetLeftHand = UUIDComponent.getEntityByUUID((uuid + ikTargets.leftHand) as EntityUUID)
-    const ikTargetRightHand = UUIDComponent.getEntityByUUID((uuid + ikTargets.rightHand) as EntityUUID)
-    const ikTargetLeftFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.leftFoot) as EntityUUID)
-    const ikTargetRightFoot = UUIDComponent.getEntityByUUID((uuid + ikTargets.rightFoot) as EntityUUID)
+    const ownerID = getComponent(entity, NetworkObjectComponent).ownerId
+    const headTargetEntity = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.head)
+    const ikTargetLeftHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.leftHand)
+    const ikTargetRightHand = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.rightHand)
+    const ikTargetLeftFoot = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.leftFoot)
+    const ikTargetRightFoot = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.rightFoot)
 
     const strength = lerp(AvatarIKTargetComponent.blendWeight[headTargetEntity], enabled ? 1 : 0, getState(ECSState).deltaSeconds)
     if (headTargetEntity) AvatarIKTargetComponent.blendWeight[headTargetEntity] = strength

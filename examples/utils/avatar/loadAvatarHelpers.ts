@@ -40,7 +40,8 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         ownerID: userId,
         entityUUID: (userId + '_avatar') as EntityUUID,
-        avatarID: avatar.id
+        avatarID: avatar.id,
+        name:  userId + '_avatar'
       })
     )
   }
@@ -56,7 +57,8 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
       rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       ownerID: userId,
       entityUUID: (userId + '_avatar') as EntityUUID,
-      avatarID: avatar.id
+      avatarID: avatar.id,
+      name:  userId + '_avatar'
     })
   )
   return userId
