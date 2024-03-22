@@ -21,7 +21,6 @@ const execute = () => {
   const { gpu } = getState(PerformanceState)
   const systems = sortSystemsByAvgDuration()
 
-  if (!profileData[engineVersion]) profileData[engineVersion] = {}
   const engineVersionData = profileData[engineVersion]
 
   if (!engineVersionData[gpu]) engineVersionData[gpu] = {}
