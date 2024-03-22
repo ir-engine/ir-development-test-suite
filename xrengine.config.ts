@@ -9,7 +9,8 @@ const config: ProjectConfigInterface = {
     }
   },
   services: undefined,
-  databaseSeed: undefined
+  databaseSeed: undefined,
+  worldInjection: () => import('./worldInjection')
 }
 
 export default config
