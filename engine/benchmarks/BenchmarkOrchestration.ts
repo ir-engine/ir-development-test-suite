@@ -1,37 +1,33 @@
 import { PresentationSystemGroup, defineSystem } from '@etherealengine/ecs'
 import { defineState, useMutableState } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
+import PhysicsBenchmark from './PhysicsBenchmark'
 
 export interface Benchmark {
   begin: (end: () => void) => void
 }
 
-enum BenchmarkStages {
+enum BenchmarkStage {
   Physics,
   Animation,
   Rendering,
   IK
 }
 
-const benchmarkOrder = [
-  BenchmarkStages.Physics,
-  BenchmarkStages.Animation,
-  BenchmarkStages.Rendering,
-  BenchmarkStages.IK
-]
+const benchmarkOrder = [BenchmarkStage.Physics, BenchmarkStage.Animation, BenchmarkStage.Rendering, BenchmarkStage.IK]
 
-const benchmarkTimes = {
-  [BenchmarkStages.Physics]: 2000,
-  [BenchmarkStages.Animation]: 2000,
-  [BenchmarkStages.Rendering]: 2000,
-  [BenchmarkStages.IK]: 2000
+const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
+  [BenchmarkStage.Physics]: PhysicsBenchmark,
+  [BenchmarkStage.Animation]: null,
+  [BenchmarkStage.Rendering]: null,
+  [BenchmarkStage.IK]: null
 }
 
 const BenchmarkState = defineState({
   name: 'BenchmarkState',
   initial: () => {
     return {
-      stage: benchmarkOrder[0]
+      stageIndex: 0
     }
   }
 })
@@ -41,8 +37,13 @@ const reactor = () => {
   const benchmarkState = useMutableState(BenchmarkState)
 
   useEffect(() => {
-    console.log('Benchmark stage: ' + benchmarkState.stage.value)
-  }, [benchmarkState.stage])
+    console.log('Benchmark stage: ' + benchmarkState.stageIndex.value)
+    const benchmarkStage = benchmarkOrder[benchmarkState.stageIndex.value]
+    const benchmark = benchmarks[benchmarkStage]
+    benchmark?.begin(() => {
+      benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
+    })
+  }, [benchmarkState.stageIndex])
 
   return null
 }
