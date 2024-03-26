@@ -1,9 +1,8 @@
-import { PresentationSystemGroup, defineComponent, defineQuery, defineSystem } from '@etherealengine/ecs'
+import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@etherealengine/ecs'
 import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/components/element/ElementList'
 import { ComponentEditorsState } from '@etherealengine/editor/src/functions/ComponentEditors'
 import { GrabbableComponent } from '@etherealengine/engine/src/interaction/components/GrabbableComponent'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
-import { getMutableState, useHookstate, useMutableState } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
 
@@ -27,19 +26,15 @@ getMutableState(ComponentEditorsState).merge({
   [BenchmarkComponent.name]: BenchmarkComponentNodeEditor
 })
 
-const ProfilingComponentQuery = defineQuery([ProfilingComponent])
-const BenchmarkComponentQuery = defineQuery([BenchmarkComponent])
-
 const reactor = () => {
+  const profilingComponentQuery = useQuery([ProfilingComponent])
+  const benchmarkComponentQuery = useQuery([BenchmarkComponent])
   const importedProfiling = useHookstate(false)
   const importedBenchmark = useHookstate(false)
-  const sceneState = useMutableState(SceneState)
 
   useEffect(() => {
-    if (!sceneState.sceneLoaded.value) return
-
     if (!importedProfiling.value) {
-      const length = ProfilingComponentQuery().length
+      const length = profilingComponentQuery.length
 
       if (length > 0) {
         import('./benchmarks/Profiling')
@@ -48,14 +43,14 @@ const reactor = () => {
     }
 
     if (!importedBenchmark.value) {
-      const length = BenchmarkComponentQuery().length
+      const length = benchmarkComponentQuery.length
 
       if (length > 0) {
         import('./benchmarks/BenchmarkOrchestration')
         importedBenchmark.set(true)
       }
     }
-  }, [sceneState.sceneLoaded])
+  }, [profilingComponentQuery, benchmarkComponentQuery])
 
   return null
 }
