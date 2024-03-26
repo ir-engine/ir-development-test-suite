@@ -19,7 +19,7 @@ import { Object3DComponent } from '@etherealengine/spatial/src/renderer/componen
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { Group, MathUtils } from 'three'
-import { Benchmark } from './BenchmarkOrchestration'
+import { IBenchmark } from './BenchmarkOrchestration'
 
 const objectsToCreate = 30
 const waitTimeBetween = 200
@@ -34,7 +34,7 @@ const getSceneID = (): SceneID => {
   return '' as SceneID
 }
 
-const PhysicsBenchmark: Benchmark = {
+const PhysicsBenchmark: IBenchmark = {
   begin: (end: () => void) => {
     const entities = [] as Entity[]
     let createdObjects = 0

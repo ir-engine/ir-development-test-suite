@@ -9,7 +9,7 @@ import {
 import { PerformanceState } from '@etherealengine/spatial/src/renderer/PerformanceState'
 import { useEffect } from 'react'
 
-type SystemProfileData = {
+export type SystemProfileData = {
   avgDuration: number
   maxDuration: number
 }
@@ -17,13 +17,18 @@ type GPUName = string
 type EngineVersion = string
 type ProfileData = Record<EngineVersion, Record<GPUName, Record<SystemUUID, SystemProfileData>>>
 
-const ProfileState = defineState({
+export const ProfileState = defineState({
   name: 'ProfileState',
   initial: () => ({
     systemProfilingData: { [global.__IR_ENGINE_VERSION__ as string]: {} } as ProfileData
   }),
   onCreate: (store, state) => {
     syncStateWithLocalStorage(ProfileState, ['systemProfilingData'])
+  },
+  GetProfileData: (systemUUID: SystemUUID): SystemProfileData => {
+    const { gpu } = getState(PerformanceState)
+    const systemProfilingData = getState(ProfileState).systemProfilingData
+    return systemProfilingData[global.__IR_ENGINE_VERSION__][gpu][systemUUID]
   }
 })
 
