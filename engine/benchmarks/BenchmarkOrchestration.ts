@@ -4,9 +4,9 @@ import { SkinnedMeshTransformSystem } from '@etherealengine/engine/src/avatar/sy
 import { defineState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import { useEffect } from 'react'
-import AvatarBenchmark from './AvatarBenchmark'
-import ParticlesBenchmark from './ParticlesBenchmark'
-import PhysicsBenchmark from './PhysicsBenchmark'
+import { AvatarBenchmark, AvatarIKBenchmark } from './AvatarBenchmark'
+import { ParticlesBenchmark } from './ParticlesBenchmark'
+import { PhysicsBenchmark } from './PhysicsBenchmark'
 import { ProfileState, SystemProfileData } from './Profiling'
 
 export interface IBenchmark {
@@ -51,7 +51,10 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   },
   [BenchmarkStage.Animation]: null,
   [BenchmarkStage.Rendering]: null,
-  [BenchmarkStage.IK]: null
+  [BenchmarkStage.IK]: {
+    benchmark: AvatarIKBenchmark,
+    systemUUIDs: [SkinnedMeshTransformSystem]
+  }
 }
 
 type BenchmarkData = Record<

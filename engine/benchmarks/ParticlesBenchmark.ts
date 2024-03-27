@@ -33,7 +33,7 @@ const getSceneID = (): SceneID => {
   return '' as SceneID
 }
 
-const ParticlesBenchmark: IBenchmark = {
+export const ParticlesBenchmark: IBenchmark = {
   start: async () => {
     return new Promise((resolve) => {
       const entities = [] as Entity[]
@@ -74,5 +74,3 @@ const ParticlesBenchmark: IBenchmark = {
     })
   }
 }
-
-export default ParticlesBenchmark

@@ -19,7 +19,7 @@ import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/componen
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { Group, MathUtils } from 'three'
+import { Group, MathUtils, Vector3 } from 'three'
 import { IBenchmark } from './BenchmarkOrchestration'
 
 const objectsToCreate = 30
@@ -36,7 +36,7 @@ const getSceneID = (): SceneID => {
   return '' as SceneID
 }
 
-const PhysicsBenchmark: IBenchmark = {
+export const PhysicsBenchmark: IBenchmark = {
   start: async () => {
     return new Promise((resolve) => {
       const entities = [] as Entity[]
@@ -44,6 +44,7 @@ const PhysicsBenchmark: IBenchmark = {
 
       const sceneID = getSceneID()
       const rootEntity = SceneState.getRootEntity(sceneID)
+      const scale = new Vector3(0.5, 0.5, 0.5)
 
       const spawnObject = () => {
         createdObjects += 1
@@ -59,11 +60,11 @@ const PhysicsBenchmark: IBenchmark = {
           setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
           setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
           setComponent(entity, Object3DComponent, obj3d)
-          setComponent(entity, TransformComponent, { position })
+          setComponent(entity, TransformComponent, { position, scale })
           setComponent(entity, PrimitiveGeometryComponent, {
             geometryType: GeometryTypeEnum.SphereGeometry,
             geometryParams: {
-              radius: 0.5,
+              radius: 1,
               widthSegments: 32,
               heightSegments: 16,
               phiStart: 0,
@@ -96,5 +97,3 @@ const PhysicsBenchmark: IBenchmark = {
     })
   }
 }
-
-export default PhysicsBenchmark

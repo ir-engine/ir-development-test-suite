@@ -66,16 +66,12 @@ const getSceneID = (): SceneID => {
   return '' as SceneID
 }
 
-const AvatarBenchmark: IBenchmark = {
+export const AvatarBenchmark: IBenchmark = {
   start: async () => {
     return new Promise(async (resolve) => {
       const entities = [] as Entity[]
-      let createdObjects = 0
-
       const validAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
-
       const avatars = await Engine.instance.api.service(avatarPath).find({})
-
       const sceneID = getSceneID()
       const rootEntity = SceneState.getRootEntity(sceneID)
 
@@ -116,4 +112,41 @@ const AvatarBenchmark: IBenchmark = {
   }
 }
 
-export default AvatarBenchmark
+export const AvatarIKBenchmark: IBenchmark = {
+  start: async () => {
+    return new Promise(async (resolve) => {
+      const entities = [] as Entity[]
+      const avatars = await Engine.instance.api.service(avatarPath).find({})
+      const sceneID = getSceneID()
+      const rootEntity = SceneState.getRootEntity(sceneID)
+
+      for (let i = avatarsToCreate; i > 0; i--) {
+        const position = getComponent(Engine.instance.cameraEntity, TransformComponent).position.clone()
+        position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
+        position.setY(0)
+        position.setZ(position.z - 3.0 * i - avatarsToCreate / 3)
+        const avatarSrc = avatars.data[i % avatars.data.length].modelResource?.url
+        const entity = createEntity()
+        entities.push(entity)
+
+        const obj3d = new Group()
+        obj3d.entity = entity
+        setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
+        setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
+        setComponent(entity, Object3DComponent, obj3d)
+        setComponent(entity, TransformComponent, { position })
+        setComponent(entity, VisibleComponent, true)
+        setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
+
+        await waitForModelLoad(entity)
+      }
+
+      await sleep(benchmarkWaitTime)
+      for (const entity of entities) {
+        removeEntity(entity)
+      }
+      await sleep(teardownWaitTime)
+      resolve()
+    })
+  }
+}
