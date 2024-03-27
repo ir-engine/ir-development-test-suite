@@ -1,5 +1,7 @@
 import { PresentationSystemGroup, SystemUUID, defineSystem } from '@etherealengine/ecs'
+import { AvatarAnimationSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { defineState, useMutableState } from '@etherealengine/hyperflux'
+import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import { useEffect } from 'react'
 import AvatarBenchmark from './AvatarBenchmark'
 import PhysicsBenchmark from './PhysicsBenchmark'
@@ -33,11 +35,11 @@ const benchmarkOrder = [
 const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   [BenchmarkStage.Physics]: {
     benchmark: PhysicsBenchmark,
-    systemUUIDs: ['ee.engine.PhysicsSystem', 'ee.engine.PhysicsPreTransformSystem'] as SystemUUID[]
+    systemUUIDs: [PhysicsSystem, PhysicsPreTransformSystem]
   },
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
-    systemUUIDs: ['ee.engine.AvatarAnimationSystem'] as SystemUUID[]
+    systemUUIDs: [AvatarAnimationSystem]
   },
   [BenchmarkStage.Animation]: null,
   [BenchmarkStage.Rendering]: null,
@@ -69,7 +71,7 @@ const reactor = () => {
     const stageIndex = benchmarkState.stageIndex.value
     console.log('Benchmark stage: ' + stageIndex)
     if (stageIndex > benchmarkOrder.length) {
-      console.log('Benchmarks Complete')
+      console.log('Benchmarks Complete', benchmarkState.value)
       // All benchmarks run, evaluate results
       return
     }
