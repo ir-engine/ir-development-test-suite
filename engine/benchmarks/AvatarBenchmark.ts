@@ -81,9 +81,10 @@ const AvatarBenchmark: IBenchmark = {
 
       for (let i = avatarsToCreate; i > 0; i--) {
         const position = getComponent(Engine.instance.cameraEntity, TransformComponent).position.clone()
+        position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
         position.setY(0)
         position.setZ(position.z - 3.0 * i - avatarsToCreate / 3)
-        const avatarSrc = avatars.data[Math.floor(Math.random() * avatars.data.length)].modelResource?.url
+        const avatarSrc = avatars.data[i % avatars.data.length].modelResource?.url
         const entity = createEntity()
         entities.push(entity)
 
@@ -101,7 +102,6 @@ const AvatarBenchmark: IBenchmark = {
         await waitForModelLoad(entity)
         await waitForAnimationLoad(entity)
 
-        const animationComponent = getComponent(entity, AnimationComponent)
         const loopAnimationComponent = getMutableComponent(entity, LoopAnimationComponent)
         loopAnimationComponent.activeClipIndex.set(validAnimations[Math.floor(Math.random() * validAnimations.length)])
       }

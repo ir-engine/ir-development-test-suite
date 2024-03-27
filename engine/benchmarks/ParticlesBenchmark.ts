@@ -10,12 +10,9 @@ import {
   setComponent
 } from '@etherealengine/ecs'
 import { SceneState } from '@etherealengine/engine/src/scene/Scene'
-import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
-import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
+import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { getState } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
-import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
-import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
@@ -36,7 +33,7 @@ const getSceneID = (): SceneID => {
   return '' as SceneID
 }
 
-const PhysicsBenchmark: IBenchmark = {
+const ParticlesBenchmark: IBenchmark = {
   start: async () => {
     return new Promise((resolve) => {
       const entities = [] as Entity[]
@@ -60,27 +57,8 @@ const PhysicsBenchmark: IBenchmark = {
           setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
           setComponent(entity, Object3DComponent, obj3d)
           setComponent(entity, TransformComponent, { position })
-          setComponent(entity, PrimitiveGeometryComponent, {
-            geometryType: GeometryTypeEnum.SphereGeometry,
-            geometryParams: {
-              radius: 0.5,
-              widthSegments: 32,
-              heightSegments: 16,
-              phiStart: 0,
-              phiLength: 6.283185307179586,
-              thetaStart: 0,
-              thetaLength: 3.141592653589793
-            }
-          })
+          setComponent(entity, ParticleSystemComponent)
           setComponent(entity, VisibleComponent, true)
-          setComponent(entity, RigidBodyComponent, { type: 'dynamic' })
-          setComponent(entity, ColliderComponent, {
-            shape: 'sphere',
-            mass: MathUtils.randFloat(0.5, 1.5),
-            friction: MathUtils.randFloat(0.1, 1.0),
-            restitution: MathUtils.randFloat(0.1, 1.0)
-          })
-
           setTimeout(spawnObject, waitTimeBetween)
         } else {
           setTimeout(() => {
@@ -97,4 +75,4 @@ const PhysicsBenchmark: IBenchmark = {
   }
 }
 
-export default PhysicsBenchmark
+export default ParticlesBenchmark

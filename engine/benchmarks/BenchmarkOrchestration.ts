@@ -1,9 +1,11 @@
 import { PresentationSystemGroup, SystemUUID, defineSystem } from '@etherealengine/ecs'
-import { AvatarAnimationSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
+import { ParticleSystem } from '@etherealengine/engine'
+import { SkinnedMeshTransformSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { defineState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import { useEffect } from 'react'
 import AvatarBenchmark from './AvatarBenchmark'
+import ParticlesBenchmark from './ParticlesBenchmark'
 import PhysicsBenchmark from './PhysicsBenchmark'
 import { ProfileState, SystemProfileData } from './Profiling'
 
@@ -17,6 +19,7 @@ type Benchmark = {
 }
 
 enum BenchmarkStage {
+  Particles,
   Physics,
   Avatar,
   Animation,
@@ -25,6 +28,7 @@ enum BenchmarkStage {
 }
 
 const benchmarkOrder = [
+  BenchmarkStage.Particles,
   BenchmarkStage.Avatar,
   BenchmarkStage.Physics,
   BenchmarkStage.Animation,
@@ -39,7 +43,11 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   },
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
-    systemUUIDs: [AvatarAnimationSystem]
+    systemUUIDs: [SkinnedMeshTransformSystem]
+  },
+  [BenchmarkStage.Particles]: {
+    benchmark: ParticlesBenchmark,
+    systemUUIDs: [ParticleSystem]
   },
   [BenchmarkStage.Animation]: null,
   [BenchmarkStage.Rendering]: null,
