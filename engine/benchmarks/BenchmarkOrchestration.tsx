@@ -3,18 +3,14 @@ import { ParticleSystem } from '@etherealengine/engine'
 import { SkinnedMeshTransformSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { defineState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { AvatarBenchmark, AvatarIKBenchmark } from './AvatarBenchmark'
 import { ParticlesBenchmark } from './ParticlesBenchmark'
 import { PhysicsBenchmark } from './PhysicsBenchmark'
 import { ProfileState, SystemProfileData } from './Profiling'
 
-export interface IBenchmark {
-  start: () => Promise<void>
-}
-
 type Benchmark = {
-  benchmark: IBenchmark
+  benchmark: React.FC<{ onComplete: () => void }>
   systemUUIDs: SystemUUID[]
 }
 
@@ -28,12 +24,12 @@ enum BenchmarkStage {
 }
 
 const benchmarkOrder = [
+  BenchmarkStage.IK,
   BenchmarkStage.Particles,
   BenchmarkStage.Avatar,
   BenchmarkStage.Physics,
   BenchmarkStage.Animation,
-  BenchmarkStage.Rendering,
-  BenchmarkStage.IK
+  BenchmarkStage.Rendering
 ]
 
 const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
@@ -75,8 +71,10 @@ const BenchmarkState = defineState({
   }
 })
 
-const reactor = () => {
+const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () => void] => {
   const benchmarkState = useMutableState(BenchmarkState)
+  const benchmarkStage = benchmarkOrder[benchmarkState.stageIndex.value]
+  const benchmark = benchmarks[benchmarkStage]
 
   useEffect(() => {
     const stageIndex = benchmarkState.stageIndex.value
@@ -86,8 +84,7 @@ const reactor = () => {
       // All benchmarks run, evaluate results
       return
     }
-    const benchmarkStage = benchmarkOrder[stageIndex]
-    const benchmark = benchmarks[benchmarkStage]
+
     if (!benchmark) {
       benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
       return
@@ -100,16 +97,23 @@ const reactor = () => {
         [systemUUID]: { before: systemProfileData, after: systemProfileData }
       })
     }
-
-    benchmark.benchmark.start().then(() => {
-      for (const systemUUID of systemUUIDs) {
-        benchmarkState.data[systemUUID].after.set(ProfileState.GetProfileData(systemUUID))
-      }
-      benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
-    })
   }, [benchmarkState.stageIndex])
 
-  return null
+  const onComplete = () => {
+    const systemUUIDs = benchmark?.systemUUIDs
+    if (!systemUUIDs) return
+    for (const systemUUID of systemUUIDs) {
+      benchmarkState.data[systemUUID].after.set(ProfileState.GetProfileData(systemUUID))
+    }
+    benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
+  }
+
+  return [benchmark?.benchmark, onComplete]
+}
+
+const reactor = () => {
+  const [Benchmark, onComplete] = useBenchmark()
+  return <>{Benchmark && <Benchmark onComplete={onComplete} />}</>
 }
 
 export default defineSystem({

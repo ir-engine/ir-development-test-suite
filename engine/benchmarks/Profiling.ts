@@ -1,13 +1,6 @@
 import { ECSState, PresentationSystemGroup, SystemDefinitions, SystemUUID, defineSystem } from '@etherealengine/ecs'
-import {
-  defineState,
-  getMutableState,
-  getState,
-  syncStateWithLocalStorage,
-  useMutableState
-} from '@etherealengine/hyperflux'
+import { defineState, getMutableState, getState, syncStateWithLocalStorage } from '@etherealengine/hyperflux'
 import { PerformanceState } from '@etherealengine/spatial/src/renderer/PerformanceState'
-import { useEffect } from 'react'
 
 export type SystemProfileData = {
   avgDuration: number
@@ -17,6 +10,7 @@ type GPUName = string
 type EngineVersion = string
 type ProfileData = Record<EngineVersion, Record<GPUName, Record<SystemUUID, SystemProfileData>>>
 
+// TODO Figure out where to store this data
 export const ProfileState = defineState({
   name: 'ProfileState',
   initial: () => ({
@@ -31,25 +25,6 @@ export const ProfileState = defineState({
     return systemProfilingData[global.__IR_ENGINE_VERSION__][gpu][systemUUID]
   }
 })
-
-// TODO Figure out where to store this data
-// const ProfilingService = {
-//   fetchClientSettings: async (version: string, gpu: string, device: string) => {
-//     try {
-//       await waitForClientAuthenticated()
-//       const profilingData = (await Engine.instance.api.service(profilingPath).find()) as Paginated<ProfilingType>
-//     } catch (err) {
-//       logger.error(err)
-//     }
-//   },
-//   patchClientSetting: async (data: ProfilingPatch, version: string, gpu: string, device: string) => {
-//     try {
-//       await Engine.instance.api.service(profilingPath).patch(version, data)
-//     } catch (err) {
-//       logger.error(err)
-//     }
-//   }
-// }
 
 const updateFrequency = 2
 let lastUpdate = 0
@@ -82,22 +57,8 @@ const execute = () => {
   }
 }
 
-const reactor = () => {
-  const performanceState = useMutableState(PerformanceState)
-
-  useEffect(() => {
-    const { gpu, device } = performanceState.value
-    // if (gpu && device) {
-    //   ProfilingService.fetchClientSettings(global.__IR_ENGINE_VERSION__, gpu, device)
-    // }
-  }, [performanceState.gpu, performanceState.device])
-
-  return null
-}
-
 export default defineSystem({
   uuid: 'eepro.eetest.SystemProfilerSystem',
   execute,
-  reactor,
   insert: { after: PresentationSystemGroup }
 })

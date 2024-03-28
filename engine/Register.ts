@@ -46,7 +46,7 @@ const reactor = () => {
       const length = benchmarkComponentQuery.length
 
       if (length > 0) {
-        import('./benchmarks/BenchmarkOrchestration')
+        import('./benchmarks/Benchmark')
         importedBenchmark.set(true)
       }
     }
