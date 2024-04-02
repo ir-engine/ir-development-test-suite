@@ -23,6 +23,10 @@ export const ProfileState = defineState({
     const { gpu } = getState(PerformanceState)
     const systemProfilingData = getState(ProfileState).systemProfilingData
     return systemProfilingData[global.__IR_ENGINE_VERSION__][gpu][systemUUID]
+  },
+  GetProfileIdentifier: (): string => {
+    const { gpu } = getState(PerformanceState)
+    return `EngineVersion-${global.__IR_ENGINE_VERSION__}-GPU-${gpu}`
   }
 })
 

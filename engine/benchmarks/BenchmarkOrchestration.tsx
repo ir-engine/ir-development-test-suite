@@ -1,7 +1,7 @@
 import { PresentationSystemGroup, SystemUUID, defineSystem } from '@etherealengine/ecs'
 import { ParticleSystem } from '@etherealengine/engine'
 import { SkinnedMeshTransformSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
-import { defineState, useMutableState } from '@etherealengine/hyperflux'
+import { defineState, getState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import React, { useEffect } from 'react'
 import { AvatarBenchmark, AvatarIKBenchmark } from './AvatarBenchmark'
@@ -15,12 +15,12 @@ type Benchmark = {
 }
 
 enum BenchmarkStage {
-  Particles,
-  Physics,
-  Avatar,
-  Animation,
-  Rendering,
-  IK
+  Particles = 'Particles',
+  Physics = 'Physics',
+  Avatar = 'Avatar',
+  Animation = 'Animation',
+  Rendering = 'Rendering',
+  IK = 'IK'
 }
 
 const benchmarkOrder = [
@@ -54,11 +54,14 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
 }
 
 type BenchmarkData = Record<
-  SystemUUID,
-  {
-    before: SystemProfileData
-    after: SystemProfileData
-  }
+  BenchmarkStage,
+  Record<
+    SystemUUID,
+    {
+      before: SystemProfileData
+      after: SystemProfileData
+    }
+  >
 >
 
 const BenchmarkState = defineState({
@@ -71,6 +74,20 @@ const BenchmarkState = defineState({
   }
 })
 
+const exportBenchmarks = () => {
+  const benchmarkState = getState(BenchmarkState)
+  const benchmarkJson = JSON.stringify(benchmarkState.data, null, 2)
+  const benchmarkName = `benchmarkExport-${ProfileState.GetProfileIdentifier()}.json`
+
+  const blobStr = window.URL.createObjectURL(new Blob([benchmarkJson], { type: 'text/json' }))
+  const exportElement = document.createElement('a')
+  exportElement.setAttribute('href', blobStr)
+  exportElement.setAttribute('download', benchmarkName)
+  document.body.appendChild(exportElement)
+  exportElement.click()
+  exportElement.remove()
+}
+
 const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () => void] => {
   const benchmarkState = useMutableState(BenchmarkState)
   const benchmarkStage = benchmarkOrder[benchmarkState.stageIndex.value]
@@ -78,22 +95,26 @@ const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () =
 
   useEffect(() => {
     const stageIndex = benchmarkState.stageIndex.value
-    console.log('Benchmark stage: ' + stageIndex)
+    console.log('Benchmark stage: ' + benchmarkStage)
     if (stageIndex > benchmarkOrder.length) {
       console.log('Benchmarks Complete', benchmarkState.value)
-      // All benchmarks run, evaluate results
+      // All benchmarks run, export results
+      exportBenchmarks()
       return
     }
 
     if (!benchmark) {
       benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
       return
+    } else {
+      benchmarkState.data.merge({ [benchmarkStage]: {} })
     }
 
+    const benchmarkData = benchmarkState.data.nested(benchmarkStage)
     const systemUUIDs = benchmark.systemUUIDs
     for (const systemUUID of systemUUIDs) {
       const systemProfileData = ProfileState.GetProfileData(systemUUID)
-      benchmarkState.data.merge({
+      benchmarkData.merge({
         [systemUUID]: { before: systemProfileData, after: systemProfileData }
       })
     }
@@ -102,8 +123,9 @@ const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () =
   const onComplete = () => {
     const systemUUIDs = benchmark?.systemUUIDs
     if (!systemUUIDs) return
+    const benchmarkData = benchmarkState.data.nested(benchmarkStage)
     for (const systemUUID of systemUUIDs) {
-      benchmarkState.data[systemUUID].after.set(ProfileState.GetProfileData(systemUUID))
+      benchmarkData[systemUUID].after.set(ProfileState.GetProfileData(systemUUID))
     }
     benchmarkState.stageIndex.set(benchmarkState.stageIndex.value + 1)
   }
