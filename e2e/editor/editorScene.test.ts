@@ -5,7 +5,7 @@ import { BotHooks } from 'ee-bot/src/enums/BotHooks'
 import { delay } from '@etherealengine/spatial/src/common/functions/delay'
 import type { Engine } from '@etherealengine/ecs/src/Engine'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { GLTFSourceState } from '@etherealengine/engine/src/scene/GLTFSourceState'
 
 const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/editor`
@@ -37,7 +37,7 @@ describe('Editor Scene Tests', () => {
     await bot.awaitHookPromise(BotHooks.SceneLoaded)
 
     const serializedEngine = JSON.parse(await bot.runHook(BotHooks.SerializeEngine)) // as Engine
-    const engineState = serializedEngine.store.stateMap['engine'] as any as typeof SceneState._TYPE
+    const engineState = serializedEngine.store.stateMap['engine'] as any as typeof GLTFSourceState._TYPE
     assert.equal(serializedEngine.isEditor, true)
     assert.equal(engineState.sceneLoaded, true)
   })

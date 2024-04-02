@@ -17,7 +17,7 @@ import { UUIDComponent } from '@etherealengine/ecs'
 import { Template } from './utils/template'
 
 import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { GLTFSourceState } from '@etherealengine/engine/src/scene/GLTFSourceState'
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])
@@ -30,7 +30,7 @@ const GLTF = () => {
     setComponent(entity, NameComponent, 'GLTF Viewer')
     setComponent(entity, UUIDComponent, 'GLTF Viewer' as EntityUUID)
     setComponent(entity, ModelComponent)
-    getMutableState(SceneState).background.set(new Color('grey'))
+    getMutableState(GLTFSourceState).background.set(new Color('grey'))
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
