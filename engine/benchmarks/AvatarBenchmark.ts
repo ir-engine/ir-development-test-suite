@@ -1,5 +1,5 @@
 import config from '@etherealengine/common/src/config'
-import { avatarPath } from '@etherealengine/common/src/schema.type.module'
+import { UserID, avatarPath } from '@etherealengine/common/src/schema.type.module'
 import {
   Engine,
   Entity,
@@ -12,6 +12,7 @@ import {
   removeEntity,
   setComponent
 } from '@etherealengine/ecs'
+import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
 import {
   AvatarAnimationComponent,
@@ -20,8 +21,10 @@ import {
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { AvatarColliderComponent } from '@etherealengine/engine/src/avatar/components/AvatarControllerComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
+import { AvatarIKTargetState } from '@etherealengine/engine/src/avatar/state/AvatarIKTargetState'
 import { SceneState } from '@etherealengine/engine/src/scene/Scene'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { getMutableState } from '@etherealengine/hyperflux'
 import { NetworkObjectComponent } from '@etherealengine/network'
 import { TransformComponent } from '@etherealengine/spatial'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
@@ -96,6 +99,24 @@ export const AvatarBenchmark = (props: { onComplete: () => void }): null => {
   return null
 }
 
+const createIkTargetsForAvatar = (userID: string) => {
+  const headUUID = (userID + ikTargets.head) as EntityUUID
+  const leftHandUUID = (userID + ikTargets.leftHand) as EntityUUID
+  const rightHandUUID = (userID + ikTargets.rightHand) as EntityUUID
+  const leftFootUUID = (userID + ikTargets.leftFoot) as EntityUUID
+  const rightFootUUID = (userID + ikTargets.rightFoot) as EntityUUID
+
+  const avatarIKTargetState = getMutableState(AvatarIKTargetState) //[action.entityUUID].merge({ name: action.name })
+
+  avatarIKTargetState.merge({
+    [headUUID]: { name: 'head' },
+    [leftHandUUID]: { name: 'leftHand' },
+    [rightHandUUID]: { name: 'rightHand' },
+    [leftFootUUID]: { name: 'leftFoot' },
+    [rightFootUUID]: { name: 'rightFoot' }
+  })
+}
+
 const runAvatarIKBenchmark = async (onComplete: () => void) => {
   const entities = [] as Entity[]
   const avatars = await Engine.instance.api.service(avatarPath).find({})
@@ -113,13 +134,15 @@ const runAvatarIKBenchmark = async (onComplete: () => void) => {
 
     const obj3d = new Group()
     obj3d.entity = entity
-    setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
+
+    const uuid = MathUtils.generateUUID()
+    setComponent(entity, UUIDComponent, uuid as EntityUUID)
     setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
     setComponent(entity, Object3DComponent, obj3d)
     setComponent(entity, TransformComponent, { position })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, RigidBodyComponent, { type: 'kinematic' })
-    setComponent(entity, NetworkObjectComponent)
+    setComponent(entity, NetworkObjectComponent, { ownerId: uuid as UserID })
     setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
     setComponent(entity, AvatarColliderComponent)
     setComponent(entity, AvatarComponent)
@@ -128,6 +151,7 @@ const runAvatarIKBenchmark = async (onComplete: () => void) => {
       locomotion: new Vector3()
     })
     setComponent(entity, AvatarRigComponent)
+    createIkTargetsForAvatar(uuid)
     await waitForModelLoad(entity)
   }
 
