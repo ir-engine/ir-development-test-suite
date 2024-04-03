@@ -1,6 +1,9 @@
 import { PresentationSystemGroup, SystemUUID, defineSystem } from '@etherealengine/ecs'
 import { ParticleSystem } from '@etherealengine/engine'
-import { SkinnedMeshTransformSystem } from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
+import {
+  AvatarAnimationSystem,
+  SkinnedMeshTransformSystem
+} from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { defineState, getState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import React, { useEffect } from 'react'
@@ -49,7 +52,7 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   [BenchmarkStage.Rendering]: null,
   [BenchmarkStage.IK]: {
     benchmark: AvatarIKBenchmark,
-    systemUUIDs: [SkinnedMeshTransformSystem]
+    systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]
   }
 }
 
