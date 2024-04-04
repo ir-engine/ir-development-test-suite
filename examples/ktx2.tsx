@@ -80,10 +80,10 @@ const KTX2DND = () => {
 
 export default function KTX2() {
   useEffect(() => {
-    mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
-    mesh.position.y += 1
-    mesh.updateMatrixWorld(true)
-    Engine.instance.scene.add(mesh)
+    // mesh = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ side: DoubleSide }))
+    // mesh.position.y += 1
+    // mesh.updateMatrixWorld(true)
+    // Engine.instance.scene.add(mesh)
   }, [])
 
   return (
