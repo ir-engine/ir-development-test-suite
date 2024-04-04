@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { EntityUUID } from '@etherealengine/ecs'
+import { Engine, EntityUUID } from '@etherealengine/ecs'
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
@@ -49,7 +49,7 @@ export default function Splines() {
     const trackEntity = createEntity()
     setComponent(trackEntity, NameComponent, `Track`)
     setComponent(trackEntity, VisibleComponent)
-    setComponent(trackEntity, EntityTreeComponent)
+    setComponent(trackEntity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
     const mesh = new Mesh(new SphereGeometry(1), new MeshBasicMaterial({ color: 0xff00ff }))
     const pointerMesh = new Mesh(new BoxGeometry(1, 1, 2), new MeshBasicMaterial({ color: 0x0000ff }))
     pointerMesh.translateZ(1)
