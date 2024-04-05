@@ -1,5 +1,5 @@
 import { SceneID } from '@etherealengine/common/src/schema.type.module'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { getState } from '@etherealengine/hyperflux'
 
 export const getSceneID = (): SceneID => {

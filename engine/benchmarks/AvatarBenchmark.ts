@@ -24,7 +24,7 @@ import { AvatarIKTargetComponent } from '@etherealengine/engine/src/avatar/compo
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { AvatarIKTargetState } from '@etherealengine/engine/src/avatar/state/AvatarIKTargetState'
 import { AvatarState } from '@etherealengine/engine/src/avatar/state/AvatarNetworkState'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { getMutableState } from '@etherealengine/hyperflux'
 import { NetworkObjectComponent } from '@etherealengine/network'

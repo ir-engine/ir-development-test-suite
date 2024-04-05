@@ -8,7 +8,7 @@ import {
   removeEntity,
   setComponent
 } from '@etherealengine/ecs'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { TransformComponent } from '@etherealengine/spatial'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
