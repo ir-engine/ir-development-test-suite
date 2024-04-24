@@ -1,15 +1,14 @@
-import { SceneID } from '@etherealengine/common/src/schema.type.module'
 import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { getState } from '@etherealengine/hyperflux'
 
-export const getSceneID = (): SceneID => {
+export const getSceneID = (): string => {
   const scenes = getState(SceneState).scenes
   for (const key in scenes) {
     const scene = scenes[key]
-    if (scene.name) return key as SceneID
+    if (scene.name) return key as string
   }
 
-  return '' as SceneID
+  return '' as string
 }
 
 export const sleep = async (time: number) => {
