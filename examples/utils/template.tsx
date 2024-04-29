@@ -9,6 +9,9 @@ import { XRLoading } from '@etherealengine/client-core/src/components/XRLoading'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
 
 import './avatar/simulateMovement'
+import { setComponent, Engine } from '@etherealengine/ecs'
+import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 
 export function Template(props: { projectName?: string; sceneName?: string }) {
   useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
@@ -17,6 +20,8 @@ export function Template(props: { projectName?: string; sceneName?: string }) {
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
+    setComponent(Engine.instance.viewerEntity, CameraOrbitComponent)
+    setComponent(Engine.instance.viewerEntity, InputComponent)
   }, [])
 
   return (
