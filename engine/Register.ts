@@ -5,6 +5,8 @@ import { GrabbableComponent } from '@etherealengine/engine/src/interaction/compo
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
+import { ExamplesComponent } from './examples/ExamplesComponent'
+import { ExamplesComponentNodeEditor } from './examples/ExamplesNodeEditors'
 
 export const ProfilingComponent = defineComponent({
   name: 'eepro.eetest.ProfilingComponent',
@@ -18,12 +20,13 @@ export const BenchmarkComponent = defineComponent({
 
 getMutableState(ComponentShelfCategoriesState).Interaction.merge([GrabbableComponent])
 getMutableState(ComponentShelfCategoriesState).merge({
-  Debug: [ProfilingComponent, BenchmarkComponent]
+  Debug: [ProfilingComponent, BenchmarkComponent, ExamplesComponent]
 })
 
 getMutableState(ComponentEditorsState).merge({
   [ProfilingComponent.name]: ProfilingComponentNodeEditor,
-  [BenchmarkComponent.name]: BenchmarkComponentNodeEditor
+  [BenchmarkComponent.name]: BenchmarkComponentNodeEditor,
+  [ExamplesComponent.name]: ExamplesComponentNodeEditor
 })
 
 const reactor = () => {
