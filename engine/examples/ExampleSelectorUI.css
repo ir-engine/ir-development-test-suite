@@ -1,0 +1,61 @@
+.ExamplesContainer::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+.ExamplesContainer::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.ExamplesContainer {
+  background-color: #2c2f33;
+  width: 42em;
+  height: 108em;
+  border-radius: 2.4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3em 1.2em;
+  gap: 1.8em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ExampleContainer,
+.SelectedExampleContainer {
+  width: 92%;
+  height: 24em;
+  max-height: 24em;
+  min-height: 24em;
+  background-color: #202124;
+  border-radius: 1.2em;
+}
+
+.SelectedExampleContainer {
+  outline-style: solid;
+  outline-color: white;
+  outline-width: 0.42em;
+}
+
+.ExampleTextContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  padding: 3em;
+}
+
+.ExampleName {
+  color: white;
+  font-size: 6em;
+  margin: 0;
+  font-size: 4.8em;
+}
+
+.ExampleDescription {
+  color: white;
+  margin: 0;
+  font-size: 2.4em;
+}
