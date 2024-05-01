@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
@@ -21,7 +20,6 @@ import { Template } from './utils/template'
  * - layers
  */
 export default function XRSuite() {
-  useLocationSpawnAvatar()
   return (
     <>
       <Template />

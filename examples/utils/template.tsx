@@ -16,7 +16,7 @@ import { InputComponent } from '@etherealengine/spatial/src/input/components/Inp
 export function Template(props: { projectName?: string; sceneName?: string }) {
   useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default' })
   useNetwork({ online: false })
-  useLoadEngineWithScene({ spectate: true })
+  useLoadEngineWithScene()
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
