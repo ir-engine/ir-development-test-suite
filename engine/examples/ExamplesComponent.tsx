@@ -1,14 +1,26 @@
-import ECS, {
+import {
   Entity,
+  UUIDComponent,
   UndefinedEntity,
   createEntity,
   defineComponent,
+  generateEntityUUID,
+  getComponent,
+  removeComponent,
   removeEntity,
+  setComponent,
   useComponent,
   useEntityContext
 } from '@etherealengine/ecs'
+import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
+import { TransformComponent } from '@etherealengine/spatial'
+import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
+import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
+import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'
 
 type Example = {
@@ -24,8 +36,16 @@ export const examples: Example[] = [
     description: 'Add GLTF models to your scene',
     setup: (entity: Entity) => {
       console.log('Creating Model Example')
+      setComponent(entity, NameComponent, 'Flight-Helmet')
+      setComponent(entity, ModelComponent, {
+        cameraOcclusion: true,
+        src: 'https://localhost:8642/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+      })
+      setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).scale.set(3, 3, 3)
     },
     teardown: (entity: Entity) => {
+      removeComponent(entity, ModelComponent)
       console.log('Tearing down Model Example')
     }
   },
@@ -115,11 +135,27 @@ export const ExamplesComponent = defineComponent({
     useEffect(() => {
       const selectExampleUI = createXRUI(ExampleSelectorUI, null, { interactable: true }, entity)
       selectExampleUI.container.position.set(-2, 1.5, -1)
+
+      // const componentNamesUIEntity = entity
+      const componentNamesUIEntity = createEntity()
+      setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
+      setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: entity })
+      setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
+      setComponent(componentNamesUIEntity, SourceComponent, getComponent(entity, SourceComponent))
+      const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: true }, componentNamesUIEntity)
+      componentNamesUI.container.position.set(2, 1.5, -1)
+
+      return () => {
+        removeEntity(componentNamesUIEntity)
+      }
     }, [])
 
     useEffect(() => {
       const example = examples[examplesComponent.currExampleIndex.value]
       const exampleEntity = createEntity()
+      setComponent(exampleEntity, UUIDComponent, generateEntityUUID())
+      setComponent(exampleEntity, TransformComponent)
+      setComponent(exampleEntity, EntityTreeComponent, { parentEntity: entity })
       example.setup(exampleEntity)
       examplesComponent.currExample.set(exampleEntity)
 
@@ -128,15 +164,6 @@ export const ExamplesComponent = defineComponent({
         removeEntity(exampleEntity)
       }
     }, [examplesComponent.currExampleIndex])
-
-    useEffect(() => {
-      const currExample = examplesComponent.currExample.value
-      if (!currExample) return
-
-      const components = ECS.getAllComponents(currExample)
-
-      return () => {}
-    }, [examplesComponent.currExample])
 
     return <></>
   }

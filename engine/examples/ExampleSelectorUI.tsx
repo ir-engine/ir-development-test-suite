@@ -4,7 +4,7 @@ import base from '@etherealengine/client/src/themes/base.css?inline'
 import styles from './ExampleSelectorUI.css?inline'
 
 import { useComponent, useEntityContext } from '@etherealengine/ecs'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { ExamplesComponent, examples } from './ExamplesComponent'
 
 const ExampleSelectorUI: React.FC = () => {
@@ -12,28 +12,11 @@ const ExampleSelectorUI: React.FC = () => {
   const examplesComponent = useComponent(entity, ExamplesComponent)
   const selectedIndex = examplesComponent.currExampleIndex.value
 
-  const frame = useRef(null)
-
-  const addScroll = (y) => {
-    ;(frame as any).current.scrollBy(0, y)
-  }
-
-  useEffect(() => {
-    window.addEventListener(
-      'wheel',
-      (event) => {
-        event.preventDefault()
-        addScroll(event.deltaY)
-      },
-      { passive: false, capture: true }
-    )
-  }, [])
-
   return (
     <>
       <style type="text/css">{base.toString()}</style>
       <style type="text/css">{styles.toString()}</style>
-      <div className="ExamplesContainer" ref={frame}>
+      <div className="ExamplesContainer" style={{ height: `${examples.length * 26.4}em` }}>
         {examples.map((example, index) => {
           return (
             <div
@@ -41,7 +24,6 @@ const ExampleSelectorUI: React.FC = () => {
               key={example.name}
               onPointerDown={() => {
                 examplesComponent.currExampleIndex.set(index)
-                console.log(`Clicked index: ${index}`)
               }}
             >
               <div className="ExampleTextContainer">
