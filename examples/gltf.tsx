@@ -7,17 +7,17 @@ import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { useHookstate } from '@etherealengine/hyperflux'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 
-import { EntityUUID } from '@etherealengine/ecs'
-import { UUIDComponent } from '@etherealengine/ecs'
+import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
 import { Template } from './utils/template'
 
 import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'
-import { SceneState } from '@etherealengine/engine/src/scene/Scene'
+import { BackgroundComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])
@@ -30,7 +30,8 @@ const GLTF = () => {
     setComponent(entity, NameComponent, 'GLTF Viewer')
     setComponent(entity, UUIDComponent, 'GLTF Viewer' as EntityUUID)
     setComponent(entity, ModelComponent)
-    getMutableState(SceneState).background.set(new Color('grey'))
+    setComponent(entity, BackgroundComponent, new Color('black'))
+    setComponent(entity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({

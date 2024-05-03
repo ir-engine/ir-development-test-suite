@@ -5,8 +5,8 @@ import config from '@etherealengine/common/src/config'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
 import { AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
-import { EntityUUID, UUIDComponent } from '@etherealengine/ecs'
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
+import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { AvatarAnimationComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
@@ -36,6 +36,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
     dispatchAction(
       AvatarNetworkAction.spawn({
+        parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
         position: new Vector3(0, 0, column),
         rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
         ownerID: userId,
@@ -53,6 +54,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
   NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
   dispatchAction(
     AvatarNetworkAction.spawn({
+      parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       position: new Vector3(x, 0, i * 2),
       rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
       ownerID: userId,
@@ -102,6 +104,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   const userId = loadNetworkAvatar(avatar, i, 'user_ik', position.x)
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
+    parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       name: 'head',
       entityUUID: (userId + ikTargets.head) as EntityUUID,
       blendWeight: 0,
@@ -111,6 +114,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
+    parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       name: 'leftHand',
       entityUUID: (userId + ikTargets.leftHand) as EntityUUID,
       blendWeight: 0
@@ -119,6 +123,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
+    parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       name: 'rightHand',
       entityUUID: (userId + ikTargets.rightHand) as EntityUUID,
       blendWeight: 0
@@ -127,6 +132,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
+    parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       name: 'leftFoot',
       entityUUID: (userId + ikTargets.leftFoot) as EntityUUID,
       blendWeight: 0
@@ -135,6 +141,7 @@ export const loadAssetWithIK = (avatar: AvatarType, position: Vector3, i: number
   })
   dispatchAction({
     ...AvatarNetworkAction.spawnIKTarget({
+    parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       name: 'rightFoot',
       entityUUID: (userId + ikTargets.rightFoot) as EntityUUID,
       blendWeight: 0
