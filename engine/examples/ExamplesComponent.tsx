@@ -1,4 +1,7 @@
+import config from '@etherealengine/common/src/config'
+import { avatarPath } from '@etherealengine/common/src/schema.type.module'
 import {
+  Engine,
   Entity,
   UUIDComponent,
   UndefinedEntity,
@@ -6,20 +9,25 @@ import {
   defineComponent,
   generateEntityUUID,
   getComponent,
-  removeComponent,
+  getMutableComponent,
   removeEntity,
   setComponent,
   useComponent,
   useEntityContext
 } from '@etherealengine/ecs'
+import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
+import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
+import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
+import { Group, MathUtils } from 'three'
 import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'
 
@@ -35,29 +43,34 @@ export const examples: Example[] = [
     name: 'Models',
     description: 'Add GLTF models to your scene',
     setup: (entity: Entity) => {
-      console.log('Creating Model Example')
-      setComponent(entity, NameComponent, 'Flight-Helmet')
+      setComponent(entity, NameComponent, 'Model-Example')
       setComponent(entity, ModelComponent, {
         cameraOcclusion: true,
-        src: 'https://localhost:8642/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+        src:
+          config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
       })
       setVisibleComponent(entity, true)
       getComponent(entity, TransformComponent).scale.set(3, 3, 3)
     },
-    teardown: (entity: Entity) => {
-      removeComponent(entity, ModelComponent)
-      console.log('Tearing down Model Example')
-    }
+    teardown: (entity: Entity) => {}
   },
   {
     name: 'Avatars',
     description: 'Add avatars to your scene',
     setup: (entity: Entity) => {
-      console.log('Creating Avatar Example')
+      const avatars = getComponent(getComponent(entity, EntityTreeComponent).parentEntity, ExamplesComponent).avatars
+      const avatarSrc = avatars[MathUtils.randInt(0, avatars.length)]
+      setComponent(entity, NameComponent, 'Avatar-Example')
+      setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
+      setVisibleComponent(entity, true)
+      setComponent(entity, LoopAnimationComponent, {
+        animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb'
+      })
+      const validAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
+      const loopAnimationComponent = getMutableComponent(entity, LoopAnimationComponent)
+      loopAnimationComponent.activeClipIndex.set(validAnimations[Math.floor(Math.random() * validAnimations.length)])
     },
-    teardown: (entity: Entity) => {
-      console.log('Tearing down Avatar Example')
-    }
+    teardown: (entity: Entity) => {}
   },
   {
     name: 'Variants',
@@ -73,7 +86,12 @@ export const examples: Example[] = [
     name: 'Particles',
     description: 'Add particle systems to your scene',
     setup: (entity: Entity) => {
-      console.log('Creating Particle Example')
+      const obj3d = new Group()
+      obj3d.entity = entity
+      setComponent(entity, NameComponent, 'Particle-Example')
+      setComponent(entity, ParticleSystemComponent)
+      setComponent(entity, Object3DComponent, obj3d)
+      setVisibleComponent(entity, true)
     },
     teardown: (entity: Entity) => {
       console.log('Tearing down Particle Example')
@@ -111,6 +129,24 @@ export const examples: Example[] = [
   }
 ]
 
+const useAvatars = () => {
+  const avatars = useHookstate<string[] | null>(null)
+
+  useEffect(() => {
+    Engine.instance.api
+      .service(avatarPath)
+      .find({})
+      .then((val) => {
+        const avatarSrcs = val.data.map((item) => {
+          return item.modelResource!.url
+        })
+        avatars.set(avatarSrcs)
+      })
+  }, [])
+
+  return avatars
+}
+
 export const ExamplesComponent = defineComponent({
   name: 'eepro.eetest.ExamplesComponent',
   jsonID: 'eepro.eetest.ExamplesComponent',
@@ -118,7 +154,8 @@ export const ExamplesComponent = defineComponent({
   onInit: (entity) => {
     return {
       currExample: UndefinedEntity,
-      currExampleIndex: 0
+      currExampleIndex: 0,
+      avatars: [] as string[]
     }
   },
 
@@ -131,10 +168,22 @@ export const ExamplesComponent = defineComponent({
   reactor: function () {
     const entity = useEntityContext()
     const examplesComponent = useComponent(entity, ExamplesComponent)
+    const avatars = useAvatars()
+    const loaded = useHookstate(false)
 
     useEffect(() => {
+      const avatarSrcs = avatars.get(NO_PROXY)
+      if (avatarSrcs) {
+        examplesComponent.avatars.set(avatarSrcs)
+        loaded.set(true)
+      }
+    }, [avatars])
+
+    useEffect(() => {
+      if (!loaded.value) return
+
       const selectExampleUI = createXRUI(ExampleSelectorUI, null, { interactable: true }, entity)
-      selectExampleUI.container.position.set(-2, 1.5, -1)
+      selectExampleUI.container.position.set(-2, 1.8, -1)
 
       // const componentNamesUIEntity = entity
       const componentNamesUIEntity = createEntity()
@@ -142,15 +191,22 @@ export const ExamplesComponent = defineComponent({
       setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: entity })
       setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
       setComponent(componentNamesUIEntity, SourceComponent, getComponent(entity, SourceComponent))
-      const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: true }, componentNamesUIEntity)
-      componentNamesUI.container.position.set(2, 1.5, -1)
+      const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
+      // componentNamesUI.container.options.onLayerPaint = () => {
+      //   const height = (componentNamesUI.container.children[0] as WebLayer3D).element.clientHeight / 1000
+      //   console.log('Painting container: ' + height)
+      //   componentNamesUI.container.position.set(2, 3.8 - height, -1)
+      // }
+      componentNamesUI.container.position.set(2, 1.8, -1)
 
       return () => {
         removeEntity(componentNamesUIEntity)
       }
-    }, [])
+    }, [loaded])
 
     useEffect(() => {
+      if (!loaded.value) return
+
       const example = examples[examplesComponent.currExampleIndex.value]
       const exampleEntity = createEntity()
       setComponent(exampleEntity, UUIDComponent, generateEntityUUID())
@@ -163,35 +219,8 @@ export const ExamplesComponent = defineComponent({
         if (example.teardown) example.teardown(exampleEntity)
         removeEntity(exampleEntity)
       }
-    }, [examplesComponent.currExampleIndex])
+    }, [examplesComponent.currExampleIndex, loaded])
 
     return <></>
   }
-})
-
-export const ExampleComponent = defineComponent({
-  name: 'eepro.eetest.ExampleComponent',
-  jsonID: 'eepro.eetest.ExampleComponent',
-
-  onInit: (entity) => {
-    return {
-      name: ''
-    }
-  },
-
-  toJSON: (entity, component) => {
-    return {
-      name: component.name.value
-    }
-  },
-
-  onSet: (entity, component, json) => {},
-
-  onRemove: (entity, component) => {},
-
-  reactor: function () {
-    return null
-  },
-
-  errors: []
 })

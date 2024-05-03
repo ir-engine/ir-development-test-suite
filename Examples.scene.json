@@ -57,8 +57,8 @@
         {
           "name": "EE_fog",
           "props": {
-            "type": "linear",
-            "color": "#FFFFFF",
+            "type": "exponential",
+            "color": "#4e4e4e",
             "density": 0.005,
             "near": 1,
             "far": 1000,
@@ -313,10 +313,10 @@
         {
           "name": "EE_skybox",
           "props": {
-            "backgroundColor": 0,
+            "backgroundColor": 5263440,
             "equirectangularPath": "",
             "cubemapPath": "https://localhost:8642/projects/default-project/assets/skyboxsun25deg/",
-            "backgroundType": 1,
+            "backgroundType": 0,
             "skyboxProps": {
               "turbidity": 10,
               "rayleigh": 1,
@@ -363,7 +363,7 @@
         {
           "name": "EE_ground_plane",
           "props": {
-            "color": "#587F36",
+            "color": 8816262,
             "visible": true
           }
         },
