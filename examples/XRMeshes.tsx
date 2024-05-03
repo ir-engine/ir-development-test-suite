@@ -6,7 +6,6 @@ import { useEntityContext } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 
-import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
 import { Template } from './utils/template'
@@ -51,9 +50,7 @@ export const DetectedMeshes = () => {
   return null
 }
 
-export default function AvatarBenchmarking() {
-  useLocationSpawnAvatar()
-
+export default function XRMeshes() {
   return (
     <>
       <Template />
