@@ -13,13 +13,14 @@ import {
   removeEntity,
   setComponent,
   useComponent,
-  useEntityContext
+  useEntityContext,
+  useOptionalComponent
 } from '@etherealengine/ecs'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
-import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
+import { useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
@@ -58,7 +59,7 @@ export const examples: Example[] = [
     name: 'Avatars',
     description: 'Add avatars to your scene',
     setup: (entity: Entity) => {
-      const avatars = getComponent(getComponent(entity, EntityTreeComponent).parentEntity, ExamplesComponent).avatars
+      const avatars = getComponent(getComponent(entity, EntityTreeComponent).parentEntity, ExamplesComponent).avatars!
       const avatarSrc = avatars[MathUtils.randInt(0, avatars.length)]
       setComponent(entity, NameComponent, 'Avatar-Example')
       setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
@@ -129,10 +130,11 @@ export const examples: Example[] = [
   }
 ]
 
-const useAvatars = () => {
-  const avatars = useHookstate<string[] | null>(null)
+const useAvatars = (entity: Entity) => {
+  const examples = useOptionalComponent(entity, ExamplesComponent)
 
   useEffect(() => {
+    let loading = true
     Engine.instance.api
       .service(avatarPath)
       .find({})
@@ -140,11 +142,13 @@ const useAvatars = () => {
         const avatarSrcs = val.data.map((item) => {
           return item.modelResource!.url
         })
-        avatars.set(avatarSrcs)
+        if (examples && loading) examples.avatars.set(avatarSrcs)
       })
-  }, [])
 
-  return avatars
+    return () => {
+      loading = false
+    }
+  }, [])
 }
 
 export const ExamplesComponent = defineComponent({
@@ -155,7 +159,7 @@ export const ExamplesComponent = defineComponent({
     return {
       currExample: UndefinedEntity,
       currExampleIndex: 0,
-      avatars: [] as string[]
+      avatars: null as null | string[]
     }
   },
 
@@ -165,19 +169,17 @@ export const ExamplesComponent = defineComponent({
 
   onRemove: (entity, component) => {},
 
-  reactor: function () {
+  reactor: () => {
     const entity = useEntityContext()
     const examplesComponent = useComponent(entity, ExamplesComponent)
-    const avatars = useAvatars()
+    useAvatars(entity)
     const loaded = useHookstate(false)
 
     useEffect(() => {
-      const avatarSrcs = avatars.get(NO_PROXY)
-      if (avatarSrcs) {
-        examplesComponent.avatars.set(avatarSrcs)
+      if (examplesComponent.avatars.value) {
         loaded.set(true)
       }
-    }, [avatars])
+    }, [examplesComponent.avatars])
 
     useEffect(() => {
       if (!loaded.value) return
