@@ -54,7 +54,7 @@ export const DetectedMeshes = () => {
   return null
 }
 
-export default function AvatarBenchmarking() {
+export default function XRMeshes() {
   return (
     <>
       <Template />
