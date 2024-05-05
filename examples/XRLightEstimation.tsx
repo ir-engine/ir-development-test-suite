@@ -4,7 +4,6 @@ import { Mesh, MeshStandardMaterial, SphereGeometry } from 'three'
 import { XRLightProbeState } from '@etherealengine/spatial/src/xr/XRLightProbeSystem'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
@@ -42,7 +41,6 @@ export const LightProbe = () => {
 }
 
 export default function XRLightEstimation() {
-  useLocationSpawnAvatar()
   return (
     <>
       <Template />
