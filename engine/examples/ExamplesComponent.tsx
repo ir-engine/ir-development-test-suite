@@ -20,15 +20,15 @@ import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/compon
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
+import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
-import { Group, MathUtils } from 'three'
+import { MathUtils } from 'three'
 import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'
 
@@ -78,6 +78,39 @@ export const examples: Example[] = [
     description: 'Load multiple variants of a model',
     setup: (entity: Entity) => {
       console.log('Creating Variant Example')
+      setComponent(entity, NameComponent, 'Variant-Example')
+      setComponent(entity, ModelComponent, {
+        cameraOcclusion: true,
+        src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb'
+      })
+      setComponent(entity, VariantComponent, {
+        heuristic: Heuristic.DISTANCE,
+        levels: [
+          {
+            src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+            metadata: {
+              minDistance: 0,
+              maxDistance: 5
+            }
+          },
+          {
+            src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+            metadata: {
+              minDistance: 5,
+              maxDistance: 10
+            }
+          },
+          {
+            src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+            metadata: {
+              minDistance: 10,
+              maxDistance: 15
+            }
+          }
+        ]
+      })
+      setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).position.set(0, 1, 0)
     },
     teardown: (entity: Entity) => {
       console.log('Tearing down Variant Example')
@@ -87,11 +120,9 @@ export const examples: Example[] = [
     name: 'Particles',
     description: 'Add particle systems to your scene',
     setup: (entity: Entity) => {
-      const obj3d = new Group()
-      obj3d.entity = entity
       setComponent(entity, NameComponent, 'Particle-Example')
       setComponent(entity, ParticleSystemComponent)
-      setComponent(entity, Object3DComponent, obj3d)
+      getComponent(entity, TransformComponent).position.set(0, 1, 0)
       setVisibleComponent(entity, true)
     },
     teardown: (entity: Entity) => {

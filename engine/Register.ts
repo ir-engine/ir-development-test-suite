@@ -1,7 +1,6 @@
 import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@etherealengine/ecs'
 import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/components/element/ElementList'
 import { ComponentEditorsState } from '@etherealengine/editor/src/functions/ComponentEditors'
-import { GrabbableComponent } from '@etherealengine/engine/src/interaction/components/GrabbableComponent'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
@@ -18,7 +17,6 @@ export const BenchmarkComponent = defineComponent({
   jsonID: 'eepro.eetest.BenchmarkComponent'
 })
 
-getMutableState(ComponentShelfCategoriesState).Interaction.merge([GrabbableComponent])
 getMutableState(ComponentShelfCategoriesState).merge({
   Debug: [ProfilingComponent, BenchmarkComponent, ExamplesComponent]
 })
