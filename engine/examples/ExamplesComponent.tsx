@@ -18,10 +18,12 @@ import {
 } from '@etherealengine/ecs'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { ImageComponent } from '@etherealengine/engine/src/scene/components/ImageComponent'
+import { MediaComponent } from '@etherealengine/engine/src/scene/components/MediaComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
 import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
+import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
@@ -122,7 +124,7 @@ export const examples: Example[] = [
       setComponent(entity, NameComponent, 'Particle-Example')
       setComponent(entity, ParticleSystemComponent)
       setVisibleComponent(entity, true)
-      getComponent(entity, TransformComponent).position.set(0, 1, 0)
+      getComponent(entity, TransformComponent).position.set(0, 2, 0)
     },
     teardown: (entity: Entity) => {}
   },
@@ -137,9 +139,22 @@ export const examples: Example[] = [
       setVisibleComponent(entity, true)
       getComponent(entity, TransformComponent).position.set(0, 2, 0)
     },
-    teardown: (entity: Entity) => {
-      console.log('Tearing down Link Example')
-    }
+    teardown: (entity: Entity) => {}
+  },
+  {
+    name: 'Videos',
+    description: 'Add videos to your scene',
+    setup: (entity: Entity) => {
+      setComponent(entity, NameComponent, 'Video-Example')
+      setComponent(entity, VideoComponent)
+      setComponent(entity, MediaComponent, {
+        resources: [config.client.fileServer + '/projects/ee-development-test-suite/assets/Videos/HDVideo.mp4']
+      })
+      setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).position.set(0, 2, 0)
+      getComponent(entity, TransformComponent).scale.set(1.777, 1, 1)
+    },
+    teardown: (entity: Entity) => {}
   },
   {
     name: 'Splines',

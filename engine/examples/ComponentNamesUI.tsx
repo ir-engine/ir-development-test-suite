@@ -20,7 +20,9 @@ const ComponentNamesUI: React.FC = (props) => {
     const components = ECS.getAllComponents(currExample)
     const componentNames = components
       .map((comp) => comp.name)
-      .filter((name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network'].some((val) => name.includes(val)))
+      .filter(
+        (name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network', 'Resource'].some((val) => name.includes(val))
+      )
     names.set(componentNames)
 
     return () => {}
