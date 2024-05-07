@@ -17,6 +17,7 @@ import {
   useOptionalComponent
 } from '@etherealengine/ecs'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
+import { ImageComponent } from '@etherealengine/engine/src/scene/components/ImageComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
@@ -112,9 +113,7 @@ export const examples: Example[] = [
       setVisibleComponent(entity, true)
       getComponent(entity, TransformComponent).position.set(0, 1, 0)
     },
-    teardown: (entity: Entity) => {
-      console.log('Tearing down Variant Example')
-    }
+    teardown: (entity: Entity) => {}
   },
   {
     name: 'Particles',
@@ -122,18 +121,21 @@ export const examples: Example[] = [
     setup: (entity: Entity) => {
       setComponent(entity, NameComponent, 'Particle-Example')
       setComponent(entity, ParticleSystemComponent)
-      getComponent(entity, TransformComponent).position.set(0, 1, 0)
       setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).position.set(0, 1, 0)
     },
-    teardown: (entity: Entity) => {
-      console.log('Tearing down Particle Example')
-    }
+    teardown: (entity: Entity) => {}
   },
   {
-    name: 'Links',
-    description: 'Add links to your scene',
+    name: 'Images',
+    description: 'Add images to your scene',
     setup: (entity: Entity) => {
-      console.log('Creating Link Example')
+      setComponent(entity, NameComponent, 'Image-Example')
+      setComponent(entity, ImageComponent, {
+        source: config.client.fileServer + '/projects/ee-development-test-suite/assets/Images/dog3.png'
+      })
+      setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).position.set(0, 2, 0)
     },
     teardown: (entity: Entity) => {
       console.log('Tearing down Link Example')
