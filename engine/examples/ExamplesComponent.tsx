@@ -22,12 +22,15 @@ import { MediaComponent } from '@etherealengine/engine/src/scene/components/Medi
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
+import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
 import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
+import { SplineHelperComponent } from '@etherealengine/engine/src/scene/components/debug/SplineHelperComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { ObjectLayerMasks } from '@etherealengine/spatial/src/renderer/constants/ObjectLayers'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
@@ -160,7 +163,11 @@ export const examples: Example[] = [
     name: 'Splines',
     description: 'Add splines to your scene',
     setup: (entity: Entity) => {
-      console.log('Creating Spline Example')
+      setComponent(entity, NameComponent, 'Spline-Example')
+      setComponent(entity, SplineComponent)
+      setComponent(entity, SplineHelperComponent, { layerMask: ObjectLayerMasks.Scene })
+      setVisibleComponent(entity, true)
+      getComponent(entity, TransformComponent).position.set(0, 1, 0)
     },
     teardown: (entity: Entity) => {
       console.log('Tearing down Spline Example')
