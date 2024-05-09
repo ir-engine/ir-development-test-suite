@@ -148,7 +148,7 @@ export const examples: Example[] = [
     setup: (entity: Entity) => {
       setComponent(entity, NameComponent, 'Image-Example')
       setComponent(entity, ImageComponent, {
-        source: config.client.fileServer + '/projects/ee-development-test-suite/assets/Images/dog3.png'
+        source: config.client.fileServer + '/projects/ee-development-test-suite/assets/Images/testImage.jpg'
       })
       setVisibleComponent(entity, true)
       getComponent(entity, TransformComponent).position.set(0, 2, 0)
