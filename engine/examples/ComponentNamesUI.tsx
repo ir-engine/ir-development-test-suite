@@ -14,10 +14,10 @@ const ComponentNamesUI: React.FC = (props) => {
   const examplesComponent = useComponent(parent.value, ExamplesComponent)
 
   useEffect(() => {
-    const currExample = examplesComponent.currExample.value
+    const currExample = examplesComponent.currExampleEntity.value
     if (!currExample) return
 
-    const children = getComponent(examplesComponent.currExample.value, EntityTreeComponent).children
+    const children = getComponent(currExample, EntityTreeComponent).children
     const entities = [currExample, ...children]
 
     const componentNamesSet = new Set<string>()
@@ -36,7 +36,7 @@ const ComponentNamesUI: React.FC = (props) => {
     names.set(componentNames)
 
     return () => {}
-  }, [examplesComponent.currExample])
+  }, [examplesComponent.currExampleEntity])
 
   return (
     <>
