@@ -1,7 +1,7 @@
 // @ts-ignore
 import styles from './ComponentNamesUI.css?inline'
 
-import ECS, { useComponent, useEntityContext } from '@etherealengine/ecs'
+import ECS, { getComponent, useComponent, useEntityContext } from '@etherealengine/ecs'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
@@ -17,12 +17,22 @@ const ComponentNamesUI: React.FC = (props) => {
     const currExample = examplesComponent.currExample.value
     if (!currExample) return
 
-    const components = ECS.getAllComponents(currExample)
-    const componentNames = components
-      .map((comp) => comp.name)
-      .filter(
-        (name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network', 'Resource'].some((val) => name.includes(val))
-      )
+    const children = getComponent(examplesComponent.currExample.value, EntityTreeComponent).children
+    const entities = [currExample, ...children]
+
+    const componentNamesSet = new Set<string>()
+    for (const entity of entities) {
+      const components = ECS.getAllComponents(entity)
+      components
+        .map((comp) => comp.name)
+        .forEach((name) => {
+          componentNamesSet.add(name)
+        })
+    }
+
+    const componentNames = [...componentNamesSet].filter(
+      (name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network', 'Resource'].some((val) => name.includes(val))
+    )
     names.set(componentNames)
 
     return () => {}

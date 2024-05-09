@@ -21,11 +21,14 @@ import { ImageComponent } from '@etherealengine/engine/src/scene/components/Imag
 import { MediaComponent } from '@etherealengine/engine/src/scene/components/MediaComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
+import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
+import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
 import { SplineHelperComponent } from '@etherealengine/engine/src/scene/components/debug/SplineHelperComponent'
+import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
@@ -43,6 +46,14 @@ type Example = {
   description: string
   setup: (entity: Entity) => void
   teardown?: (entity: Entity) => void
+}
+
+const setupEntity = (parent: Entity): Entity => {
+  const entity = createEntity()
+  setComponent(entity, UUIDComponent, generateEntityUUID())
+  setComponent(entity, TransformComponent)
+  setComponent(entity, EntityTreeComponent, { parentEntity: parent })
+  return entity
 }
 
 export const examples: Example[] = [
@@ -167,7 +178,16 @@ export const examples: Example[] = [
       setComponent(entity, SplineComponent)
       setComponent(entity, SplineHelperComponent, { layerMask: ObjectLayerMasks.Scene })
       setVisibleComponent(entity, true)
-      getComponent(entity, TransformComponent).position.set(0, 1, 0)
+      getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+
+      const childEntity = setupEntity(entity)
+      setComponent(childEntity, NameComponent, 'Spline-Follow-Example')
+      setComponent(childEntity, PrimitiveGeometryComponent, {
+        geometryType: GeometryTypeEnum.SphereGeometry,
+        geometryParams: { radius: 0.2, segments: 10 }
+      })
+      setVisibleComponent(childEntity, true)
+      setComponent(childEntity, SplineTrackComponent, { splineEntityUUID: getComponent(entity, UUIDComponent) })
     },
     teardown: (entity: Entity) => {
       console.log('Tearing down Spline Example')
@@ -265,10 +285,7 @@ export const ExamplesComponent = defineComponent({
       if (!loaded.value) return
 
       const example = examples[examplesComponent.currExampleIndex.value]
-      const exampleEntity = createEntity()
-      setComponent(exampleEntity, UUIDComponent, generateEntityUUID())
-      setComponent(exampleEntity, TransformComponent)
-      setComponent(exampleEntity, EntityTreeComponent, { parentEntity: entity })
+      const exampleEntity = setupEntity(entity)
       example.setup(exampleEntity)
       examplesComponent.currExample.set(exampleEntity)
 
