@@ -207,14 +207,18 @@ export const examples: Example[] = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
+      const particles = useOptionalComponent(entity, ParticleSystemComponent)
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Particle-Example')
         setComponent(entity, ParticleSystemComponent)
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
-        onLoad(entity)
       }, [])
+
+      useEffect(() => {
+        if (particles?.system.value) onLoad(entity)
+      }, [particles?.system])
 
       return null
     }
@@ -295,11 +299,23 @@ export const examples: Example[] = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
+      const model = useOptionalComponent(entity, ModelComponent)
 
       useEffect(() => {
         console.log('Creating Animation Example')
-        onLoad(entity)
+        setComponent(entity, NameComponent, 'Animation-Example')
+        setComponent(entity, ModelComponent, {
+          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/animations/rings.glb',
+          convertToVRM: true
+        })
+        setVisibleComponent(entity, true)
+        setComponent(entity, LoopAnimationComponent, { activeClipIndex: 0 })
+        getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
       }, [])
+
+      useEffect(() => {
+        if (model?.scene.value) onLoad(entity)
+      }, [model?.scene])
 
       return null
     }
