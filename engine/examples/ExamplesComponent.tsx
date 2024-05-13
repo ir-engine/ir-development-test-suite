@@ -14,10 +14,16 @@ import {
   setComponent,
   useComponent,
   useEntityContext,
-  useOptionalComponent
+  useOptionalComponent,
+  useQuery
 } from '@etherealengine/ecs'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
+import {
+  InteractableComponent,
+  XRUIVisibilityOverride
+} from '@etherealengine/engine/src/interaction/components/InteractableComponent'
 import { ImageComponent } from '@etherealengine/engine/src/scene/components/ImageComponent'
+import { LinkComponent } from '@etherealengine/engine/src/scene/components/LinkComponent'
 import { MediaComponent } from '@etherealengine/engine/src/scene/components/MediaComponent'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
@@ -27,10 +33,13 @@ import { SplineComponent } from '@etherealengine/engine/src/scene/components/Spl
 import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
 import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
 import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
+import { VolumetricComponent } from '@etherealengine/engine/src/scene/components/VolumetricComponent'
 import { SplineHelperComponent } from '@etherealengine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
 import { NO_PROXY } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
+import { FollowCameraComponent } from '@etherealengine/spatial/src/camera/components/FollowCameraComponent'
+import { CallbackComponent } from '@etherealengine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { ObjectLayerMasks } from '@etherealengine/spatial/src/renderer/constants/ObjectLayers'
@@ -302,7 +311,6 @@ export const examples: Example[] = [
       const model = useOptionalComponent(entity, ModelComponent)
 
       useEffect(() => {
-        console.log('Creating Animation Example')
         setComponent(entity, NameComponent, 'Animation-Example')
         setComponent(entity, ModelComponent, {
           src: config.client.fileServer + '/projects/ee-development-test-suite/assets/animations/rings.glb',
@@ -316,6 +324,68 @@ export const examples: Example[] = [
       useEffect(() => {
         if (model?.scene.value) onLoad(entity)
       }, [model?.scene])
+
+      return null
+    }
+  },
+  {
+    name: 'Links',
+    description: 'Add interactable links to your scene',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+      const callback = useOptionalComponent(entity, CallbackComponent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'Link-Example')
+        setComponent(entity, LinkComponent)
+      }, [])
+
+      useEffect(() => {
+        if (!callback?.value) return
+        setComponent(entity, InteractableComponent, {
+          label: 'Click me',
+          // clickInteract: true,
+          uiInteractable: true,
+          uiVisibilityOverride: XRUIVisibilityOverride.on,
+          activationDistance: 10000
+        })
+        setVisibleComponent(entity, true)
+        onLoad(entity)
+      }, [callback])
+
+      return null
+    }
+  },
+  {
+    name: 'UVOL',
+    description: 'Add volumetric models to your scene',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+      const modelEntity = useExampleEntity(entity)
+      const outfitEntity = useExampleEntity(entity)
+      const model = useOptionalComponent(modelEntity, VolumetricComponent)
+      const outfit = useOptionalComponent(outfitEntity, VolumetricComponent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'UVOL-Example')
+        setVisibleComponent(entity, true)
+
+        setComponent(modelEntity, NameComponent, 'Model-Example')
+        setComponent(modelEntity, VolumetricComponent, {
+          paths: ['https://resources-volumetric.etherealengine.com/alex_walk_performer.json']
+        })
+        setVisibleComponent(modelEntity, true)
+
+        setComponent(outfitEntity, NameComponent, 'Outfit-Example')
+        setComponent(outfitEntity, VolumetricComponent, {
+          paths: ['https://resources-volumetric.etherealengine.com/alex_walk_sundress_businessCasual.json']
+        })
+        setVisibleComponent(outfitEntity, true)
+
+        onLoad(entity)
+      }, [])
 
       return null
     }
@@ -344,10 +414,12 @@ export const ExamplesComponent = defineComponent({
     const examplesComponent = useComponent(entity, ExamplesComponent)
     const currentExample = useHookstate(examples[examplesComponent.currExampleIndex.value])
     const Reactor = currentExample.get(NO_PROXY).Reactor
+    const followCameraQuery = useQuery([FollowCameraComponent])
 
     useEffect(() => {
+      const y = examples.length * 0.25
       const selectExampleUI = createXRUI(ExampleSelectorUI, null, { interactable: true }, entity)
-      selectExampleUI.container.position.set(-2, 1.8, -1)
+      selectExampleUI.container.position.set(-2, y, -1)
 
       const componentNamesUIEntity = createEntity()
       setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
@@ -355,12 +427,19 @@ export const ExamplesComponent = defineComponent({
       setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
       setComponent(componentNamesUIEntity, SourceComponent, getComponent(entity, SourceComponent))
       const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
-      componentNamesUI.container.position.set(2, 1.8, -1)
+      componentNamesUI.container.position.set(2, y, -1)
 
       return () => {
         removeEntity(componentNamesUIEntity)
       }
     }, [])
+
+    useEffect(() => {
+      for (const followEntity of followCameraQuery) {
+        const followCameraComponent = getMutableComponent(followEntity, FollowCameraComponent)
+        followCameraComponent.zoomLevel.set(0.001)
+      }
+    }, [JSON.stringify(followCameraQuery)])
 
     useEffect(() => {
       currentExample.set(examples[examplesComponent.currExampleIndex.value])
