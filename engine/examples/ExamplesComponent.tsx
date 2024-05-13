@@ -460,9 +460,9 @@ export const ExamplesComponent = defineComponent({
     const followCameraQuery = useQuery([FollowCameraComponent])
 
     useEffect(() => {
-      const y = examples.length * 0.25
+      const y = (examples.length * 0.25) / 2
       const selectExampleUI = createXRUI(ExampleSelectorUI, null, { interactable: true }, entity)
-      selectExampleUI.container.position.set(-2, y, -1)
+      selectExampleUI.container.position.set(-2.4, y, -1)
 
       const componentNamesUIEntity = createEntity()
       setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
@@ -470,7 +470,7 @@ export const ExamplesComponent = defineComponent({
       setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
       setComponent(componentNamesUIEntity, SourceComponent, getComponent(entity, SourceComponent))
       const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
-      componentNamesUI.container.position.set(2, y, -1)
+      componentNamesUI.container.position.set(2.4, y, -1)
 
       return () => {
         removeEntity(componentNamesUIEntity)
