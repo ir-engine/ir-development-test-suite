@@ -28,6 +28,7 @@ import { MediaComponent } from '@etherealengine/engine/src/scene/components/Medi
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { SDFComponent } from '@etherealengine/engine/src/scene/components/SDFComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
@@ -268,6 +269,48 @@ export const examples: Example[] = [
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
         getComponent(entity, TransformComponent).scale.set(1.777, 1, 1)
+        onLoad(entity)
+      }, [])
+
+      return null
+    }
+  },
+  {
+    name: 'Geometry',
+    description: 'Add geometry to your scene',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+
+      useEffect(() => {
+        const geoTypes = Object.values(GeometryTypeEnum).filter(
+          (value) => typeof value === 'number'
+        ) as GeometryTypeEnum[]
+        const geoType = geoTypes[MathUtils.randInt(0, geoTypes.length)]
+        setComponent(entity, NameComponent, 'Geometry-Example')
+        setComponent(entity, PrimitiveGeometryComponent, {
+          geometryType: geoType
+        })
+        setVisibleComponent(entity, true)
+        getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
+        onLoad(entity)
+      }, [])
+
+      return null
+    }
+  },
+  {
+    name: 'SDF',
+    description: 'Add signed distance fields to your scene',
+    Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
+      const { parent, onLoad } = props
+      const entity = useExampleEntity(parent)
+
+      useEffect(() => {
+        setComponent(entity, NameComponent, 'SDF-Example')
+        setComponent(entity, SDFComponent)
+        setVisibleComponent(entity, true)
+        getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
         onLoad(entity)
       }, [])
 
