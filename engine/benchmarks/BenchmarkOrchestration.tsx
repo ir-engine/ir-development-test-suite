@@ -28,10 +28,10 @@ enum BenchmarkStage {
 }
 
 const benchmarkOrder = [
-  BenchmarkStage.IK,
-  BenchmarkStage.Avatar,
-  BenchmarkStage.Particles,
   BenchmarkStage.Physics,
+  BenchmarkStage.Particles,
+  BenchmarkStage.Avatar,
+  BenchmarkStage.IK,
   BenchmarkStage.Animation,
   BenchmarkStage.Rendering
 ]
@@ -49,12 +49,12 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
     benchmark: ParticlesBenchmark,
     systemUUIDs: [ParticleSystem]
   },
-  [BenchmarkStage.Animation]: null,
-  [BenchmarkStage.Rendering]: null,
   [BenchmarkStage.IK]: {
     benchmark: AvatarIKBenchmark,
     systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]
-  }
+  },
+  [BenchmarkStage.Animation]: null,
+  [BenchmarkStage.Rendering]: null
 }
 
 type BenchmarkData = Record<

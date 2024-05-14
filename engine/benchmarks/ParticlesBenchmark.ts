@@ -8,7 +8,6 @@ import {
   removeEntity,
   setComponent
 } from '@etherealengine/ecs'
-import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { TransformComponent } from '@etherealengine/spatial'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
@@ -16,19 +15,19 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 import { Group, MathUtils } from 'three'
-import { getSceneID } from './BenchmarkUtils'
 
 const objectsToCreate = 30
 const waitTimeBetween = 200
 const simulateTime = 3000
 
 export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () => void }): null => {
+  const { rootEntity, onComplete } = props
+
   useEffect(() => {
+    if (!rootEntity) return
+
     const entities = [] as Entity[]
     let createdObjects = 0
-
-    const sceneID = getSceneID()
-    const rootEntity = SceneState.getRootEntity(sceneID)
 
     const spawnObject = () => {
       createdObjects += 1
@@ -42,7 +41,7 @@ export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () =
         const obj3d = new Group()
         obj3d.entity = entity
         setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
-        setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
+        setComponent(entity, EntityTreeComponent, { parentEntity: props.rootEntity })
         setComponent(entity, Object3DComponent, obj3d)
         setComponent(entity, TransformComponent, { position })
         setComponent(entity, ParticleSystemComponent)
@@ -59,7 +58,7 @@ export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () =
     }
 
     spawnObject()
-  }, [])
+  }, [rootEntity])
 
   return null
 }

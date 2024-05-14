@@ -81,7 +81,7 @@ export const PhysicsBenchmark = (props: { rootEntity: Entity; onComplete: () => 
     }
 
     spawnObject()
-  }, [])
+  }, [rootEntity])
 
   return null
 }

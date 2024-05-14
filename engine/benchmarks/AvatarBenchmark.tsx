@@ -20,24 +20,22 @@ import {
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { AvatarColliderComponent } from '@etherealengine/engine/src/avatar/components/AvatarControllerComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
-import { AvatarIKTargetState } from '@etherealengine/engine/src/avatar/state/AvatarIKTargetState'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { dispatchAction, getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { dispatchAction, useHookstate } from '@etherealengine/hyperflux'
 import { NetworkObjectComponent } from '@etherealengine/network'
 import { TransformComponent } from '@etherealengine/spatial'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { EntityTreeComponent, destroyEntityTree } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
 import { useAvatars } from '../TestUtils'
 import { sleep } from './BenchmarkUtils'
 
 const avatarsToCreate = 10
-const teardownWaitTime = 500
-const benchmarkWaitTime = 2000
+const benchmarkWaitTime = 3500
 const validAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
 
 type AvatarSetupProps = {
@@ -121,6 +119,7 @@ const AvatarSetupReactor = (props: {
 
     return () => {
       removeEntity(entity)
+      destroyEntityTree(entity)
     }
   }, [])
 
@@ -161,7 +160,7 @@ const spawnAvatar = (
   )
 }
 
-const createIkTargetsForAvatar = (userID: string): Entity[] => {
+const createIkTargetsForAvatar = (parentUUID: EntityUUID, userID: string): Entity[] => {
   const headUUID = (userID + ikTargets.head) as EntityUUID
   const leftHandUUID = (userID + ikTargets.leftHand) as EntityUUID
   const rightHandUUID = (userID + ikTargets.rightHand) as EntityUUID
@@ -175,15 +174,19 @@ const createIkTargetsForAvatar = (userID: string): Entity[] => {
     entities.push(entity)
   })
 
-  const avatarIKTargetState = getMutableState(AvatarIKTargetState)
-
-  avatarIKTargetState.merge({
-    [headUUID]: { name: 'head' },
-    [leftHandUUID]: { name: 'leftHand' },
-    [rightHandUUID]: { name: 'rightHand' },
-    [leftFootUUID]: { name: 'leftFoot' },
-    [rightFootUUID]: { name: 'rightFoot' }
-  })
+  dispatchAction(AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: headUUID, name: 'head', blendWeight: 1 }))
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: leftHandUUID, name: 'leftHand', blendWeight: 1 })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: rightHandUUID, name: 'rightHand', blendWeight: 1 })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: leftFootUUID, name: 'leftFoot', blendWeight: 1 })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: rightFootUUID, name: 'rightFoot', blendWeight: 1 })
+  )
 
   return entities
 }
@@ -214,6 +217,10 @@ export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () =>
     }
     childProps.set(props)
   }, [rootEntity, avatars])
+
+  useEffect(() => {
+    if (completedCount.value == avatarsToCreate) sleep(benchmarkWaitTime).then(onComplete)
+  }, [completedCount.value == avatarsToCreate])
 
   return (
     <>
@@ -264,10 +271,15 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarRigComponent)
 
     spawnAvatar(rootUUID.value, uuid, src, { position, rotation: new Quaternion() })
-    const targetEntities = createIkTargetsForAvatar(uuid)
+    const targetEntities = createIkTargetsForAvatar(rootUUID.value, uuid)
 
     return () => {
+      for (const targetEntity of targetEntities) {
+        removeEntity(targetEntity)
+        destroyEntityTree(targetEntity)
+      }
       removeEntity(entity)
+      destroyEntityTree(entity)
     }
   }, [])
 
