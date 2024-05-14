@@ -1,4 +1,4 @@
-import { PresentationSystemGroup, SystemUUID, defineSystem } from '@etherealengine/ecs'
+import { Entity, PresentationSystemGroup, SystemUUID, defineSystem, useQuery } from '@etherealengine/ecs'
 import { ParticleSystem } from '@etherealengine/engine'
 import {
   AvatarAnimationSystem,
@@ -7,6 +7,7 @@ import {
 import { defineState, getState, useMutableState } from '@etherealengine/hyperflux'
 import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
 import React, { useEffect } from 'react'
+import { BenchmarkComponent } from '../Register'
 import { AvatarBenchmark, AvatarIKBenchmark } from './AvatarBenchmark'
 import { ParticlesBenchmark } from './ParticlesBenchmark'
 import { PhysicsBenchmark } from './PhysicsBenchmark'
@@ -28,21 +29,21 @@ enum BenchmarkStage {
 
 const benchmarkOrder = [
   BenchmarkStage.IK,
-  BenchmarkStage.Particles,
   BenchmarkStage.Avatar,
+  BenchmarkStage.Particles,
   BenchmarkStage.Physics,
   BenchmarkStage.Animation,
   BenchmarkStage.Rendering
 ]
 
 const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
-  [BenchmarkStage.Physics]: {
-    benchmark: PhysicsBenchmark,
-    systemUUIDs: [PhysicsSystem, PhysicsPreTransformSystem]
-  },
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
     systemUUIDs: [SkinnedMeshTransformSystem]
+  },
+  [BenchmarkStage.Physics]: {
+    benchmark: PhysicsBenchmark,
+    systemUUIDs: [PhysicsSystem, PhysicsPreTransformSystem]
   },
   [BenchmarkStage.Particles]: {
     benchmark: ParticlesBenchmark,
@@ -91,7 +92,7 @@ const exportBenchmarks = () => {
   exportElement.remove()
 }
 
-const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () => void] => {
+const useBenchmark = (): [React.FC<{ rootEntity: Entity; onComplete: () => void }> | undefined, () => void] => {
   const benchmarkState = useMutableState(BenchmarkState)
   const benchmarkStage = benchmarkOrder[benchmarkState.stageIndex.value]
   const benchmark = benchmarks[benchmarkStage]
@@ -137,8 +138,9 @@ const useBenchmark = (): [React.FC<{ onComplete: () => void }> | undefined, () =
 }
 
 const reactor = () => {
+  const entity = useQuery([BenchmarkComponent])[0]
   const [Benchmark, onComplete] = useBenchmark()
-  return <>{Benchmark && <Benchmark onComplete={onComplete} />}</>
+  return <>{Benchmark && <Benchmark rootEntity={entity} onComplete={onComplete} />}</>
 }
 
 export default defineSystem({

@@ -1,7 +1,5 @@
 import config from '@etherealengine/common/src/config'
-import { avatarPath } from '@etherealengine/common/src/schema.type.module'
 import {
-  Engine,
   Entity,
   UUIDComponent,
   UndefinedEntity,
@@ -49,6 +47,7 @@ import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRU
 import { useHookstate } from '@hookstate/core'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
+import { useAvatars } from '../TestUtils'
 import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'
 
@@ -76,28 +75,6 @@ const useExampleEntity = (parent: Entity): Entity => {
   }, [])
 
   return exampleEntity.value
-}
-
-const useAvatars = () => {
-  const avatars = useHookstate([] as string[])
-  useEffect(() => {
-    let loading = true
-    Engine.instance.api
-      .service(avatarPath)
-      .find({})
-      .then((val) => {
-        const avatarSrcs = val.data.map((item) => {
-          return item.modelResource!.url
-        })
-        if (loading) avatars.set(avatarSrcs)
-      })
-
-    return () => {
-      loading = false
-    }
-  }, [])
-
-  return avatars
 }
 
 export const examples: Example[] = [

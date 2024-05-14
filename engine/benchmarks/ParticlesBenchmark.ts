@@ -22,7 +22,7 @@ const objectsToCreate = 30
 const waitTimeBetween = 200
 const simulateTime = 3000
 
-export const ParticlesBenchmark = (props: { onComplete: () => void }): null => {
+export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () => void }): null => {
   useEffect(() => {
     const entities = [] as Entity[]
     let createdObjects = 0

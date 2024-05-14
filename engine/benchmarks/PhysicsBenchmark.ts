@@ -8,7 +8,6 @@ import {
   removeEntity,
   setComponent
 } from '@etherealengine/ecs'
-import { SceneState } from '@etherealengine/engine/src/scene/SceneState'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
 import { TransformComponent } from '@etherealengine/spatial'
@@ -19,19 +18,19 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 import { Group, MathUtils, Vector3 } from 'three'
-import { getSceneID } from './BenchmarkUtils'
 
 const objectsToCreate = 30
 const waitTimeBetween = 200
 const simulateTime = 3000
 
-export const PhysicsBenchmark = (props: { onComplete: () => void }): null => {
+export const PhysicsBenchmark = (props: { rootEntity: Entity; onComplete: () => void }): null => {
+  const { rootEntity } = props
+
   useEffect(() => {
+    if (!rootEntity) return
+
     const entities = [] as Entity[]
     let createdObjects = 0
-
-    const sceneID = getSceneID()
-    const rootEntity = SceneState.getRootEntity(sceneID)
     const scale = new Vector3(0.5, 0.5, 0.5)
 
     const spawnObject = () => {
