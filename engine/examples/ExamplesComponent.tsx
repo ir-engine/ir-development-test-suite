@@ -118,7 +118,7 @@ export const examples: Example[] = [
         const avatarArr = avatars.value
         if (!avatarArr.length) return
 
-        const avatarSrc = avatars.value[MathUtils.randInt(0, avatars.length)]
+        const avatarSrc = avatarArr[MathUtils.randInt(0, avatarArr.length)]
         setComponent(entity, NameComponent, 'Avatar-Example')
         setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
         setVisibleComponent(entity, true)

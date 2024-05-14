@@ -1,26 +1,26 @@
 import { avatarPath } from '@etherealengine/common/src/schema.type.module'
-import { Engine } from '@etherealengine/ecs'
 import { useHookstate } from '@etherealengine/hyperflux'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { useEffect } from 'react'
 
 export const useAvatars = () => {
-  const avatars = useHookstate([] as string[])
-  useEffect(() => {
-    let loading = true
-    Engine.instance.api
-      .service(avatarPath)
-      .find({})
-      .then((val) => {
-        const avatarSrcs = val.data.map((item) => {
-          return item.modelResource!.url
-        })
-        if (loading) avatars.set(avatarSrcs)
-      })
-
-    return () => {
-      loading = false
+  const avatars = useHookstate<string[]>([])
+  const avatarQuery = useFind(avatarPath, {
+    query: {
+      $skip: 0,
+      $limit: 100
     }
-  }, [])
+  })
+
+  useEffect(() => {
+    if (!avatarQuery.data.length || avatarQuery.status != 'success') return
+
+    avatars.set(
+      avatarQuery.data.map((item) => {
+        return item.modelResource!.url
+      })
+    )
+  }, [avatarQuery.status])
 
   return avatars
 }

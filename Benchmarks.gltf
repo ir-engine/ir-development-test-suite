@@ -1,7 +1,7 @@
 {
   "asset": {
     "version": "2.0",
-    "generator": "iR Engine"
+    "generator": "THREE.GLTFExporter"
   },
   "scenes": [
     {
@@ -22,7 +22,7 @@
     {
       "name": "Settings",
       "extensions": {
-        "EE_uuid": "d720bd8a-5fd8-4b81-b516-5dbc0b267b48",
+        "EE_uuid": "0d5a20e1-abe2-455e-9963-d5e1e19fca19",
         "EE_envmapbake": {
           "bakePosition": {
             "x": 0,
@@ -68,7 +68,6 @@
           "maxPhi": 85
         },
         "EE_postprocessing": {
-          "enabled": false,
           "effects": {
             "SSAOEffect": {
               "isActive": false,
@@ -190,7 +189,8 @@
               "jitter": 1,
               "samples": 16
             }
-          }
+          },
+          "enabled": false
         },
         "EE_media_settings": {
           "immersiveMedia": false,
@@ -203,46 +203,25 @@
           "coneOuterGain": 0
         },
         "EE_render_settings": {
+          "primaryLight": "cb045cfd-8daf-4a2b-b764-35625be54a11",
           "csm": true,
+          "cascades": 5,
           "toneMapping": 1,
           "toneMappingExposure": 0.8,
-          "shadowMapType": 2,
-          "primaryLight": "cb045cfd-8daf-4a2b-b764-35625be54a11"
+          "shadowMapType": 2
         },
         "EE_scene_settings": {
           "thumbnailURL": "https://localhost:8642/projects/default-project/default.thumbnail.jpg",
           "loadingScreenURL": "https://localhost:8642/projects/default-project/default.loadingscreen.ktx2",
           "primaryColor": "#38620D",
           "backgroundColor": "rgb(214, 214, 211)",
-          "alternativeColor": "#376312"
+          "alternativeColor": "#376312",
+          "sceneKillHeight": -10
         },
         "EE_visible": true
-      },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      }
     },
     {
-      "name": "scene preview camera",
-      "extensions": {
-        "EE_uuid": "bb362197-f14d-4da7-9c3c-1ed834386423",
-        "EE_scene_preview_camera": {}
-      },
       "matrix": [
         1,
         0,
@@ -260,13 +239,18 @@
         2.5,
         5,
         1
-      ]
+      ],
+      "name": "scene preview camera",
+      "extensions": {
+        "EE_uuid": "bb362197-f14d-4da7-9c3c-1ed834386423",
+        "EE_scene_preview_camera": {}
+      }
     },
     {
       "name": "EE_skybox",
       "extensions": {
         "EE_uuid": "e7d6bfb1-6390-4a8b-b744-da83b059c2d3",
-        "EE_visible": {},
+        "EE_visible": true,
         "EE_skybox": {
           "backgroundColor": 0,
           "equirectangularPath": "",
@@ -282,68 +266,49 @@
             "azimuth": 0.16666666666666666
           }
         }
-      },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      }
     },
     {
       "name": "ground plane",
       "extensions": {
         "EE_uuid": "38793f94-0b92-4ea1-af7b-5ec0e117628d",
-        "EE_visible": {},
+        "EE_visible": true,
         "EE_ground_plane": {
-          "color": 8311585,
+          "color": 5799734,
           "visible": true
         },
         "EE_shadow": {
           "cast": false,
           "receive": true
+        },
+        "EE_rigidbody": {
+          "type": "fixed",
+          "ccd": false,
+          "allowRolling": true,
+          "enabledRotations": [
+            true,
+            true,
+            true
+          ],
+          "canSleep": true,
+          "gravityScale": 1
+        },
+        "EE_collider": {
+          "shape": "plane",
+          "mass": 1,
+          "massCenter": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "friction": 0.5,
+          "restitution": 0.5,
+          "collisionLayer": 4,
+          "collisionMask": 3
         }
-      },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      }
     },
     {
-      "name": "spawn point",
-      "extensions": {
-        "EE_uuid": "3e8a430e-9dcf-440e-990c-44ecb8051762",
-        "EE_visible": {},
-        "EE_spawn_point": {
-          "permissionedUsers": []
-        }
-      },
       "matrix": [
         -1,
         1.0106430996148606e-15,
@@ -361,52 +326,29 @@
         0,
         0,
         1
-      ]
+      ],
+      "name": "spawn point",
+      "extensions": {
+        "EE_uuid": "3e8a430e-9dcf-440e-990c-44ecb8051762",
+        "EE_visible": true,
+        "EE_spawn_point": {
+          "permissionedUsers": []
+        }
+      }
     },
     {
       "name": "hemisphere light",
       "extensions": {
         "EE_uuid": "f77dc4c6-c9a6-433d-8102-4a9a8e1c0ce9",
-        "EE_visible": {},
+        "EE_visible": true,
         "EE_hemisphere_light": {
           "skyColor": 16777215,
           "groundColor": 16777215,
           "intensity": 1
         }
-      },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      }
     },
     {
-      "name": "directional light",
-      "extensions": {
-        "EE_uuid": "cb045cfd-8daf-4a2b-b764-35625be54a11",
-        "EE_directional_light": {
-          "color": 16777215,
-          "intensity": 1,
-          "cameraFar": 200,
-          "castShadow": true,
-          "shadowBias": -0.00001,
-          "shadowRadius": 1
-        },
-        "EE_visible": true
-      },
       "matrix": [
         0.8201518642540717,
         0.2860729507918133,
@@ -424,34 +366,30 @@
         10,
         0,
         1
-      ]
+      ],
+      "name": "directional light",
+      "extensions": {
+        "EE_uuid": "cb045cfd-8daf-4a2b-b764-35625be54a11",
+        "EE_directional_light": {
+          "color": 16777215,
+          "intensity": 1,
+          "cameraFar": 200,
+          "castShadow": true,
+          "shadowBias": -0.00001,
+          "shadowRadius": 1,
+          "helper": null
+        },
+        "EE_visible": true
+      }
     },
     {
-      "name": "Profiling",
+      "name": "benchmarks",
       "extensions": {
-        "EE_uuid": "5fe96c3f-58e2-482a-a5c0-2367ac23419b",
-        "eepro.eetest.ProfilingComponent": null,
-        "eepro.eetest.BenchmarkComponent": null,
-        "EE_visible": true
-      },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+        "EE_uuid": "d97b8c42-24e0-4728-9ab6-53dff4eff009",
+        "EE_visible": true,
+        "eepro.eetest.BenchmarkComponent": {},
+        "eepro.eetest.ProfilingComponent": {}
+      }
     }
   ],
   "extensionsUsed": [
@@ -464,14 +402,16 @@
     "EE_render_settings",
     "EE_scene_settings",
     "EE_visible",
+    "EE_ecs",
     "EE_scene_preview_camera",
     "EE_skybox",
+    "EE_resourceId",
     "EE_ground_plane",
     "EE_shadow",
+    "EE_rigidbody",
+    "EE_collider",
     "EE_spawn_point",
     "EE_hemisphere_light",
-    "EE_directional_light",
-    "eepro.eetest.ProfilingComponent",
-    "eepro.eetest.BenchmarkComponent"
+    "EE_directional_light"
   ]
 }
