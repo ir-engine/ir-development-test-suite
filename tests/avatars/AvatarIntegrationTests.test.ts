@@ -16,7 +16,6 @@ import packageJson from '../../package.json'
 
 import '@etherealengine/engine/src/EngineModule'
 
-overrideFileLoaderLoad()
 
 // for easier debug
 console.warn = () => {}
@@ -52,6 +51,7 @@ describe.skip('avatarFunctions Integration', async () => {
   // beforeEach(async () => {
   //   createEngine()
   //   createMockNetwork()
+  //   overrideFileLoaderLoad()
   //   Engine.instance.userID = NetworkState.worldNetwork.hostId
   //   getMutableState(EngineState).publicPath.set('')
   //   await Physics.load()
@@ -59,6 +59,7 @@ describe.skip('avatarFunctions Integration', async () => {
   // })
 
   // afterEach(() => {
+  // restoreFileLoaderLoad()
   //   return destroyEngine()
   // })
 
