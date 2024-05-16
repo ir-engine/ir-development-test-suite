@@ -300,6 +300,7 @@ export const examples: Example[] = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
+      const childEntity = useExampleEntity(entity)
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Spline-Example')
@@ -308,7 +309,6 @@ export const examples: Example[] = [
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 1.5, 0)
 
-        const childEntity = setupEntity(entity)
         setComponent(childEntity, NameComponent, 'Spline-Follow-Example')
         setComponent(childEntity, PrimitiveGeometryComponent, {
           geometryType: GeometryTypeEnum.SphereGeometry,
