@@ -1,6 +1,8 @@
-import { Quaternion } from 'three'
-
-import { EntityUUID } from '@etherealengine/ecs'
+import { getComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { ECSState } from '@etherealengine/ecs/src/ECSState'
+import { defineQuery } from '@etherealengine/ecs/src/QueryFunctions'
+import { defineSystem } from '@etherealengine/ecs/src/SystemFunctions'
+import { PresentationSystemGroup } from '@etherealengine/ecs/src/SystemGroups'
 import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
@@ -9,19 +11,13 @@ import {
   leftControllerOffset,
   rightControllerOffset
 } from '@etherealengine/engine/src/avatar/functions/applyInputSourcePoseToIKTargets'
-import { Q_Y_180, V_010, V_100 } from '@etherealengine/spatial/src/common/constants/MathConstants'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { getComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { defineQuery } from '@etherealengine/ecs/src/QueryFunctions'
-import { defineSystem } from '@etherealengine/ecs/src/SystemFunctions'
-import { PresentationSystemGroup } from '@etherealengine/ecs/src/SystemGroups'
-import { NetworkObjectComponent } from '@etherealengine/network'
-import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
-import { UUIDComponent } from '@etherealengine/ecs'
-import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { getState } from '@etherealengine/hyperflux'
-import { ECSState } from '@etherealengine/ecs/src/ECSState'
+import { NetworkObjectComponent } from '@etherealengine/network'
+import { Q_Y_180 } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { lerp } from '@etherealengine/spatial/src/common/functions/MathLerpFunctions'
+import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
+import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
+import { Quaternion } from 'three'
 
 const q = new Quaternion()
 
@@ -44,7 +40,11 @@ const execute = () => {
     const ikTargetLeftFoot = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.leftFoot)
     const ikTargetRightFoot = AvatarIKTargetComponent.getTargetEntity(ownerID, ikTargets.rightFoot)
 
-    const strength = lerp(AvatarIKTargetComponent.blendWeight[headTargetEntity], enabled ? 1 : 0, getState(ECSState).deltaSeconds)
+    const strength = lerp(
+      AvatarIKTargetComponent.blendWeight[headTargetEntity],
+      enabled ? 1 : 0,
+      getState(ECSState).deltaSeconds
+    )
     if (headTargetEntity) AvatarIKTargetComponent.blendWeight[headTargetEntity] = strength
     if (ikTargetLeftHand) AvatarIKTargetComponent.blendWeight[ikTargetLeftHand] = strength
     if (ikTargetRightHand) AvatarIKTargetComponent.blendWeight[ikTargetRightHand] = strength
@@ -90,7 +90,6 @@ const execute = () => {
         .applyQuaternion(transform.rotation)
         .add(transform.position)
       leftFootTransform.rotation.copy(transform.rotation)
-
     }
     if (ikTargetRightFoot) {
       const rightFootTransform = getComponent(ikTargetRightFoot, TransformComponent)

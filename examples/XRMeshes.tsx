@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
+import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 
 import { setComponent, useComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { useEntityContext } from '@etherealengine/ecs/src/EntityFunctions'
@@ -21,7 +21,7 @@ export const DetectedPlanes = () => {
 
   useEffect(() => {
     if (!xrPlane.geometry.value) return
-    const transparentMesh = new Mesh(xrPlane.geometry.value, normalMaterial)
+    const transparentMesh = new Mesh(xrPlane.geometry.value as BufferGeometry, normalMaterial)
     addObjectToGroup(entity, transparentMesh)
     setComponent(
       entity,
@@ -43,7 +43,7 @@ export const DetectedMeshes = () => {
 
   useEffect(() => {
     if (!xrmesh.geometry.value) return
-    const outlineMesh = new Mesh(xrmesh.geometry.value, wireframeMaterial)
+    const outlineMesh = new Mesh(xrmesh.geometry.value as BufferGeometry, wireframeMaterial)
     addObjectToGroup(entity, outlineMesh)
     setComponent(entity, NameComponent, 'Plane ' + (xrmesh.mesh.value.semanticLabel ?? entity))
     return () => {
