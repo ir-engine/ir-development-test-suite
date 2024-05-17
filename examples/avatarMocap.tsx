@@ -1,21 +1,19 @@
-import React, { useEffect } from 'react'
-
-import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
-
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { AvatarType, avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
+import { UUIDComponent } from '@etherealengine/ecs'
 import { useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
+import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import { DataChannelRegistryState, NetworkState } from '@etherealengine/network'
-import { UUIDComponent } from '@etherealengine/ecs'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { encode } from 'msgpackr'
+import React, { useEffect } from 'react'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
 
@@ -164,7 +162,7 @@ export default function AvatarMocap() {
 
   useEffect(() => {
     if (!network?.ready.value || !avatarList.data.length || !selectedAvatar.value) return
-    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value.id, -1)
+    const userid = loadNetworkAvatar(selectedAvatar.value as AvatarType, 0, selectedAvatar.value.id, -1)
     userID.set(userid)
     return () => {
       removeEntity(UUIDComponent.entitiesByUUIDState[userid + '_avatar'].value)

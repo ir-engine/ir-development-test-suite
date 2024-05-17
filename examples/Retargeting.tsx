@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
+import { AnimationClip, Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, Scene, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
 
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@etherealengine/common/src/constants/AvatarConstants'
 import { Engine } from '@etherealengine/ecs/src/Engine'
@@ -155,7 +155,7 @@ const RetargetingDND = () => {
   }
 
   const onSave = async () => {
-    const scene = assetObject.value?.scene
+    const scene = assetObject.value?.scene as Scene | undefined
     if (!scene) return
 
     const exporter = createGLTFExporter()
@@ -173,7 +173,7 @@ const RetargetingDND = () => {
           binary: !isGLTF,
           embedImages: !isGLTF,
           includeCustomExtensions: true,
-          animations: assetObject.get(NO_PROXY)!.animations // this doesnt work for some reason
+          animations: assetObject.get(NO_PROXY)!.animations as AnimationClip[] // this doesnt work for some reason
         }
       )
     })
