@@ -1,0 +1,1399 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "iR Engine"
+  },
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ]
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "Settings",
+      "extensions": {
+        "EE_uuid": "c815738c-4e7b-4c56-aa24-f1b4b468fd77",
+        "EE_envmapbake": {
+          "bakePosition": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bakePositionOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "bakeScale": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "bakeType": "Baked",
+          "resolution": 2048,
+          "refreshMode": "OnAwake",
+          "envMapOrigin": "https://192.168.0.16:8642/projects/default-project/default.envmap.ktx2",
+          "boxProjection": true
+        },
+        "EE_fog": {
+          "type": "linear",
+          "color": "#FFFFFF",
+          "density": 0.005,
+          "near": 1,
+          "far": 1000,
+          "timeScale": 1,
+          "height": 0.05
+        },
+        "EE_camera_settings": {
+          "fov": 50,
+          "cameraNearClip": 0.1,
+          "cameraFarClip": 500,
+          "projectionType": 1,
+          "minCameraDistance": 1,
+          "maxCameraDistance": 50,
+          "startCameraDistance": 3,
+          "cameraMode": 5,
+          "cameraModeDefault": 2,
+          "minPhi": -70,
+          "maxPhi": 85
+        },
+        "EE_postprocessing": {
+          "enabled": false,
+          "effects": {
+            "SSAOEffect": {
+              "isActive": false,
+              "blendFunction": 21,
+              "distanceScaling": true,
+              "depthAwareUpsampling": true,
+              "samples": 16,
+              "rings": 7,
+              "distanceThreshold": 0.125,
+              "distanceFalloff": 0.02,
+              "minRadiusScale": 1,
+              "bias": 0.25,
+              "radius": 0.01,
+              "intensity": 2,
+              "fade": 0.05
+            },
+            "SSREffect": {
+              "isActive": false,
+              "distance": 10,
+              "thickness": 10,
+              "autoThickness": false,
+              "maxRoughness": 1,
+              "blend": 0.9,
+              "denoiseIterations": 1,
+              "denoiseKernel": 2,
+              "denoiseDiffuse": 10,
+              "denoiseSpecular": 10,
+              "depthPhi": 2,
+              "normalPhi": 50,
+              "roughnessPhi": 1,
+              "envBlur": 0.5,
+              "importanceSampling": true,
+              "directLightMultiplier": 1,
+              "steps": 20,
+              "refineSteps": 5,
+              "spp": 1,
+              "resolutionScale": 1,
+              "missedRays": false
+            },
+            "DepthOfFieldEffect": {
+              "isActive": false,
+              "blendFunction": 23,
+              "focusDistance": 0.02,
+              "focalLength": 0.5,
+              "bokehScale": 1
+            },
+            "BloomEffect": {
+              "isActive": true,
+              "blendFunction": 28,
+              "kernelSize": 2,
+              "luminanceThreshold": 1,
+              "luminanceSmoothing": 0.1,
+              "intensity": 0.2
+            },
+            "ToneMappingEffect": {
+              "isActive": false,
+              "blendFunction": 23,
+              "adaptive": true,
+              "resolution": 512,
+              "middleGrey": 0.6,
+              "maxLuminance": 32,
+              "averageLuminance": 1,
+              "adaptationRate": 2
+            },
+            "BrightnessContrastEffect": {
+              "isActive": false,
+              "brightness": 0.05,
+              "contrast": 0.1
+            },
+            "HueSaturationEffect": {
+              "isActive": false,
+              "hue": 0,
+              "saturation": -0.15
+            },
+            "ColorDepthEffect": {
+              "isActive": false,
+              "bits": 16
+            },
+            "LinearTosRGBEffect": {
+              "isActive": false
+            },
+            "SSGIEffect": {
+              "isActive": false,
+              "distance": 10,
+              "thickness": 10,
+              "autoThickness": false,
+              "maxRoughness": 1,
+              "blend": 0.9,
+              "denoiseIterations": 1,
+              "denoiseKernel": 2,
+              "denoiseDiffuse": 10,
+              "denoiseSpecular": 10,
+              "depthPhi": 2,
+              "normalPhi": 50,
+              "roughnessPhi": 1,
+              "envBlur": 0.5,
+              "importanceSampling": true,
+              "directLightMultiplier": 1,
+              "steps": 20,
+              "refineSteps": 5,
+              "spp": 1,
+              "resolutionScale": 1,
+              "missedRays": false
+            },
+            "TRAAEffect": {
+              "isActive": false,
+              "blend": 0.8,
+              "constantBlend": true,
+              "dilation": true,
+              "blockySampling": false,
+              "logTransform": false,
+              "depthDistance": 10,
+              "worldDistance": 5,
+              "neighborhoodClamping": true
+            },
+            "MotionBlurEffect": {
+              "isActive": false,
+              "intensity": 1,
+              "jitter": 1,
+              "samples": 16
+            }
+          }
+        },
+        "EE_media_settings": {
+          "immersiveMedia": false,
+          "refDistance": 20,
+          "rolloffFactor": 1,
+          "maxDistance": 10000,
+          "distanceModel": "linear",
+          "coneInnerAngle": 360,
+          "coneOuterAngle": 0,
+          "coneOuterGain": 0
+        },
+        "EE_render_settings": {
+          "csm": true,
+          "toneMapping": 1,
+          "toneMappingExposure": 0.8,
+          "shadowMapType": 2,
+          "primaryLight": "cb045cfd-8daf-4a2b-b764-35625be54a11"
+        },
+        "EE_visible": true
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "scene preview camera",
+      "extensions": {
+        "EE_uuid": "bb362197-f14d-4da7-9c3c-1ed834386423",
+        "EE_scene_preview_camera": {}
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2.5,
+        5,
+        1
+      ]
+    },
+    {
+      "name": "EE_skybox",
+      "extensions": {
+        "EE_uuid": "e7d6bfb1-6390-4a8b-b744-da83b059c2d3",
+        "EE_visible": true,
+        "EE_skybox": {
+          "backgroundColor": 0,
+          "equirectangularPath": "",
+          "cubemapPath": "https://192.168.0.16:8642/projects/default-project/assets/skyboxsun25deg/",
+          "backgroundType": 1,
+          "skyboxProps": {
+            "turbidity": 10,
+            "rayleigh": 1,
+            "luminance": 1,
+            "mieCoefficient": 0.004999999999999893,
+            "mieDirectionalG": 0.99,
+            "inclination": 0.10471975511965978,
+            "azimuth": 0.16666666666666666
+          }
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "ground plane",
+      "extensions": {
+        "EE_uuid": "38793f94-0b92-4ea1-af7b-5ec0e117628d",
+        "EE_visible": true,
+        "EE_ground_plane": {
+          "color": 8311585,
+          "visible": true
+        },
+        "EE_shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "spawn point",
+      "extensions": {
+        "EE_uuid": "3e8a430e-9dcf-440e-990c-44ecb8051762",
+        "EE_visible": true,
+        "EE_spawn_point": {
+          "permissionedUsers": []
+        }
+      },
+      "matrix": [
+        -1,
+        1.0106430996148606e-15,
+        -1.224646852585167e-16,
+        0,
+        1.0106430996148606e-15,
+        1,
+        1.2246467991473547e-16,
+        0,
+        1.2246468525851686e-16,
+        1.2246467991473532e-16,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "hemisphere light",
+      "extensions": {
+        "EE_uuid": "f77dc4c6-c9a6-433d-8102-4a9a8e1c0ce9",
+        "EE_visible": true,
+        "EE_hemisphere_light": {
+          "skyColor": 16777215,
+          "groundColor": 16777215,
+          "intensity": 1
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "directional light",
+      "extensions": {
+        "EE_uuid": "cb045cfd-8daf-4a2b-b764-35625be54a11",
+        "EE_visible": true,
+        "EE_directional_light": {
+          "color": 16777215,
+          "intensity": 1,
+          "cameraFar": 200,
+          "castShadow": true,
+          "shadowBias": -0.00001,
+          "shadowRadius": 1
+        }
+      },
+      "matrix": [
+        0.8201518642540717,
+        0.2860729507918133,
+        -0.49549287218469207,
+        0,
+        -2.135677384940138e-9,
+        0.8660253995220991,
+        0.5000000073825887,
+        0,
+        0.5721458901019658,
+        -0.41007593712366674,
+        0.7102723465203864,
+        0,
+        0,
+        10,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "EE_variant",
+      "extensions": {
+        "EE_uuid": "b62536da-bbf2-4c83-aaef-9a8cd59d85e4",
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+          "generateBVH": true,
+          "avoidCameraOcclusion": false
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_visible": true,
+        "EE_variant": {
+          "levels": [
+            {
+              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
+              "metadata": {
+                "minDistance": 0,
+                "maxDistance": 5
+              }
+            },
+            {
+              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
+              "metadata": {
+                "minDistance": 5,
+                "maxDistance": 10
+              }
+            },
+            {
+              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+              "metadata": {
+                "minDistance": 10,
+                "maxDistance": 15
+              }
+            }
+          ],
+          "heuristic": "DISTANCE"
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Dynamic Load Distance",
+      "extensions": {
+        "EE_uuid": "60a15eb3-1ae8-44a8-8952-ea1f67fa8083",
+        "EE_dynamic_load": {
+          "mode": "distance",
+          "distance": 5
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -10,
+        0,
+        -10,
+        1
+      ],
+      "children": [
+        9
+      ]
+    },
+    {
+      "name": "Apartment",
+      "extensions": {
+        "EE_uuid": "60a15eb3-1ae8-44a8-8952-ea1f67fa8084",
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/default-project/assets/Skybase.glb",
+          "generateBVH": true,
+          "avoidCameraOcclusion": false
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_visible": true
+      },
+      "matrix": [
+        0.05,
+        0,
+        0,
+        0,
+        0,
+        0.05,
+        0,
+        0,
+        0,
+        0,
+        0.05,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Dynamic Load Volume Target",
+      "extensions": {
+        "EE_uuid": "fcbe4641-e0bb-4435-b30d-13ae64690b30",
+        "EE_dynamic_load": {
+          "mode": "trigger",
+          "distance": 20
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        10,
+        0,
+        10,
+        1
+      ],
+      "children": [
+        12
+      ]
+    },
+    {
+      "name": "Dynamic Load Volume Trigger",
+      "extensions": {
+        "EE_uuid": "fcbe4641-e0bb-4435-b30d-13ae64690b31",
+        "EE_rigidbody": {
+          "type": "fixed"
+        },
+        "EE_collider": {
+          "shape": 1,
+          "collisionLayer": 1,
+          "collisionMask": 7,
+          "restitution": 0.5
+        },
+        "EE_trigger": {
+          "triggers": [
+            {
+              "onEnter": "doLoad",
+              "onExit": "doUnload",
+              "target": "fcbe4641-e0bb-4435-b30d-13ae64690b30"
+            }
+          ]
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        10,
+        0,
+        10,
+        1
+      ]
+    },
+    {
+      "name": "EE_video",
+      "extensions": {
+        "EE_uuid": "30cc02ea-480c-4d30-a796-3e8975e4fa82",
+        "EE_visible": true,
+        "EE_media": {
+          "controls": true,
+          "autoplay": true,
+          "resources": [
+            "https://192.168.0.16:8642/projects/default-project/assets/SampleVideo.mp4"
+          ],
+          "volume": 1,
+          "synchronize": true,
+          "playMode": "loop",
+          "isMusic": false,
+          "seekTime": 0
+        },
+        "EE_video": {
+          "mediaUUID": "",
+          "side": 2,
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "fit": "contain"
+        }
+      },
+      "matrix": [
+        -1.6,
+        1.9594348786357652e-16,
+        -1.9594349641362686e-16,
+        0,
+        1.2246467991473532e-16,
+        1,
+        1.2246467991473532e-16,
+        0,
+        1.2246468525851679e-16,
+        1.2246467991473532e-16,
+        -1,
+        0,
+        2,
+        4,
+        2,
+        1
+      ]
+    },
+    {
+      "name": "Particle System",
+      "extensions": {
+        "EE_uuid": "511ad793-2a07-4f04-a14d-b26762967552",
+        "EE_particle_system": {
+          "systemParameters": {
+            "version": "1.0",
+            "autoDestroy": false,
+            "looping": true,
+            "prewarm": false,
+            "material": "",
+            "duration": 5,
+            "shape": {
+              "type": "point"
+            },
+            "startLife": {
+              "type": "IntervalValue",
+              "a": 1,
+              "b": 2
+            },
+            "startSpeed": {
+              "type": "IntervalValue",
+              "a": 0.1,
+              "b": 5
+            },
+            "startRotation": {
+              "type": "IntervalValue",
+              "a": 0,
+              "b": 300
+            },
+            "startSize": {
+              "type": "IntervalValue",
+              "a": 0.025,
+              "b": 0.45
+            },
+            "startColor": {
+              "type": "ConstantColor",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 0.1
+              }
+            },
+            "emissionOverTime": {
+              "type": "ConstantValue",
+              "value": 400
+            },
+            "emissionOverDistance": {
+              "type": "ConstantValue",
+              "value": 0
+            },
+            "emissionBursts": [],
+            "onlyUsedByOther": false,
+            "rendererEmitterSettings": {
+              "startLength": {
+                "type": "ConstantValue",
+                "value": 1
+              },
+              "followLocalOrigin": true
+            },
+            "renderMode": 0,
+            "texture": "/static/editor/dot.png",
+            "instancingGeometry": "",
+            "startTileIndex": {
+              "type": "ConstantValue",
+              "value": 0
+            },
+            "uTileCount": 1,
+            "vTileCount": 1,
+            "blending": 2,
+            "behaviors": [],
+            "worldSpace": true
+          },
+          "behaviorParameters": []
+        },
+        "EE_visible": {}
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        -10,
+        1
+      ]
+    },
+    {
+      "name": "Grabbable Cube",
+      "extensions": {
+        "EE_uuid": "7bca6953-d646-459b-abe5-673e6ba9f510",
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/default-project/assets/test-equippable.glb",
+          "generateBVH": true,
+          "avoidCameraOcclusion": false
+        },
+        "EE_visible": {},
+        "collider": {
+          "bodyType": 0,
+          "shapeType": 1,
+          "isTrigger": false,
+          "removeMesh": false,
+          "collisionLayer": 1,
+          "collisionMask": 7,
+          "restitution": 0.5,
+          "triggers": []
+        },
+        "EE_grabbable": {}
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -10,
+        0.5,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Point Light",
+      "extensions": {
+        "EE_uuid": "95d108b6-fbe2-44f0-b4b3-0dbcece3a8ba",
+        "EE_point_light": {
+          "color": 16777215,
+          "intensity": 1,
+          "range": 0,
+          "decay": 2,
+          "castShadow": false,
+          "shadowBias": 0.5,
+          "shadowRadius": 1
+        },
+        "EE_visible": true
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        10,
+        1,
+        -10,
+        1
+      ]
+    },
+    {
+      "name": "Spot Light",
+      "extensions": {
+        "EE_uuid": "458586fa-a587-442c-a40e-44a4ef7e22f0",
+        "EE_spot_light": {
+          "color": 16777215,
+          "intensity": 10,
+          "range": 0,
+          "decay": 2,
+          "angle": 1.0471975511965976,
+          "penumbra": 1,
+          "castShadow": false,
+          "shadowBias": 0.00001,
+          "shadowRadius": 1
+        },
+        "EE_visible": true
+      },
+      "matrix": [
+        1,
+        3.4863055968420984e-32,
+        1.3684555315672042e-47,
+        0,
+        2.7369110631344083e-48,
+        -4.440892098500626e-16,
+        1,
+        0,
+        3.4863055968420984e-32,
+        -1,
+        -4.440892098500626e-16,
+        0,
+        10,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Avatar Animation",
+      "extensions": {
+        "EE_uuid": "68130937-16a1-4b95-a0db-7e32b99212fa",
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/default-project/assets/avatars/male_01.vrm",
+          "generateBVH": true,
+          "avoidCameraOcclusion": false,
+          "convertToVRM": true
+        },
+        "EE_loop_animation": {
+          "activeClipIndex": 3,
+          "animationPack": "https://192.168.0.16:8642/projects/default-project/assets/animations/emotes.glb",
+          "paused": false,
+          "time": 0,
+          "timeScale": 1,
+          "blendMode": 2500,
+          "loop": 2201,
+          "clampWhenFinished": false,
+          "zeroSlopeAtStart": true,
+          "zeroSlopeAtEnd": true,
+          "weight": 1
+        },
+        "EE_visible": true
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        10,
+        1
+      ]
+    },
+    {
+      "name": "Chair",
+      "extensions": {
+        "EE_uuid": "2aebf7a1-3ec7-42b2-87c2-1410ae9abcf5",
+        "EE_primitive_geometry": {
+          "geometryType": 8,
+          "geometryParams": {
+            "radius": 1,
+            "detail": 0
+          }
+        },
+        "EE_visible": {}
+      },
+      "matrix": [
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        0.43301270189221935,
+        -0.24999999999999994,
+        0,
+        0,
+        0.24999999999999994,
+        0.43301270189221935,
+        0,
+        5,
+        0.5,
+        -5,
+        1
+      ],
+      "children": [
+        19,
+        20
+      ]
+    },
+    {
+      "name": "Mount Point",
+      "extensions": {
+        "EE_uuid": "adaa4d16-df22-47fa-9c0d-4111a8383f13",
+        "EE_mount_point": {
+          "type": "seat",
+          "dismountOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "EE_visible": {}
+      },
+      "matrix": [
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        0.5,
+        0,
+        0,
+        0.9000000000000001,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "collider",
+      "extensions": {
+        "EE_uuid": "72fd50ee-4000-4d34-ac4f-9a6c14bd8ad2",
+        "EE_visible": {},
+        "EE_rigidbody": {
+          "type": "fixed"
+        },
+        "EE_collider": {
+          "shape": 1,
+          "collisionLayer": 1,
+          "collisionMask": 7,
+          "restitution": 0.5
+        }
+      },
+      "matrix": [
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        0.43301270189221935,
+        0.24999999999999997,
+        0,
+        0,
+        -0.24999999999999997,
+        0.43301270189221935,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Portal 1",
+      "extensions": {
+        "EE_uuid": "1e2f7f35-92d9-4726-ba0c-164eefc8d71f",
+        "EE_portal": {
+          "location": "",
+          "linkedPortalId": "360a1b2e-a10a-4f99-8ca4-41b19890de64",
+          "redirect": false,
+          "effectType": "None",
+          "previewType": "Spherical",
+          "previewImageURL": "",
+          "spawnPosition": {
+            "x": 5,
+            "y": 0,
+            "z": 5
+          },
+          "spawnRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "EE_visible": {}
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5,
+        0,
+        5,
+        1
+      ]
+    },
+    {
+      "name": "Portal 2",
+      "extensions": {
+        "EE_uuid": "360a1b2e-a10a-4f99-8ca4-41b19890de64",
+        "EE_portal": {
+          "location": "",
+          "linkedPortalId": "1e2f7f35-92d9-4726-ba0c-164eefc8d71f",
+          "redirect": false,
+          "effectType": "None",
+          "previewType": "Spherical",
+          "previewImageURL": "",
+          "spawnPosition": {
+            "x": -5,
+            "y": 0,
+            "z": 5
+          },
+          "spawnRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          }
+        },
+        "EE_visible": {}
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -5,
+        0,
+        5,
+        1
+      ]
+    },
+    {
+      "name": "EE_spline",
+      "extensions": {
+        "EE_uuid": "360a1b2e-a10a-4f99-8ca4-41b19890de65",
+        "EE_visible": true,
+        "EE_spline": {
+          "elements": [
+            {
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "quaternion": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 1
+              }
+            },
+            {
+              "position": {
+                "x": 10,
+                "y": 0,
+                "z": 0
+              },
+              "quaternion": {
+                "x": 0.7071067811865475,
+                "y": 0,
+                "z": 0,
+                "w": 0.7071067811865476
+              }
+            },
+            {
+              "position": {
+                "x": 10,
+                "y": 0,
+                "z": 10
+              },
+              "quaternion": {
+                "x": 1,
+                "y": 0,
+                "z": 0,
+                "w": 6.123233995736766e-17
+              }
+            },
+            {
+              "position": {
+                "x": 0,
+                "y": 0,
+                "z": 10
+              },
+              "quaternion": {
+                "x": 0,
+                "y": 0,
+                "z": 0.7071067811865476,
+                "w": -0.7071067811865475
+              }
+            }
+          ]
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -5,
+        1,
+        -5,
+        1
+      ]
+    },
+    {
+      "name": "Spline Follower",
+      "extensions": {
+        "EE_uuid": "360a1b2e-a10a-4f99-8ca4-41b19890de66",
+        "EE_visible": true,
+        "EE_spline_track": {
+          "splineEntityUUID": "360a1b2e-a10a-4f99-8ca4-41b19890de65",
+          "velocity": 5,
+          "enableRotation": false,
+          "lockToXZPlane": true,
+          "loop": true
+        },
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/animations/rings.glb",
+          "generateBVH": true,
+          "avoidCameraOcclusion": false
+        },
+        "EE_loop_animation": {
+          "hasAvatarAnimations": false,
+          "activeClipIndex": 0,
+          "animationPack": "",
+          "paused": false,
+          "time": 0,
+          "timeScale": 1,
+          "blendMode": 2500,
+          "loop": 2201,
+          "clampWhenFinished": false,
+          "zeroSlopeAtStart": true,
+          "zeroSlopeAtEnd": true,
+          "weight": 1
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "collider": {
+          "bodyType": 2,
+          "shapeType": 6,
+          "isTrigger": false,
+          "removeMesh": false,
+          "collisionLayer": 1,
+          "collisionMask": 7,
+          "restitution": 0.5,
+          "triggers": []
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "EE_link",
+      "extensions": {
+        "EE_uuid": "174d63bd-4177-4dc3-ad87-90894320986b",
+        "EE_link": {
+          "url": "https://www.etherealengine.org",
+          "sceneNav": false,
+          "location": ""
+        },
+        "EE_visible": {},
+        "EE_rigidbody": {
+          "type": "fixed"
+        },
+        "EE_collider": {
+          "shape": 1,
+          "collisionLayer": 1,
+          "collisionMask": 7,
+          "restitution": 0.5
+        },
+        "EE_trigger": {
+          "triggers": [
+            {
+              "onEnter": null,
+              "onExit": null,
+              "target": null
+            }
+          ]
+        }
+      },
+      "matrix": [
+        0.10000000000000009,
+        0,
+        0,
+        0,
+        0,
+        0.10000000000000009,
+        0,
+        0,
+        0,
+        0,
+        0.10000000000000009,
+        0,
+        -10,
+        1.5,
+        5,
+        1
+      ]
+    },
+    {
+      "name": "tornado",
+      "extensions": {
+        "EE_uuid": "6f0df209-4b99-4650-b9d1-f7c53e6a528a",
+        "EE_model": {
+          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
+          "cameraOcclusion": true,
+          "convertToVRM": false
+        },
+        "EE_visible": true,
+        "EE_loop_animation": {
+          "activeClipIndex": 0,
+          "animationPack": "",
+          "paused": false,
+          "time": 0,
+          "timeScale": 1,
+          "blendMode": 2500,
+          "loop": 2201,
+          "clampWhenFinished": false,
+          "zeroSlopeAtStart": true,
+          "zeroSlopeAtEnd": true,
+          "weight": 1
+        }
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -4.5,
+        0,
+        -4,
+        1
+      ]
+    }
+  ],
+  "extensionsUsed": [
+    "EE_uuid",
+    "EE_envmapbake",
+    "EE_fog",
+    "EE_camera_settings",
+    "EE_postprocessing",
+    "EE_media_settings",
+    "EE_render_settings",
+    "EE_visible",
+    "EE_scene_preview_camera",
+    "EE_skybox",
+    "EE_ground_plane",
+    "EE_shadow",
+    "EE_spawn_point",
+    "EE_hemisphere_light",
+    "EE_directional_light",
+    "EE_model",
+    "EE_variant",
+    "EE_dynamic_load",
+    "EE_rigidbody",
+    "EE_collider",
+    "EE_trigger",
+    "EE_media",
+    "EE_video",
+    "EE_particle_system",
+    "collider",
+    "EE_grabbable",
+    "EE_point_light",
+    "EE_spot_light",
+    "EE_loop_animation",
+    "EE_primitive_geometry",
+    "EE_mount_point",
+    "EE_portal",
+    "EE_spline",
+    "EE_spline_track",
+    "EE_link"
+  ]
+}

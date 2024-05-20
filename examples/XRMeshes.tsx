@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
-import { Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
+import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial } from 'three'
 
 import { setComponent, useComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { useEntityContext } from '@etherealengine/ecs/src/EntityFunctions'
-import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
+import { addObjectToGroup, removeObjectFromGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 
-import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
+import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
 import { Template } from './utils/template'
-import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
 
 const wireframeMaterial = new MeshBasicMaterial({ wireframe: true })
 const normalMaterial = new MeshNormalMaterial({ opacity: 0.5, transparent: true })
@@ -22,9 +21,13 @@ export const DetectedPlanes = () => {
 
   useEffect(() => {
     if (!xrPlane.geometry.value) return
-    const transparentMesh = new Mesh(xrPlane.geometry.value, normalMaterial)
+    const transparentMesh = new Mesh(xrPlane.geometry.value as BufferGeometry, normalMaterial)
     addObjectToGroup(entity, transparentMesh)
-    setComponent(entity, NameComponent, 'Plane ' + (xrPlane.plane.value as any).semanticLabel ?? xrPlane.plane.orientation.value)
+    setComponent(
+      entity,
+      NameComponent,
+      'Plane ' + (xrPlane.plane.value.semanticLabel ?? xrPlane.plane.orientation.value)
+    )
     return () => {
       removeObjectFromGroup(entity, transparentMesh)
     }
@@ -40,9 +43,9 @@ export const DetectedMeshes = () => {
 
   useEffect(() => {
     if (!xrmesh.geometry.value) return
-    const outlineMesh = new Mesh(xrmesh.geometry.value, wireframeMaterial)
+    const outlineMesh = new Mesh(xrmesh.geometry.value as BufferGeometry, wireframeMaterial)
     addObjectToGroup(entity, outlineMesh)
-    setComponent(entity, NameComponent, 'Plane ' + xrmesh.mesh.value.semanticLabel ?? entity)
+    setComponent(entity, NameComponent, 'Plane ' + (xrmesh.mesh.value.semanticLabel ?? entity))
     return () => {
       removeObjectFromGroup(entity, outlineMesh)
     }
@@ -51,9 +54,7 @@ export const DetectedMeshes = () => {
   return null
 }
 
-export default function AvatarBenchmarking() {
-  useLocationSpawnAvatar()
-
+export default function XRMeshes() {
   return (
     <>
       <Template />

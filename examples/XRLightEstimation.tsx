@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { Mesh, MeshStandardMaterial, SphereGeometry } from 'three'
 
-import { XRLightProbeState } from '@etherealengine/spatial/src/xr/XRLightProbeSystem'
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { XRLightProbeState } from '@etherealengine/spatial/src/xr/XRLightProbeSystem'
 
-import { useLocationSpawnAvatar } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
+import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { Template } from './utils/template'
@@ -42,7 +41,6 @@ export const LightProbe = () => {
 }
 
 export default function XRLightEstimation() {
-  useLocationSpawnAvatar()
   return (
     <>
       <Template />
