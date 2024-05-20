@@ -17,7 +17,7 @@ import { ModelComponent } from '@etherealengine/engine/src/scene/components/Mode
 import { PeerID, dispatchAction, getMutableState } from '@etherealengine/hyperflux'
 import { Network, NetworkPeerFunctions, NetworkState } from '@etherealengine/network'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { V_010 } from '@etherealengine/spatial/src/common/constants/MathConstants'
+import { Vector3_Up } from '@etherealengine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 
@@ -38,7 +38,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
       AvatarNetworkAction.spawn({
         parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
         position: new Vector3(0, 0, column),
-        rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
+        rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
         ownerID: userId,
         entityUUID: (userId + '_avatar') as EntityUUID,
         avatarID: avatar.id,
@@ -56,7 +56,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
     AvatarNetworkAction.spawn({
       parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
       position: new Vector3(x, 0, i * 2),
-      rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI),
+      rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
       ownerID: userId,
       entityUUID: (userId + '_avatar') as EntityUUID,
       avatarID: avatar.id,
@@ -156,7 +156,7 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
   setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position,
-    rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
+    rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI)
   })
   loadAvatarModelAsset(entity, filename)
   setComponent(entity, AvatarAnimationComponent, {
@@ -173,7 +173,7 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
   setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
   setComponent(entity, TransformComponent, {
     position,
-    rotation: new Quaternion().setFromAxisAngle(V_010, Math.PI)
+    rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI)
   })
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, LoopAnimationComponent, {
