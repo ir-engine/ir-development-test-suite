@@ -2,7 +2,7 @@
   "name": "ee-development-test-suite",
   "version": "0.0.0",
   "engineVersion": "1.6.0",
-  "description": "Development test suite for the IR Engine",
+  "description": "Assets and tests for Ethereal Engine core development",
   "thumbnail": "/static/etherealengine_thumbnail.jpg",
   "scenes": ["Examples.gltf", "Benchmarks.gltf"]
 }
