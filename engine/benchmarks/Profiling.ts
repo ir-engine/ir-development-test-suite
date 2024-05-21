@@ -16,9 +16,7 @@ export const ProfileState = defineState({
   initial: () => ({
     systemProfilingData: { [global.__IR_ENGINE_VERSION__ as string]: {} } as ProfileData
   }),
-  onCreate: (store, state) => {
-    syncStateWithLocalStorage(ProfileState, ['systemProfilingData'])
-  },
+  extension: syncStateWithLocalStorage(['systemProfilingData']),
   GetProfileData: (systemUUID: SystemUUID): SystemProfileData => {
     const { gpu } = getState(PerformanceState)
     const systemProfilingData = getState(ProfileState).systemProfilingData
