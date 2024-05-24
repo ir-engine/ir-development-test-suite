@@ -13,6 +13,7 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 import { BoxGeometry, Mesh, MeshBasicMaterial, Quaternion, SphereGeometry, Vector3 } from 'three'
 import { Template } from './utils/template'
+import { NodeID } from '@etherealengine/spatial/src/transform/components/NodeIDComponent'
 
 const createSpline = (index = 0) => {
   const entity = createEntity()
@@ -61,14 +62,14 @@ export default function Splines() {
     }
 
     setComponent(trackEntity, SplineTrackComponent, {
-      splineEntityUUID: `Spline: 0` as EntityUUID,
+      splineNodeID: `Spline: 0` as NodeID,
       velocity: 5
     })
 
     setInterval(() => {
       const spline = Math.floor(Math.random() * 4)
       setComponent(trackEntity, SplineTrackComponent, {
-        splineEntityUUID: `Spline: ${spline}` as EntityUUID
+        splineNodeID: `Spline: ${spline}` as NodeID
       })
     }, 5000)
   }, [])
