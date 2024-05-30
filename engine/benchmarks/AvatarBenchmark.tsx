@@ -7,7 +7,6 @@ import {
   UUIDComponent,
   createEntity,
   getComponent,
-  removeEntity,
   setComponent,
   useComponent,
   useOptionalComponent
@@ -22,13 +21,16 @@ import { AvatarColliderComponent } from '@etherealengine/engine/src/avatar/compo
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { dispatchAction, useHookstate } from '@etherealengine/hyperflux'
+import { applyIncomingActions, dispatchAction, useHookstate } from '@etherealengine/hyperflux'
 import { NetworkObjectComponent } from '@etherealengine/network'
 import { TransformComponent } from '@etherealengine/spatial'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent, destroyEntityTree } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import {
+  EntityTreeComponent,
+  removeEntityNodeRecursively
+} from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
 import { useAvatars } from '../TestUtils'
@@ -118,8 +120,7 @@ const AvatarSetupReactor = (props: {
     })
 
     return () => {
-      removeEntity(entity)
-      destroyEntityTree(entity)
+      removeEntityNodeRecursively(entity)
     }
   }, [])
 
@@ -160,35 +161,60 @@ const spawnAvatar = (
   )
 }
 
-const createIkTargetsForAvatar = (parentUUID: EntityUUID, userID: string): Entity[] => {
+const createIkTargetsForAvatar = (parentUUID: EntityUUID, userID: string): EntityUUID[] => {
   const headUUID = (userID + ikTargets.head) as EntityUUID
   const leftHandUUID = (userID + ikTargets.leftHand) as EntityUUID
   const rightHandUUID = (userID + ikTargets.rightHand) as EntityUUID
   const leftFootUUID = (userID + ikTargets.leftFoot) as EntityUUID
   const rightFootUUID = (userID + ikTargets.rightFoot) as EntityUUID
 
-  const entities = [] as Entity[]
-  ;[headUUID, leftHandUUID, rightHandUUID, leftFootUUID, rightFootUUID].forEach((uuid) => {
-    const entity = UUIDComponent.getOrCreateEntityByUUID(uuid)
-    setComponent(entity, TransformComponent, { position: randomVec3(), rotation: randomQuaternion() })
-    entities.push(entity)
-  })
+  const targetUUIDs = [headUUID, leftHandUUID, rightHandUUID, leftFootUUID, rightFootUUID]
 
-  dispatchAction(AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: headUUID, name: 'head', blendWeight: 1 }))
+  const posRot = targetUUIDs.map(() => ({ position: randomVec3(), rotation: randomQuaternion() }))
+
   dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: leftHandUUID, name: 'leftHand', blendWeight: 1 })
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: headUUID, name: 'head', blendWeight: 1, ...posRot[0] })
   )
   dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: rightHandUUID, name: 'rightHand', blendWeight: 1 })
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: leftHandUUID,
+      name: 'leftHand',
+      blendWeight: 1,
+      ...posRot[1]
+    })
   )
   dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: leftFootUUID, name: 'leftFoot', blendWeight: 1 })
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: rightHandUUID,
+      name: 'rightHand',
+      blendWeight: 1,
+      ...posRot[2]
+    })
   )
   dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: rightFootUUID, name: 'rightFoot', blendWeight: 1 })
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: leftFootUUID,
+      name: 'leftFoot',
+      blendWeight: 1,
+      ...posRot[3]
+    })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: rightFootUUID,
+      name: 'rightFoot',
+      blendWeight: 1,
+      ...posRot[4]
+    })
   )
 
-  return entities
+  applyIncomingActions()
+
+  return targetUUIDs
 }
 
 export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () => void }) => {
@@ -211,7 +237,7 @@ export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () =>
       props.push({
         src: avatarSrc,
         position: position,
-        animIndex: validAnimations[Math.floor(Math.random() * validAnimations.length)],
+        animIndex: 0,
         rootEntity: rootEntity
       })
     }
@@ -241,11 +267,10 @@ export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () =>
 const AvatarIKSetupReactor = (props: {
   src: string
   position: Vector3
-  animIndex: number
   rootEntity: Entity
   onComplete: () => void
 }) => {
-  const { src, position, animIndex, rootEntity, onComplete } = props
+  const { src, position, rootEntity, onComplete } = props
   const rootUUID = useComponent(rootEntity, UUIDComponent)
   const entity = useHookstate(createEntity).value
   const model = useOptionalComponent(entity, ModelComponent)
@@ -271,15 +296,14 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarRigComponent)
 
     spawnAvatar(rootUUID.value, uuid, src, { position, rotation: new Quaternion() })
-    const targetEntities = createIkTargetsForAvatar(rootUUID.value, uuid)
+    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, uuid)
 
     return () => {
-      for (const targetEntity of targetEntities) {
-        removeEntity(targetEntity)
-        destroyEntityTree(targetEntity)
+      for (const targetUUID of targetUUIDs) {
+        const targetEntity = UUIDComponent.getEntityByUUID(targetUUID)
+        removeEntityNodeRecursively(targetEntity)
       }
-      removeEntity(entity)
-      destroyEntityTree(entity)
+      removeEntityNodeRecursively(entity)
     }
   }, [])
 

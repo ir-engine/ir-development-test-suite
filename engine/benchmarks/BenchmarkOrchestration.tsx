@@ -31,15 +31,15 @@ const benchmarkOrder = [
   BenchmarkStage.Physics,
   BenchmarkStage.Particles,
   BenchmarkStage.Avatar,
-  BenchmarkStage.IK,
   BenchmarkStage.Animation,
-  BenchmarkStage.Rendering
+  BenchmarkStage.Rendering,
+  BenchmarkStage.IK
 ]
 
 const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
-    systemUUIDs: [SkinnedMeshTransformSystem]
+    systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]
   },
   [BenchmarkStage.Physics]: {
     benchmark: PhysicsBenchmark,
@@ -51,7 +51,7 @@ const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   },
   [BenchmarkStage.IK]: {
     benchmark: AvatarIKBenchmark,
-    systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]
+    systemUUIDs: [SkinnedMeshTransformSystem]
   },
   [BenchmarkStage.Animation]: null,
   [BenchmarkStage.Rendering]: null

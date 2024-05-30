@@ -27,6 +27,7 @@ import { ModelComponent } from '@etherealengine/engine/src/scene/components/Mode
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@etherealengine/engine/src/scene/components/SDFComponent'
+import { ShadowComponent } from '@etherealengine/engine/src/scene/components/ShadowComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
 import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
 import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
@@ -93,6 +94,7 @@ export const examples: Example[] = [
             config.client.fileServer +
             '/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
         })
+        setComponent(entity, ShadowComponent, { receive: false })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).scale.set(3, 3, 3)
       }, [])
