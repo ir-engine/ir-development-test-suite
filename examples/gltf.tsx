@@ -5,7 +5,6 @@ import { Color, Vector3 } from 'three'
 import { getMutableComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
-import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
@@ -15,7 +14,6 @@ import { TransformComponent } from '@etherealengine/spatial/src/transform/compon
 import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
 import { Template } from './utils/template'
 
-import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'
 import { BackgroundComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 
@@ -35,7 +33,7 @@ const GLTF = () => {
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
-    accept: [...SupportedFileTypes, '.glb'],
+    accept: ['.gltf', '.glb'],
     async drop(item: any, monitor) {
       if (item.files) {
         const dndItem = monitor.getItem()
@@ -49,10 +47,6 @@ const GLTF = () => {
           const gltfFile = files[0]
           const model = getMutableComponent(entity, ModelComponent)
           model.src.set(URL.createObjectURL(gltfFile))
-          const assetType = gltfFile.type
-            ? MimeTypeToAssetType[gltfFile.type]
-            : ExtensionToAssetType[gltfFile.name.split('.').pop()!.toLocaleLowerCase()]
-          model.assetTypeOverride.set(assetType)
 
           console.log(gltfFile)
         } catch (err) {
