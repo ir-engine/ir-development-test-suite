@@ -1,6 +1,7 @@
 import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@etherealengine/ecs'
-import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/components/element/ElementList'
-import { ComponentEditorsState } from '@etherealengine/editor/src/functions/ComponentEditors'
+import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/services/ComponentShelfCategoriesState'
+import { ComponentEditorsState } from '@etherealengine/editor/src/services/ComponentEditors'
+
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
