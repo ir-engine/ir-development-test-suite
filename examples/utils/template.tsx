@@ -8,20 +8,31 @@ import { useLoadScene } from '@etherealengine/client-core/src/components/World/L
 import { XRLoading } from '@etherealengine/client-core/src/components/XRLoading'
 import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
 
-import { Engine, setComponent } from '@etherealengine/ecs'
-import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
-import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import './avatar/simulateMovement'
 
-export function Template(props: { projectName?: string; sceneName?: string }) {
-  useLoadScene({ projectName: props.projectName ?? 'default-project', sceneName: props.sceneName ?? 'default.gltf' })
+export function useSpawnAvatar(spawnAvatar?: boolean) {
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    if (spawnAvatar) {
+      url.searchParams.delete('spectate')
+    } else {
+      url.searchParams.set('spectate', '')
+    }
+    window.history.pushState({}, '', url.toString())
+  }, [spawnAvatar])
+}
+
+export function Template(props: { projectName?: string; sceneName?: string; spawnAvatar?: boolean }) {
+  useSpawnAvatar(props.spawnAvatar)
+  useLoadScene({
+    projectName: props.projectName ?? 'default-project',
+    sceneName: props.sceneName ?? 'public/scenes/default.gltf'
+  })
   useNetwork({ online: false })
   useLoadEngineWithScene()
 
   useEffect(() => {
     AvatarService.fetchAvatarList()
-    setComponent(Engine.instance.viewerEntity, CameraOrbitComponent)
-    setComponent(Engine.instance.viewerEntity, InputComponent)
   }, [])
 
   return (

@@ -1,24 +1,37 @@
 import React, { useEffect } from 'react'
-import { AnimationClip, Bone, ConeGeometry, Mesh, MeshBasicMaterial, Quaternion, Scene, SkeletonHelper, SphereGeometry, Vector3 } from 'three'
+import {
+  AnimationClip,
+  Bone,
+  ConeGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  Quaternion,
+  Scene,
+  SkeletonHelper,
+  SphereGeometry,
+  Vector3
+} from 'three'
 
 import { AVATAR_FILE_ALLOWED_EXTENSIONS } from '@etherealengine/common/src/constants/AvatarConstants'
-import { Engine } from '@etherealengine/ecs/src/Engine'
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
-import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import createGLTFExporter from '@etherealengine/engine/src/assets/functions/createGLTFExporter'
 import { GLTF } from '@etherealengine/engine/src/assets/loaders/gltf/GLTFLoader'
-import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { NO_PROXY, defineState, getMutableState, getState, none, useHookstate } from '@etherealengine/hyperflux'
 
-import { Template } from './utils/template'
+import { Engine, getComponent, setComponent } from '@etherealengine/ecs'
+import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
 import { MixamoBoneNames } from '@etherealengine/engine/src/avatar/AvatarBoneMatching'
+import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { MeshComponent } from '@etherealengine/spatial/src/renderer/components/MeshComponent'
-import { getComponent } from '@etherealengine/ecs'
+import { GroupComponent, addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
+import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { VRMHumanBoneName } from '@pixiv/three-vrm'
+import { Template } from './utils/template'
 
-const bones = Object.keys(AvatarRigComponent.schema!.rig)
+const bones = Object.keys(VRMHumanBoneName)
 console.log({ bones })
 
 const BoneMatchedState = defineState({
@@ -188,66 +201,87 @@ const RetargetingDND = () => {
     document.body.removeChild(link)
   }
 
-  // useEffect(() => {
-  //   if (!assetFile.value) return
-  //   const url = URL.createObjectURL(assetFile.value) + '#' + assetFile.value.name
-  //   AssetLoader.loadAsync(url).then((asset: GLTF) => {
-  //     assetObject.set(asset)
-  //     console.log(asset)
+  useEffect(() => {
+    const entity = createEntity()
+    setComponent(entity, VisibleComponent)
+    setComponent(entity, TransformComponent)
+    setComponent(entity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
+    if (!assetFile.value) return
+    const url = URL.createObjectURL(assetFile.value) + '#' + assetFile.value.name
+    AssetLoader.loadAsync(url).then((asset: GLTF) => {
+      assetObject.set(asset)
+      console.log(asset)
 
-  //     const rootBone = asset.scene.getObjectByProperty('type', 'Bone')
-  //     if (!rootBone) return
+      const rootBone = asset.scene.getObjectByProperty('type', 'Bone')
+      console.log({ rootBone })
+      if (!rootBone) return
 
-  //     asset.scene.animations = asset.animations
+      asset.scene.animations = asset.animations
 
-  //     if (overrideNames.length > 0) {
-  //       let i = 0
-  //       rootBone.traverse((bone: Bone) => {
-  //         bone.name = overrideNames[i++]
-  //       })
-  //     }
+      if (overrideNames.length > 0) {
+        let i = 0
+        rootBone.traverse((bone: Bone) => {
+          bone.name = overrideNames[i++]
+        })
+      }
 
-  //     const clone = rootBone.clone()
-  //     Engine.instance.scene.add(clone)
-  //     clone.updateMatrixWorld(true)
+      const clone = rootBone.clone()
+      addObjectToGroup(entity, clone)
+      clone.updateMatrixWorld(true)
 
-  //     const helper = new SkeletonHelper(clone)
-  //     helper.updateMatrixWorld(true)
-  //     Engine.instance.scene.add(helper)
+      const helper = new SkeletonHelper(clone)
+      helper.updateMatrixWorld(true)
+      addObjectToGroup(entity, helper)
 
-  //     clone.traverse((bone: Bone) => {
-  //       /** bones are oriented to the average position direction of their children from their position */
-  //       const childAveragePosition = bone.children
-  //         .reduce((acc, child) => {
-  //           const childPosition = child.getWorldPosition(new Vector3())
-  //           return acc.add(childPosition)
-  //         }, new Vector3())
-  //         .divideScalar(bone.children.length)
+      clone.traverse((bone: Bone) => {
+        /** bones are oriented to the average position direction of their children from their position */
+        const childAveragePosition = bone.children
+          .reduce((acc, child) => {
+            const childPosition = child.getWorldPosition(new Vector3())
+            return acc.add(childPosition)
+          }, new Vector3())
+          .divideScalar(bone.children.length)
 
-  //       const boneLength = bone.getWorldPosition(new Vector3()).distanceTo(childAveragePosition)
+        const boneLength = bone.getWorldPosition(new Vector3()).distanceTo(childAveragePosition)
 
-  //       const boneDirection = new Quaternion()
-  //         .setFromUnitVectors(
-  //           bone.getWorldPosition(new Vector3()).sub(childAveragePosition).normalize(),
-  //           new Vector3(0, 1, 0)
-  //         )
-  //         .invert()
+        const boneDirection = new Quaternion()
+          .setFromUnitVectors(
+            bone.getWorldPosition(new Vector3()).sub(childAveragePosition).normalize(),
+            new Vector3(0, 1, 0)
+          )
+          .invert()
 
-  //       const helper = new Mesh(new ConeGeometry(0.1, 1, 8), new MeshBasicMaterial({ color: 'red' }))
-  //       helper.geometry.scale(1, -1, 1)
-  //       helper.geometry.translate(0, -0.5, 0)
-  //       helper.scale.setScalar(boneLength)
-  //       bone.getWorldPosition(helper.position)
-  //       helper.quaternion.copy(boneDirection)
-  //       helper.updateMatrixWorld(true)
-  //       helper.name = bone.name + '--helper'
-  //       Engine.instance.scene.add(helper)
+        const helper = new Mesh(new ConeGeometry(0.1, 1, 8), new MeshBasicMaterial({ color: 'red' }))
+        helper.geometry.scale(1, -1, 1)
+        helper.geometry.translate(0, -0.5, 0)
+        helper.scale.setScalar(boneLength)
+        bone.getWorldPosition(helper.position)
+        helper.quaternion.copy(boneDirection)
+        helper.updateMatrixWorld(true)
+        helper.name = bone.name + '--helper'
+        const helperEntity = createEntity()
+        setComponent(helperEntity, VisibleComponent)
+        setComponent(helperEntity, TransformComponent, {
+          position: helper.position,
+          rotation: helper.quaternion,
+          scale: helper.scale
+        })
+        addObjectToGroup(helperEntity, helper)
+        setComponent(helperEntity, NameComponent, bone.name + '--helper')
+        setComponent(helperEntity, EntityTreeComponent, { parentEntity: entity })
 
-  //       if (bones.includes(bone.name)) getMutableState(BoneMatchedState)[bone.name].set(true)
-  //     })
-  //     Engine.instance.scene.add(sphere)
-  //   })
-  // }, [assetFile])
+        if (bones.includes(bone.name)) getMutableState(BoneMatchedState)[bone.name].set(true)
+      })
+      const sphereEntity = createEntity()
+      setComponent(sphereEntity, VisibleComponent)
+      setComponent(sphereEntity, TransformComponent)
+      setComponent(sphereEntity, EntityTreeComponent, { parentEntity: entity })
+      addObjectToGroup(sphereEntity, sphere)
+    })
+    return () => {
+      removeEntity(entity)
+    }
+  }, [assetFile])
 
   const nextUnmatchedBone = (boneName?: MixamoBoneNames) => {
     if (boneName && boneState.value[boneName]) return null
@@ -261,11 +295,12 @@ const RetargetingDND = () => {
   const BonesTree = (props: { bone: Bone }) => {
     const { bone } = props
     const boneName = useHookstate(bone.name)
+    const originalBoneName = useHookstate(() => bone.name)
 
-    const boneHelper = getComponent(NameComponent.entitiesByName[boneName.value + '--helper'][0], MeshComponent) as Mesh<
-      ConeGeometry,
-      MeshBasicMaterial
-    >
+    const boneHelper = getComponent(
+      NameComponent.entitiesByName[boneName.value + '--helper'][0],
+      GroupComponent
+    )[0] as Mesh<ConeGeometry, MeshBasicMaterial>
     const isBone = bone.type === 'Bone'
 
     const mouseOver = useHookstate(false)
@@ -277,7 +312,10 @@ const RetargetingDND = () => {
       if (!isBone) return
       bone.name = name
       boneHelper.name = name + '--helper'
+      const currentBoneName = boneName.value as MixamoBoneNames
       boneName.set(name)
+      const helperEntity = NameComponent.entitiesByName[currentBoneName + '--helper'][0]
+      setComponent(helperEntity, NameComponent, name + '--helper')
     }
 
     useEffect(() => {
@@ -318,6 +356,7 @@ const RetargetingDND = () => {
     const clear = () => {
       if (!getState(BoneMatchedState)[bone.name]) return
       getMutableState(BoneMatchedState)[bone.name].set(none)
+      setBoneName(originalBoneName.value)
     }
 
     const changeBoneName = (ev) => {
@@ -374,10 +413,10 @@ const RetargetingDND = () => {
 
   const nextUnmatchedBoneName = nextUnmatchedBone()
 
-  const assetScene = assetObject.value?.scene as any as Bone
+  const assetScene = assetObject.value?.scene.getObjectByProperty('type', 'Bone') as Bone | undefined
 
   return (
-    <div style={{ fontSize: '16px' }}>
+    <div style={{ fontSize: '16px', color: 'black' }}>
       {!assetScene && (
         <>
           <div>
@@ -427,14 +466,24 @@ const RetargetingDND = () => {
 
 export default function Retargeting() {
   return (
-    <div
-      id="dnd-container"
-      style={{ background: 'white', width: 'fit-content', pointerEvents: 'all', overflow: 'auto', height: '95%' }}
-    >
-      <DndWrapper id="dnd-container">
-        <Template />
-        <RetargetingDND />
-      </DndWrapper>
-    </div>
+    <>
+      <div
+        id="dnd-container"
+        style={{
+          background: 'white',
+          width: 'fit-content',
+          pointerEvents: 'all',
+          overflow: 'auto',
+          height: '95%',
+          zIndex: 1000,
+          position: 'absolute'
+        }}
+      >
+        <DndWrapper id="dnd-container">
+          <RetargetingDND />
+        </DndWrapper>
+      </div>
+      <Template />
+    </>
   )
 }
