@@ -21,7 +21,6 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 
 import config from '@etherealengine/common/src/config'
-import { StaticResourceType } from '@etherealengine/common/src/schemas/media/static-resource.schema'
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { GroupComponent, addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { Template } from './utils/template'
@@ -133,7 +132,7 @@ const LODsDND = () => {
             variants: true
           })
 
-          const result = (await uploadPromise.promise) as StaticResourceType[]
+          const result = await uploadPromise.promise
 
           setVariant(entity, result)
 
