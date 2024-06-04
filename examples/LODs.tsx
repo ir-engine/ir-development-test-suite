@@ -1,25 +1,30 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { Mesh, MeshBasicMaterial, SphereGeometry, TorusGeometry, Vector3 } from 'three'
+import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from 'three'
 
 import { uploadToFeathersService } from '@etherealengine/client-core/src/util/upload'
 import { AdminAssetUploadArgumentsType } from '@etherealengine/common/src/interfaces/UploadAssetInterface'
+import {
+  getComponent,
+  removeComponent,
+  setComponent,
+  useOptionalComponent
+} from '@etherealengine/ecs/src/ComponentFunctions'
+import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
-import { getComponent, removeComponent, setComponent, useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
+import { useHookstate } from '@etherealengine/hyperflux'
+import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
 
 import config from '@etherealengine/common/src/config'
-import { Entity } from '@etherealengine/ecs/src/Entity'
 import { StaticResourceType } from '@etherealengine/common/src/schemas/media/static-resource.schema'
-import { Template } from './utils/template'
+import { Entity } from '@etherealengine/ecs/src/Entity'
 import { GroupComponent, addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
+import { Template } from './utils/template'
 
 // create rings for each LOD
 const visualizeVariants = () => {
@@ -30,7 +35,7 @@ const visualizeVariants = () => {
   return entity
 }
 
-const setVariant = (entity: Entity, result: StaticResourceType[]) => {
+const setVariant = (entity: Entity, result: Array<{ url: string; metadata: Record<string, any> }>) => {
   setComponent(entity, ModelComponent, {
     src: result[0].url
   })
@@ -85,7 +90,7 @@ const LODsDND = () => {
           maxDistance: 15
         }
       }
-    ] as StaticResourceType[])
+    ])
 
     filenames.set(['Test_LOD0.glb', 'Test_LOD1.glb', 'Test_LOD2.glb'])
   }, [])
@@ -95,10 +100,13 @@ const LODsDND = () => {
     getComponent(visualizerEntity, TransformComponent).position.copy(getComponent(entity, TransformComponent).position)
     variantComponent.value.levels.map((level, i) => {
       if (i === 0) return
-      addObjectToGroup(visualizerEntity, new Mesh(
-        new SphereGeometry(level.metadata['minDistance'], 32, 32).rotateX(Math.PI / 2),
-        new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 })
-      ))
+      addObjectToGroup(
+        visualizerEntity,
+        new Mesh(
+          new SphereGeometry(level.metadata['minDistance'], 32, 32).rotateX(Math.PI / 2),
+          new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 })
+        )
+      )
     })
     return () => {
       removeComponent(visualizerEntity, GroupComponent)
