@@ -24,6 +24,7 @@ import config from '@etherealengine/common/src/config'
 import { Entity } from '@etherealengine/ecs/src/Entity'
 import { GroupComponent, addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
 import { Template } from './utils/template'
+import { uploadAssetPath } from '@etherealengine/common/src/schema.type.module'
 
 // create rings for each LOD
 const visualizeVariants = () => {
@@ -124,7 +125,7 @@ const LODsDND = () => {
           )) as File[]
           filenames.set(files.map((file) => file.name))
 
-          const uploadPromise = uploadToFeathersService('upload-asset', files, {
+          const uploadPromise = uploadToFeathersService(uploadAssetPath, files, {
             type: 'admin-file-upload',
             args: {
               project: 'ee-development-test-suite'
