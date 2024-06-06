@@ -40,10 +40,15 @@ const Navbar = () => {
   )
 }
 
-const routes = Object.fromEntries(
-  //@ts-ignore
-  Object.entries(import.meta.glob<any>('./examples/*.tsx')).map(([route, lazy]) => [route, React.lazy(lazy)])
-)
+//@ts-ignore
+const metadata = import.meta.glob<any>('./examples/componentExamples.tsx', {
+  import: 'metadata',
+  eager: true
+})
+
+//@ts-ignore
+const imports = import.meta.glob<any>('./examples/*.tsx')
+const routes = Object.entries(imports).map(([route, lazy]) => [route, React.lazy(lazy), metadata[route]])
 
 const RoutesList = () => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,7 +57,7 @@ const RoutesList = () => {
   }
 
   return (
-    <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh' , background: '#02022d' }}>
+    <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh', background: '#02022d' }}>
       <Navbar />
       <div
         style={{
@@ -62,11 +67,12 @@ const RoutesList = () => {
           padding: '10px'
         }}
       >
-        {Object.entries(routes).map(([route]) => {
+        {routes.map(([route, _, metadata]) => {
           const path = route.replace('./examples/', '').replace('.tsx', '')
+          const title = metadata?.title ? metadata.title : path
           return (
             <button style={buttonStyle} key={path} onClick={onClick}>
-              {path}
+              {title}
             </button>
           )
         })}
@@ -78,7 +84,7 @@ const RoutesList = () => {
 const ExampleRoutes = () => {
   return (
     <Routes>
-      {Object.entries(routes).map(([route, Page]) => {
+      {routes.map(([route, Page]) => {
         const path = route.replace('./examples', '').replace('.tsx', '')
         return <Route key={path} path={path} element={<Page />} />
       })}

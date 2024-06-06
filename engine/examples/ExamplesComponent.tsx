@@ -460,7 +460,7 @@ export const ExamplesComponent = defineComponent({
         const followCameraComponent = getMutableComponent(followEntity, FollowCameraComponent)
         followCameraComponent.zoomLevel.set(0.001)
       }
-    }, [JSON.stringify(followCameraQuery)])
+    }, [followCameraQuery])
 
     useEffect(() => {
       currentExample.set(examples[examplesComponent.currExampleIndex.value])

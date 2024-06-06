@@ -15,7 +15,6 @@ import { TransformComponent } from '@etherealengine/spatial/src/transform/compon
 import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
 import { Template } from './utils/template'
 
-import { ExtensionToAssetType, MimeTypeToAssetType } from '@etherealengine/engine/src/assets/constants/fileTypes'
 import { BackgroundComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 
@@ -49,11 +48,6 @@ const GLTF = () => {
           const gltfFile = files[0]
           const model = getMutableComponent(entity, ModelComponent)
           model.src.set(URL.createObjectURL(gltfFile))
-          const assetType = gltfFile.type
-            ? MimeTypeToAssetType[gltfFile.type]
-            : ExtensionToAssetType[gltfFile.name.split('.').pop()!.toLocaleLowerCase()]
-          model.assetTypeOverride.set(assetType)
-
           console.log(gltfFile)
         } catch (err) {
           console.error(err)
