@@ -3,9 +3,10 @@ import { Application } from '@etherealengine/server-core/declarations'
 
 import { installAvatarsFromProject } from '@etherealengine/server-core/src/user/avatar/avatar-helper'
 import path from 'path'
-import packageJson from './package.json'
+import packageJson from './manifest.json'
+import appRootPath from 'app-root-path'
 
-const avatarsFolder = path.resolve(__dirname, 'avatars')
+const avatarsFolder = path.join(appRootPath.path, 'packages/projects/projects', packageJson.name, 'public/avatars')
 
 const config = {
   onInstall: async (app: Application) => {

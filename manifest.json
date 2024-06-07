@@ -2,5 +2,10 @@
   "name": "ee-development-test-suite",
   "version": "0.0.0",
   "engineVersion": "1.6.0",
-  "description": "Assets and tests for Ethereal Engine core development"
+  "description": "Assets and tests for iR Engine core development",
+  "scenes": [
+    "public/scenes/test.scene.json",
+    "public/scenes/bpcem-envmap-bake-test.scene.json",
+    "public/scenes/animations-test.scene.json"
+  ]
 }
