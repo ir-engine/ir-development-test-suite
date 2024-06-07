@@ -47,7 +47,7 @@ import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/compo
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
-import { useExampleEntity } from '../../examples/utils/common/useSceneSetup'
+import { useExampleEntity } from '../../examples/utils/common/entityUtils'
 import { useAvatars } from '../TestUtils'
 import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'

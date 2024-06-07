@@ -7,12 +7,9 @@ import {
   removeEntity,
   setComponent
 } from '@etherealengine/ecs'
-import { GroundPlaneComponent } from '@etherealengine/engine/src/scene/components/GroundPlaneComponent'
 import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
-import { DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { TransformComponent } from '@etherealengine/spatial'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 
@@ -37,19 +34,4 @@ export const useExampleEntity = (parent: Entity): Entity => {
   }, [])
 
   return exampleEntity.value
-}
-
-export const useSceneSetup = (sceneEntity: Entity) => {
-  const groundPlane = useExampleEntity(sceneEntity)
-  const directionalLight = useExampleEntity(sceneEntity)
-
-  useEffect(() => {
-    setComponent(groundPlane, GroundPlaneComponent)
-    setComponent(groundPlane, NameComponent, 'ground-plane')
-    setVisibleComponent(groundPlane, true)
-
-    setComponent(directionalLight, DirectionalLightComponent)
-    setComponent(directionalLight, NameComponent, 'directional-light')
-    setVisibleComponent(directionalLight, true)
-  }, [])
 }

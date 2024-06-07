@@ -1,32 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
+import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import '@etherealengine/client-core/src/world/LocationModule'
-import {
-  Engine,
-  Entity,
-  UUIDComponent,
-  createEntity,
-  generateEntityUUID,
-  getComponent,
-  getMutableComponent,
-  setComponent
-} from '@etherealengine/ecs'
-import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
-import { useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
-import { TransformComponent } from '@etherealengine/spatial'
+import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
+import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
-import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
-import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
-import {
-  EntityTreeComponent,
-  removeEntityNodeRecursively
-} from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { Group } from 'three'
+import { useExampleEntity } from './examples/utils/common/entityUtils'
 
 const buttonStyle = {
   width: 'auto',
@@ -49,7 +33,7 @@ const Navbar = () => {
     justifyContent: 'center',
     alignItems: 'center',
     height: '60px',
-    backgroundColor: 'rgb(31 27 72 / 85%)',
+    backgroundColor: '#1d2125',
     color: '#e7e7e7'
   }
 
@@ -66,7 +50,7 @@ const Navbar = () => {
 }
 
 //@ts-ignore
-const importedMetadata = import.meta.glob<any>('./examples/componentExamples.tsx', {
+const importedMetadata = import.meta.glob<any>(['./examples/componentExamples.tsx', './examples/avatarBenchmark.tsx'], {
   import: 'metadata',
   eager: true
 })
@@ -88,12 +72,44 @@ const routes = Object.entries(imports).reduce(
   {}
 ) as Record<string, ExampleRouteData>
 
-const ExampleViewPort = (props) => {
-  const ref = useRef(null as null | HTMLDivElement)
+const ExampleScene = memo(
+  (props: { sceneEntity: Entity; route: string; example: React.FC<{ sceneEntity: Entity }> }) => {
+    const exampleEntity = useExampleEntity(props.sceneEntity)
+    setComponent(exampleEntity, NameComponent, props.route)
 
-  // useLoadScene({ projectName: 'default-project', sceneName: 'public/scenes/default.gltf' })
+    const Example = props.example
+    return <Example sceneEntity={exampleEntity} />
+  },
+  (prev, props) => {
+    return prev.route === props.route && prev.sceneEntity === props.sceneEntity
+  }
+)
+
+const ExampleRoutes = () => {
+  const [currentRoute, setCurrentRoute] = useState('default')
+  const [page, setPage] = useState(null as null | ((...args: any[]) => any))
+
+  const ref = useRef(null as null | HTMLDivElement)
+  const projectName = 'default-project'
+  const sceneName = 'public/scenes/default.gltf'
+  useLoadScene({ projectName: projectName, sceneName: sceneName })
   // useNetwork({ online: false })
   // useLoadEngineWithScene()
+
+  const onClick = (route: string) => {
+    setCurrentRoute(route)
+    setPage(routes[route].page)
+  }
+
+  const gltfState = useMutableState(GLTFAssetState)
+  const sceneEntity = useHookstate<undefined | Entity>(undefined)
+
+  useEffect(() => {
+    const sceneURL = `projects/${projectName}/${sceneName}`
+    if (!gltfState[sceneURL].value) return
+    const entity = gltfState[sceneURL].value
+    if (entity) sceneEntity.set(entity)
+  }, [gltfState])
 
   useEffect(() => {
     if (!ref?.current) return
@@ -118,101 +134,32 @@ const ExampleViewPort = (props) => {
     const entity = Engine.instance.viewerEntity
     setComponent(entity, CameraOrbitComponent)
     setComponent(entity, InputComponent)
+    getComponent(entity, CameraComponent).position.set(0, 0, 4)
   }, [])
 
   return (
-    <div id="examples-panel" ref={ref} style={{ flexGrow: 1 }}>
-      {props.children}
-    </div>
-  )
-}
-
-const ExampleScene = (props: { route: string; example: React.FC<{ scene: Entity }> }) => {
-  const sceneEntity = useHookstate<undefined | Entity>(undefined)
-
-  useEffect(() => {
-    const route = props.route
-    const viewerEntity = Engine.instance.viewerEntity
-    const exampleScene = createEntity()
-    setComponent(exampleScene, NameComponent, route)
-    setComponent(exampleScene, UUIDComponent, generateEntityUUID())
-    setComponent(exampleScene, TransformComponent)
-    setComponent(exampleScene, EntityTreeComponent, { parentEntity: viewerEntity })
-    setComponent(exampleScene, SourceComponent, route)
-    const obj3d = new Group()
-    obj3d.name = route
-    obj3d.entity = exampleScene
-    addObjectToGroup(exampleScene, obj3d)
-    setComponent(exampleScene, Object3DComponent, obj3d)
-
-    sceneEntity.set(exampleScene)
-    const sceneComponent = getMutableComponent(Engine.instance.viewerEntity, SceneComponent)
-    sceneComponent.children.merge([exampleScene])
-
-    return () => {
-      sceneComponent.children.set((entities) => {
-        const index = entities.indexOf(exampleScene)
-        if (index > -1) {
-          entities.splice(index, 1)
-        }
-        return entities
-      })
-      removeEntityNodeRecursively(exampleScene)
-    }
-  }, [])
-
-  const Example = props.example
-  return <>{sceneEntity.value && Example && <Example scene={sceneEntity.value} />}</>
-}
-
-const RoutesList = () => {
-  const [currentRoute, setCurrentRoute] = useState('default')
-  const [Page, setPage] = useState(null as null | ((...args: any[]) => any))
-
-  const onClick = (route: string) => {
-    setCurrentRoute(route)
-    setPage(routes[route].page)
-  }
-
-  return (
-    <div style={{ display: 'flex', width: '100%', height: '100%', flexDirection: 'row' }}>
-      <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh', width: '300px', background: '#02022d' }}>
-        <Navbar />
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, minmax(200px, 1fr))',
-            gap: '10px',
-            padding: '10px'
-          }}
-        >
-          {Object.entries(routes).map(([route, data]) => {
-            const pathTitle = route.replace('./examples/', '').replace('.tsx', '')
-            const title = data.metadata?.title ? data.metadata.title : pathTitle
-            return (
-              <button style={buttonStyle} key={pathTitle} onClick={() => onClick(route)}>
-                {title}
-              </button>
-            )
-          })}
+    <>
+      <div style={{ display: 'flex', width: '100%', height: '100%', flexDirection: 'row' }}>
+        <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh', width: '300px', background: '#2c2f33' }}>
+          <Navbar />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {Object.entries(routes).map(([route, data]) => {
+              const pathTitle = route.replace('./examples/', '').replace('.tsx', '')
+              const title = data.metadata?.title ? data.metadata.title : pathTitle
+              return (
+                <button style={buttonStyle} key={pathTitle} onClick={() => onClick(route)}>
+                  {title}
+                </button>
+              )
+            })}
+          </div>
         </div>
+        <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
       </div>
-      <ExampleViewPort>
-        <ExampleScene key={currentRoute} route={currentRoute} example={Page} />
-      </ExampleViewPort>
-    </div>
-  )
-}
-
-const ExampleRoutes = () => {
-  return (
-    <Routes>
-      {/* {routes.map(([route, Page]) => {
-        const path = route.replace('./examples', '').replace('.tsx', '')
-        return <Route key={path} path={path} element={<Page />} />
-      })} */}
-      <Route path={'/'} element={<RoutesList />} />
-    </Routes>
+      {sceneEntity.value && page && (
+        <ExampleScene key={currentRoute} sceneEntity={sceneEntity.value} route={currentRoute} example={page} />
+      )}
+    </>
   )
 }
 
