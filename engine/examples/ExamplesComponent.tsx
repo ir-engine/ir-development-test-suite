@@ -47,6 +47,7 @@ import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/compo
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
+import { useExampleEntity } from '../../examples/utils/common/useSceneSetup'
 import { useAvatars } from '../TestUtils'
 import ComponentNamesUI from './ComponentNamesUI'
 import ExampleSelectorUI from './ExampleSelectorUI'
@@ -55,26 +56,6 @@ type Example = {
   name: string
   description: string
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
-}
-
-const setupEntity = (parent: Entity): Entity => {
-  const entity = createEntity()
-  setComponent(entity, UUIDComponent, generateEntityUUID())
-  setComponent(entity, TransformComponent)
-  setComponent(entity, EntityTreeComponent, { parentEntity: parent })
-  return entity
-}
-
-const useExampleEntity = (parent: Entity): Entity => {
-  const exampleEntity = useHookstate(() => setupEntity(parent))
-
-  useEffect(() => {
-    return () => {
-      removeEntity(exampleEntity.value)
-    }
-  }, [])
-
-  return exampleEntity.value
 }
 
 export const examples: Example[] = [

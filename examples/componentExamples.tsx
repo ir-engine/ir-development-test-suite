@@ -1,34 +1,23 @@
-import { createEntity, removeEntity, setComponent } from '@etherealengine/ecs'
-import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
+import { Entity, setComponent } from '@etherealengine/ecs'
 import React, { useEffect } from 'react'
 import { ExamplesComponent } from '../engine/examples/ExamplesComponent'
-import { Template } from './utils/template'
+import { useSceneSetup } from './utils/common/useSceneSetup'
 
 export const metadata = {
   title: 'Components Examples',
   description: 'Components examples'
 }
 
-const ComponentExamples = () => {
-  useEffect(() => {
-    const entity = createEntity()
-    setComponent(entity, ExamplesComponent)
+const ComponentExamples = (props: { scene: Entity }) => {
+  useSceneSetup(props.scene)
 
-    return () => {
-      removeEntity(entity)
-    }
+  useEffect(() => {
+    setComponent(props.scene, ExamplesComponent)
   }, [])
 
   return null
 }
 
-export default function () {
-  return (
-    <div id="dnd-container" style={{ height: '25%', width: '25%', pointerEvents: 'all' }}>
-      <DndWrapper id="dnd-container">
-        <Template sceneName="Component Examples" />
-        <ComponentExamples />
-      </DndWrapper>
-    </div>
-  )
+export default function (props: { scene: Entity }) {
+  return <ComponentExamples scene={props.scene} />
 }
