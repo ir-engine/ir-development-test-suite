@@ -26,13 +26,14 @@ import { NetworkObjectComponent } from '@etherealengine/network'
 import { TransformComponent } from '@etherealengine/spatial'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import {
   EntityTreeComponent,
   removeEntityNodeRecursively
 } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
+import { useExampleEntity } from '../../examples/utils/common/entityUtils'
 import { useAvatars } from '../TestUtils'
 import { sleep } from './BenchmarkUtils'
 
@@ -72,7 +73,7 @@ export const AvatarBenchmark = (props: { rootEntity: Entity; onComplete: () => v
       })
     }
     childProps.set(props)
-  }, [avatars, rootEntity])
+  }, [avatars])
 
   useEffect(() => {
     if (completedCount.value == avatarsToCreate) sleep(benchmarkWaitTime).then(onComplete)
@@ -102,26 +103,17 @@ const AvatarSetupReactor = (props: {
   onComplete: () => void
 }) => {
   const { src, position, animIndex, rootEntity, onComplete } = props
-  const entity = useHookstate(createEntity).value
+  const entity = useExampleEntity(rootEntity)
   const model = useOptionalComponent(entity, ModelComponent)
 
   useEffect(() => {
-    const obj3d = new Group()
-    obj3d.entity = entity
-    setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
-    setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
-    setComponent(entity, Object3DComponent, obj3d)
-    setComponent(entity, TransformComponent, { position })
-    setComponent(entity, VisibleComponent, true)
-    setComponent(entity, ModelComponent, { src, convertToVRM: true })
+    setComponent(entity, ModelComponent, { src: src, convertToVRM: true })
+    setVisibleComponent(entity, true)
     setComponent(entity, LoopAnimationComponent, {
       animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
       activeClipIndex: animIndex
     })
-
-    return () => {
-      removeEntityNodeRecursively(entity)
-    }
+    setComponent(entity, TransformComponent, { position })
   }, [])
 
   useEffect(() => {

@@ -58,6 +58,8 @@ type Example = {
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }
 
+const validAvatarAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
+
 export const examples: Example[] = [
   {
     name: 'Models',
@@ -105,11 +107,9 @@ export const examples: Example[] = [
         setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
-          animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb'
+          animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
+          activeClipIndex: validAvatarAnimations[Math.floor(Math.random() * validAvatarAnimations.length)]
         })
-        const validAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
-        const loopAnimationComponent = getMutableComponent(entity, LoopAnimationComponent)
-        loopAnimationComponent.activeClipIndex.set(validAnimations[Math.floor(Math.random() * validAnimations.length)])
       }, [avatars])
 
       useEffect(() => {

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Entity } from '@etherealengine/ecs'
+import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { AvatarBenchmark } from '../engine/benchmarks/AvatarBenchmark'
 
 // let entities = [] as Entity[]
@@ -30,6 +31,7 @@ export const metadata = {
 }
 
 export default function (props: { sceneEntity: Entity }) {
+  setVisibleComponent(props.sceneEntity, true)
   return <AvatarBenchmark rootEntity={props.sceneEntity} onComplete={() => {}} />
 }
 
