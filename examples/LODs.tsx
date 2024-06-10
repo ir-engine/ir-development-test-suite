@@ -30,7 +30,7 @@ const visualizeVariants = () => {
   return entity
 }
 
-const setVariant = (entity: Entity, result: StaticResourceType[]) => {
+const setVariant = (entity: Entity, result: any[]) => {
   setComponent(entity, ModelComponent, {
     src: result[0].url
   })
@@ -85,7 +85,7 @@ const LODsDND = () => {
           maxDistance: 15
         }
       }
-    ] as StaticResourceType[])
+    ])
 
     filenames.set(['Test_LOD0.glb', 'Test_LOD1.glb', 'Test_LOD2.glb'])
   }, [])
@@ -117,15 +117,13 @@ const LODsDND = () => {
           )) as File[]
           filenames.set(files.map((file) => file.name))
 
-          const uploadPromise = uploadToFeathersService('upload-asset', files, {
+          const result = await uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
             args: {
               project: 'ee-development-test-suite'
             } as AdminAssetUploadArgumentsType,
             variants: true
-          })
-
-          const result = (await uploadPromise.promise) as StaticResourceType[]
+          }).promise
 
           setVariant(entity, result)
 
