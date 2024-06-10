@@ -1,104 +1,207 @@
 {
-  "projects/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
-    "hash": "1bcd264c17b3baadcfca4a2ab1353f50215d22d5532fb3b665e6d79f72e70dba",
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb": {
-    "hash": "b1fc4ef3628ff41bb58ce5a0ae98a3f8667fb1c8ad2e7bc61a0cf8199a7b1226",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/transforms.glb": {
-    "hash": "5e2863ba790c9ed6973a4baca76f9012cdc0bfb27f65a3c57374112213b1a6d4",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2": {
-    "hash": "99075232e96d1fd8da127d5ae708e16241102078fac320d3c30565066d4b545c",
+  "projects/ee-development-test-suite/public/scenes/animations-test.thumbnail.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/test.gltf": {
-    "hash": "6cf2ddc33ec979702ac519a21fceb76fd5611aa3762ae96de660574768ee3d4d",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/animations-test.envmap.ktx2": {
-    "hash": "4b54a564ea2f7b0b09effd988b9f96cdfaf891358ea6db407d7f95ffe2164c98",
+  "projects/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
-    "hash": "776b8b01734beecda0f3ed3b5eeb1fa36008d77b145c1cb4560ad66a97af80e7",
+  "projects/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/assets/animations/rings.glb": {
-    "hash": "d195a26a0c4e4e9e820eb6712ad40a6adb6d5ba1947a2b6e8c38e2537d61da06",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/Adam_data.bin": {
-    "hash": "acc7c3c6e66b63c9f6f5bea7c8a380019ec3dae8a11e99be1451a86a9f1ae518",
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
-    "hash": "b0c9184d2c6acc2ecee552b4f50c4d27a97c37fc2f5102f7f10690cc8935afe4",
+  "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
   "projects/ee-development-test-suite/public/scenes/animations-test.scene.json": {
-    "hash": "f0451893deb252e2dd92954ed67d1eb68ffa8863b2aa4c6ec354c2eb769a86d8",
     "type": "asset",
     "tags": [
       "Volumetric"
     ]
   },
-  "projects/ee-development-test-suite/assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
-    "hash": "88da5883dce8220e015d3f63707c397659017a32b5fceed6d568f513cf47d658",
+  "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpeg": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
+    "type": "asset",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin": {
+    "type": "asset",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.scene.json": {
+    "type": "asset",
+    "tags": [
+      "Volumetric"
+    ],
+    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.jpg"
+  },
+  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/transforms.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Test RPM.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "projects/ee-development-test-suite/assets/animations/Racer-transformed.gltf": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/rings.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/graph/simpleController.json": {
+    "type": "asset",
+    "tags": [
+      "Volumetric"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Adam/Adam_data.bin": {
+    "type": "asset",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/Racer/Racer_data.bin": {
+    "type": "asset",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "projects/ee-development-test-suite/public/scenes/animations-test.envmap.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
+    "type": "asset",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "projects/ee-development-test-suite/public/scenes/test.scene.json": {
+    "type": "asset",
+    "tags": [
+      "Volumetric"
+    ],
+    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpg"
+  },
+  "projects/ee-development-test-suite/assets/graph/default-graph.json": {
+    "type": "asset",
+    "tags": [
+      "Volumetric"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Test Avaturn.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
+    "type": "asset",
+    "tags": [
+      "Image"
+    ]
+  },
+  "projects/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ]
+  },
+  "projects/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
   "projects/ee-development-test-suite/assets/envmaps/hall.glb": {
-    "hash": "017d9bb34d80236ca04e5a2dc5f70a49cc82580525c326a23783f2ee2dd2f29e",
     "type": "asset",
     "tags": [
       "Model"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
-    "hash": "8781de9a260deff3b90da1ff1747eee4db994c711deb41e138dcb0bfc649c9b6",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
   "projects/ee-development-test-suite/public/avatars/Adam.gltf": {
-    "hash": "eac044e60622bd352614431f05bcc9b22c1e41b6412727f368f6ec437735d629",
     "type": "asset",
     "tags": [
       "Model"
@@ -113,162 +216,28 @@
       "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2": {
-    "hash": "7c42f9ee2e754980691f99ddd4db7deea56b16fc964498883c2ecf2fb11c61b3",
+  "projects/ee-development-test-suite/assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.scene.json": {
-    "hash": "296a7565b9203dcbb5524d90a9c57a7614d1dbea22afe53826b45d29caf00fdb",
-    "type": "asset",
+  "projects/ee-development-test-suite/resources.json": {
+    "type": "file",
     "tags": [
       "Volumetric"
-    ],
-    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.jpg"
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb": {
-    "hash": "be85d51437faff0cd477959dcc4d4990809637376c927a322b53d083bea0f675",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
-    "hash": "e9aa1aa98c75c56352e4f67f20112ad9a70ba314211ee26e4ed1fb7bd8e8393a",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb": {
-    "hash": "bd73275b662db70657084079a3af80d69a5930bde45a7b6c6367ab023b8099b9",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/graph/simpleController.json": {
-    "hash": "729152e02bc4907322456a68302826c69e7fea8857a723c52b83d7a84785dd93",
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin": {
-    "hash": "4e694e677742c906b63a6829a756e7cb5cad4aa3eb793272ff8dbb0049fdcb91",
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/Racer_data.bin": {
-    "hash": "e524f58de996e288a484544755f6bbe6606d1ba21baac57f57b300c333bf8bf5",
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpeg": {
-    "hash": "4ff5d9abeb24b80a143d81e77e5ce5c9bb3fd7f63211e138e3ae7ff0406a0aa7",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
-    "hash": "7aa0097a02cb57ef22b460e7d4c0b888cade0a2bf6a778394879b9be5049d6ff",
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/animations-test.thumbnail.ktx2": {
-    "hash": "a2944e3e0c1a71711d7fddf63cbcd0d94b20b4618f98f2996095c2e6a3b14d12",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/test.scene.json": {
-    "hash": "aee5c213a3f7ec3642d7ced3f33954f073579d9f2bfaf1bf3a52a3559f9fc33e",
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ],
-    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpg"
-  },
-  "projects/ee-development-test-suite/public/avatars/Test Avaturn.glb": {
-    "hash": "71f3d7084d885d76ac76d46eb2e64299c0f3c6ceea5b4008996d3a7b2f5ff296",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
-    "hash": "895df5df1197ed0ff3c0c27d893dd54cae9ba38dc2c85fe7d0f291cdb74c2bef",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer-transformed.gltf": {
-    "hash": "c19359f48b52ab15d58c6a1ecdf2fdda3d94cf691363229064ad45035ec3dffa",
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
-    "hash": "8c1176d5a78de5e1218a704be4ef0114d8da2aa8da03e16b081ab62df4441298",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb": {
-    "hash": "53ac63cf23d2879ace3dd7d3086d508fed9ff6628f37fb80f5bea62e7aabb9ba",
-    "type": "asset",
-    "tags": [
-      "Model"
     ]
   },
   "projects/ee-development-test-suite/public/scenes/test.envmap.png": {
-    "hash": "bf6ea81a156a0e693c01e99e8bce746861862f413d09cfa523f641a44d464550",
     "type": "asset",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/avatars/Test RPM.glb": {
-    "hash": "bdc0a970da5da2049ab1147b758696e034c16b5e028eb91a2202c714882dd492",
+  "projects/ee-development-test-suite/public/scenes/test.gltf": {
     "type": "asset",
     "tags": [
       "Model"
-    ],
-    "dependencies": []
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
-    "hash": "e87c6a0a5d2070ea03ef748c154accedb08150952a5858dff9b5bde24a49ae03",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
-    "hash": "c92f0001d01a724dafeff64fe393f03e7243daf94c8538e212bcb19801eefbf4",
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/graph/default-graph.json": {
-    "hash": "562901eefddbac556c6ab98998c396d81bdb984ffb856f9a55d415dadf738562",
-    "type": "asset",
-    "tags": [
-      "Volumetric"
     ]
   }
 }
