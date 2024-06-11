@@ -76,7 +76,7 @@ export const AvatarBenchmark = (props: { rootEntity: Entity; onComplete: () => v
   }, [avatars])
 
   useEffect(() => {
-    if (completedCount.value == avatarsToCreate) sleep(benchmarkWaitTime).then(onComplete)
+    if (onComplete && completedCount.value == avatarsToCreate) sleep(benchmarkWaitTime).then(onComplete)
   }, [completedCount.value == avatarsToCreate])
 
   return (

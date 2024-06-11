@@ -12,8 +12,7 @@
         3,
         4,
         5,
-        6,
-        7
+        6
       ]
     }
   ],
@@ -42,7 +41,7 @@
           "bakeType": "Baked",
           "resolution": 2048,
           "refreshMode": "OnAwake",
-          "envMapOrigin": "https://localhost:8642/projects/default-project/default.envmap.ktx2",
+          "envMapOrigin": "__$project$__/default-project/default.envmap.ktx2",
           "boxProjection": true
         },
         "EE_fog": {
@@ -211,8 +210,8 @@
           "shadowMapType": 2
         },
         "EE_scene_settings": {
-          "thumbnailURL": "https://localhost:8642/projects/default-project/default.thumbnail.jpg",
-          "loadingScreenURL": "https://localhost:8642/projects/default-project/default.loadingscreen.ktx2",
+          "thumbnailURL": "__$project$__/default-project/default.thumbnail.jpg",
+          "loadingScreenURL": "__$project$__/default-project/default.loadingscreen.ktx2",
           "primaryColor": "#38620D",
           "backgroundColor": "rgb(214, 214, 211)",
           "alternativeColor": "#376312",
@@ -254,7 +253,7 @@
         "EE_skybox": {
           "backgroundColor": 2894892,
           "equirectangularPath": "",
-          "cubemapPath": "https://localhost:8642/projects/default-project/assets/skyboxsun25deg/",
+          "cubemapPath": "__$project$__/default-project/assets/skyboxsun25deg/",
           "backgroundType": 0,
           "skyboxProps": {
             "turbidity": 10,
@@ -380,14 +379,6 @@
           "helper": null
         },
         "EE_visible": true
-      }
-    },
-    {
-      "name": "examples",
-      "extensions": {
-        "EE_uuid": "c1a3850e-fd5f-436e-802c-047806918260",
-        "EE_visible": true,
-        "eepro.eetest.ExamplesComponent": {}
       }
     }
   ],

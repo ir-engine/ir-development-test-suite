@@ -32,7 +32,7 @@ export const metadata = {
 
 export default function (props: { sceneEntity: Entity }) {
   setVisibleComponent(props.sceneEntity, true)
-  return <AvatarBenchmark rootEntity={props.sceneEntity} onComplete={() => {}} />
+  return <AvatarBenchmark rootEntity={props.sceneEntity} onComplete={undefined as any} />
 }
 
 // export default function AvatarBenchmarking() {

@@ -90,8 +90,8 @@ const ExampleRoutes = () => {
   const [page, setPage] = useState(null as null | ((...args: any[]) => any))
 
   const ref = useRef(null as null | HTMLDivElement)
-  const projectName = 'default-project'
-  const sceneName = 'public/scenes/default.gltf'
+  const projectName = 'ee-development-test-suite'
+  const sceneName = 'Examples.gltf'
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   // useNetwork({ online: false })
   // useLoadEngineWithScene()
