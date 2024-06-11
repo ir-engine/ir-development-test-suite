@@ -200,17 +200,18 @@ export const spawnAvatar = (
     rotation: Quaternion
   }
 ) => {
-  const entityUUID = (userID + '_avatar') as EntityUUID
   dispatchAction(
     AvatarNetworkAction.spawn({
       parentUUID: rootUUID,
       position: pose.position,
       rotation: pose.rotation,
-      entityUUID: entityUUID,
+      entityUUID: userID as EntityUUID,
       avatarID: avatarID as AvatarID,
-      name: ''
+      name: avatarID
     })
   )
+
+  return userID as UserID
 }
 
 export const createIkTargetsForAvatar = (

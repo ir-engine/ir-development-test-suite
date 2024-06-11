@@ -51,10 +51,13 @@ const Navbar = () => {
 }
 
 //@ts-ignore
-const importedMetadata = import.meta.glob<any>(['./examples/componentExamples.tsx', './examples/avatarBenchmark.tsx'], {
-  import: 'metadata',
-  eager: true
-})
+const importedMetadata = import.meta.glob<any>(
+  ['./examples/componentExamples.tsx', './examples/avatarBenchmark.tsx', './examples/avatarMocap.tsx'],
+  {
+    import: 'metadata',
+    eager: true
+  }
+)
 
 type ExampleRouteData = {
   metadata?: {
