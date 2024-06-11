@@ -52,7 +52,12 @@ const Navbar = () => {
 
 //@ts-ignore
 const importedMetadata = import.meta.glob<any>(
-  ['./examples/componentExamples.tsx', './examples/avatarBenchmark.tsx', './examples/avatarMocap.tsx'],
+  [
+    './examples/componentExamples.tsx',
+    './examples/avatarBenchmark.tsx',
+    './examples/avatarMocap.tsx',
+    './examples/gltf.tsx'
+  ],
   {
     import: 'metadata',
     eager: true
