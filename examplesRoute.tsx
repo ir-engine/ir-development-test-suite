@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 
+import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import '@etherealengine/client-core/src/world/LocationModule'
 import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
@@ -93,8 +94,8 @@ const ExampleRoutes = () => {
   const projectName = 'ee-development-test-suite'
   const sceneName = 'Examples.gltf'
   useLoadScene({ projectName: projectName, sceneName: sceneName })
-  // useNetwork({ online: false })
-  // useLoadEngineWithScene()
+  useNetwork({ online: false })
+  useLoadEngineWithScene()
 
   const onClick = (route: string) => {
     setCurrentRoute(route)

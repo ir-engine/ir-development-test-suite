@@ -1,21 +1,17 @@
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { AvatarType, avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
-import { UUIDComponent } from '@etherealengine/ecs'
+import { Entity, UUIDComponent, removeEntity } from '@etherealengine/ecs'
 import { useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 import { AvatarRigComponent } from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
 import { MotionCaptureResults, mocapDataChannelType } from '@etherealengine/engine/src/mocap/MotionCaptureSystem'
-import { createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { NO_PROXY, createState, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import { DataChannelRegistryState, NetworkState } from '@etherealengine/network'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { encode } from 'msgpackr'
 import React, { useEffect } from 'react'
+import { useAvatars } from '../engine/TestUtils'
 import { loadNetworkAvatar } from './utils/avatar/loadAvatarHelpers'
-import { Template } from './utils/template'
 
 const getMocapTestData = async () => {
   return Object.fromEntries(
@@ -143,58 +139,52 @@ const ActivePoseUI = () => {
   )
 }
 
-export default function AvatarMocap() {
+export default function AvatarMocap(props: { sceneEntity: Entity }) {
   const network = useWorldNetwork()
-  const avatarList = useFind(avatarPath, {
-    query: {
-      $skip: 0,
-      $limit: 100
-    }
-  })
-
-  const selectedAvatar = useHookstate(avatarList.data[0])
+  const avatars = useAvatars()
+  const selectedAvatar = useHookstate<undefined | string>(undefined)
   const userID = useHookstate('' as UserID)
   const entity = useHookstate(UUIDComponent.entitiesByUUIDState[userID.value + '_avatar']).value
 
   useEffect(() => {
-    getMutableState(AnimationState).avatarLoadingEffect.set(false)
-  }, [])
+    if (!selectedAvatar.value || !network?.ready.value) return
 
-  useEffect(() => {
-    if (!network?.ready.value || !avatarList.data.length || !selectedAvatar.value) return
-    const userid = loadNetworkAvatar(selectedAvatar.value as AvatarType, 0, selectedAvatar.value.id, -1)
+    const userid = loadNetworkAvatar(selectedAvatar.value, 0, selectedAvatar.value, -1)
     userID.set(userid)
     return () => {
       removeEntity(UUIDComponent.entitiesByUUIDState[userid + '_avatar'].value)
       userID.set('' as UserID)
     }
-  }, [network?.ready, avatarList.data.length, selectedAvatar])
+  }, [network?.ready, selectedAvatar])
 
   return (
     <>
-      <select
-        style={{
-          background: 'lightgrey',
-          color: 'grey',
-          padding: '0.5em',
-          margin: '0.5em',
-          borderRadius: '0.5em',
-          border: 'none',
-          top: 0,
-          left: 0,
-          zIndex: 1000,
-          pointerEvents: 'all'
-        }}
-        onChange={(e) => selectedAvatar.set(avatarList.data.find((avatar) => avatar.id === e.target.value)!)}
-      >
-        {[{ name: 'None', id: '' }, ...avatarList.data].map((avatar) => (
-          <option key={avatar.id} value={avatar.id}>
-            {avatar.name}
-          </option>
-        ))}
-      </select>
+      {avatars.value && avatars.value.length && (
+        <select
+          style={{
+            background: 'lightgrey',
+            color: 'grey',
+            padding: '0.5em',
+            margin: '0.5em',
+            borderRadius: '0.5em',
+            border: 'none',
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            zIndex: 1000,
+            pointerEvents: 'all'
+          }}
+          onChange={(e) => selectedAvatar.set(avatars.get(NO_PROXY)[e.target.value])}
+        >
+          {avatars.value.map((avatar, i) => (
+            <option key={avatar} value={i}>
+              {avatar}
+            </option>
+          ))}
+        </select>
+      )}
 
-      <Template />
+      {/* <Template /> */}
       <ActivePoseUI />
       {entity && <MocapAvatar userID={userID.value} />}
     </>

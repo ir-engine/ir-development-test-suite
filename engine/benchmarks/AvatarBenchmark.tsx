@@ -1,5 +1,5 @@
 import config from '@etherealengine/common/src/config'
-import { AvatarID, UserID } from '@etherealengine/common/src/schema.type.module'
+import { UserID } from '@etherealengine/common/src/schema.type.module'
 import {
   Engine,
   Entity,
@@ -11,7 +11,6 @@ import {
   useComponent,
   useOptionalComponent
 } from '@etherealengine/ecs'
-import { ikTargets } from '@etherealengine/engine/src/avatar/animation/Util'
 import {
   AvatarAnimationComponent,
   AvatarRigComponent
@@ -19,9 +18,8 @@ import {
 import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
 import { AvatarColliderComponent } from '@etherealengine/engine/src/avatar/components/AvatarControllerComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
-import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { applyIncomingActions, dispatchAction, useHookstate } from '@etherealengine/hyperflux'
+import { useHookstate } from '@etherealengine/hyperflux'
 import { NetworkObjectComponent } from '@etherealengine/network'
 import { TransformComponent } from '@etherealengine/spatial'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
@@ -33,6 +31,12 @@ import {
 } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
+import {
+  createIkTargetsForAvatar,
+  randomQuaternion,
+  randomVec3,
+  spawnAvatar
+} from '../../examples/utils/avatar/loadAvatarHelpers'
 import { useExampleEntity } from '../../examples/utils/common/entityUtils'
 import { useAvatars } from '../TestUtils'
 import { sleep } from './BenchmarkUtils'
@@ -123,92 +127,6 @@ const AvatarSetupReactor = (props: {
   return null
 }
 
-const randomVec3 = (): Vector3 => {
-  return new Vector3(MathUtils.randFloat(-2.0, 2.0), MathUtils.randFloat(2.0, 4.0), MathUtils.randFloat(-2, 2.0))
-}
-
-const randomQuaternion = (): Quaternion => {
-  return new Quaternion().random()
-}
-
-const spawnAvatar = (
-  rootUUID: EntityUUID,
-  userID: string,
-  avatarID: string,
-  pose: {
-    position: Vector3
-    rotation: Quaternion
-  }
-) => {
-  const entityUUID = (userID + '_avatar') as EntityUUID
-  dispatchAction(
-    AvatarNetworkAction.spawn({
-      parentUUID: rootUUID,
-      position: pose.position,
-      rotation: pose.rotation,
-      entityUUID: entityUUID,
-      avatarID: avatarID as AvatarID,
-      name: ''
-    })
-  )
-}
-
-const createIkTargetsForAvatar = (parentUUID: EntityUUID, userID: string): EntityUUID[] => {
-  const headUUID = (userID + ikTargets.head) as EntityUUID
-  const leftHandUUID = (userID + ikTargets.leftHand) as EntityUUID
-  const rightHandUUID = (userID + ikTargets.rightHand) as EntityUUID
-  const leftFootUUID = (userID + ikTargets.leftFoot) as EntityUUID
-  const rightFootUUID = (userID + ikTargets.rightFoot) as EntityUUID
-
-  const targetUUIDs = [headUUID, leftHandUUID, rightHandUUID, leftFootUUID, rightFootUUID]
-
-  const posRot = targetUUIDs.map(() => ({ position: randomVec3(), rotation: randomQuaternion() }))
-
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: headUUID, name: 'head', blendWeight: 1, ...posRot[0] })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entityUUID: leftHandUUID,
-      name: 'leftHand',
-      blendWeight: 1,
-      ...posRot[1]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entityUUID: rightHandUUID,
-      name: 'rightHand',
-      blendWeight: 1,
-      ...posRot[2]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entityUUID: leftFootUUID,
-      name: 'leftFoot',
-      blendWeight: 1,
-      ...posRot[3]
-    })
-  )
-  dispatchAction(
-    AvatarNetworkAction.spawnIKTarget({
-      parentUUID,
-      entityUUID: rightFootUUID,
-      name: 'rightFoot',
-      blendWeight: 1,
-      ...posRot[4]
-    })
-  )
-
-  applyIncomingActions()
-
-  return targetUUIDs
-}
-
 export const AvatarIKBenchmark = (props: { rootEntity: Entity; onComplete: () => void }) => {
   const { rootEntity, onComplete } = props
   const childProps = useHookstate<undefined | AvatarSetupProps[]>(undefined)
@@ -288,7 +206,7 @@ const AvatarIKSetupReactor = (props: {
     setComponent(entity, AvatarRigComponent)
 
     spawnAvatar(rootUUID.value, uuid, src, { position, rotation: new Quaternion() })
-    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, uuid)
+    const targetUUIDs = createIkTargetsForAvatar(rootUUID.value, uuid, randomVec3(), randomQuaternion())
 
     return () => {
       for (const targetUUID of targetUUIDs) {
