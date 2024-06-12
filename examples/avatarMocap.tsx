@@ -13,6 +13,7 @@ import { encode } from 'msgpackr'
 import React, { useEffect } from 'react'
 import { Quaternion, Vector3 } from 'three'
 import { useAvatarData } from '../engine/TestUtils'
+import { useRouteScene } from '../sceneRoute'
 import { spawnAvatar } from './utils/avatar/loadAvatarHelpers'
 import { setupEntity } from './utils/common/entityUtils'
 
@@ -151,7 +152,7 @@ const ActivePoseUI = (props: { activePose: State<AvailablePoses> }) => {
   )
 }
 
-export default function AvatarMocap(props: { sceneEntity: Entity }) {
+function AvatarMocap(props: { sceneEntity: Entity }) {
   setVisibleComponent(props.sceneEntity, true)
   const rootUUID = useComponent(props.sceneEntity, UUIDComponent)
   const network = useWorldNetwork()
@@ -228,4 +229,9 @@ export default function AvatarMocap(props: { sceneEntity: Entity }) {
       )}
     </>
   )
+}
+
+export default function () {
+  const sceneEntity = useRouteScene()
+  return sceneEntity.value ? <AvatarMocap sceneEntity={sceneEntity.value} /> : null
 }

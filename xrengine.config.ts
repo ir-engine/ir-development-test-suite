@@ -6,6 +6,9 @@ const config: ProjectConfigInterface = {
   routes: {
     '/examples': {
       component: () => import('./examplesRoute')
+    },
+    '/benchmarks': {
+      component: () => import('./benchmarksRoute')
     }
   },
   services: undefined,

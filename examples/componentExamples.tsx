@@ -1,6 +1,7 @@
 import { Entity, setComponent } from '@etherealengine/ecs'
 import React, { useEffect } from 'react'
 import { ExamplesComponent } from '../engine/examples/ExamplesComponent'
+import { useRouteScene } from '../sceneRoute'
 
 export const metadata = {
   title: 'Components Examples',
@@ -15,6 +16,7 @@ const ComponentExamples = (props: { sceneEntity: Entity }) => {
   return null
 }
 
-export default function (props: { sceneEntity: Entity }) {
-  return <ComponentExamples sceneEntity={props.sceneEntity} />
+export default function () {
+  const sceneEntity = useRouteScene()
+  return sceneEntity.value ? <ComponentExamples sceneEntity={sceneEntity.value} /> : null
 }

@@ -10,6 +10,7 @@ const avatarsFolder = path.resolve(__dirname, 'avatars')
 const config = {
   onInstall: async (app: Application) => {
     await app.service('route-activate').create({ project: packageJson.name, route: '/examples', activate: true })
+    await app.service('route-activate').create({ project: packageJson.name, route: '/benchmarks', activate: true })
     await installAvatarsFromProject(app, avatarsFolder)
   }
 } as ProjectEventHooks

@@ -13,6 +13,7 @@ import { TransformComponent } from '@etherealengine/spatial/src/transform/compon
 
 import { Entity } from '@etherealengine/ecs'
 
+import { useRouteScene } from '../sceneRoute'
 import { useExampleEntity } from './utils/common/entityUtils'
 
 export const metadata = {
@@ -79,8 +80,10 @@ const GLTF = (props: { sceneEntity: Entity }) => {
   )
 }
 
-export default function GLTFViewer(props: { sceneEntity: Entity }) {
-  return (
+export default function GLTFViewer() {
+  const sceneEntity = useRouteScene()
+
+  return sceneEntity.value ? (
     <div
       id="dnd-container"
       style={{
@@ -94,8 +97,8 @@ export default function GLTFViewer(props: { sceneEntity: Entity }) {
       }}
     >
       <DndWrapper id="dnd-container">
-        <GLTF sceneEntity={props.sceneEntity} />
+        <GLTF sceneEntity={sceneEntity.value} />
       </DndWrapper>
     </div>
-  )
+  ) : null
 }

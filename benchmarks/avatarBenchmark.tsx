@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { Entity } from '@etherealengine/ecs'
-import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { AvatarBenchmark } from '../engine/benchmarks/AvatarBenchmark'
+import { useRouteScene } from '../sceneRoute'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -30,9 +29,9 @@ export const metadata = {
   description: ''
 }
 
-export default function (props: { sceneEntity: Entity }) {
-  setVisibleComponent(props.sceneEntity, true)
-  return <AvatarBenchmark rootEntity={props.sceneEntity} onComplete={undefined as any} />
+export default function () {
+  const sceneEntity = useRouteScene()
+  return sceneEntity.value ? <AvatarBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} /> : null
 }
 
 // export default function AvatarBenchmarking() {
