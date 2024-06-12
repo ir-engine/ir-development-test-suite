@@ -140,7 +140,7 @@ const useBenchmark = (): [React.FC<{ rootEntity: Entity; onComplete: () => void 
 const reactor = () => {
   const entity = useQuery([BenchmarkComponent])[0]
   const [Benchmark, onComplete] = useBenchmark()
-  return <>{Benchmark && <Benchmark rootEntity={entity} onComplete={onComplete} />}</>
+  return <>{entity && Benchmark && <Benchmark rootEntity={entity} onComplete={onComplete} />}</>
 }
 
 export default defineSystem({

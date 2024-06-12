@@ -9,6 +9,9 @@ const config: ProjectConfigInterface = {
     },
     '/benchmarks': {
       component: () => import('./benchmarksRoute')
+    },
+    '/benchmarksAll': {
+      component: () => import('./benchmarksAllRoute')
     }
   },
   services: undefined,
