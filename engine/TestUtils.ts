@@ -56,3 +56,16 @@ export const useAvatarData = () => {
 
   return avatars
 }
+
+export const useRandomAvatarData = () => {
+  const avatars = useAvatarData()
+  const avatar = useHookstate<AvatarType | undefined>(undefined)
+
+  useEffect(() => {
+    const avatarArr = avatars.get(NO_PROXY)
+    if (!avatarArr.length || avatar.value) return
+    avatar.set(avatarArr[MathUtils.randInt(0, avatarArr.length)])
+  }, [avatars])
+
+  return avatar
+}

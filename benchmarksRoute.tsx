@@ -12,7 +12,7 @@ const importedMetadata = import.meta.glob<any>('./benchmarks/*.tsx', {
 })
 
 //@ts-ignore
-const imports = import.meta.glob<any>(`${prefix}*.tsx`)
+const imports = import.meta.glob<any>('./benchmarks/*.tsx')
 const routes = Object.entries(imports).reduce(
   (prev, [route, lazy]) => ({
     ...prev,

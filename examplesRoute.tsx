@@ -6,7 +6,12 @@ import Routes, { RouteData } from './sceneRoute'
 const prefix = './examples/'
 //@ts-ignore
 const importedMetadata = import.meta.glob<any>(
-  ['./examples/componentExamples.tsx', './examples/avatarMocap.tsx', './examples/gltf.tsx'],
+  [
+    './examples/componentExamples.tsx',
+    './examples/avatarMocap.tsx',
+    './examples/gltf.tsx',
+    './examples/avatarTest.tsx'
+  ],
   {
     import: 'metadata',
     eager: true
