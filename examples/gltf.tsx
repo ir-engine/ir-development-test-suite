@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { Vector3 } from 'three'
 
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { getMutableComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
-import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
@@ -33,7 +32,7 @@ const GLTF = (props: { sceneEntity: Entity }) => {
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
-    accept: [...SupportedFileTypes, '.glb'],
+    accept: ['.gltf', '.glb'],
     async drop(item: any, monitor) {
       if (item.files) {
         const dndItem = monitor.getItem()
@@ -45,7 +44,9 @@ const GLTF = (props: { sceneEntity: Entity }) => {
           filenames.set(files.map((file) => file.name))
 
           const gltfFile = files[0]
-          setComponent(entity, ModelComponent, { src: URL.createObjectURL(gltfFile) })
+          const model = getMutableComponent(entity, ModelComponent)
+          model.src.set(URL.createObjectURL(gltfFile))
+
           console.log(gltfFile)
         } catch (err) {
           console.error(err)
