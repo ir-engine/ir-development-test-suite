@@ -12,6 +12,7 @@ import { TransformComponent } from '@etherealengine/spatial/src/transform/compon
 
 import { Entity } from '@etherealengine/ecs'
 
+import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { useRouteScene } from '../sceneRoute'
 import { useExampleEntity } from './utils/common/entityUtils'
 
@@ -25,14 +26,15 @@ const GLTF = (props: { sceneEntity: Entity }) => {
   const entity = useExampleEntity(props.sceneEntity)
 
   useEffect(() => {
-    setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
+    setComponent(entity, TransformComponent, { position: new Vector3(0, 2, -2) })
     setComponent(entity, VisibleComponent)
     setComponent(entity, NameComponent, 'GLTF Viewer')
     setComponent(entity, ModelComponent)
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
-    accept: ['.gltf', '.glb'],
+    // GLTF and GLB files seem to only come through as Native Files for this
+    accept: [...SupportedFileTypes],
     async drop(item: any, monitor) {
       if (item.files) {
         const dndItem = monitor.getItem()
