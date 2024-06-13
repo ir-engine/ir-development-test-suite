@@ -1,4 +1,5 @@
-import { SystemUUID } from '@etherealengine/ecs'
+import { ECSState, SystemUUID } from '@etherealengine/ecs'
+import { getState } from '@etherealengine/hyperflux'
 import React, { useEffect, useState } from 'react'
 import { ProfileState, SystemProfileData } from '../../engine/benchmarks/Profiling'
 
@@ -6,10 +7,14 @@ import('../../engine/benchmarks/Profiling')
 
 export default function ProfilerUI(props: { systemUUIDs: SystemUUID[] }) {
   const { systemUUIDs } = props
+  const [frameTime, SetFrameTime] = useState(0)
   const [systemProfileData, SetSystemProfileData] = useState([] as ({ uuid: SystemUUID } & SystemProfileData)[])
 
   useEffect(() => {
     const id = setInterval(() => {
+      const ecsState = getState(ECSState)
+      SetFrameTime(Math.trunc(ecsState.deltaSeconds * 1000))
+
       SetSystemProfileData(
         systemUUIDs.map((uuid) => {
           return {
@@ -27,6 +32,7 @@ export default function ProfilerUI(props: { systemUUIDs: SystemUUID[] }) {
 
   return (
     <div className="ProfilerUI" style={{ position: 'absolute', right: 12, top: 12, textAlign: 'right' }}>
+      <div>{`Frame Time: ${frameTime}ms`}</div>
       {systemProfileData.map((profileData) => {
         return (
           <>

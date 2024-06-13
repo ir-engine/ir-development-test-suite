@@ -19,7 +19,7 @@ export type RouteData = {
   page: (...args: any[]) => any
 }
 
-const buttonStyle = {
+export const buttonStyle = {
   width: 'auto',
   height: '100%',
   fontSize: '1.5rem',

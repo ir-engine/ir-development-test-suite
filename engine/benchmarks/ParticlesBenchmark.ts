@@ -44,10 +44,12 @@ export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () =
   useEffect(() => {
     if (!rootEntity) return
 
+    let running = true
     const entities = [] as Entity[]
     let createdObjects = 0
 
     const spawnObject = () => {
+      if (!running) return
       createdObjects += 1
       if (createdObjects <= objectsToCreate) {
         const entity = createParticleEntity(rootEntity)
@@ -63,6 +65,7 @@ export const ParticlesBenchmark = (props: { rootEntity: Entity; onComplete: () =
     spawnObject()
 
     return () => {
+      running = false
       for (const entity of entities) {
         removeEntity(entity)
       }

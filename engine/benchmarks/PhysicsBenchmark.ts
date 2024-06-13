@@ -19,7 +19,7 @@ import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/compo
 import { useEffect } from 'react'
 import { Group, MathUtils, Vector3 } from 'three'
 
-const objectsToCreate = 30
+const objectsToCreate = 60
 const waitTimeBetween = 200
 const simulateTime = 3000
 
@@ -62,15 +62,17 @@ const createPhysicsEntity = (rootEntity: Entity) => {
 }
 
 export const PhysicsBenchmark = (props: { rootEntity: Entity; onComplete: () => void }): null => {
-  const { rootEntity } = props
+  const { rootEntity, onComplete } = props
 
   useEffect(() => {
     if (!rootEntity) return
 
+    let running = true
     const entities = [] as Entity[]
     let createdObjects = 0
 
     const spawnObject = () => {
+      if (!running) return
       createdObjects += 1
       if (createdObjects <= objectsToCreate) {
         const entity = createPhysicsEntity(rootEntity)
@@ -78,13 +80,14 @@ export const PhysicsBenchmark = (props: { rootEntity: Entity; onComplete: () => 
         setTimeout(spawnObject, waitTimeBetween)
       } else {
         setTimeout(() => {
-          props.onComplete()
+          onComplete()
         }, simulateTime)
       }
     }
     spawnObject()
 
     return () => {
+      running = false
       for (const entity of entities) {
         removeEntity(entity)
       }
