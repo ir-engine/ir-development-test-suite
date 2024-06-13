@@ -18,7 +18,7 @@ type Benchmark = {
   systemUUIDs: SystemUUID[]
 }
 
-enum BenchmarkStage {
+export enum BenchmarkStage {
   Particles = 'Particles',
   Physics = 'Physics',
   Avatar = 'Avatar',
@@ -36,7 +36,7 @@ const benchmarkOrder = [
   BenchmarkStage.IK
 ]
 
-const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
+export const benchmarks: { [key in BenchmarkStage]: Benchmark | null } = {
   [BenchmarkStage.Avatar]: {
     benchmark: AvatarBenchmark,
     systemUUIDs: [SkinnedMeshTransformSystem, AvatarAnimationSystem]

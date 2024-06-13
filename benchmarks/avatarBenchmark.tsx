@@ -1,7 +1,12 @@
 import React from 'react'
 
+import {
+  AvatarAnimationSystem,
+  SkinnedMeshTransformSystem
+} from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { AvatarBenchmark } from '../engine/benchmarks/AvatarBenchmark'
 import { useRouteScene } from '../sceneRoute'
+import ProfilerUI from './utils/profilerUI'
 
 // let entities = [] as Entity[]
 // let entitiesLength = 0
@@ -31,7 +36,12 @@ export const metadata = {
 
 export default function () {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? <AvatarBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} /> : null
+  return sceneEntity.value ? (
+    <>
+      <AvatarBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} />
+      <ProfilerUI systemUUIDs={[SkinnedMeshTransformSystem, AvatarAnimationSystem]} />
+    </>
+  ) : null
 }
 
 // export default function AvatarBenchmarking() {

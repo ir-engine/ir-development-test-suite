@@ -4,5 +4,9 @@
   "engineVersion": "1.6.0",
   "description": "Assets and tests for Ethereal Engine core development",
   "thumbnail": "/static/etherealengine_thumbnail.jpg",
-  "scenes": ["Examples.gltf", "Benchmarks.gltf", "test.gltf"]
+  "scenes": [
+    "Examples.gltf",
+    "Benchmarks.gltf",
+    "test.gltf"
+  ]
 }
