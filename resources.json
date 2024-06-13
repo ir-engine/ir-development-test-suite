@@ -1,208 +1,36 @@
 {
-  "projects/ee-development-test-suite/public/scenes/animations-test.thumbnail.ktx2": {
-    "type": "asset",
+  "public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
+    "type": "file",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
-    "type": "asset",
+  "assets/LOD/Test_LOD1.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
+    "type": "file",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
-    "type": "asset",
+  "public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
+    "type": "file",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/animations-test.scene.json": {
-    "type": "asset",
+  "assets/graph/simpleController.json": {
+    "type": "file",
     "tags": [
       "Volumetric"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpeg": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin": {
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.scene.json": {
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ],
-    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.jpg"
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/transforms.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Test RPM.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer-transformed.gltf": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/rings.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/graph/simpleController.json": {
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/Adam_data.bin": {
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/Racer_data.bin": {
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/animations-test.envmap.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
-    "type": "asset",
-    "tags": [
-      "unknown"
-    ]
-  },
-  "projects/ee-development-test-suite/public/scenes/test.scene.json": {
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ],
-    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpg"
-  },
-  "projects/ee-development-test-suite/assets/graph/default-graph.json": {
-    "type": "asset",
-    "tags": [
-      "Volumetric"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Test Avaturn.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2": {
-    "type": "asset",
-    "tags": [
-      "Image"
-    ]
-  },
-  "projects/ee-development-test-suite/assets/envmaps/hall.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ]
-  },
-  "projects/ee-development-test-suite/public/avatars/Adam.gltf": {
-    "type": "asset",
+  "public/avatars/Adam.gltf": {
+    "type": "avatar",
     "tags": [
       "Model"
     ],
@@ -216,28 +44,195 @@
       "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
     ]
   },
-  "projects/ee-development-test-suite/assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
-    "type": "asset",
+  "assets/animations/Racer-transformed.gltf": {
+    "type": "file",
     "tags": [
-      "Image"
+      "Model"
     ]
   },
-  "projects/ee-development-test-suite/resources.json": {
+  "assets/graph/default-graph.json": {
     "type": "file",
     "tags": [
       "Volumetric"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/test.envmap.png": {
-    "type": "asset",
+  "public/scenes/test.thumbnail.jpeg": {
+    "type": "file",
     "tags": [
       "Image"
     ]
   },
-  "projects/ee-development-test-suite/public/scenes/test.gltf": {
-    "type": "asset",
+  "public/scenes/test.envmap.png": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "assets/LOD/Test_LOD2.glb": {
+    "type": "file",
     "tags": [
       "Model"
+    ]
+  },
+  "public/avatars/Adam/1f68862e8529230781b98f1825852cb37039ab137a796da4e1a54368ab308693.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "public/avatars/Test Avaturn.glb": {
+    "type": "avatar",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "public/avatars/Adam/5cbedd9382f99d1be408692e8d3b4172edb4aa5edcd9d90bca57f7c6b7db4e2b.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "public/scenes/test.gltf": {
+    "type": "scene",
+    "tags": [
+      "Model"
+    ],
+    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/test.thumbnail.jpg"
+  },
+  "public/scenes/animations-test.scene.json": {
+    "type": "scene",
+    "tags": [
+      "Volumetric"
+    ],
+    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/animations-test.scene.thumbnail.jpg"
+  },
+  "public/scenes/bpcem-envmap-bake-test.scene.json": {
+    "type": "scene",
+    "tags": [
+      "Volumetric"
+    ],
+    "thumbnailURL": "projects/ee-development-test-suite/public/scenes/bpcem-envmap-bake-test.scene.thumbnail.jpg"
+  },
+  "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "public/scenes/animations-test.thumbnail.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "assets/animations/Racer/Racer_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "public/scenes/animations-test.envmap.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "public/scenes/test.scene.json": {
+    "type": "file",
+    "tags": [
+      "Volumetric"
+    ]
+  },
+  "public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "assets/animations/transforms.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "public/avatars/Adam/Adam_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ]
+  },
+  "assets/LOD/Test_LOD0.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "assets/envmaps/hall.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "assets/animations/rings.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "public/avatars/Test RPM.glb": {
+    "type": "avatar",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/tornado-mobile-xr.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ]
+  },
+  "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-2.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ]
+  },
+  "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
     ]
   }
 }
