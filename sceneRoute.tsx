@@ -56,9 +56,7 @@ const Navbar = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = () => {
-  const projectName = 'ee-development-test-suite'
-  const sceneName = 'Examples.gltf'
+export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'Examples.gltf') => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
