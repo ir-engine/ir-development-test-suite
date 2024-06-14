@@ -72,5 +72,7 @@
 }
 
 .SubItemsContainer {
-  margin-left: 32px;
+  margin-top: 4px;
+  margin-left: 18px;
+  width: 92%;
 }
