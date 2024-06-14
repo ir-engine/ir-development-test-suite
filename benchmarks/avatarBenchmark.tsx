@@ -34,7 +34,7 @@ export const metadata = {
   description: ''
 }
 
-export default function () {
+export default function AvatarBenchmarkEntry() {
   const sceneEntity = useRouteScene()
   return sceneEntity.value ? (
     <>

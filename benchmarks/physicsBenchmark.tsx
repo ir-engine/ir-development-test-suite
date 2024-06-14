@@ -10,7 +10,7 @@ export const metadata = {
   description: ''
 }
 
-export default function () {
+export default function PhysicsBenchmarkEntry() {
   const sceneEntity = useRouteScene()
   return sceneEntity.value ? (
     <>

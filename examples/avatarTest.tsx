@@ -18,7 +18,7 @@ export const metadata = {
   description: ''
 }
 
-export default function AvatarBenchmarking() {
+export default function AvatarTestEntry() {
   const network = useWorldNetwork()
   const sceneEntity = useRouteScene()
   const avatarList = useAvatarData()

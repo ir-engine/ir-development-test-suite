@@ -23,7 +23,7 @@ const allocate = () => {
   allocated.push(alloc)
 }
 
-export default function () {
+export default function HeapBenchmarkEntry() {
   const sceneEntity = useRouteScene()
   const [memory, setMemory] = useState(undefined as Memory | undefined)
   const [grow, setGrow] = useState(false)

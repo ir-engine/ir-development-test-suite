@@ -5,7 +5,7 @@ import ECS, { getOptionalComponent, useComponent, useEntityContext } from '@ethe
 import { useHookstate } from '@etherealengine/hyperflux'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
-import { EntityComponent } from '../../examples/utils/entityComponent'
+import { EntityComponent } from '../utils/entityComponent'
 
 const ComponentNamesUI: React.FC = (props) => {
   const entity = useEntityContext()

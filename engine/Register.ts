@@ -1,12 +1,10 @@
 import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@etherealengine/ecs'
-import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/services/ComponentShelfCategoriesState'
 import { ComponentEditorsState } from '@etherealengine/editor/src/services/ComponentEditors'
+import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/services/ComponentShelfCategoriesState'
 
 import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
-import { ExamplesComponent } from './examples/ExamplesComponent'
-import { ExamplesComponentNodeEditor } from './examples/ExamplesNodeEditors'
 
 export const ProfilingComponent = defineComponent({
   name: 'eepro.eetest.ProfilingComponent',
@@ -19,13 +17,12 @@ export const BenchmarkComponent = defineComponent({
 })
 
 getMutableState(ComponentShelfCategoriesState).merge({
-  Debug: [ProfilingComponent, BenchmarkComponent, ExamplesComponent]
+  Debug: [ProfilingComponent, BenchmarkComponent]
 })
 
 getMutableState(ComponentEditorsState).merge({
   [ProfilingComponent.name]: ProfilingComponentNodeEditor,
-  [BenchmarkComponent.name]: BenchmarkComponentNodeEditor,
-  [ExamplesComponent.name]: ExamplesComponentNodeEditor
+  [BenchmarkComponent.name]: BenchmarkComponentNodeEditor
 })
 
 const reactor = () => {

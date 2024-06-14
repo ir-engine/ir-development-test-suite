@@ -41,10 +41,10 @@ import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRU
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
-import ComponentNamesUI from '../../engine/examples/ComponentNamesUI'
 import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import { EntityComponent } from '../utils/entityComponent'
+import ComponentNamesUI from './ComponentNamesUI'
 
 export const metadata = {
   title: 'Components Examples',
