@@ -27,7 +27,7 @@ const getMocapTestData = async () => {
     (
       await Promise.all(
         //@ts-ignore
-        Object.entries(import.meta.glob<any>('../../../../engine/src/mocap/testPoses/*.json')).map(async ([k, v]) => [
+        Object.entries(import.meta.glob<any>('./utils/testPoses/*.json')).map(async ([k, v]) => [
           k.split('/').pop()?.replace('.json', ''),
           await v()
         ])
