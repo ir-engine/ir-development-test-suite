@@ -1,35 +1,42 @@
 import React from 'react'
 
 import '@etherealengine/client-core/src/world/LocationModule'
+import AvatarMocapEntry from './examples/avatarMocap'
+import AvatarTestEntry from './examples/avatarTest'
+import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
+import GLTFViewer from './examples/gltf'
 import Routes, { RouteData } from './sceneRoute'
 
-const prefix = './examples/'
-//@ts-ignore
-const importedMetadata = import.meta.glob<any>(
-  [
-    './examples/componentExamples.tsx',
-    './examples/avatarMocap.tsx',
-    './examples/gltf.tsx',
-    './examples/avatarTest.tsx'
-  ],
+export const examples: RouteData[] = [
   {
-    import: 'metadata',
-    eager: true
+    name: 'Components Example',
+    description: 'Component examples',
+    entry: ComponentExamplesRoute,
+    sub: subComponentExamples.map((sub) => ({
+      name: sub.name,
+      description: sub.description,
+      props: { Reactor: sub.Reactor }
+    }))
+  },
+  {
+    name: 'Avatar Mocap',
+    description: 'Avatar mocap example',
+    entry: AvatarMocapEntry
+  },
+  {
+    name: 'Avatar Test',
+    description: 'Load many avatars',
+    entry: AvatarTestEntry
+  },
+  {
+    name: 'GLTF Viewer',
+    description: 'Drag and drop GLTF files',
+    entry: GLTFViewer
   }
-)
-
-//@ts-ignore
-const imports = import.meta.glob<any>('./examples/*.tsx')
-const routes = Object.entries(imports).reduce(
-  (prev, [route, lazy]) => ({
-    ...prev,
-    [route]: { page: React.lazy(lazy), metadata: importedMetadata[route] } as RouteData
-  }),
-  {}
-) as Record<string, RouteData>
+]
 
 const ExampleRoutes = () => {
-  return <Routes routes={routes} prefix={prefix} header="Examples" />
+  return <Routes routes={examples} header="Examples" />
 }
 
 export default ExampleRoutes

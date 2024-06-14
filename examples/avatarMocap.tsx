@@ -231,7 +231,7 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
   )
 }
 
-export default function () {
+export default function AvatarMocapEntry() {
   const sceneEntity = useRouteScene()
   return sceneEntity.value ? <AvatarMocap sceneEntity={sceneEntity.value} /> : null
 }

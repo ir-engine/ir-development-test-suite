@@ -1,23 +1,26 @@
 // @ts-ignore
 import styles from './ComponentNamesUI.css?inline'
 
-import ECS, { getComponent, useComponent, useEntityContext } from '@etherealengine/ecs'
+import ECS, { getOptionalComponent, useComponent, useEntityContext } from '@etherealengine/ecs'
 import { useHookstate } from '@etherealengine/hyperflux'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
-import { ExamplesComponent } from './ExamplesComponent'
+import { EntityComponent } from '../../examples/utils/entityComponent'
 
 const ComponentNamesUI: React.FC = (props) => {
   const entity = useEntityContext()
   const names = useHookstate<string[]>([])
   const parent = useComponent(entity, EntityTreeComponent).parentEntity
-  const examplesComponent = useComponent(parent.value, ExamplesComponent)
+  const examplesComponent = useComponent(parent.value, EntityComponent)
 
   useEffect(() => {
-    const currExample = examplesComponent.currExampleEntity.value
+    const currExample = examplesComponent.value
     if (!currExample) return
 
-    const children = getComponent(currExample, EntityTreeComponent).children
+    const tree = getOptionalComponent(currExample, EntityTreeComponent)
+    if (!tree) return
+
+    const children = tree.children
     const entities = [currExample, ...children]
 
     const componentNamesSet = new Set<string>()
@@ -34,9 +37,7 @@ const ComponentNamesUI: React.FC = (props) => {
       (name) => !['RenderOrder', 'ObjectLayer', 'Scene', 'Network', 'Resource'].some((val) => name.includes(val))
     )
     names.set(componentNames)
-
-    return () => {}
-  }, [examplesComponent.currExampleEntity])
+  }, [examplesComponent])
 
   return (
     <>

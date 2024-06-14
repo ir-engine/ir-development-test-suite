@@ -1,3 +1,6 @@
+// @ts-ignore
+import styles from './sceneRoute.css?inline'
+
 import React, { useEffect, useRef, useState } from 'react'
 
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
@@ -11,12 +14,18 @@ import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/compone
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
 
-export type RouteData = {
-  metadata?: {
-    title?: string
-    description?: string
-  }
-  page: (...args: any[]) => any
+type Metadata = {
+  name: string
+  description: string
+}
+
+type SubRoute = Metadata & {
+  props: {}
+}
+
+export type RouteData = Metadata & {
+  entry: (...args: any[]) => any
+  sub?: SubRoute[]
 }
 
 export const buttonStyle = {
@@ -34,24 +43,10 @@ export const buttonStyle = {
   borderColor: 'rgba(31, 27, 72, 0.85)' // Sets the outline color to rgb(31, 27, 72, 0.85)
 } as React.CSSProperties
 
-const Navbar = (props: { header: string }) => {
-  const navbarStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '60px',
-    backgroundColor: '#1d2125',
-    color: '#e7e7e7'
-  }
-
-  const headingStyle = {
-    fontSize: '1.5rem',
-    fontWeight: 'bold'
-  }
-
+const Header = (props: { header: string }) => {
   return (
-    <div style={navbarStyle}>
-      <h1 style={headingStyle}>{props.header}</h1>
+    <div className="NavBarHeaderContainer">
+      <h1 className="NavBarHeaderText">{props.header}</h1>
     </div>
   )
 }
@@ -81,16 +76,19 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
   return sceneEntity
 }
 
-const Routes = (props: { routes: Record<string, RouteData>; prefix: string; header: string }) => {
-  const { routes, prefix, header } = props
-  const [currentRoute, setCurrentRoute] = useState('default')
-  const [Page, setPage] = useState(null as null | ((...args: any[]) => any))
+const Routes = (props: { routes: RouteData[]; header: string }) => {
+  const { routes, header } = props
+  const [currentRoute, setCurrentRoute] = useState(null as null | number)
+  const [currentSub, setCurrentSub] = useState(0)
 
   const ref = useRef(null as null | HTMLDivElement)
 
-  const onClick = (route: string) => {
-    setCurrentRoute(route)
-    setPage(routes[route].page)
+  const onClick = (routeIndex: number) => {
+    setCurrentRoute(routeIndex)
+  }
+
+  const onSubClick = (subIndex: number) => {
+    setCurrentSub(subIndex)
   }
 
   useEffect(() => {
@@ -112,26 +110,54 @@ const Routes = (props: { routes: Record<string, RouteData>; prefix: string; head
     }
   }, [ref])
 
+  const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
+  const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSub]
+  const Entry = selectedRoute && selectedRoute.entry
+  const subProps = selectedSub ? selectedSub.props : {}
   return (
     <>
-      <div style={{ display: 'flex', width: '100%', height: '100%', flexDirection: 'row' }}>
-        <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh', width: '300px', background: '#2c2f33' }}>
-          <Navbar header={header} />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {Object.entries(routes).map(([route, data]) => {
-              const pathTitle = route.replace(prefix, '').replace('.tsx', '')
-              const title = data.metadata?.title ? data.metadata.title : pathTitle
+      <style type="text/css">{styles.toString()}</style>
+      <div className="ScreenContainer">
+        <div className="NavBarContainer">
+          <Header header={header} />
+          <div className="NavBarSelectionContainer">
+            {routes.map((route, index) => {
+              const title = route.name
+              const desc = route.description
               return (
-                <button style={buttonStyle} key={pathTitle} onClick={() => onClick(route)}>
-                  {title}
-                </button>
+                <React.Fragment key={title}>
+                  <div
+                    className={index === currentRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
+                    onClick={() => onClick(index)}
+                  >
+                    <div className="RouteItemTitle">{title}</div>
+                    <div className="RouteItemDescription">{desc}</div>
+                  </div>
+                  {index === currentRoute && routes[currentRoute]?.sub && (
+                    <div className="SubItemsContainer">
+                      {routes[currentRoute].sub?.map((sub, subIndex) => {
+                        const subTitle = sub.name
+                        const subDesc = sub.description
+                        return (
+                          <div
+                            className={subIndex === currentSub ? 'SelectedItemContainer' : 'RouteItemContainer'}
+                            onClick={() => onSubClick(subIndex)}
+                          >
+                            <div className="RouteItemTitle">{subTitle}</div>
+                            <div className="RouteItemDescription">{subDesc}</div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )}
+                </React.Fragment>
               )
             })}
           </div>
         </div>
         <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
       </div>
-      {Page && <Page key={currentRoute} />}
+      {Entry && <Entry {...subProps} />}
     </>
   )
 }

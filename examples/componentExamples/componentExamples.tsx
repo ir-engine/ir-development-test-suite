@@ -2,18 +2,13 @@ import config from '@etherealengine/common/src/config'
 import {
   Entity,
   UUIDComponent,
-  UndefinedEntity,
   createEntity,
-  defineComponent,
   generateEntityUUID,
   getComponent,
-  getMutableComponent,
   removeEntity,
   setComponent,
   useComponent,
-  useEntityContext,
-  useOptionalComponent,
-  useQuery
+  useOptionalComponent
 } from '@etherealengine/ecs'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
 import {
@@ -35,9 +30,8 @@ import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/co
 import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
 import { SplineHelperComponent } from '@etherealengine/engine/src/scene/components/debug/SplineHelperComponent'
 import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
-import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
+import { useImmediateEffect } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
-import { FollowCameraComponent } from '@etherealengine/spatial/src/camera/components/FollowCameraComponent'
 import { CallbackComponent } from '@etherealengine/spatial/src/common/CallbackComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
@@ -46,20 +40,20 @@ import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/compo
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { MathUtils } from 'three'
-import { useExampleEntity } from '../../examples/utils/common/entityUtils'
-import { useAvatars } from '../TestUtils'
-import ComponentNamesUI from './ComponentNamesUI'
-import ExampleSelectorUI from './ExampleSelectorUI'
+import { useAvatars } from '../../engine/TestUtils'
+import ComponentNamesUI from '../../engine/examples/ComponentNamesUI'
+import { useRouteScene } from '../../sceneRoute'
+import { useExampleEntity } from '../utils/common/entityUtils'
+import { EntityComponent } from '../utils/entityComponent'
 
-type Example = {
-  name: string
-  description: string
-  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+export const metadata = {
+  title: 'Components Examples',
+  description: 'Components examples'
 }
 
 const validAvatarAnimations = [0, 2, 3, 4, 5, 6, 7, 14, 22, 29]
 
-export const examples: Example[] = [
+export const subComponentExamples = [
   {
     name: 'Models',
     description: 'Add GLTF models to your scene',
@@ -393,63 +387,42 @@ export const examples: Example[] = [
   // }
 ]
 
-export const ExamplesComponent = defineComponent({
-  name: 'eepro.eetest.ExamplesComponent',
-  jsonID: 'eepro.eetest.ExamplesComponent',
+const ComponentExamples = (props: {
+  sceneEntity: Entity
+  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+}) => {
+  const { sceneEntity, Reactor } = props
 
-  onInit: (entity) => {
-    return {
-      currExampleIndex: 0,
-      currExampleEntity: UndefinedEntity
+  useImmediateEffect(() => {
+    setComponent(sceneEntity, EntityComponent)
+  }, [])
+
+  const entityComponent = useComponent(sceneEntity, EntityComponent)
+
+  useEffect(() => {
+    const componentNamesUIEntity = createEntity()
+    setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
+    setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: sceneEntity })
+    setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
+    setComponent(componentNamesUIEntity, SourceComponent, getComponent(sceneEntity, SourceComponent))
+    const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
+    componentNamesUI.container.position.set(2.4, 2, -1)
+
+    return () => {
+      removeEntity(componentNamesUIEntity)
     }
-  },
+  }, [Reactor])
 
-  toJSON: (entity, component) => {},
-
-  onSet: (entity, component, json) => {},
-
-  onRemove: (entity, component) => {},
-
-  reactor: () => {
-    const entity = useEntityContext()
-    const examplesComponent = useComponent(entity, ExamplesComponent)
-    const currentExample = useHookstate(examples[examplesComponent.currExampleIndex.value])
-    const Reactor = currentExample.get(NO_PROXY).Reactor
-    const followCameraQuery = useQuery([FollowCameraComponent])
-
-    useEffect(() => {
-      const y = (examples.length * 0.25) / 2
-      const selectExampleUI = createXRUI(ExampleSelectorUI, null, { interactable: true }, entity)
-      selectExampleUI.container.position.set(-2.4, y, -1)
-
-      const componentNamesUIEntity = createEntity()
-      setComponent(componentNamesUIEntity, UUIDComponent, generateEntityUUID())
-      setComponent(componentNamesUIEntity, EntityTreeComponent, { parentEntity: entity })
-      setComponent(componentNamesUIEntity, NameComponent, 'componentNamesUI')
-      setComponent(componentNamesUIEntity, SourceComponent, getComponent(entity, SourceComponent))
-      const componentNamesUI = createXRUI(ComponentNamesUI, null, { interactable: false }, componentNamesUIEntity)
-      componentNamesUI.container.position.set(2.4, y, -1)
-
-      return () => {
-        removeEntity(componentNamesUIEntity)
-      }
-    }, [])
-
-    useEffect(() => {
-      for (const followEntity of followCameraQuery) {
-        const followCameraComponent = getMutableComponent(followEntity, FollowCameraComponent)
-        followCameraComponent.zoomLevel.set(0.001)
-      }
-    }, [followCameraQuery])
-
-    useEffect(() => {
-      currentExample.set(examples[examplesComponent.currExampleIndex.value])
-    }, [examplesComponent.currExampleIndex])
-
-    const onLoaded = (entity: Entity) => {
-      examplesComponent.currExampleEntity.set(entity)
-    }
-
-    return <Reactor parent={entity} onLoad={onLoaded} />
+  const onLoaded = (entity: Entity) => {
+    entityComponent.set(entity)
   }
-})
+
+  return <Reactor parent={sceneEntity} onLoad={onLoaded} />
+}
+
+export default function ComponentExamplesRoute(props: {
+  Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
+}) {
+  const sceneEntity = useRouteScene()
+  return sceneEntity.value ? <ComponentExamples sceneEntity={sceneEntity.value} Reactor={props.Reactor} /> : null
+}
