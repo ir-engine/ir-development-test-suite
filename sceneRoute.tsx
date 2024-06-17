@@ -76,20 +76,47 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
   return sceneEntity
 }
 
+const routeKey = 'route'
+const subRouteKey = 'subroute'
+
 const Routes = (props: { routes: RouteData[]; header: string }) => {
   const { routes, header } = props
   const [currentRoute, setCurrentRoute] = useState(null as null | number)
-  const [currentSub, setCurrentSub] = useState(0)
+  const [currentSubRoute, setCurrentSubRoute] = useState(0)
 
   const ref = useRef(null as null | HTMLDivElement)
 
   const onClick = (routeIndex: number) => {
     setCurrentRoute(routeIndex)
+    setCurrentSubRoute(0)
   }
 
   const onSubClick = (subIndex: number) => {
-    setCurrentSub(subIndex)
+    setCurrentSubRoute(subIndex)
   }
+
+  useEffect(() => {
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    const routeIndexStr = urlParams.get(routeKey) as any
+    if (routeIndexStr) {
+      const routeIndex = Number(routeIndexStr)
+      setCurrentRoute(routeIndex)
+      const subIndexStr = urlParams.get(subRouteKey) as any
+      if (subIndexStr) {
+        const subIndex = Number(subIndexStr)
+        setCurrentSubRoute(subIndex)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (currentRoute === null) return
+    const url = new URL(window.location.href)
+    url.searchParams.set(routeKey, currentRoute.toString())
+    url.searchParams.set(subRouteKey, currentSubRoute.toString())
+    window.history.pushState(null, '', url.toString())
+  }, [currentRoute, currentSubRoute])
 
   useEffect(() => {
     if (!ref?.current) return
@@ -111,7 +138,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   }, [ref])
 
   const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
-  const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSub]
+  const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSubRoute]
   const Entry = selectedRoute && selectedRoute.entry
   const subProps = selectedSub ? selectedSub.props : {}
   return (
@@ -140,7 +167,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
                         const subDesc = sub.description
                         return (
                           <div
-                            className={subIndex === currentSub ? 'SelectedItemContainer' : 'RouteItemContainer'}
+                            className={subIndex === currentSubRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
                             onClick={() => onSubClick(subIndex)}
                           >
                             <div className="RouteItemTitle">{subTitle}</div>
