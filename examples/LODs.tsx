@@ -125,15 +125,13 @@ const LODsDND = () => {
           )) as File[]
           filenames.set(files.map((file) => file.name))
 
-          const uploadPromise = uploadToFeathersService(uploadAssetPath, files, {
+          const result = await uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
             args: {
               project: 'ee-development-test-suite'
             } as AdminAssetUploadArgumentsType,
             variants: true
-          })
-
-          const result = await uploadPromise.promise
+          }).promise
 
           setVariant(entity, result)
 

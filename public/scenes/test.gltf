@@ -5,31 +5,7 @@
   },
   "scenes": [
     {
-      "nodes": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        10,
-        11,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26
-      ]
+      "nodes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 26]
     }
   ],
   "scene": 0,
@@ -57,7 +33,7 @@
           "bakeType": "Baked",
           "resolution": 2048,
           "refreshMode": "OnAwake",
-          "envMapOrigin": "https://192.168.0.16:8642/projects/default-project/default.envmap.ktx2",
+          "envMapOrigin": "__$project$__/default-project/default.envmap.ktx2",
           "boxProjection": true
         },
         "EE_fog": {
@@ -226,24 +202,7 @@
         },
         "EE_visible": true
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "scene preview camera",
@@ -251,24 +210,7 @@
         "EE_uuid": "bb362197-f14d-4da7-9c3c-1ed834386423",
         "EE_scene_preview_camera": {}
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        2.5,
-        5,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2.5, 5, 1]
     },
     {
       "name": "EE_skybox",
@@ -278,7 +220,7 @@
         "EE_skybox": {
           "backgroundColor": 0,
           "equirectangularPath": "",
-          "cubemapPath": "https://192.168.0.16:8642/projects/default-project/assets/skyboxsun25deg/",
+          "cubemapPath": "__$project$__/default-project/assets/skyboxsun25deg/",
           "backgroundType": 1,
           "skyboxProps": {
             "turbidity": 10,
@@ -291,24 +233,7 @@
           }
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "ground plane",
@@ -324,24 +249,7 @@
           "receive": true
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "spawn point",
@@ -353,22 +261,8 @@
         }
       },
       "matrix": [
-        -1,
-        1.0106430996148606e-15,
-        -1.224646852585167e-16,
-        0,
-        1.0106430996148606e-15,
-        1,
-        1.2246467991473547e-16,
-        0,
-        1.2246468525851686e-16,
-        1.2246467991473532e-16,
-        -1,
-        0,
-        0,
-        0,
-        0,
-        1
+        -1, 1.0106430996148606e-15, -1.224646852585167e-16, 0, 1.0106430996148606e-15, 1, 1.2246467991473547e-16, 0,
+        1.2246468525851686e-16, 1.2246467991473532e-16, -1, 0, 0, 0, 0, 1
       ]
     },
     {
@@ -382,24 +276,7 @@
           "intensity": 1
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "directional light",
@@ -416,22 +293,8 @@
         }
       },
       "matrix": [
-        0.8201518642540717,
-        0.2860729507918133,
-        -0.49549287218469207,
-        0,
-        -2.135677384940138e-9,
-        0.8660253995220991,
-        0.5000000073825887,
-        0,
-        0.5721458901019658,
-        -0.41007593712366674,
-        0.7102723465203864,
-        0,
-        0,
-        10,
-        0,
-        1
+        0.8201518642540717, 0.2860729507918133, -0.49549287218469207, 0, -2.135677384940138e-9, 0.8660253995220991,
+        0.5000000073825887, 0, 0.5721458901019658, -0.41007593712366674, 0.7102723465203864, 0, 0, 10, 0, 1
       ]
     },
     {
@@ -439,7 +302,7 @@
       "extensions": {
         "EE_uuid": "b62536da-bbf2-4c83-aaef-9a8cd59d85e4",
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+          "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -451,21 +314,21 @@
         "EE_variant": {
           "levels": [
             {
-              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
+              "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD0.glb",
               "metadata": {
                 "minDistance": 0,
                 "maxDistance": 5
               }
             },
             {
-              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
+              "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD1.glb",
               "metadata": {
                 "minDistance": 5,
                 "maxDistance": 10
               }
             },
             {
-              "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
+              "src": "__$project$__/ee-development-test-suite/assets/LOD/Test_LOD2.glb",
               "metadata": {
                 "minDistance": 10,
                 "maxDistance": 15
@@ -475,24 +338,7 @@
           "heuristic": "DISTANCE"
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "Dynamic Load Distance",
@@ -503,34 +349,15 @@
           "distance": 5
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -10,
-        0,
-        -10,
-        1
-      ],
-      "children": [
-        9
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -10, 0, -10, 1],
+      "children": [9]
     },
     {
       "name": "Apartment",
       "extensions": {
         "EE_uuid": "60a15eb3-1ae8-44a8-8952-ea1f67fa8084",
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/default-project/assets/Skybase.glb",
+          "src": "__$project$__/default-project/assets/Skybase.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -540,24 +367,7 @@
         },
         "EE_visible": true
       },
-      "matrix": [
-        0.05,
-        0,
-        0,
-        0,
-        0,
-        0.05,
-        0,
-        0,
-        0,
-        0,
-        0.05,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [0.05, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, 0.05, 0, 0, 0, 0, 1]
     },
     {
       "name": "Dynamic Load Volume Target",
@@ -568,27 +378,8 @@
           "distance": 20
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        10,
-        0,
-        10,
-        1
-      ],
-      "children": [
-        12
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 0, 10, 1],
+      "children": [12]
     },
     {
       "name": "Dynamic Load Volume Trigger",
@@ -613,24 +404,7 @@
           ]
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        10,
-        0,
-        10,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 0, 10, 1]
     },
     {
       "name": "EE_video",
@@ -640,9 +414,7 @@
         "EE_media": {
           "controls": true,
           "autoplay": true,
-          "resources": [
-            "https://192.168.0.16:8642/projects/default-project/assets/SampleVideo.mp4"
-          ],
+          "resources": ["__$project$__/default-project/assets/SampleVideo.mp4"],
           "volume": 1,
           "synchronize": true,
           "playMode": "loop",
@@ -660,22 +432,8 @@
         }
       },
       "matrix": [
-        -1.6,
-        1.9594348786357652e-16,
-        -1.9594349641362686e-16,
-        0,
-        1.2246467991473532e-16,
-        1,
-        1.2246467991473532e-16,
-        0,
-        1.2246468525851679e-16,
-        1.2246467991473532e-16,
-        -1,
-        0,
-        2,
-        4,
-        2,
-        1
+        -1.6, 1.9594348786357652e-16, -1.9594349641362686e-16, 0, 1.2246467991473532e-16, 1, 1.2246467991473532e-16, 0,
+        1.2246468525851679e-16, 1.2246467991473532e-16, -1, 0, 2, 4, 2, 1
       ]
     },
     {
@@ -756,31 +514,14 @@
         },
         "EE_visible": {}
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        -10,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -10, 1]
     },
     {
       "name": "Grabbable Cube",
       "extensions": {
         "EE_uuid": "7bca6953-d646-459b-abe5-673e6ba9f510",
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/default-project/assets/test-equippable.glb",
+          "src": "__$project$__/default-project/assets/test-equippable.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -797,24 +538,7 @@
         },
         "EE_grabbable": {}
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -10,
-        0.5,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -10, 0.5, 0, 1]
     },
     {
       "name": "Point Light",
@@ -831,24 +555,7 @@
         },
         "EE_visible": true
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        10,
-        1,
-        -10,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 1, -10, 1]
     },
     {
       "name": "Spot Light",
@@ -868,22 +575,8 @@
         "EE_visible": true
       },
       "matrix": [
-        1,
-        3.4863055968420984e-32,
-        1.3684555315672042e-47,
-        0,
-        2.7369110631344083e-48,
-        -4.440892098500626e-16,
-        1,
-        0,
-        3.4863055968420984e-32,
-        -1,
-        -4.440892098500626e-16,
-        0,
-        10,
-        3,
-        0,
-        1
+        1, 3.4863055968420984e-32, 1.3684555315672042e-47, 0, 2.7369110631344083e-48, -4.440892098500626e-16, 1, 0,
+        3.4863055968420984e-32, -1, -4.440892098500626e-16, 0, 10, 3, 0, 1
       ]
     },
     {
@@ -891,14 +584,14 @@
       "extensions": {
         "EE_uuid": "68130937-16a1-4b95-a0db-7e32b99212fa",
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/default-project/assets/avatars/male_01.vrm",
+          "src": "__$project$__/default-project/assets/avatars/male_01.vrm",
           "generateBVH": true,
           "avoidCameraOcclusion": false,
           "convertToVRM": true
         },
         "EE_loop_animation": {
           "activeClipIndex": 3,
-          "animationPack": "https://192.168.0.16:8642/projects/default-project/assets/animations/emotes.glb",
+          "animationPack": "__$project$__/default-project/assets/animations/emotes.glb",
           "paused": false,
           "time": 0,
           "timeScale": 1,
@@ -911,24 +604,7 @@
         },
         "EE_visible": true
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        10,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 10, 1]
     },
     {
       "name": "Chair",
@@ -944,27 +620,10 @@
         "EE_visible": {}
       },
       "matrix": [
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0.43301270189221935,
-        -0.24999999999999994,
-        0,
-        0,
-        0.24999999999999994,
-        0.43301270189221935,
-        0,
-        5,
-        0.5,
-        -5,
-        1
+        0.5, 0, 0, 0, 0, 0.43301270189221935, -0.24999999999999994, 0, 0, 0.24999999999999994, 0.43301270189221935, 0,
+        5, 0.5, -5, 1
       ],
-      "children": [
-        19,
-        20
-      ]
+      "children": [19, 20]
     },
     {
       "name": "Mount Point",
@@ -980,24 +639,7 @@
         },
         "EE_visible": {}
       },
-      "matrix": [
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0.5,
-        0,
-        0,
-        0.9000000000000001,
-        0,
-        1
-      ]
+      "matrix": [0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0.9000000000000001, 0, 1]
     },
     {
       "name": "collider",
@@ -1015,22 +657,8 @@
         }
       },
       "matrix": [
-        0.5,
-        0,
-        0,
-        0,
-        0,
-        0.43301270189221935,
-        0.24999999999999997,
-        0,
-        0,
-        -0.24999999999999997,
-        0.43301270189221935,
-        0,
-        0,
-        0,
-        0,
-        1
+        0.5, 0, 0, 0, 0, 0.43301270189221935, 0.24999999999999997, 0, 0, -0.24999999999999997, 0.43301270189221935, 0,
+        0, 0, 0, 1
       ]
     },
     {
@@ -1058,24 +686,7 @@
         },
         "EE_visible": {}
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        5,
-        0,
-        5,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 5, 0, 5, 1]
     },
     {
       "name": "Portal 2",
@@ -1102,24 +713,7 @@
         },
         "EE_visible": {}
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -5,
-        0,
-        5,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5, 0, 5, 1]
     },
     {
       "name": "EE_spline",
@@ -1183,24 +777,7 @@
           ]
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -5,
-        1,
-        -5,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -5, 1, -5, 1]
     },
     {
       "name": "Spline Follower",
@@ -1215,7 +792,7 @@
           "loop": true
         },
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/animations/rings.glb",
+          "src": "__$project$__/ee-development-test-suite/assets/animations/rings.glb",
           "generateBVH": true,
           "avoidCameraOcclusion": false
         },
@@ -1248,24 +825,7 @@
           "triggers": []
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
     },
     {
       "name": "EE_link",
@@ -1297,22 +857,7 @@
         }
       },
       "matrix": [
-        0.10000000000000009,
-        0,
-        0,
-        0,
-        0,
-        0.10000000000000009,
-        0,
-        0,
-        0,
-        0,
-        0.10000000000000009,
-        0,
-        -10,
-        1.5,
-        5,
-        1
+        0.10000000000000009, 0, 0, 0, 0, 0.10000000000000009, 0, 0, 0, 0, 0.10000000000000009, 0, -10, 1.5, 5, 1
       ]
     },
     {
@@ -1320,7 +865,7 @@
       "extensions": {
         "EE_uuid": "6f0df209-4b99-4650-b9d1-f7c53e6a528a",
         "EE_model": {
-          "src": "https://192.168.0.16:8642/projects/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
+          "src": "__$project$__/ee-development-test-suite/assets/animations/tornado-mobile-xr.glb",
           "cameraOcclusion": true,
           "convertToVRM": false
         },
@@ -1339,24 +884,7 @@
           "weight": 1
         }
       },
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        -4.5,
-        0,
-        -4,
-        1
-      ]
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.5, 0, -4, 1]
     }
   ],
   "extensionsUsed": [
