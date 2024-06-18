@@ -16,6 +16,8 @@ const avatarsFolder = path.join(appRootPath.path, 'packages/projects/projects', 
 const config = {
   onInstall: async (app: Application) => {
     await app.service('route-activate').create({ project: packageJson.name, route: '/examples', activate: true })
+    await app.service('route-activate').create({ project: packageJson.name, route: '/benchmarks', activate: true })
+    await app.service('route-activate').create({ project: packageJson.name, route: '/benchmarksAll', activate: true })
 
     await Promise.all(
       fs

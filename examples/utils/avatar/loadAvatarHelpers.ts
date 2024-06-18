@@ -1,7 +1,7 @@
 import { AvatarState } from '@etherealengine/client-core/src/user/services/AvatarService'
 import config from '@etherealengine/common/src/config'
 import { NetworkId } from '@etherealengine/common/src/interfaces/NetworkId'
-import { AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { AvatarID, AvatarType } from '@etherealengine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
 import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
 import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
@@ -47,7 +47,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
   }
 }
 
-export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x = 0) => {
+export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'user', x = 0) => {
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
   NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
@@ -58,7 +58,7 @@ export const loadNetworkAvatar = (avatar: AvatarType, i: number, u = 'user', x =
       rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
       ownerID: userId,
       entityUUID: (userId + '_avatar') as EntityUUID,
-      avatarID: avatar.id,
+      avatarID: typeof avatar === 'string' ? (avatar as AvatarID) : avatar.id,
       name: userId + '_avatar'
     })
   )
@@ -181,4 +181,94 @@ export const loadAssetWithLoopAnimation = async (filename, position: Vector3, i:
   })
   setComponent(entity, ModelComponent, { src: filename, convertToVRM: true, cameraOcclusion: false })
   return entity
+}
+
+export const randomVec3 = (): Vector3 => {
+  return new Vector3(MathUtils.randFloat(-2.0, 2.0), MathUtils.randFloat(2.0, 4.0), MathUtils.randFloat(-2, 2.0))
+}
+
+export const randomQuaternion = (): Quaternion => {
+  return new Quaternion().random()
+}
+
+export const spawnAvatar = (
+  rootUUID: EntityUUID,
+  userID: string,
+  avatarID: string,
+  pose: {
+    position: Vector3
+    rotation: Quaternion
+  }
+) => {
+  dispatchAction(
+    AvatarNetworkAction.spawn({
+      parentUUID: rootUUID,
+      position: pose.position,
+      rotation: pose.rotation,
+      entityUUID: userID as EntityUUID,
+      avatarID: avatarID as AvatarID,
+      name: avatarID
+    })
+  )
+
+  return userID as UserID
+}
+
+export const createIkTargetsForAvatar = (
+  parentUUID: EntityUUID,
+  userID: string,
+  position: Vector3,
+  rotation: Quaternion
+): EntityUUID[] => {
+  const headUUID = (userID + ikTargets.head) as EntityUUID
+  const leftHandUUID = (userID + ikTargets.leftHand) as EntityUUID
+  const rightHandUUID = (userID + ikTargets.rightHand) as EntityUUID
+  const leftFootUUID = (userID + ikTargets.leftFoot) as EntityUUID
+  const rightFootUUID = (userID + ikTargets.rightFoot) as EntityUUID
+
+  const targetUUIDs = [headUUID, leftHandUUID, rightHandUUID, leftFootUUID, rightFootUUID]
+
+  const posRot = targetUUIDs.map(() => ({ position: position, rotation: rotation }))
+
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({ parentUUID, entityUUID: headUUID, name: 'head', blendWeight: 1, ...posRot[0] })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: leftHandUUID,
+      name: 'leftHand',
+      blendWeight: 1,
+      ...posRot[1]
+    })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: rightHandUUID,
+      name: 'rightHand',
+      blendWeight: 1,
+      ...posRot[2]
+    })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: leftFootUUID,
+      name: 'leftFoot',
+      blendWeight: 1,
+      ...posRot[3]
+    })
+  )
+  dispatchAction(
+    AvatarNetworkAction.spawnIKTarget({
+      parentUUID,
+      entityUUID: rightFootUUID,
+      name: 'rightFoot',
+      blendWeight: 1,
+      ...posRot[4]
+    })
+  )
+
+  return targetUUIDs
 }

@@ -21,7 +21,7 @@ import { GLTF } from '@etherealengine/engine/src/assets/loaders/gltf/GLTFLoader'
 import { NO_PROXY, defineState, getMutableState, getState, none, useHookstate } from '@etherealengine/hyperflux'
 
 import { Engine, getComponent, setComponent } from '@etherealengine/ecs'
-import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
+import { getGLTFAsync } from '@etherealengine/engine/src/assets/functions/resourceLoaderHooks'
 import { MixamoBoneNames } from '@etherealengine/engine/src/avatar/AvatarBoneMatching'
 import { TransformComponent } from '@etherealengine/spatial'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
@@ -208,7 +208,9 @@ const RetargetingDND = () => {
     setComponent(entity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
     if (!assetFile.value) return
     const url = URL.createObjectURL(assetFile.value) + '#' + assetFile.value.name
-    AssetLoader.loadAsync(url).then((asset: GLTF) => {
+
+    getGLTFAsync(url, entity).then(([asset, unload]) => {
+      if (!asset) return
       assetObject.set(asset)
       console.log(asset)
 

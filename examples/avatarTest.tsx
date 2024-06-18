@@ -1,44 +1,39 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
 
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
+import { AvatarType } from '@etherealengine/common/src/schema.type.module'
+import { useAvatarData } from '../engine/TestUtils'
+import { useRouteScene } from '../sceneRoute'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
   mockNetworkAvatars,
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
-import { Template } from './utils/template'
-import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
 
-export default function AvatarBenchmarking() {
+export const metadata = {
+  title: 'Avatar Test',
+  description: ''
+}
+
+export default function AvatarTestEntry() {
   const network = useWorldNetwork()
-  const avatarList = useFind(avatarPath, {
-    query: {
-      $skip: 0,
-      $limit: 100
-    }
-  })
+  const sceneEntity = useRouteScene()
+  const avatarList = useAvatarData()
   const created = useHookstate(false)
 
   useEffect(() => {
-    getMutableState(AnimationState).avatarLoadingEffect.set(false)
-  }, [])
-
-  useEffect(() => {
-    if (network?.ready?.value && avatarList.data.length > 0 && !created.value) {
+    if (sceneEntity.value && network?.ready?.value && avatarList.value.length > 0 && !created.value) {
       created.set(true)
-      const data = [...avatarList.data]
+      const data = [...avatarList.get(NO_PROXY)] as AvatarType[]
       mockNetworkAvatars(data)
       mockIKAvatars(data)
       mockLoopAnimAvatars(data)
       mockTPoseAvatars(data)
     }
-  }, [network?.ready, avatarList.data.length])
+  }, [network?.ready, avatarList, sceneEntity])
 
-  return <Template />
+  return null
 }

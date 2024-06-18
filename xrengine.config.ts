@@ -6,10 +6,17 @@ const config: ProjectConfigInterface = {
   routes: {
     '/examples': {
       component: () => import('./examplesRoute')
+    },
+    '/benchmarks': {
+      component: () => import('./benchmarksRoute')
+    },
+    '/benchmarksAll': {
+      component: () => import('./benchmarksAllRoute')
     }
   },
   services: undefined,
-  databaseSeed: undefined
+  databaseSeed: undefined,
+  worldInjection: () => import('./worldInjection')
 }
 
 export default config
