@@ -1,47 +1,36 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
 
 import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
+import { AvatarType } from '@etherealengine/common/src/schema.type.module'
+import { useRandomAvatarData } from '../engine/TestUtils'
+import { useRouteScene } from '../sceneRoute'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
   mockNetworkAvatars,
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
-import { Template } from './utils/template'
 
 export default function AvatarBenchmarking() {
   const network = useWorldNetwork()
-  const avatarList = useFind(avatarPath, {
-    query: {
-      $skip: 0,
-      $limit: 100
-    }
-  })
+  const sceneEntity = useRouteScene()
+  const avatarData = useRandomAvatarData()
   const created = useHookstate(false)
 
   useEffect(() => {
-    getMutableState(AnimationState).avatarLoadingEffect.set(false)
-  }, [])
-
-  useEffect(() => {
-    if (network?.ready.value && avatarList.data.length && !created.value) {
+    if (sceneEntity.value && network?.ready.value && avatarData.value && !created.value) {
       created.set(true)
-      const queryString = window.location.search
-      const urlParams = new URLSearchParams(queryString)
-      const indexStr = urlParams.get('index') as any
-      const index = parseInt(indexStr) | 0
 
-      mockNetworkAvatars([avatarList.data[index]])
-      mockIKAvatars([avatarList.data[index]])
-      mockLoopAnimAvatars([avatarList.data[index]])
-      mockTPoseAvatars([avatarList.data[index]])
+      const avatar = avatarData.get(NO_PROXY) as AvatarType
+
+      mockNetworkAvatars([avatar])
+      mockIKAvatars([avatar])
+      mockLoopAnimAvatars([avatar])
+      mockTPoseAvatars([avatar])
     }
-  }, [network?.ready, avatarList.data])
+  }, [network?.ready, avatarData, sceneEntity])
 
-  return <Template />
+  return null
 }

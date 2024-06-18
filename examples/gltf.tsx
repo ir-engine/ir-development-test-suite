@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { Color, Vector3 } from 'three'
+import { Vector3 } from 'three'
 
 import { getMutableComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { useHookstate } from '@etherealengine/hyperflux'
@@ -11,29 +10,31 @@ import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
 
-import { Engine, EntityUUID, UUIDComponent } from '@etherealengine/ecs'
-import { Template } from './utils/template'
+import { Entity } from '@etherealengine/ecs'
 
-import { BackgroundComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
+import { useRouteScene } from '../sceneRoute'
+import { useExampleEntity } from './utils/common/entityUtils'
 
-const GLTF = () => {
+export const metadata = {
+  title: 'GLTF',
+  description: ''
+}
+
+const GLTF = (props: { sceneEntity: Entity }) => {
   const filenames = useHookstate<string[]>([])
-
-  const entity = useHookstate(createEntity).value
+  const entity = useExampleEntity(props.sceneEntity)
 
   useEffect(() => {
-    setComponent(entity, TransformComponent, { position: new Vector3(0, 0, -2) })
+    setComponent(entity, TransformComponent, { position: new Vector3(0, 2, -2) })
     setComponent(entity, VisibleComponent)
     setComponent(entity, NameComponent, 'GLTF Viewer')
-    setComponent(entity, UUIDComponent, 'GLTF Viewer' as EntityUUID)
     setComponent(entity, ModelComponent)
-    setComponent(entity, BackgroundComponent, new Color('black'))
-    setComponent(entity, EntityTreeComponent, { parentEntity: Engine.instance.originEntity })
   }, [])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
-    accept: ['.gltf', '.glb'],
+    // GLTF and GLB files seem to only come through as Native Files for this
+    accept: [...SupportedFileTypes],
     async drop(item: any, monitor) {
       if (item.files) {
         const dndItem = monitor.getItem()
@@ -63,7 +64,17 @@ const GLTF = () => {
   })
 
   return (
-    <div style={{ height: '100%', width: '100%', background: 'white', fontSize: '20px' }} ref={onDropTarget}>
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        background: 'white',
+        fontSize: '20px',
+        position: 'relative',
+        color: 'black'
+      }}
+      ref={onDropTarget}
+    >
       Drag and drop GLTF files here!
       {filenames.value.map((filename, i) => (
         <div key={filename + i}> - {filename}</div>
@@ -73,12 +84,24 @@ const GLTF = () => {
 }
 
 export default function GLTFViewer() {
-  return (
-    <div id="dnd-container" style={{ height: '25%', width: '25%', pointerEvents: 'all' }}>
+  const sceneEntity = useRouteScene()
+
+  return sceneEntity.value ? (
+    <div
+      id="dnd-container"
+      style={{
+        height: '25%',
+        width: '25%',
+        pointerEvents: 'all',
+        position: 'absolute',
+        zIndex: 1000,
+        right: 0,
+        top: 0
+      }}
+    >
       <DndWrapper id="dnd-container">
-        <Template sceneName="" />
-        <GLTF />
+        <GLTF sceneEntity={sceneEntity.value} />
       </DndWrapper>
     </div>
-  )
+  ) : null
 }

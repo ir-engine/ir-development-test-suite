@@ -1,90 +1,42 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
 
 import '@etherealengine/client-core/src/world/LocationModule'
+import AvatarMocapEntry from './examples/avatarMocap'
+import AvatarTestEntry from './examples/avatarTest'
+import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
+import GLTFViewer from './examples/gltf'
+import Routes, { RouteData } from './sceneRoute'
 
-const buttonStyle = {
-  width: 'auto',
-  height: '100%',
-  fontSize: '1.5rem',
-  fontWeight: 'bold',
-  padding: '8px',
-  margin: '10px',
-  borderStyle: 'solid',
-  background: '#969696',
-  cursor: 'pointer',
-  boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.3)', // Adds a slight 3D effect with a box-shadow
-  wordWrap: 'break-word',
-  borderColor: 'rgba(31, 27, 72, 0.85)' // Sets the outline color to rgb(31, 27, 72, 0.85)
-} as React.CSSProperties
-
-const Navbar = () => {
-  const navbarStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '60px',
-    backgroundColor: 'rgb(31 27 72 / 85%)',
-    color: '#e7e7e7'
+export const examples: RouteData[] = [
+  {
+    name: 'Components Example',
+    description: 'Component examples',
+    entry: ComponentExamplesRoute,
+    sub: subComponentExamples.map((sub) => ({
+      name: sub.name,
+      description: sub.description,
+      props: { Reactor: sub.Reactor }
+    }))
+  },
+  {
+    name: 'Avatar Mocap',
+    description: 'Avatar mocap example',
+    entry: AvatarMocapEntry
+  },
+  {
+    name: 'Avatar Test',
+    description: 'Load many avatars',
+    entry: AvatarTestEntry
+  },
+  {
+    name: 'GLTF Viewer',
+    description: 'Drag and drop GLTF files',
+    entry: GLTFViewer
   }
-
-  const headingStyle = {
-    fontSize: '1.5rem',
-    fontWeight: 'bold'
-  }
-
-  return (
-    <div style={navbarStyle}>
-      <h1 style={headingStyle}>Examples</h1>
-    </div>
-  )
-}
-
-const routes = Object.fromEntries(
-  //@ts-ignore
-  Object.entries(import.meta.glob<any>('./examples/*.tsx')).map(([route, lazy]) => [route, React.lazy(lazy)])
-)
-
-const RoutesList = () => {
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const path = e.currentTarget.innerText
-    window.location.href = `/examples/${path}`
-  }
-
-  return (
-    <div style={{ pointerEvents: 'all', overflow: 'auto', height: '100vh' , background: '#02022d' }}>
-      <Navbar />
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, minmax(200px, 1fr))',
-          gap: '10px',
-          padding: '10px'
-        }}
-      >
-        {Object.entries(routes).map(([route]) => {
-          const path = route.replace('./examples/', '').replace('.tsx', '')
-          return (
-            <button style={buttonStyle} key={path} onClick={onClick}>
-              {path}
-            </button>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
+]
 
 const ExampleRoutes = () => {
-  return (
-    <Routes>
-      {Object.entries(routes).map(([route, Page]) => {
-        const path = route.replace('./examples', '').replace('.tsx', '')
-        return <Route key={path} path={path} element={<Page />} />
-      })}
-      <Route path={'/'} element={<RoutesList />} />
-    </Routes>
-  )
+  return <Routes routes={examples} header="Examples" />
 }
 
 export default ExampleRoutes
