@@ -7,6 +7,6 @@ import { isClient } from '@etherealengine/common/src/utils/getEnvironment'
 
 export default async function () {
   if (isClient) {
-    await import('./engine/Register')
+    await import('./src/engine/Register')
   }
 }

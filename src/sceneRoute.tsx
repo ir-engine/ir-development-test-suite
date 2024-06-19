@@ -51,7 +51,7 @@ const Header = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'Examples.gltf') => {
+export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
@@ -167,6 +167,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
                         const subDesc = sub.description
                         return (
                           <div
+                            key={subTitle}
                             className={subIndex === currentSubRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
                             onClick={() => onSubClick(subIndex)}
                           >

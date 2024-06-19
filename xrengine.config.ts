@@ -5,13 +5,13 @@ const config: ProjectConfigInterface = {
   thumbnail: '/static/etherealengine_thumbnail.jpg',
   routes: {
     '/examples': {
-      component: () => import('./examplesRoute')
+      component: () => import('./src/examplesRoute')
     },
     '/benchmarks': {
-      component: () => import('./benchmarksRoute')
+      component: () => import('./src/benchmarksRoute')
     },
     '/benchmarksAll': {
-      component: () => import('./benchmarksAllRoute')
+      component: () => import('./src/benchmarksAllRoute')
     }
   },
   services: undefined,
