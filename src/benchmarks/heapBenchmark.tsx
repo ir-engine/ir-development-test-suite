@@ -54,7 +54,7 @@ export default function HeapBenchmarkEntry() {
     }
   }, [grow])
 
-  return sceneEntity.value && memory ? (
+  return sceneEntity && memory ? (
     <>
       <ProfilerUI systemUUIDs={[]} />
       <div style={{ position: 'absolute', right: 12, top: 36, textAlign: 'right', pointerEvents: 'auto' }}>
