@@ -12,9 +12,9 @@ export const metadata = {
 
 export default function ParticlesBenchmarkEntry() {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? (
+  return sceneEntity ? (
     <>
-      <ParticlesBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} />
+      <ParticlesBenchmark rootEntity={sceneEntity} onComplete={undefined as any} />
       <ProfilerUI systemUUIDs={[ParticleSystem]} />
     </>
   ) : null
