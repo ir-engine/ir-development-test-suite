@@ -424,5 +424,5 @@ export default function ComponentExamplesRoute(props: {
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }) {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? <ComponentExamples sceneEntity={sceneEntity.value} Reactor={props.Reactor} /> : null
+  return sceneEntity ? <ComponentExamples sceneEntity={sceneEntity} Reactor={props.Reactor} /> : null
 }

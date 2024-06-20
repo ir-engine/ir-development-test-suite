@@ -6,9 +6,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import '@etherealengine/client-core/src/world/LocationModule'
-import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import { Engine, getComponent, setComponent } from '@etherealengine/ecs'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
-import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import { useImmediateEffect } from '@etherealengine/hyperflux'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
@@ -52,19 +52,11 @@ const Header = (props: { header: string }) => {
 }
 
 export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
-  useLoadScene({ projectName: projectName, sceneName: sceneName })
+  const sceneID = useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
 
-  const gltfState = useMutableState(GLTFAssetState)
-  const sceneEntity = useHookstate<undefined | Entity>(undefined)
-
-  useEffect(() => {
-    const sceneURL = `projects/${projectName}/${sceneName}`
-    if (!gltfState[sceneURL].value) return
-    const entity = gltfState[sceneURL].value
-    if (entity) sceneEntity.set(entity)
-  }, [gltfState])
+  const sceneEntity = GLTFAssetState.useScene(sceneID)
 
   useImmediateEffect(() => {
     const entity = Engine.instance.viewerEntity
