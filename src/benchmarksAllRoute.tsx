@@ -8,9 +8,9 @@ const BenchmarkAllRoute = () => {
   const sceneEntity = useRouteScene()
 
   useEffect(() => {
-    if (!sceneEntity.value) return
+    if (!sceneEntity) return
 
-    setComponent(sceneEntity.value, BenchmarkComponent)
+    setComponent(sceneEntity, BenchmarkComponent)
     import('./engine/benchmarks/BenchmarkOrchestration')
   }, [sceneEntity])
 
