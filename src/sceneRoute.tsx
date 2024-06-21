@@ -13,6 +13,8 @@ import { CameraComponent } from '@etherealengine/spatial/src/camera/components/C
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
+import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 
 type Metadata = {
   name: string
@@ -58,6 +60,7 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate<undefined | Entity>(undefined)
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
     const sceneURL = `projects/${projectName}/${sceneName}`
@@ -67,11 +70,11 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
   }, [gltfState])
 
   useImmediateEffect(() => {
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 0, 4)
-  }, [])
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 0, 4)
+  }, [viewerEntity])
 
   return sceneEntity
 }
@@ -85,6 +88,8 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   const [currentSubRoute, setCurrentSubRoute] = useState(0)
 
   const ref = useRef(null as null | HTMLDivElement)
+
+  useEngineCanvas(ref)
 
   const onClick = (routeIndex: number) => {
     setCurrentRoute(routeIndex)
@@ -118,33 +123,15 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
     window.history.pushState(null, '', url.toString())
   }, [currentRoute, currentSubRoute])
 
-  useEffect(() => {
-    if (!ref?.current) return
-
-    const canvas = getComponent(Engine.instance.viewerEntity, RendererComponent).renderer.domElement
-    canvas.parentElement?.removeChild(canvas)
-    ref.current.appendChild(canvas)
-
-    getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-
-    const observer = new ResizeObserver(() => {
-      getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-    })
-
-    observer.observe(ref.current)
-    return () => {
-      observer.disconnect()
-    }
-  }, [ref])
-
   const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
   const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSubRoute]
   const Entry = selectedRoute && selectedRoute.entry
   const subProps = selectedSub ? selectedSub.props : {}
+
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
-      <div className="ScreenContainer">
+      <div className="ScreenContainer" >
         <div className="NavBarContainer">
           <Header header={header} />
           <div className="NavBarSelectionContainer">
