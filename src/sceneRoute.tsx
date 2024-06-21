@@ -5,16 +5,15 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
+import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
 import '@etherealengine/client-core/src/world/LocationModule'
-import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
 
 type Metadata = {
   name: string
@@ -131,7 +130,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
-      <div className="ScreenContainer" >
+      <div className="ScreenContainer">
         <div className="NavBarContainer">
           <Header header={header} />
           <div className="NavBarSelectionContainer">
