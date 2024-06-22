@@ -6,6 +6,7 @@ import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltf'
 import Routes, { RouteData } from './sceneRoute'
+import MultipleScenesEntry from './examples/multipleScenes'
 
 export const examples: RouteData[] = [
   {
@@ -32,6 +33,11 @@ export const examples: RouteData[] = [
     name: 'GLTF Viewer',
     description: 'Drag and drop GLTF files',
     entry: GLTFViewer
+  },
+  {
+    name: 'Multiple Scenes',
+    description: 'multiple scenes example',
+    entry: MultipleScenesEntry
   }
 ]
 
