@@ -99,6 +99,7 @@ export default function MultipleScenesEntry() {
     getMutableComponent(Engine.instance.viewerEntity, SceneComponent).scenes.merge([lightEntity])
 
     getMutableState(RendererState).gridVisibility.set(true)
+    getMutableState(RendererState).physicsDebug.set(true)
     const entity = Engine.instance.viewerEntity
     setComponent(entity, CameraOrbitComponent)
     setComponent(entity, InputComponent)

@@ -5,16 +5,18 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
-import '@etherealengine/engine/src/EngineModule'
+import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
 import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
+import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi2'
 
 type Metadata = {
   name: string
@@ -88,6 +90,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   const { routes, header } = props
   const [currentRoute, setCurrentRoute] = useState(null as null | number)
   const [currentSubRoute, setCurrentSubRoute] = useState(0)
+  const hidden = useHookstate(false)
 
   const ref = useRef(null as null | HTMLDivElement)
 
@@ -150,7 +153,24 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
     <>
       <style type="text/css">{styles.toString()}</style>
       <div className="ScreenContainer">
-        <div className="NavBarContainer">
+        <Button
+          className="z-10 mb-1 px-0"
+          rounded="full"
+          variant="outline"
+          style={{ position: 'absolute', top: '10px', left: hidden.value ? '10px' : '310px', pointerEvents: 'all' }}
+          onClick={() => hidden.set(!hidden.value)}
+          startIcon={
+            hidden.value ? (
+              <HiChevronDoubleRight className="pointer-events-none place-self-center text-theme-primary" />
+            ) : (
+              <HiChevronDoubleLeft className="pointer-events-none place-self-center text-theme-primary" />
+            )
+          }
+        />
+        <div
+          className="NavBarContainer"
+          style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}
+        >
           <Header header={header} />
           <div className="NavBarSelectionContainer">
             {routes.map((route, index) => {
