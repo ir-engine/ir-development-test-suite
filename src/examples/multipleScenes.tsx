@@ -1,28 +1,71 @@
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import {
   Engine,
+  Entity,
   EntityUUID,
+  UUIDComponent,
   UndefinedEntity,
   createEntity,
+  defineComponent,
+  defineQuery,
+  defineSystem,
   getComponent,
   getMutableComponent,
-  setComponent
+  removeEntity,
+  setComponent,
+  useOptionalComponent
 } from '@etherealengine/ecs'
+import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
+import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
 import { getMutableState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
-import { DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
+import { DirectionalLightComponent, PhysicsPreTransformSystem, PhysicsSystem, TransformComponent } from '@etherealengine/spatial'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
+import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
+import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
+import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
+import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@etherealengine/spatial/src/transform/systems/TransformSystem'
 import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, Matrix4, Quaternion, Vector3 } from 'three'
+import { Cache, Color, Euler, Group, MathUtils, Matrix4, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
+
+const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+
+export const createPhysicsEntity = (sceneEntity: Entity) => {
+  const entity = createEntity()
+
+  const position = new Vector3(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+  const obj3d = new Group()
+  obj3d.entity = entity
+  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
+  setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
+  setComponent(entity, Object3DComponent, obj3d)
+  setComponent(entity, TransformComponent, { position, scale: new Vector3(0.5, 0.5, 0.5) })
+  setComponent(entity, PrimitiveGeometryComponent, {
+    geometryType: GeometryTypeEnum.SphereGeometry
+  })
+  setComponent(entity, VisibleComponent, true)
+  setComponent(entity, RigidBodyComponent, { type: 'dynamic' })
+  setComponent(entity, ColliderComponent, {
+    shape: 'sphere',
+    mass: MathUtils.randFloat(0.5, 1.5),
+    friction: MathUtils.randFloat(0.1, 1.0),
+    restitution: MathUtils.randFloat(0.1, 1.0)
+  })
+  setComponent(entity, TestSuiteBallTagComponent)
+
+  return entity
+}
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -34,7 +77,7 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
   scene: 0,
   nodes: [
     {
-      matrix: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+      matrix: [5, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 5, 0, 0, 1, 0, 1],
       name: 'Rigidbody',
       extensions: {
         EE_uuid: 'rigidbody-' + id,
@@ -66,6 +109,7 @@ const SceneReactor = (props: {
   const { coord, transform } = props
 
   const gltfEntityState = useHookstate(UndefinedEntity)
+  const gltfComponent = useOptionalComponent(gltfEntityState.value, GLTFComponent)
 
   useEffect(() => {
     const sceneID = `scene-${coord.x}-${coord.z}`
@@ -76,7 +120,8 @@ const SceneReactor = (props: {
     Cache.add(sceneURL, gltf)
 
     const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
-    getMutableComponent(Engine.instance.viewerEntity, SceneComponent).scenes.merge([gltfEntity])
+    getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([gltfEntity])
+    setComponent(gltfEntity, SceneComponent)
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
 
     gltfEntityState.set(gltfEntity)
@@ -110,20 +155,41 @@ const SceneReactor = (props: {
       transformComponent.scale
     )
     computeTransformMatrix(gltfEntity)
-
-    console.log('position', transformComponent.position.x, transformComponent.position.y, transformComponent.position.z)
-    console.log(
-      'rotation',
-      transformComponent.rotation.x,
-      transformComponent.rotation.y,
-      transformComponent.rotation.z,
-      transformComponent.rotation.w
-    )
-    console.log('scale', transformComponent.scale.x, transformComponent.scale.y, transformComponent.scale.z)
   }, [transform.position, transform.rotation, transform.scale])
+
+  useEffect(() => {
+    if (gltfComponent?.progress?.value !== 100) return
+    const entities = [] as Entity[]
+    for (let i = 0; i < 10; i++) {
+      entities.push(createPhysicsEntity(gltfEntityState.value))
+    }
+    return () => {
+      for (const entity of entities) {
+        removeEntity(entity)
+      }
+    }
+  }, [gltfComponent?.progress?.value])
 
   return null
 }
+
+const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
+
+const execute = () => {
+  for (const entity of testSuiteBallTagQuery()) {
+    const rigidbody = getComponent(entity, RigidBodyComponent)
+    const transform = getComponent(entity, TransformComponent)
+    if (rigidbody.position.y < -10) {
+      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    }
+  }
+}
+
+export const BallResetSystem = defineSystem({
+  uuid: 'ee-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute
+})
 
 const gridCount = 5
 const gridSpacing = 10
@@ -138,7 +204,7 @@ export default function MultipleScenesEntry() {
     setComponent(lightEntity, NameComponent, 'directional light')
     setComponent(lightEntity, VisibleComponent)
     setComponent(lightEntity, DirectionalLightComponent, { intensity: 1, color: new Color(0xffffff) })
-    getMutableComponent(Engine.instance.viewerEntity, SceneComponent).scenes.merge([lightEntity])
+    getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([lightEntity])
 
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
@@ -171,7 +237,7 @@ export default function MultipleScenesEntry() {
       {coordsState.value.map((coord) => (
         <SceneReactor key={`${coord.x}-${coord.z}`} coord={coord} transform={transformState.value} />
       ))}
-      <div className="pointer-events-auto absolute right-0 w-fit flex flex-col flex-grid justify-start gap-1.5">
+      <div className="flex-grid pointer-events-auto absolute right-0 flex w-fit flex-col justify-start gap-1.5">
         <Transform transformState={transformState} />
       </div>
     </>
