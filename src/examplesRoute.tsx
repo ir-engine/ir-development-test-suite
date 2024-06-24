@@ -7,6 +7,7 @@ import ComponentExamplesRoute, { subComponentExamples } from './examples/compone
 import GLTFViewer from './examples/gltf'
 import Routes, { RouteData } from './sceneRoute'
 import MultipleScenesEntry from './examples/multipleScenes'
+import ScenePlacement from './examples/scenePlacement'
 
 export const examples: RouteData[] = [
   {
@@ -38,6 +39,11 @@ export const examples: RouteData[] = [
     name: 'Multiple Scenes',
     description: 'multiple scenes example',
     entry: MultipleScenesEntry
+  },
+  {
+    name: 'Scene Placement',
+    description: 'place scenes relative to the origin example',
+    entry: ScenePlacement
   }
 ]
 

@@ -1,5 +1,13 @@
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { Engine, EntityUUID, createEntity, getComponent, getMutableComponent, setComponent } from '@etherealengine/ecs'
+import {
+  Engine,
+  EntityUUID,
+  UndefinedEntity,
+  createEntity,
+  getComponent,
+  getMutableComponent,
+  setComponent
+} from '@etherealengine/ecs'
 import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { getMutableState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
 import { DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
@@ -10,14 +18,11 @@ import { InputComponent } from '@etherealengine/spatial/src/input/components/Inp
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+import { computeTransformMatrix } from '@etherealengine/spatial/src/transform/systems/TransformSystem'
 import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, Quaternion, Vector3 } from 'three'
-
-export const metadata = {
-  title: 'Avatar Test',
-  description: ''
-}
+import { Cache, Color, Euler, Matrix4, Quaternion, Vector3 } from 'three'
+import { Transform } from './utils/transform'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -54,8 +59,14 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
   extensionsUsed: ['EE_uuid', 'EE_visible', 'EE_rigidbody', 'EE_collider', 'EE_primitive_geometry']
 })
 
-const SceneReactor = (props: { coord: Vector3 }) => {
-  const { coord } = props
+const SceneReactor = (props: {
+  coord: Vector3
+  transform: { position: Vector3; rotation: Quaternion; scale: Vector3 }
+}) => {
+  const { coord, transform } = props
+
+  const gltfEntityState = useHookstate(UndefinedEntity)
+
   useEffect(() => {
     const sceneID = `scene-${coord.x}-${coord.z}`
     const gltf = createSceneGLTF(sceneID)
@@ -65,14 +76,10 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     Cache.add(sceneURL, gltf)
 
     const gltfEntity = GLTFSourceState.load(sceneURL, sceneURL as EntityUUID)
-    setComponent(gltfEntity, TransformComponent, {
-      position: coord
-        .clone()
-        .sub(new Vector3(0.5, 0, 0.5))
-        .multiplyScalar(gridSpacing)
-    })
     getMutableComponent(Engine.instance.viewerEntity, SceneComponent).scenes.merge([gltfEntity])
     getMutableState(GLTFAssetState)[sceneURL].set(gltfEntity)
+
+    gltfEntityState.set(gltfEntity)
 
     return () => {
       GLTFSourceState.unload(gltfEntity)
@@ -80,10 +87,45 @@ const SceneReactor = (props: { coord: Vector3 }) => {
     }
   }, [])
 
+  useEffect(() => {
+    const gltfEntity = gltfEntityState.value
+
+    // reset transform
+    setComponent(gltfEntity, TransformComponent, {
+      position: coord
+        .clone()
+        .sub(new Vector3(0.5, 0, 0.5))
+        .multiplyScalar(gridSpacing),
+      rotation: new Quaternion(),
+      scale: new Vector3(0.5, 0.5, 0.5)
+    })
+
+    // apply transform state
+    const transformComponent = getComponent(gltfEntity, TransformComponent)
+    const mat4 = new Matrix4()
+    transformComponent.matrix.multiply(mat4.compose(transform.position, transform.rotation, transform.scale))
+    transformComponent.matrix.decompose(
+      transformComponent.position,
+      transformComponent.rotation,
+      transformComponent.scale
+    )
+    computeTransformMatrix(gltfEntity)
+
+    console.log('position', transformComponent.position.x, transformComponent.position.y, transformComponent.position.z)
+    console.log(
+      'rotation',
+      transformComponent.rotation.x,
+      transformComponent.rotation.y,
+      transformComponent.rotation.z,
+      transformComponent.rotation.w
+    )
+    console.log('scale', transformComponent.scale.x, transformComponent.scale.y, transformComponent.scale.z)
+  }, [transform.position, transform.rotation, transform.scale])
+
   return null
 }
 
-const gridCount = 10
+const gridCount = 5
 const gridSpacing = 10
 
 export default function MultipleScenesEntry() {
@@ -118,11 +160,20 @@ export default function MultipleScenesEntry() {
     coordsState.set(coords)
   }, [])
 
+  const transformState = useHookstate({
+    position: new Vector3(),
+    rotation: new Quaternion(),
+    scale: new Vector3(1, 1, 1)
+  })
+
   return (
     <>
       {coordsState.value.map((coord) => (
-        <SceneReactor key={`${coord.x}-${coord.z}`} coord={coord} />
+        <SceneReactor key={`${coord.x}-${coord.z}`} coord={coord} transform={transformState.value} />
       ))}
+      <div className="pointer-events-auto absolute right-0 w-fit flex flex-col flex-grid justify-start gap-1.5">
+        <Transform transformState={transformState} />
+      </div>
     </>
   )
 }

@@ -209,8 +209,8 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
           </div>
         </div>
         <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        {Entry && <Entry {...subProps} />}
       </div>
-      {Entry && <Entry {...subProps} />}
     </>
   )
 }
