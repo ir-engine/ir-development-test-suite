@@ -181,30 +181,6 @@ const SceneReactor = (props: {
 
   return null
 }
-const interactionGroups = getInteractionGroups(CollisionGroups.Default, CollisionGroups.Default)
-const raycastComponentData = {
-  type: SceneQueryType.Closest,
-  origin: new Vector3(),
-  direction: new Vector3(),
-  maxDistance: 10000,
-  groups: interactionGroups
-} as RaycastArgs
-
-const getPointerOverBall = (entity: Entity) => {
-  if (getComponent(entity, InputComponent).inputSources.length) console.log(entity)
-  const inputPointerEntity = InputPointerComponent.getPointerForCanvas(Engine.instance.viewerEntity)
-  if (!inputPointerEntity) return
-  const physicsWorld = Physics.getWorld(entity)
-  if (!physicsWorld) return
-  const pointerPosition = getComponent(inputPointerEntity, InputPointerComponent).position
-  const hits = Physics.castRayFromCamera(
-    physicsWorld,
-    getComponent(Engine.instance.viewerEntity, CameraComponent),
-    pointerPosition,
-    raycastComponentData
-  )
-  return hits.find((hit) => hit.entity === entity) !== undefined
-}
 
 const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
 
@@ -216,7 +192,7 @@ const execute = () => {
       transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
     }
 
-    const isPointerOver = getPointerOverBall(entity)
+    const isPointerOver = getComponent(entity, InputComponent).inputSources.length > 0
     const materialInstance = getOptionalComponent(entity, MaterialInstanceComponent)
     if (!materialInstance) continue
     const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
