@@ -11,6 +11,7 @@ import {
   defineSystem,
   getComponent,
   getMutableComponent,
+  getOptionalComponent,
   removeEntity,
   setComponent,
   useOptionalComponent
@@ -19,37 +20,44 @@ import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
-import { getMutableState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
-import { DirectionalLightComponent, PhysicsPreTransformSystem, PhysicsSystem, TransformComponent } from '@etherealengine/spatial'
+import { getMutableState, getState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
+import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@etherealengine/spatial'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
+import { InputPointerComponent } from '@etherealengine/spatial/src/input/components/InputPointerComponent'
+import { InputState } from '@etherealengine/spatial/src/input/state/InputState'
+import { Physics, RaycastArgs } from '@etherealengine/spatial/src/physics/classes/Physics'
 import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
+import { CollisionGroups } from '@etherealengine/spatial/src/physics/enums/CollisionGroups'
+import { getInteractionGroups } from '@etherealengine/spatial/src/physics/functions/getInteractionGroups'
+import { SceneQueryType } from '@etherealengine/spatial/src/physics/types/PhysicsTypes'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
 import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import {
+  MaterialInstanceComponent,
+  MaterialStateComponent
+} from '@etherealengine/spatial/src/renderer/materials/MaterialComponent'
+import { EntityTreeComponent, isAncestor } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@etherealengine/spatial/src/transform/systems/TransformSystem'
 import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, Group, MathUtils, Matrix4, Quaternion, Vector3 } from 'three'
+import { Cache, Color, Euler, Group, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
 const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
-
+let physicsEntityCount = 0
 export const createPhysicsEntity = (sceneEntity: Entity) => {
   const entity = createEntity()
 
   const position = new Vector3(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-  const obj3d = new Group()
-  obj3d.entity = entity
-  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
+  setComponent(entity, UUIDComponent, ('Ball-' + physicsEntityCount++) as EntityUUID)
   setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
-  setComponent(entity, Object3DComponent, obj3d)
   setComponent(entity, TransformComponent, { position, scale: new Vector3(0.5, 0.5, 0.5) })
   setComponent(entity, PrimitiveGeometryComponent, {
     geometryType: GeometryTypeEnum.SphereGeometry
@@ -63,6 +71,7 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
     restitution: MathUtils.randFloat(0.1, 1.0)
   })
   setComponent(entity, TestSuiteBallTagComponent)
+  setComponent(entity, InputComponent)
 
   return entity
 }
@@ -172,6 +181,30 @@ const SceneReactor = (props: {
 
   return null
 }
+const interactionGroups = getInteractionGroups(CollisionGroups.Default, CollisionGroups.Default)
+const raycastComponentData = {
+  type: SceneQueryType.Closest,
+  origin: new Vector3(),
+  direction: new Vector3(),
+  maxDistance: 10000,
+  groups: interactionGroups
+} as RaycastArgs
+
+const getPointerOverBall = (entity: Entity) => {
+  if (getComponent(entity, InputComponent).inputSources.length) console.log(entity)
+  const inputPointerEntity = InputPointerComponent.getPointerForCanvas(Engine.instance.viewerEntity)
+  if (!inputPointerEntity) return
+  const physicsWorld = Physics.getWorld(entity)
+  if (!physicsWorld) return
+  const pointerPosition = getComponent(inputPointerEntity, InputPointerComponent).position
+  const hits = Physics.castRayFromCamera(
+    physicsWorld,
+    getComponent(Engine.instance.viewerEntity, CameraComponent),
+    pointerPosition,
+    raycastComponentData
+  )
+  return hits.find((hit) => hit.entity === entity) !== undefined
+}
 
 const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
 
@@ -182,6 +215,13 @@ const execute = () => {
     if (rigidbody.position.y < -10) {
       transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
     }
+
+    const isPointerOver = getPointerOverBall(entity)
+    const materialInstance = getOptionalComponent(entity, MaterialInstanceComponent)
+    if (!materialInstance) continue
+    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
+    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
+    material.color.set(isPointerOver ? 'red' : 'white')
   }
 }
 
@@ -191,7 +231,7 @@ export const BallResetSystem = defineSystem({
   execute
 })
 
-const gridCount = 5
+const gridCount = 3
 const gridSpacing = 10
 
 export default function MultipleScenesEntry() {
