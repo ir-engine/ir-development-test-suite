@@ -7,12 +7,15 @@ import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
 import '@etherealengine/client-core/src/world/LocationModule'
+import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
 import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 
 type Metadata = {
@@ -56,17 +59,20 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
+  const sceneKey = `projects/${projectName}/${sceneName}`
+  const assetQuery = useFind(staticResourcePath, { query: { key: sceneKey, type: 'scene' } })
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate<undefined | Entity>(undefined)
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
-    const sceneURL = `projects/${projectName}/${sceneName}`
+    if (!assetQuery.data[0]) return
+    const sceneURL = assetQuery.data[0].url
     if (!gltfState[sceneURL].value) return
     const entity = gltfState[sceneURL].value
     if (entity) sceneEntity.set(entity)
-  }, [gltfState])
+  }, [assetQuery.data, gltfState])
 
   useImmediateEffect(() => {
     if (!viewerEntity) return
