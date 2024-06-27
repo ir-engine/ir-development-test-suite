@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '@etherealengine/client-core/src/world/LocationModule'
+import '@etherealengine/engine/src/EngineModule'
 import AvatarBenchmarkEntry from './benchmarks/avatarBenchmark'
 import AvatarIKBenchmarkEntry from './benchmarks/avatarIKBenchmark'
 import HeapBenchmarkEntry from './benchmarks/heapBenchmark'

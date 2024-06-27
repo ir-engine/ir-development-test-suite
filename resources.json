@@ -1,4 +1,67 @@
 {
+  "assets/animations/Racer-transformed.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/Racer/Racer_data.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/rings.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/tornado-mobile-xr.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/animations/transforms.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
   "assets/envmaps/hall.glb": {
     "type": "file",
     "tags": [
@@ -6,10 +69,171 @@
     ],
     "dependencies": []
   },
-  "public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2": {
     "type": "file",
     "tags": [
       "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_Normal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_OcclusionRoughMetal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_BaseColor.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_Normal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_OcclusionRoughMetal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_BaseColor.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_Normal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_OcclusionRoughMetal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_BaseColor.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_Normal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_OcclusionRoughMetal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_BaseColor.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_Normal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_OcclusionRoughMetal.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Flight Helmet/FlightHelmet.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/graph/default-graph.json": {
+    "type": "file",
+    "tags": [
+      "Volumetric"
+    ],
+    "dependencies": []
+  },
+  "assets/graph/simpleController.json": {
+    "type": "file",
+    "tags": [
+      "Volumetric"
+    ],
+    "dependencies": []
+  },
+  "assets/Images/testImage.jpg": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/Test_LOD0.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/Test_LOD1.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/LOD/Test_LOD2.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/Videos/HDVideo.mp4": {
+    "type": "file",
+    "tags": [
+      "Video"
     ],
     "dependencies": []
   },
@@ -28,17 +252,10 @@
       "projects/ee-development-test-suite/public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2"
     ]
   },
-  "assets/GLTF/Flight Helmet/FlightHelmet.bin": {
+  "public/avatars/Adam/1a8a75bafb18c29e94be4f6e0df4503932791c732fd5b85f5991993ffef3199e.ktx2": {
     "type": "file",
     "tags": [
-      "unknown"
-    ],
-    "dependencies": []
-  },
-  "public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
-    "type": "file",
-    "tags": [
-      "unknown"
+      "Image"
     ],
     "dependencies": []
   },
@@ -49,45 +266,10 @@
     ],
     "dependencies": []
   },
-  "assets/animations/Racer/a8c5117aec263607fb9b24904949c1de9d246ff5a9518ab40e9555d191274122.ktx2": {
+  "public/avatars/Adam/3ebba2b690b91a31064fec6d6ca9e1558f4f56ddb804294c4663017e2a2ae8fc.bin": {
     "type": "file",
     "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_OcclusionRoughMetal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/LOD/Test_LOD2.glb": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/graph/default-graph.json": {
-    "type": "file",
-    "tags": [
-      "Volumetric"
-    ],
-    "dependencies": []
-  },
-  "assets/animations/Racer/fb54d298ab7ec1b2628911e434f40ee06c24543923e0b3e14802cf55092b826a.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
+      "unknown"
     ],
     "dependencies": []
   },
@@ -98,59 +280,7 @@
     ],
     "dependencies": []
   },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_Normal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
   "public/avatars/Adam/9613d363e55e1af7cfb0dfb020bae9e417ccb11f6051da379ac96aa35cba59a0.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/bpcem-envmap-bake-test.scene.json": {
-    "type": "scene",
-    "tags": [],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_OcclusionRoughMetal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/test.scene.json": {
-    "type": "scene",
-    "tags": [],
-    "dependencies": []
-  },
-  "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_BaseColor.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_Normal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_BaseColor.ktx2": {
     "type": "file",
     "tags": [
       "Image"
@@ -164,45 +294,17 @@
     ],
     "dependencies": []
   },
-  "assets/Images/testImage.jpg": {
+  "public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
     "type": "file",
     "tags": [
       "Image"
     ],
     "dependencies": []
   },
-  "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
-    "type": "file",
+  "public/avatars/Test Avaturn.glb": {
+    "type": "avatar",
     "tags": [
-      "unknown"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/animations-test.envmap.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_BaseColor.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/Videos/HDVideo.mp4": {
-    "type": "file",
-    "tags": [
-      "Video"
+      "Model"
     ],
     "dependencies": []
   },
@@ -213,7 +315,7 @@
     ],
     "dependencies": []
   },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_BaseColor.ktx2": {
+  "public/scenes/animations-test.envmap.ktx2": {
     "type": "file",
     "tags": [
       "Image"
@@ -225,17 +327,10 @@
     "tags": [],
     "dependencies": []
   },
-  "public/avatars/Test Avaturn.glb": {
-    "type": "avatar",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/graph/simpleController.json": {
+  "public/scenes/animations-test.thumbnail.ktx2": {
     "type": "file",
     "tags": [
-      "Volumetric"
+      "Image"
     ],
     "dependencies": []
   },
@@ -246,35 +341,21 @@
     ],
     "dependencies": []
   },
-  "assets/LOD/Test_LOD1.glb": {
-    "type": "file",
+  "public/scenes/Benchmarks.gltf": {
+    "type": "scene",
     "tags": [
       "Model"
     ],
     "dependencies": []
   },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LeatherPartsMat_Normal.ktx2": {
+  "public/scenes/Benchmarks.thumbnail.jpg": {
     "type": "file",
     "tags": [
       "Image"
     ],
     "dependencies": []
   },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_RubberWoodMat_Normal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_MetalPartsMat_OcclusionRoughMetal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_Normal.ktx2": {
+  "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
     "type": "file",
     "tags": [
       "Image"
@@ -288,40 +369,26 @@
     ],
     "dependencies": []
   },
-  "public/scenes/test.gltf": {
+  "public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "public/scenes/bpcem-envmap-bake-test.scene.json": {
     "type": "scene",
     "tags": [],
     "dependencies": []
   },
-  "assets/animations/Racer/b10cf5cda7f6b46299df899e7d38424f8229b0019cec043bb70f3fc71117dc76.ktx2": {
+  "public/scenes/bpcem-envmap-bake-test.thumbnail.ktx2": {
     "type": "file",
     "tags": [
       "Image"
     ],
     "dependencies": []
   },
-  "assets/animations/rings.glb": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_LensesMat_OcclusionRoughMetal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/animations/Racer/Racer_data.bin": {
-    "type": "file",
-    "tags": [
-      "unknown"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/test.thumbnail.jpeg": {
+  "public/scenes/Examples.envmap.ktx2": {
     "type": "file",
     "tags": [
       "Image"
@@ -335,70 +402,7 @@
     ],
     "dependencies": []
   },
-  "public/scenes/Examples.envmap.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "public/avatars/Adam/ffd667f5c4c57f61a582c47337035d704ae616104df6ee505b3c715455c4c11c.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/animations/Racer-transformed.gltf": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/bpcem-envmap-bake-test.envmap.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/LOD/Test_LOD0.glb": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet.gltf": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/Benchmarks.gltf": {
-    "type": "scene",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_OcclusionRoughMetal.ktx2": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
   "public/scenes/Examples.thumbnail.jpg": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/animations-test.thumbnail.ktx2": {
     "type": "file",
     "tags": [
       "Image"
@@ -412,24 +416,20 @@
     ],
     "dependencies": []
   },
-  "public/scenes/Benchmarks.thumbnail.jpg": {
+  "public/scenes/test.gltf": {
+    "type": "scene",
+    "tags": [],
+    "dependencies": []
+  },
+  "public/scenes/test.scene.json": {
+    "type": "scene",
+    "tags": [],
+    "dependencies": []
+  },
+  "public/scenes/test.thumbnail.jpeg": {
     "type": "file",
     "tags": [
       "Image"
-    ],
-    "dependencies": []
-  },
-  "assets/animations/tornado-mobile-xr.glb": {
-    "type": "file",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/animations/transforms.glb": {
-    "type": "file",
-    "tags": [
-      "Model"
     ],
     "dependencies": []
   }

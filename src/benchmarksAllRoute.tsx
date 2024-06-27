@@ -1,4 +1,4 @@
-import '@etherealengine/client-core/src/world/LocationModule'
+import '@etherealengine/engine/src/EngineModule'
 import { setComponent } from '@etherealengine/ecs'
 import React, { useEffect } from 'react'
 import { BenchmarkComponent } from './engine/Register'

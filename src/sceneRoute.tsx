@@ -5,14 +5,18 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
+import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
 import '@etherealengine/client-core/src/world/LocationModule'
-import { Engine, getComponent, setComponent } from '@etherealengine/ecs'
+import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
+import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
-import { useImmediateEffect } from '@etherealengine/hyperflux'
+import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
 
 type Metadata = {
   name: string
@@ -52,20 +56,32 @@ const Header = (props: { header: string }) => {
 }
 
 export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
-  const sceneID = useLoadScene({ projectName: projectName, sceneName: sceneName })
+  useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
+  const sceneKey = `projects/${projectName}/${sceneName}`
+  const assetQuery = useFind(staticResourcePath, { query: { key: sceneKey, type: 'scene' } })
 
-  const sceneEntity = GLTFAssetState.useScene(sceneID)
+  const gltfState = useMutableState(GLTFAssetState)
+  const sceneEntity = useHookstate<undefined | Entity>(undefined)
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
+
+  useEffect(() => {
+    if (!assetQuery.data[0]) return
+    const sceneURL = assetQuery.data[0].url
+    if (!gltfState[sceneURL].value) return
+    const entity = gltfState[sceneURL].value
+    if (entity) sceneEntity.set(entity)
+  }, [assetQuery.data, gltfState])
 
   useImmediateEffect(() => {
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 0, 4)
-  }, [])
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 0, 4)
+  }, [viewerEntity])
 
-  return sceneEntity
+  return sceneEntity.value
 }
 
 const routeKey = 'route'
@@ -77,6 +93,8 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   const [currentSubRoute, setCurrentSubRoute] = useState(0)
 
   const ref = useRef(null as null | HTMLDivElement)
+
+  useEngineCanvas(ref)
 
   const onClick = (routeIndex: number) => {
     setCurrentRoute(routeIndex)
@@ -110,29 +128,11 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
     window.history.pushState(null, '', url.toString())
   }, [currentRoute, currentSubRoute])
 
-  useEffect(() => {
-    if (!ref?.current) return
-
-    const canvas = getComponent(Engine.instance.viewerEntity, RendererComponent).renderer.domElement
-    canvas.parentElement?.removeChild(canvas)
-    ref.current.appendChild(canvas)
-
-    getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-
-    const observer = new ResizeObserver(() => {
-      getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-    })
-
-    observer.observe(ref.current)
-    return () => {
-      observer.disconnect()
-    }
-  }, [ref])
-
   const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
   const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSubRoute]
   const Entry = selectedRoute && selectedRoute.entry
   const subProps = selectedSub ? selectedSub.props : {}
+
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
