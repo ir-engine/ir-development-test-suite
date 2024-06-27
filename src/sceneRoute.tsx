@@ -5,16 +5,18 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
+import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
+import '@etherealengine/client-core/src/world/LocationModule'
 import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
-import { Engine, Entity, getComponent, setComponent } from '@etherealengine/ecs'
+import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
 import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
 import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi2'
 
@@ -64,6 +66,7 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate<undefined | Entity>(undefined)
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
     if (!assetQuery.data[0]) return
@@ -74,11 +77,11 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
   }, [assetQuery.data, gltfState])
 
   useImmediateEffect(() => {
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 0, 4)
-  }, [])
+    if (!viewerEntity) return
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 0, 4)
+  }, [viewerEntity])
 
   return sceneEntity
 }
@@ -93,6 +96,8 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
   const hidden = useHookstate(false)
 
   const ref = useRef(null as null | HTMLDivElement)
+
+  useEngineCanvas(ref)
 
   const onClick = (routeIndex: number) => {
     setCurrentRoute(routeIndex)
@@ -126,29 +131,11 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
     window.history.pushState(null, '', url.toString())
   }, [currentRoute, currentSubRoute])
 
-  useEffect(() => {
-    if (!ref?.current) return
-
-    const canvas = getComponent(Engine.instance.viewerEntity, RendererComponent).renderer.domElement
-    canvas.parentElement?.removeChild(canvas)
-    ref.current.appendChild(canvas)
-
-    getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-
-    const observer = new ResizeObserver(() => {
-      getComponent(Engine.instance.viewerEntity, RendererComponent).needsResize = true
-    })
-
-    observer.observe(ref.current)
-    return () => {
-      observer.disconnect()
-    }
-  }, [ref])
-
   const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
   const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSubRoute]
   const Entry = selectedRoute && selectedRoute.entry
   const subProps = selectedSub ? selectedSub.props : {}
+
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
@@ -167,10 +154,7 @@ const Routes = (props: { routes: RouteData[]; header: string }) => {
             )
           }
         />
-        <div
-          className="NavBarContainer"
-          style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}
-        >
+        <div className="NavBarContainer" style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}>
           <Header header={header} />
           <div className="NavBarSelectionContainer">
             {routes.map((route, index) => {
