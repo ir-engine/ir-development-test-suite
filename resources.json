@@ -348,13 +348,6 @@
     ],
     "dependencies": []
   },
-  "public/scenes/Benchmarks.thumbnail.jpg": {
-    "type": "file",
-    "tags": [
-      "Image"
-    ],
-    "dependencies": []
-  },
   "public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2": {
     "type": "file",
     "tags": [
@@ -399,13 +392,6 @@
     "type": "scene",
     "tags": [
       "Model"
-    ],
-    "dependencies": []
-  },
-  "public/scenes/Examples.thumbnail.jpg": {
-    "type": "file",
-    "tags": [
-      "Image"
     ],
     "dependencies": []
   },
