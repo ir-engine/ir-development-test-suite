@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
-// import '@etherealengine/client-core/src/world/LocationModule' // enable this to spawn avatar - todo: make configurable
+import '@etherealengine/client-core/src/world/LocationModule'
 import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
 import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
 import '@etherealengine/engine/src/EngineModule'
@@ -19,6 +19,7 @@ import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHo
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi2'
+import { SearchParamState } from '@etherealengine/client-core/src/common/services/RouterService'
 
 type Metadata = {
   name: string
@@ -80,7 +81,9 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
     if (!viewerEntity) return
     setComponent(viewerEntity, CameraOrbitComponent)
     setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 0, 4)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
+
+    SearchParamState.set('spectate', '')
   }, [viewerEntity])
 
   return sceneEntity

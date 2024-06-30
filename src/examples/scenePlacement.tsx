@@ -1,11 +1,9 @@
+import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { getComponent, setComponent } from '@etherealengine/ecs'
+import { setComponent } from '@etherealengine/ecs'
 import { getMutableState, useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
 import { TransformComponent } from '@etherealengine/spatial'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
-import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
-import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { updateWorldOriginFromScenePlacement } from '@etherealengine/spatial/src/transform/updateWorldOrigin'
 import { XRState } from '@etherealengine/spatial/src/xr/XRState'
@@ -27,9 +25,6 @@ export default function ScenePlacement() {
     if (!viewerEntity) return
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
-    setComponent(viewerEntity, CameraOrbitComponent)
-    setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
   }, [viewerEntity])
 
   /** Origin Transform */
@@ -50,9 +45,9 @@ export default function ScenePlacement() {
 
   /** Scene Transform */
   const transformState2 = useHookstate({
-    position: new Vector3(), //(2, 0, 2),
+    position: new Vector3(2, 0, 2),
     rotation: new Quaternion(),
-    scale: new Vector3() //.setScalar(0.1)
+    scale: new Vector3().setScalar(0.1)
   })
 
   useEffect(() => {
@@ -65,15 +60,13 @@ export default function ScenePlacement() {
   }, [sceneEntity, transformState2.position, transformState2.rotation, transformState2.scale])
 
   return (
-    <div className="flex-grid pointer-events-auto absolute right-0 flex h-full w-fit flex-col justify-start gap-1.5">
-      <Transform title={'Origin'} transformState={transformState} />
-      <Transform title={'Scene'} transformState={transformState2} />
-      <EmulatorDevtools />
-    </div>
+    <>
+      <MediaIconsBox />
+      <div className="flex-grid pointer-events-auto absolute right-0 flex h-full w-fit flex-col justify-start gap-1.5">
+        <Transform title={'Origin'} transformState={transformState} />
+        <Transform title={'Scene'} transformState={transformState2} />
+        <EmulatorDevtools />
+      </div>
+    </>
   )
 }
-
-/**
- * Scene placement
- * -
- */
