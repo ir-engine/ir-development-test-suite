@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
-import '@etherealengine/client-core/src/world/LocationModule'
+// import '@etherealengine/client-core/src/world/LocationModule' // enable this to spawn avatar - todo: make configurable
 import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
 import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
 import '@etherealengine/engine/src/EngineModule'
