@@ -83,7 +83,7 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
     setComponent(viewerEntity, InputComponent)
     getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
 
-    SearchParamState.set('spectate', '')
+    // SearchParamState.set('spectate', '')
   }, [viewerEntity])
 
   return sceneEntity

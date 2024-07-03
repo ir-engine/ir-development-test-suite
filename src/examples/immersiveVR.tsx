@@ -14,12 +14,11 @@ import { Quaternion, Vector3 } from 'three'
 import { useRouteScene } from '../sceneRoute'
 import { Transform } from './utils/transform'
 
-export default function ScenePlacement() {
+export default function ImmersiveVR() {
   const sceneEntity = useRouteScene('default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
   useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
-  const localFloorEntity = useMutableState(EngineState).localFloorEntity.value
 
   useImmediateEffect(() => {
     if (!viewerEntity) return
@@ -27,44 +26,10 @@ export default function ScenePlacement() {
     getMutableState(RendererState).physicsDebug.set(true)
   }, [viewerEntity])
 
-  /** Origin Transform */
-  const transformState = useHookstate({
-    position: new Vector3(),
-    rotation: new Quaternion(),
-    scale: new Vector3(1, 1, 1)
-  })
-
-  useEffect(() => {
-    if (!localFloorEntity) return
-    const xrState = getMutableState(XRState)
-    xrState.scenePosition.value.copy(transformState.position.value)
-    xrState.sceneRotation.value.copy(transformState.rotation.value)
-    xrState.sceneScale.set(transformState.scale.value.x)
-    updateWorldOriginFromScenePlacement()
-  }, [localFloorEntity, transformState.position, transformState.rotation, transformState.scale])
-
-  /** Scene Transform */
-  const transformState2 = useHookstate({
-    position: new Vector3(),//(2, 0, 2),
-    rotation: new Quaternion(),
-    scale: new Vector3()//.setScalar(0.1)
-  })
-
-  useEffect(() => {
-    if (!sceneEntity.value) return
-    setComponent(sceneEntity.value, TransformComponent, {
-      position: transformState2.position.value,
-      rotation: transformState2.rotation.value,
-      scale: transformState2.scale.value
-    })
-  }, [sceneEntity, transformState2.position, transformState2.rotation, transformState2.scale])
-
   return (
     <>
       <MediaIconsBox />
       <div className="flex-grid pointer-events-auto absolute right-0 flex h-full w-fit flex-col justify-start gap-1.5">
-        <Transform title={'Origin'} transformState={transformState} />
-        <Transform title={'Scene'} transformState={transformState2} />
         <EmulatorDevtools />
       </div>
     </>
