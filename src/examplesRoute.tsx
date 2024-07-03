@@ -8,6 +8,7 @@ import GLTFViewer from './examples/gltf'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
 import Routes, { RouteData } from './sceneRoute'
+import ImmersiveAR from './examples/immersiveAR'
 
 export const examples: RouteData[] = [
   {
@@ -39,6 +40,11 @@ export const examples: RouteData[] = [
     name: 'Multiple Scenes',
     description: 'multiple scenes example',
     entry: MultipleScenesEntry
+  },
+  {
+    name: 'Immersive AR',
+    description: 'Immersive AR example',
+    entry: ImmersiveAR
   },
   {
     name: 'Immersive VR',
