@@ -5,10 +5,9 @@ import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltf'
-import Routes, { RouteData } from './sceneRoute'
-import MultipleScenesEntry from './examples/multipleScenes'
-import ScenePlacement from './examples/scenePlacement'
 import ImmersiveVR from './examples/immersiveVR'
+import MultipleScenesEntry from './examples/multipleScenes'
+import Routes, { RouteData } from './sceneRoute'
 
 export const examples: RouteData[] = [
   {
@@ -40,11 +39,6 @@ export const examples: RouteData[] = [
     name: 'Multiple Scenes',
     description: 'multiple scenes example',
     entry: MultipleScenesEntry
-  },
-  {
-    name: 'Scene Placement',
-    description: 'place scenes relative to the origin example',
-    entry: ScenePlacement
   },
   {
     name: 'Immersive VR',
