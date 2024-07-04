@@ -16,7 +16,7 @@ import { useRouteScene } from '../sceneRoute'
 import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 
 export default function ImmersiveAR() {
-  useRouteScene('default-project', 'public/scenes/default.gltf')
+  useRouteScene('default-project', 'public/scenes/apartment.gltf')
   useNetwork({ online: false })
   useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
