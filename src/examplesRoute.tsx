@@ -5,38 +5,71 @@ import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltf'
-import Routes, { RouteData } from './sceneRoute'
+import ImmersiveAR from './examples/immersiveAR'
+import ImmersiveVR from './examples/immersiveVR'
+import MultipleScenesEntry from './examples/multipleScenes'
+import Routes, { RouteCategories } from './sceneRoute'
 
-export const examples: RouteData[] = [
+export const examples: RouteCategories = [
   {
-    name: 'Components Example',
-    description: 'Component examples',
-    entry: ComponentExamplesRoute,
-    sub: subComponentExamples.map((sub) => ({
+    category: 'WebXR',
+    routes: [
+      {
+        name: 'Immersive AR',
+        description: 'Immersive AR example',
+        entry: ImmersiveAR,
+        spawnAvatar: true
+      },
+      {
+        name: 'Immersive VR',
+        description: 'Immersive VR example',
+        entry: ImmersiveVR,
+        spawnAvatar: true
+      }
+    ]
+  },
+  {
+    category: 'Components',
+    routes: subComponentExamples.map((sub) => ({
       name: sub.name,
       description: sub.description,
-      props: { Reactor: sub.Reactor }
+      entry: () => <ComponentExamplesRoute Reactor={sub.Reactor} />
     }))
   },
   {
-    name: 'Avatar Mocap',
-    description: 'Avatar mocap example',
-    entry: AvatarMocapEntry
+    category: 'Avatar',
+    routes: [
+      {
+        name: 'Mocap',
+        description: 'Avatar mocap example',
+        entry: AvatarMocapEntry
+      },
+      {
+        name: 'Test',
+        description: 'Load many avatars',
+        entry: AvatarTestEntry
+      }
+    ]
   },
   {
-    name: 'Avatar Test',
-    description: 'Load many avatars',
-    entry: AvatarTestEntry
-  },
-  {
-    name: 'GLTF Viewer',
-    description: 'Drag and drop GLTF files',
-    entry: GLTFViewer
+    category: 'Scene',
+    routes: [
+      {
+        name: 'GLTF Viewer',
+        description: 'Drag and drop GLTF files',
+        entry: GLTFViewer
+      },
+      {
+        name: 'Multiple',
+        description: 'multiple scenes example',
+        entry: MultipleScenesEntry
+      }
+    ]
   }
 ]
 
 const ExampleRoutes = () => {
-  return <Routes routes={examples} header="Examples" />
+  return <Routes routeCategories={examples} header="Examples" />
 }
 
 export default ExampleRoutes

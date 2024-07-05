@@ -1,8 +1,9 @@
 // @ts-ignore
 import styles from './sceneRoute.css?inline'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 
+import { SearchParamState } from '@etherealengine/client-core/src/common/services/RouterService'
 import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
@@ -11,26 +12,30 @@ import { staticResourcePath } from '@etherealengine/common/src/schema.type.modul
 import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
 import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
-import { useHookstate, useImmediateEffect, useMutableState } from '@etherealengine/hyperflux'
+import {
+  getMutableState,
+  none,
+  useHookstate,
+  useImmediateEffect,
+  useMutableState,
+  useReactiveRef
+} from '@etherealengine/hyperflux'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
+import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
+import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
-type Metadata = {
+export type RouteData = {
   name: string
   description: string
-}
-
-type SubRoute = Metadata & {
-  props: {}
-}
-
-export type RouteData = Metadata & {
   entry: (...args: any[]) => any
-  sub?: SubRoute[]
+  spawnAvatar?: boolean
 }
+
+export type RouteCategories = Array<{ category: string; routes: RouteData[] }>
 
 export const buttonStyle = {
   width: 'auto',
@@ -56,6 +61,7 @@ const Header = (props: { header: string }) => {
 }
 
 export const useRouteScene = (projectName = 'ee-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
@@ -64,7 +70,6 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate<undefined | Entity>(undefined)
-  const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
     if (!assetQuery.data[0]) return
@@ -78,106 +83,112 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
     if (!viewerEntity) return
     setComponent(viewerEntity, CameraOrbitComponent)
     setComponent(viewerEntity, InputComponent)
-    getComponent(viewerEntity, CameraComponent).position.set(0, 0, 4)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
   }, [viewerEntity])
 
   return sceneEntity.value
 }
 
-const routeKey = 'route'
-const subRouteKey = 'subroute'
+const getPathForRoute = (category: string, name: string) => {
+  return (category.toLowerCase() + '_' + name.toLocaleLowerCase()).replace(' ', '_')
+}
 
-const Routes = (props: { routes: RouteData[]; header: string }) => {
-  const { routes, header } = props
-  const [currentRoute, setCurrentRoute] = useState(null as null | number)
-  const [currentSubRoute, setCurrentSubRoute] = useState(0)
+const Routes = (props: { routeCategories: RouteCategories; header: string }) => {
+  const { routeCategories, header } = props
+  const currentRoute = useMutableState(SearchParamState).example.value
+  const categoriesShown = useHookstate({} as Record<string, boolean>)
+  const hidden = useHookstate(false)
 
-  const ref = useRef(null as null | HTMLDivElement)
+  const [ref, setRef] = useReactiveRef<HTMLDivElement>()
 
   useEngineCanvas(ref)
 
-  const onClick = (routeIndex: number) => {
-    setCurrentRoute(routeIndex)
-    setCurrentSubRoute(0)
+  const viewerEntity = useHookstate(getMutableState(EngineState).viewerEntity).value
+
+  const onClick = (category: string, route: string) => {
+    SearchParamState.set('example', getPathForRoute(category, route))
   }
 
-  const onSubClick = (subIndex: number) => {
-    setCurrentSubRoute(subIndex)
-  }
+  const selectedRoute = routeCategories.flatMap((route) =>
+    route.routes.filter((r) => getPathForRoute(route.category, r.name) === currentRoute)
+  )[0]
 
   useEffect(() => {
-    const queryString = window.location.search
-    const urlParams = new URLSearchParams(queryString)
-    const routeIndexStr = urlParams.get(routeKey) as any
-    if (routeIndexStr) {
-      const routeIndex = Number(routeIndexStr)
-      setCurrentRoute(routeIndex)
-      const subIndexStr = urlParams.get(subRouteKey) as any
-      if (subIndexStr) {
-        const subIndex = Number(subIndexStr)
-        setCurrentSubRoute(subIndex)
-      }
-    }
-  }, [])
+    if (selectedRoute.spawnAvatar) SearchParamState.set('spectate', '')
+    else SearchParamState.set('spectate', none)
+  }, [selectedRoute.spawnAvatar])
 
-  useEffect(() => {
-    if (currentRoute === null) return
-    const url = new URL(window.location.href)
-    url.searchParams.set(routeKey, currentRoute.toString())
-    url.searchParams.set(subRouteKey, currentSubRoute.toString())
-    window.history.pushState(null, '', url.toString())
-  }, [currentRoute, currentSubRoute])
-
-  const selectedRoute = currentRoute !== null ? routes[currentRoute] : null
-  const selectedSub = selectedRoute && selectedRoute.sub && selectedRoute.sub[currentSubRoute]
   const Entry = selectedRoute && selectedRoute.entry
-  const subProps = selectedSub ? selectedSub.props : {}
 
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
       <div className="ScreenContainer">
-        <div className="NavBarContainer">
+        <Button
+          className="z-10 mb-1 px-0"
+          rounded="full"
+          variant="outline"
+          style={{ position: 'absolute', top: '10px', left: hidden.value ? '10px' : '310px', pointerEvents: 'all' }}
+          onClick={() => hidden.set(!hidden.value)}
+          startIcon={
+            hidden.value ? (
+              <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
+            ) : (
+              <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
+            )
+          }
+        />
+        <div className="NavBarContainer" style={{ zIndex: '100', width: hidden.value ? '0%' : '' }}>
           <Header header={header} />
           <div className="NavBarSelectionContainer">
-            {routes.map((route, index) => {
-              const title = route.name
-              const desc = route.description
+            {routeCategories.map((category, index) => {
+              const categoryShown = categoriesShown[category.category]
               return (
-                <React.Fragment key={title}>
-                  <div
-                    className={index === currentRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
-                    onClick={() => onClick(index)}
-                  >
-                    <div className="RouteItemTitle">{title}</div>
-                    <div className="RouteItemDescription">{desc}</div>
+                <React.Fragment key={category.category}>
+                  <div className="flex flex-row text-white">
+                    <Button
+                      className="m-2"
+                      rounded="full"
+                      variant="outline"
+                      onClick={() => categoryShown.set(!categoryShown.value)}
+                      endIcon={
+                        <div className="m-1 flex w-full flex-row">
+                          {categoryShown.value ? (
+                            <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          ) : (
+                            <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          )}
+                        </div>
+                      }
+                    >
+                      {category.category}
+                    </Button>
                   </div>
-                  {index === currentRoute && routes[currentRoute]?.sub && (
-                    <div className="SubItemsContainer">
-                      {routes[currentRoute].sub?.map((sub, subIndex) => {
-                        const subTitle = sub.name
-                        const subDesc = sub.description
-                        return (
+                  {categoryShown.value &&
+                    category.routes.map((route, index) => {
+                      const title = route.name
+                      const desc = route.description
+                      const path = getPathForRoute(category.category, title)
+                      return (
+                        <React.Fragment key={title}>
                           <div
-                            key={subTitle}
-                            className={subIndex === currentSubRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
-                            onClick={() => onSubClick(subIndex)}
+                            className={path === currentRoute ? 'SelectedItemContainer' : 'RouteItemContainer'}
+                            onClick={() => onClick(category.category, title)}
                           >
-                            <div className="RouteItemTitle">{subTitle}</div>
-                            <div className="RouteItemDescription">{subDesc}</div>
+                            <div className="RouteItemTitle">{title}</div>
+                            <div className="RouteItemDescription">{desc}</div>
                           </div>
-                        )
-                      })}
-                    </div>
-                  )}
+                        </React.Fragment>
+                      )
+                    })}
                 </React.Fragment>
               )
             })}
           </div>
         </div>
-        <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        <div id="examples-panel" ref={setRef} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        {viewerEntity && Entry && <Entry />}
       </div>
-      {Entry && <Entry {...subProps} />}
     </>
   )
 }
