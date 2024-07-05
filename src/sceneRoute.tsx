@@ -25,7 +25,7 @@ import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/compone
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi2'
+import { HiChevronLeft, HiChevronRight, HiChevronUp, HiChevronDown } from 'react-icons/hi2'
 
 type Metadata = {
   name: string
@@ -135,9 +135,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
           onClick={() => hidden.set(!hidden.value)}
           startIcon={
             hidden.value ? (
-              <HiChevronDoubleRight className="pointer-events-none place-self-center text-theme-primary" />
+              <HiChevronRight className="pointer-events-none place-self-center text-theme-primary" />
             ) : (
-              <HiChevronDoubleLeft className="pointer-events-none place-self-center text-theme-primary" />
+              <HiChevronLeft className="pointer-events-none place-self-center text-theme-primary" />
             )
           }
         />
@@ -149,20 +149,23 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
               return (
                 <React.Fragment key={category.category}>
                   <div className="flex flex-row text-white">
-                    {category.category}
                     <Button
-                      className="z-10 m-1 px-0"
+                      className="m-2"
                       rounded="full"
                       variant="outline"
                       onClick={() => categoryShown.set(!categoryShown.value)}
-                      startIcon={
-                        categoryShown.value ? (
-                          <HiChevronDoubleRight className="pointer-events-none place-self-center text-theme-primary" />
-                        ) : (
-                          <HiChevronDoubleLeft className="pointer-events-none place-self-center text-theme-primary" />
-                        )
+                      endIcon={
+                        <div className="m-1 flex w-full flex-row">
+                          {categoryShown.value ? (
+                            <HiChevronUp className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          ) : (
+                            <HiChevronDown className="pointer-events-none m-1 place-self-center text-theme-primary" />
+                          )}
+                        </div>
                       }
-                    />
+                    >
+                      {category.category}
+                    </Button>
                   </div>
                   {categoryShown.value &&
                     category.routes.map((route, index) => {
