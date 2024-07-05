@@ -17,12 +17,14 @@ export const examples: RouteCategories = [
       {
         name: 'Immersive AR',
         description: 'Immersive AR example',
-        entry: ImmersiveAR
+        entry: ImmersiveAR,
+        spawnAvatar: true
       },
       {
         name: 'Immersive VR',
         description: 'Immersive VR example',
-        entry: ImmersiveVR
+        entry: ImmersiveVR,
+        spawnAvatar: true
       }
     ]
   },

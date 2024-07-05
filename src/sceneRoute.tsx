@@ -14,6 +14,7 @@ import '@etherealengine/engine/src/EngineModule'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import {
   getMutableState,
+  none,
   useHookstate,
   useImmediateEffect,
   useMutableState,
@@ -25,20 +26,13 @@ import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/compone
 import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
-import { HiChevronLeft, HiChevronRight, HiChevronUp, HiChevronDown } from 'react-icons/hi2'
+import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
-type Metadata = {
+export type RouteData = {
   name: string
   description: string
-}
-
-type SubRoute = Metadata & {
-  props: {}
-}
-
-export type RouteData = Metadata & {
   entry: (...args: any[]) => any
-  sub?: SubRoute[]
+  spawnAvatar?: boolean
 }
 
 export type RouteCategories = Array<{ category: string; routes: RouteData[] }>
@@ -90,8 +84,6 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
     setComponent(viewerEntity, CameraOrbitComponent)
     setComponent(viewerEntity, InputComponent)
     getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
-
-    SearchParamState.set('spectate', '')
   }, [viewerEntity])
 
   return sceneEntity
@@ -120,6 +112,11 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const selectedRoute = routeCategories.flatMap((route) =>
     route.routes.filter((r) => getPathForRoute(route.category, r.name) === currentRoute)
   )[0]
+
+  useEffect(() => {
+    if (selectedRoute.spawnAvatar) SearchParamState.set('spectate', '')
+    else SearchParamState.set('spectate', none)
+  }, [selectedRoute.spawnAvatar])
 
   const Entry = selectedRoute && selectedRoute.entry
 
