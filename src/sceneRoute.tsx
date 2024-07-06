@@ -114,9 +114,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   )[0]
 
   useEffect(() => {
-    if (selectedRoute.spawnAvatar) SearchParamState.set('spectate', '')
+    if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', '')
     else SearchParamState.set('spectate', none)
-  }, [selectedRoute.spawnAvatar])
+  }, [selectedRoute?.spawnAvatar])
 
   const Entry = selectedRoute && selectedRoute.entry
 
