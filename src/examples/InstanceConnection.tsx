@@ -27,8 +27,10 @@ const ProducerInfo = (props: { networkID: InstanceID; value: any }) => {
     () => {
       if (value.dataChannel) {
         const dataProducer = MediasoupDataProducerConsumerState.getProducerByDataChannel(networkID, value.dataChannel)
-        state.set(`- ${value.dataChannel} \n  - closed: ${dataProducer.closed}\n  - readyState: ${dataProducer.readyState}`)
-        return
+        if (dataProducer) {
+          state.set(`- ${value.dataChannel} \n  - closed: ${dataProducer.closed}\n  - readyState: ${dataProducer.readyState}`)
+          return
+        }
       }
       if (value.mediaTag) {
         const mediaProducer = MediasoupMediaProducerConsumerState.getProducerByPeerIdAndMediaTag(
@@ -36,10 +38,14 @@ const ProducerInfo = (props: { networkID: InstanceID; value: any }) => {
           value.peerID,
           value.mediaTag
         )
-        state.set(
-          `- ${value.mediaTag} \n  - closed: ${mediaProducer.closed}\n  - readyState: ${mediaProducer.readyState}`
-        )
+        if (mediaProducer) {
+          state.set(
+            `- ${value.mediaTag} \n  - closed: ${mediaProducer.closed}\n  - readyState: ${mediaProducer.readyState}`
+          )
+          return
+        }
       }
+      state.set('')
     },
     { after: PresentationSystemGroup }
   )
@@ -55,8 +61,10 @@ const ConsumerInfo = (props: { networkID: InstanceID; value: any }) => {
     () => {
       if (value.dataChannel) {
         const dataConsumer = MediasoupDataProducerConsumerState.getConsumerByDataChannel(networkID, value.dataChannel)
-        state.set(`- ${value.dataChannel} \n  - closed: ${dataConsumer.closed}\n   - readyState: ${dataConsumer.readyState}`)
-        return
+        if (dataConsumer) {
+          state.set(`- ${value.dataChannel} \n  - closed: ${dataConsumer.closed}\n   - readyState: ${dataConsumer.readyState}`)
+          return
+        }
       }
       if (value.mediaTag) {
         const mediaConsumer = MediasoupMediaProducerConsumerState.getConsumerByPeerIdAndMediaTag(
@@ -64,10 +72,14 @@ const ConsumerInfo = (props: { networkID: InstanceID; value: any }) => {
           value.peerID,
           value.mediaTag
         )
-        state.set(
-          `- ${value.mediaTag} \n  - closed: ${mediaConsumer.closed}\n  - readyState: ${mediaConsumer.readyState}`
-        )
+        if (mediaConsumer) {
+          state.set(
+            `- ${value.mediaTag} \n  - closed: ${mediaConsumer.closed}\n  - readyState: ${mediaConsumer.readyState}`
+          )
+          return
+        }
       }
+      state.set('')
     },
     { after: PresentationSystemGroup }
   )
