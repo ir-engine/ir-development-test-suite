@@ -1,17 +1,8 @@
-import { Engine, destroyEngine } from '@etherealengine/ecs/src/Engine'
-import { loadDRACODecoderNode } from '@etherealengine/engine/src/assets/loaders/gltf/NodeDracoLoader'
 import { overrideFileLoaderLoad } from '@etherealengine/engine/tests/util/loadGLTFAssetNode'
-import { getMutableState } from '@etherealengine/hyperflux'
-import { createMockNetwork } from '@etherealengine/network/tests/createMockNetwork'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { createEngine } from '@etherealengine/spatial/src/initializeEngine'
-import { Physics } from '@etherealengine/spatial/src/physics/classes/Physics'
 import appRootPath from 'app-root-path'
 import fs from 'fs'
 import path from 'path'
 
-import { NetworkState } from '@etherealengine/network'
-import { PhysicsState } from '@etherealengine/spatial/src/physics/state/PhysicsState'
 import packageJson from '../../package.json'
 
 import '@etherealengine/engine/src/EngineModule'
@@ -48,7 +39,6 @@ describe.skip('avatarFunctions Integration', async () => {
   // before(async () => {
   //   await loadDRACODecoderNode()
   // })
-
   // beforeEach(async () => {
   //   createEngine()
   //   createMockNetwork()
@@ -57,11 +47,9 @@ describe.skip('avatarFunctions Integration', async () => {
   //   await Physics.load()
   //   getMutableState(PhysicsState).physicsWorld.set(Physics.createWorld())
   // })
-
   // afterEach(() => {
   //   return destroyEngine()
   // })
-
   // describe('loadAvatarForEntity', () => {
   //   const assetPaths = fetchAvatarList()
   //   let i = 1
@@ -77,35 +65,25 @@ describe.skip('avatarFunctions Integration', async () => {
   //           entityUUID: userId as string as EntityUUID
   //         })
   //       )
-
   //       applyIncomingActions()
-
   //       await act(() => receiveActions(EntityNetworkState))
-
   //       const entity = UUIDComponent.entitiesByUUID[userId as any as EntityUUID]
-
   //       spawnAvatarReceptor(userId as string as EntityUUID)
-
   //       const avatar = getComponent(entity, AvatarComponent)
   //       // make sure this is set later on
   //       avatar.avatarHeight = 0
   //       avatar.avatarHalfHeight = 0
-
   //       // run the logic
   //       const model = (await loadAvatarModelAsset(modelURL)) as any
   //       setupAvatarForUser(entity, model)
-
   //       // do assertions
   //       const avatarComponent = getComponent(entity, AvatarComponent)
-
   //       assert(avatarComponent.model!.children.length)
   //       assert(avatarComponent.avatarHeight > 0)
   //       assert(avatarComponent.avatarHalfHeight > 0)
-
   //       const { rig } = getComponent(entity, AvatarRigComponent)
   //       assert(rig)
   //       assert(rig.hips.node)
-
   //       // TODO: this currently isn't working, the update method doesnt show up in the VRM object
   //       // assert.equal(hasComponent(entity, UpdatableComponent), asset.split('.').pop() === 'vrm')
   //     })
