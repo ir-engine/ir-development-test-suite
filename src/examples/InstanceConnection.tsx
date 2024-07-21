@@ -86,14 +86,14 @@ export default function InstanceConnection() {
     console.log('onNetworkDisconnect')
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
-    if ('primus' in network.transport) network.transport.primus.end()
+    if ('primus' in network) network.primus.end()
   }
 
   const onNetworkLostConnection = () => {
     console.log('debug onNetworkLostConnection')
     const instanceID = Object.keys(getState(LocationInstanceState).instances)[0]
     const network = getState(NetworkState).networks[instanceID] as SocketWebRTCClientNetwork | Network
-    if ('heartbeat' in network.transport) clearInterval(network.transport.heartbeat)
+    if ('heartbeat' in network) clearInterval(network.heartbeat)
     /** in 10 seconds, the server will end the connection to the client and remove it's peer */
   }
 
