@@ -1,5 +1,5 @@
-import NodeEditor from '@etherealengine/editor/src/components/properties/NodeEditor'
 import { EditorComponentType } from '@etherealengine/editor/src/components/properties/Util'
+import NodeEditor from '@etherealengine/ui/src/components/editor/properties/nodeEditor'
 import React from 'react'
 
 export const ProfilingComponentNodeEditor: EditorComponentType = (props) => {
