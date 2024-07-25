@@ -2,7 +2,7 @@ import React from 'react'
 
 import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { ActiveVisualScript } from '@etherealengine/editor/src/components/visualScript/VisualFlow'
+import { ActiveVisualScript } from '@etherealengine/ui/src/components/editor/panels/VisualScript/container'
 import { VisualScriptComponent } from '@etherealengine/engine'
 import { GraphJSON } from '@etherealengine/visual-script'
 import AutoSizer from 'react-virtualized-auto-sizer'
