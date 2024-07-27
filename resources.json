@@ -69,21 +69,77 @@
     ],
     "dependencies": []
   },
-  "assets/GLTF/Duck/Duck.gltf": {
+  "assets/GLTF/Duck/basic/Duck.gltf": {
     "type": "file",
     "tags": [
       "Model"
     ],
     "dependencies": []
   },
-  "assets/GLTF/Duck/Duck0.bin": {
+  "assets/GLTF/Duck/basic/Duck0.bin": {
     "type": "file",
     "tags": [
       "unknown"
     ],
     "dependencies": []
   },
-  "assets/GLTF/Duck/DuckCM.png": {
+  "assets/GLTF/Duck/basic/DuckCM.png": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/binary/Duck.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/Duck.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/Duck.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/draco/DuckCM.png": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/embedded/Duck.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/Duck.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/Duck.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/quantized/DuckCM.png": {
     "type": "file",
     "tags": [
       "Image"
