@@ -69,6 +69,27 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/Duck/Duck.gltf": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/Duck0.bin": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/DuckCM.png": {
+    "type": "file",
+    "tags": [
+      "Image"
+    ],
+    "dependencies": []
+  },
   "assets/GLTF/Flight Helmet/FlightHelmet_Materials_GlassPlasticMat_BaseColor.ktx2": {
     "type": "file",
     "tags": [

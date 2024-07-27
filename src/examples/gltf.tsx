@@ -1,36 +1,35 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { Vector3 } from 'three'
 
-import { getMutableComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
-import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
+import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
 
-import { Entity } from '@etherealengine/ecs'
+import { Engine } from '@etherealengine/ecs'
 
+import config from '@etherealengine/common/src/config'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
-import { useRouteScene } from '../sceneRoute'
-import { useExampleEntity } from './utils/common/entityUtils'
+import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
+import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
+import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
+import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 
 export const metadata = {
   title: 'GLTF',
   description: ''
 }
 
-const GLTF = (props: { sceneEntity: Entity }) => {
+const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/Duck.gltf'
+
+const GLTF = () => {
   const filenames = useHookstate<string[]>([])
-  const entity = useExampleEntity(props.sceneEntity)
+
+  const source = useHookstate(defaultSource)
 
   useEffect(() => {
-    setComponent(entity, TransformComponent, { position: new Vector3(0, 2, -2) })
-    setComponent(entity, VisibleComponent)
-    setComponent(entity, NameComponent, 'GLTF Viewer')
-    setComponent(entity, ModelComponent)
-  }, [])
+    return GLTFAssetState.loadScene(source.value, source.value)
+  }, [source])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
     // GLTF and GLB files seem to only come through as Native Files for this
@@ -46,8 +45,7 @@ const GLTF = (props: { sceneEntity: Entity }) => {
           filenames.set(files.map((file) => file.name))
 
           const gltfFile = files[0]
-          const model = getMutableComponent(entity, ModelComponent)
-          model.src.set(URL.createObjectURL(gltfFile))
+          source.set(URL.createObjectURL(gltfFile))
 
           console.log(gltfFile)
         } catch (err) {
@@ -84,9 +82,22 @@ const GLTF = (props: { sceneEntity: Entity }) => {
 }
 
 export default function GLTFViewer() {
-  const sceneEntity = useRouteScene()
+  useEffect(() => {
+    const bgColor = document.body.style.backgroundColor
+    document.body.style.backgroundColor = 'gray'
+    getMutableState(RendererState).gridVisibility.set(true)
+    getMutableState(RendererState).physicsDebug.set(true)
+    const entity = Engine.instance.viewerEntity
+    setComponent(entity, CameraOrbitComponent)
+    setComponent(entity, InputComponent)
+    getComponent(entity, CameraComponent).position.set(0, 3, 4)
 
-  return sceneEntity.value ? (
+    return () => {
+      document.body.style.backgroundColor = bgColor
+    }
+  }, [])
+
+  return (
     <div
       id="dnd-container"
       style={{
@@ -100,8 +111,8 @@ export default function GLTFViewer() {
       }}
     >
       <DndWrapper id="dnd-container">
-        <GLTF sceneEntity={sceneEntity.value} />
+        <GLTF />
       </DndWrapper>
     </div>
-  ) : null
+  )
 }
