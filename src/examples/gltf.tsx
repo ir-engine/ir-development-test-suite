@@ -51,13 +51,15 @@ const GLTF = () => {
       setComponent(entity, ModelComponent, { src: source.value })
     }
 
-    const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
-    setComponent(entity, NameComponent, 'Ambient Light')
-    setComponent(entity, TransformComponent)
-    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
-    setComponent(entity, VisibleComponent, true)
-    setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
+    if(!UUIDComponent.getEntityByUUID('ambient light' as EntityUUID)) {
+      const entity = createEntity()
+      setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
+      setComponent(entity, NameComponent, 'Ambient Light')
+      setComponent(entity, TransformComponent)
+      setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+      setComponent(entity, VisibleComponent, true)
+      setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
+    }
 
     return GLTFAssetState.loadScene(source.value, source.value)
   }, [source])
