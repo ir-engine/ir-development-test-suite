@@ -69,6 +69,20 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/.ds_store": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/Duck/.ds_store": {
+    "type": "file",
+    "tags": [
+      "unknown"
+    ],
+    "dependencies": []
+  },
   "assets/GLTF/Duck/basic/Duck.gltf": {
     "type": "file",
     "tags": [

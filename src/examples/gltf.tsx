@@ -10,29 +10,29 @@ import { Engine, EntityUUID, UUIDComponent, createEntity } from '@etherealengine
 import config from '@etherealengine/common/src/config'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
+import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
+import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
+import { DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
+import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
+import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
-import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { TransformComponent } from '@etherealengine/spatial'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
-import { Vector3 } from 'three'
-
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { Color, Vector3 } from 'three'
 export const metadata = {
   title: 'GLTF',
   description: ''
 }
 
-// const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
+const loadOldModel = false
+const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/binary/Duck.glb'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/draco/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/embedded/Duck.gltf'
-const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])
@@ -40,14 +40,24 @@ const GLTF = () => {
   const source = useHookstate(defaultSource)
 
   useEffect(() => {
-    // const entity = createEntity()
-    // setComponent(entity, UUIDComponent, 'gltf viewer' as EntityUUID)
-    // setComponent(entity, NameComponent, '3D Preview Entity')
-    // setComponent(entity, TransformComponent, { position: new Vector3(3, 0, 0) })
-    // setComponent(entity, SourceComponent, 'gltf viewer-' + source.value)
-    // setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
-    // setComponent(entity, VisibleComponent, true)
-    // setComponent(entity, ModelComponent, { src: source.value })
+    if (loadOldModel) {
+      const entity = createEntity()
+      setComponent(entity, UUIDComponent, 'gltf viewer' as EntityUUID)
+      setComponent(entity, NameComponent, '3D Preview Entity')
+      setComponent(entity, TransformComponent, { position: new Vector3(3, 0, 0) })
+      setComponent(entity, SourceComponent, 'gltf viewer-' + source.value)
+      setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+      setComponent(entity, VisibleComponent, true)
+      setComponent(entity, ModelComponent, { src: source.value })
+    }
+
+    const entity = createEntity()
+    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
+    setComponent(entity, NameComponent, 'Ambient Light')
+    setComponent(entity, TransformComponent)
+    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+    setComponent(entity, VisibleComponent, true)
+    setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
 
     return GLTFAssetState.loadScene(source.value, source.value)
   }, [source])
