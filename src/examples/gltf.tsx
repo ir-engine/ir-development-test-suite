@@ -5,7 +5,7 @@ import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFun
 import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 
-import { Engine, EntityUUID, UUIDComponent, createEntity } from '@etherealengine/ecs'
+import { Engine, Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@etherealengine/ecs'
 
 import config from '@etherealengine/common/src/config'
 import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
@@ -40,28 +40,33 @@ const GLTF = () => {
   const source = useHookstate(defaultSource)
 
   useEffect(() => {
+    /** just for testing parity with old gltf loader */
+    let modelEntity: Entity | undefined
     if (loadOldModel) {
-      const entity = createEntity()
-      setComponent(entity, UUIDComponent, 'gltf viewer' as EntityUUID)
-      setComponent(entity, NameComponent, '3D Preview Entity')
-      setComponent(entity, TransformComponent, { position: new Vector3(3, 0, 0) })
-      setComponent(entity, SourceComponent, 'gltf viewer-' + source.value)
-      setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
-      setComponent(entity, VisibleComponent, true)
-      setComponent(entity, ModelComponent, { src: source.value })
+      modelEntity = createEntity()
+      setComponent(modelEntity, UUIDComponent, 'gltf viewer' as EntityUUID)
+      setComponent(modelEntity, NameComponent, '3D Preview Entity')
+      setComponent(modelEntity, TransformComponent, { position: new Vector3(3, 0, 0) })
+      setComponent(modelEntity, SourceComponent, 'gltf viewer-' + source.value)
+      setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+      setComponent(modelEntity, VisibleComponent, true)
+      setComponent(modelEntity, ModelComponent, { src: source.value })
     }
 
-    if(!UUIDComponent.getEntityByUUID('ambient light' as EntityUUID)) {
-      const entity = createEntity()
-      setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
-      setComponent(entity, NameComponent, 'Ambient Light')
-      setComponent(entity, TransformComponent)
-      setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
-      setComponent(entity, VisibleComponent, true)
-      setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
-    }
+    const entity = createEntity()
+    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
+    setComponent(entity, NameComponent, 'Ambient Light')
+    setComponent(entity, TransformComponent)
+    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+    setComponent(entity, VisibleComponent, true)
+    setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
 
-    return GLTFAssetState.loadScene(source.value, source.value)
+    const ret = GLTFAssetState.loadScene(source.value, source.value)
+    return () => {
+      if (modelEntity) removeEntity(modelEntity)
+      removeEntity(entity)
+      ret()
+    }
   }, [source])
 
   const [{ canDrop, isOver, isDragging, isUploaded }, onDropTarget] = useDrop({
