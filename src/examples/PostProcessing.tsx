@@ -6,13 +6,13 @@ import { LocationIcons } from '@etherealengine/client-core/src/components/Locati
 import { useQuery } from '@etherealengine/ecs'
 import { getComponent, updateComponent } from '@etherealengine/ecs/src/ComponentFunctions'
 import { Entity } from '@etherealengine/ecs/src/Entity'
-import { PostProcessingSettingsEditor } from '@etherealengine/editor/src/components/properties/PostProcessingSettingsEditor'
 import { EditorControlFunctions } from '@etherealengine/editor/src/functions/EditorControlFunctions'
 import { SelectionState } from '@etherealengine/editor/src/services/SelectionServices'
 import { UUIDComponent } from '@etherealengine/ecs'
 import { useSearchParams } from 'react-router-dom'
 import { Template } from './utils/template'
 import { PostProcessingComponent } from '@etherealengine/spatial/src/renderer/components/PostProcessingComponent'
+import PostProcessingSettingsEditor from '@etherealengine/ui/src/components/editor/properties/postProcessing'
 
 export default function PostProcessing() {
   const entity = useHookstate<Entity | null>(null)
