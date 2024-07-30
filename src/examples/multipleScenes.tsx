@@ -20,34 +20,27 @@ import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
-import { getMutableState, getState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@etherealengine/spatial'
 import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
 import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import { InputPointerComponent } from '@etherealengine/spatial/src/input/components/InputPointerComponent'
-import { InputState } from '@etherealengine/spatial/src/input/state/InputState'
-import { Physics, RaycastArgs } from '@etherealengine/spatial/src/physics/classes/Physics'
 import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
-import { CollisionGroups } from '@etherealengine/spatial/src/physics/enums/CollisionGroups'
-import { getInteractionGroups } from '@etherealengine/spatial/src/physics/functions/getInteractionGroups'
-import { SceneQueryType } from '@etherealengine/spatial/src/physics/types/PhysicsTypes'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
 import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import {
   MaterialInstanceComponent,
   MaterialStateComponent
 } from '@etherealengine/spatial/src/renderer/materials/MaterialComponent'
-import { EntityTreeComponent, isAncestor } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@etherealengine/spatial/src/transform/systems/TransformSystem'
 import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
-import { Cache, Color, Euler, Group, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
+import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
 const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
@@ -55,23 +48,31 @@ let physicsEntityCount = 0
 export const createPhysicsEntity = (sceneEntity: Entity) => {
   const entity = createEntity()
 
+  const i = physicsEntityCount++
+
   const position = new Vector3(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-  setComponent(entity, UUIDComponent, ('Ball-' + physicsEntityCount++) as EntityUUID)
+  setComponent(entity, UUIDComponent, ('Ball-' + i) as EntityUUID)
   setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
-  setComponent(entity, TransformComponent, { position, scale: new Vector3(0.5, 0.5, 0.5) })
-  setComponent(entity, PrimitiveGeometryComponent, {
-    geometryType: GeometryTypeEnum.SphereGeometry
-  })
+  setComponent(entity, TransformComponent, { position, scale: new Vector3(2, 2, 2) })
   setComponent(entity, VisibleComponent, true)
   setComponent(entity, RigidBodyComponent, { type: 'dynamic' })
-  setComponent(entity, ColliderComponent, {
+  setComponent(entity, TestSuiteBallTagComponent)
+
+  const colliderEntity = createEntity()
+  setComponent(colliderEntity, VisibleComponent, true)
+  setComponent(colliderEntity, UUIDComponent, ('Ball-' + i + '-collider') as EntityUUID)
+  setComponent(colliderEntity, EntityTreeComponent, { parentEntity: entity })
+  setComponent(colliderEntity, TransformComponent, { scale: new Vector3(0.25, 0.25, 0.25) })
+  setComponent(colliderEntity, ColliderComponent, {
     shape: 'sphere',
     mass: MathUtils.randFloat(0.5, 1.5),
     friction: MathUtils.randFloat(0.1, 1.0),
     restitution: MathUtils.randFloat(0.1, 1.0)
   })
-  setComponent(entity, TestSuiteBallTagComponent)
-  setComponent(entity, InputComponent)
+  setComponent(colliderEntity, PrimitiveGeometryComponent, {
+    geometryType: GeometryTypeEnum.SphereGeometry
+  })
+  setComponent(colliderEntity, InputComponent)
 
   return entity
 }
@@ -192,8 +193,10 @@ const execute = () => {
       transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
     }
 
-    const isPointerOver = getComponent(entity, InputComponent).inputSources.length > 0
-    const materialInstance = getOptionalComponent(entity, MaterialInstanceComponent)
+    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
+
+    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
+    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
     if (!materialInstance) continue
     const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
     const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
