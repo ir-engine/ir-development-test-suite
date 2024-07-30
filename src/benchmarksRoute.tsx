@@ -6,38 +6,48 @@ import AvatarIKBenchmarkEntry from './benchmarks/avatarIKBenchmark'
 import HeapBenchmarkEntry from './benchmarks/heapBenchmark'
 import ParticlesBenchmarkEntry from './benchmarks/particlesBenchmark'
 import PhysicsBenchmarkEntry from './benchmarks/physicsBenchmark'
-import Routes, { RouteData } from './sceneRoute'
+import Routes, { RouteCategories } from './sceneRoute'
 
-export const benchmarks: RouteData[] = [
+export const benchmarks: RouteCategories = [
   {
-    name: 'Avatar Benchmark',
-    description: '',
-    entry: AvatarBenchmarkEntry
+    category: 'Avatar',
+    routes: [
+      {
+        name: 'Basic Benchmark',
+        description: '',
+        entry: AvatarBenchmarkEntry
+      },
+      {
+        name: 'IK Benchmark',
+        description: '',
+        entry: AvatarIKBenchmarkEntry
+      }
+    ]
   },
   {
-    name: 'Avatar IK Benchmark',
-    description: '',
-    entry: AvatarIKBenchmarkEntry
-  },
-  {
-    name: 'Particles Benchmark',
-    description: '',
-    entry: ParticlesBenchmarkEntry
-  },
-  {
-    name: 'Physics Benchmark',
-    description: '',
-    entry: PhysicsBenchmarkEntry
-  },
-  {
-    name: 'Heap Benchmark',
-    description: '',
-    entry: HeapBenchmarkEntry
+    category: 'Core',
+    routes: [
+      {
+        name: 'Particles Benchmark',
+        description: '',
+        entry: ParticlesBenchmarkEntry
+      },
+      {
+        name: 'Physics Benchmark',
+        description: '',
+        entry: PhysicsBenchmarkEntry
+      },
+      {
+        name: 'Heap Benchmark',
+        description: '',
+        entry: HeapBenchmarkEntry
+      }
+    ]
   }
 ]
 
 const BenchmarkRoutes = () => {
-  return <Routes routes={benchmarks} header="Benchmarks" />
+  return <Routes routeCategories={benchmarks} header="Benchmarks" />
 }
 
 export default BenchmarkRoutes
