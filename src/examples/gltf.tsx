@@ -21,7 +21,7 @@ import { InputComponent } from '@etherealengine/spatial/src/input/components/Inp
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { Color, Vector3 } from 'three'
+import { Color, Euler, Quaternion, Vector3 } from 'three'
 export const metadata = {
   title: 'GLTF',
   description: ''
@@ -54,9 +54,9 @@ const GLTF = () => {
     }
 
     const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'ambient light' as EntityUUID)
-    setComponent(entity, NameComponent, 'Ambient Light')
-    setComponent(entity, TransformComponent)
+    setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
+    setComponent(entity, NameComponent, 'Directional Light')
+    setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
     setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
