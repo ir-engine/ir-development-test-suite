@@ -14,7 +14,7 @@ export default function ParticlesBenchmarkEntry() {
   const sceneEntity = useRouteScene()
   return sceneEntity ? (
     <>
-      <ParticlesBenchmark rootEntity={sceneEntity} onComplete={undefined as any} />
+      <ParticlesBenchmark rootEntity={sceneEntity} onComplete={() => {}} />
       <ProfilerUI systemUUIDs={[ParticleSystem]} />
     </>
   ) : null

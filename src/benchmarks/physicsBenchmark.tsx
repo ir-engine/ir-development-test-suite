@@ -14,7 +14,7 @@ export default function PhysicsBenchmarkEntry() {
   const sceneEntity = useRouteScene()
   return sceneEntity ? (
     <>
-      <PhysicsBenchmark rootEntity={sceneEntity} onComplete={undefined as any} />
+      <PhysicsBenchmark rootEntity={sceneEntity} onComplete={() => {}} />
       <ProfilerUI systemUUIDs={[PhysicsSystem, PhysicsPreTransformSystem]} />
     </>
   ) : null

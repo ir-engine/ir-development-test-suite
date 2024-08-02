@@ -49,7 +49,7 @@ const execute = () => {
 
   const data = {}
   for (const system of systems) {
-    if (system.uuid == 'eepro.eetest.SystemProfilerSystem') continue
+    if (system.uuid === SystemProfilerSystem) continue
     const max = systemDataMap[system.uuid].value ? systemDataMap[system.uuid].maxDuration.value : 0
     data[system.uuid] = {
       avgDuration: system.avgSystemDuration,
@@ -59,7 +59,7 @@ const execute = () => {
   systemDataMap.merge(data)
 }
 
-export default defineSystem({
+export const SystemProfilerSystem = defineSystem({
   uuid: 'eepro.eetest.SystemProfilerSystem',
   execute,
   insert: { after: PresentationSystemGroup }
