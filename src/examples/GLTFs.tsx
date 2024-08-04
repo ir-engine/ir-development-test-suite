@@ -5,7 +5,6 @@ import { getMutableState, getState } from '@etherealengine/hyperflux'
 
 import { Engine, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@etherealengine/ecs'
 
-import config from '@etherealengine/common/src/config'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
@@ -27,73 +26,87 @@ export const metadata = {
 const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/'
 
 export const gltfRoutes = [
-  { 
+  {
     name: 'Basic',
     description: 'Basic Duck',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/Duck/glTF/Duck.gltf'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF/Duck.gltf'} />
   },
   {
     name: 'Binary',
     description: 'Binary Duck',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/Duck/glTF-Binary/Duck.glb'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Binary/Duck.glb'} />
   },
   {
     name: 'Draco',
     description: 'Draco Duck',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/Duck/glTF-Draco/Duck.gltf'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Draco/Duck.gltf'} />
   },
   {
     name: 'Embedded',
     description: 'Embedded Duck',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/Duck/glTF-Embedded/Duck.gltf'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Embedded/Duck.gltf'} />
   },
   {
     name: 'Quantized',
     description: 'Quantized Duck',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/Duck/glTF-Quantized/Duck.gltf'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Quantized/Duck.gltf'} />
   },
   {
     name: 'KHR_materials_unlit',
     description: 'Khronos Unlit Material Extension',
-    entry: () => (
-      <GLTFViewer
-        src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'}
-      />
-    )
+    entry: () => <GLTFViewer src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'} />
+  },
+  {
+    name: 'KHR_materials_emissive_strength',
+    description: 'Khronos Emissive Strength Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/EmissiveStrengthTest/glTF/EmissiveStrengthTest.gltf'} />
+  },
+  {
+    name: 'KHR_materials_clearcoat',
+    description: 'Khronos Clearcoat Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/ClearCoatTest/glTF/ClearCoatTest.gltf'} />
+  },
+  {
+    name: 'KHR_materials_iridescence',
+    description: 'Khronos Iridescence Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/IridescenceMetallicSpheres/glTF/IridescenceMetallicSpheres.gltf'} />
+  },
+  {
+    name: 'KHR_materials_sheen',
+    description: 'Khronos Sheen Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/SheenChair/glTF/SheenChair.gltf'} />
+  },
+  {
+    name: 'KHR_materials_transmission',
+    description: 'Khronos Transmission Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/TransmissionTest/glTF/TransmissionTest.gltf'} />
+  },
+  {
+    name: 'KHR_materials_volume',
+    description: 'Khronos Volume Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/AttenuationTest/glTF/AttenuationTest.gltf'} />
+  },
+  // {
+  //   name: 'KHR_materials_ior',
+  //   description: 'Khronos Index of Refraction Material Extension',
+  //   entry: () => <GLTFViewer src={CDN_URL + '/IORTest/glTF/IORTest.gltf'} />
+  // },
+  {
+    name: 'KHR_materials_specular',
+    description: 'Khronos Specular Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/SpecularTest/glTF/SpecularTest.gltf'} />
+  },
+  // {
+  //   name: 'EXT_materials_bump',
+  //   description: 'Khronos Bump Material Extension',
+  //   entry: () => <GLTFViewer src={CDN_URL + '/BumpTest/glTF/BumpTest.gltf'} />
+  // },
+  {
+    name: 'KHR_materials_anisotropy',
+    description: 'Khronos Anisotropy Material Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/CarbonFibre/glTF/CarbonFibre.gltf'} />
   }
 ] as RouteData[]
-
-// EXTENSIONS.KHR_MATERIALS_UNLIT
-// EXTENSIONS.KHR_MATERIALS_EMISSIVE_STRENGTH
-// EXTENSIONS.KHR_MATERIALS_CLEARCOAT
-// EXTENSIONS.KHR_MATERIALS_IRIDESCENCE
-// EXTENSIONS.KHR_MATERIALS_SHEEN
-// EXTENSIONS.KHR_MATERIALS_TRANSMISSION
-// EXTENSIONS.KHR_MATERIALS_VOLUME
-// EXTENSIONS.KHR_MATERIALS_IOR
-// EXTENSIONS.KHR_MATERIALS_SPECULAR
-// EXTENSIONS.EXT_MATERIALS_BUMP
-// EXTENSIONS.KHR_MATERIALS_ANISOTROPY
 
 export default function GLTFViewer(props: { src: string }) {
   useEffect(() => {
