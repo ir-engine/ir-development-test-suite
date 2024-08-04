@@ -105,6 +105,11 @@ export const gltfRoutes = [
     name: 'KHR_materials_anisotropy',
     description: 'Khronos Anisotropy Material Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/CarbonFibre/glTF/CarbonFibre.gltf'} />
+  },
+  {
+    name: 'KHR_lights_punctual',
+    description: 'Khronos Punctual Lights Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/LightsPunctualLamp/glTF/LightsPunctualLamp.gltf'} />
   }
 ] as RouteData[]
 
@@ -125,19 +130,7 @@ export default function GLTFViewer(props: { src: string }) {
   }, [])
 
   useEffect(() => {
-    const entity = createEntity()
-    setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
-    setComponent(entity, NameComponent, 'Directional Light')
-    setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
-    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
-    setComponent(entity, VisibleComponent, true)
-    setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 1 })
-
-    const ret = GLTFAssetState.loadScene(props.src, props.src)
-    return () => {
-      removeEntity(entity)
-      ret()
-    }
+    return GLTFAssetState.loadScene(props.src, props.src)
   }, [props.src])
 
   return null
