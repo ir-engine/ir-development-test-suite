@@ -4,11 +4,12 @@ import '@etherealengine/engine/src/EngineModule'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
-import GLTFViewer from './examples/gltf'
+import GLTFViewer from './examples/gltfViewer'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
 import Routes, { RouteCategories } from './sceneRoute'
+import { gltfRoutes } from './examples/GLTFs'
 
 export const examples: RouteCategories = [
   {
@@ -65,6 +66,10 @@ export const examples: RouteCategories = [
         entry: MultipleScenesEntry
       }
     ]
+  },
+  {
+    category: 'GLTF',
+    routes: gltfRoutes
   }
 ]
 

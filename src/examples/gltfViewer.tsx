@@ -22,17 +22,20 @@ import { RendererState } from '@etherealengine/spatial/src/renderer/RendererStat
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { Color, Euler, Quaternion, Vector3 } from 'three'
+import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 export const metadata = {
   title: 'GLTF',
   description: ''
 }
 
 const loadOldModel = false
-const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
+// const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/basic/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/binary/Duck.glb'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/draco/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/embedded/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
+const defaultSource = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/UnlitTest/glTF-Binary/UnlitTest.glb'
+
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])
@@ -51,6 +54,7 @@ const GLTF = () => {
       setComponent(modelEntity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
       setComponent(modelEntity, VisibleComponent, true)
       setComponent(modelEntity, ModelComponent, { src: source.value })
+      setComponent(modelEntity, SceneComponent)
     }
 
     const entity = createEntity()
