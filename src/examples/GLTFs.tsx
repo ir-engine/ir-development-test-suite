@@ -110,6 +110,11 @@ export const gltfRoutes = [
     name: 'KHR_lights_punctual',
     description: 'Khronos Punctual Lights Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/LightsPunctualLamp/glTF/LightsPunctualLamp.gltf'} />
+  },
+  {
+    name: 'KHR_texture_basisu',
+    description: 'Khronos Basis Universal Texture Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/FlightHelmet/glTF-KTX-BasisU/FlightHelmet.gltf'} light />
   }
 ] as RouteData[]
 
