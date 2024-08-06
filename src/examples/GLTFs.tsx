@@ -115,6 +115,10 @@ export const gltfRoutes = [
     name: 'KHR_texture_basisu',
     description: 'Khronos Basis Universal Texture Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/FlightHelmet/glTF-KTX-BasisU/FlightHelmet.gltf'} light />
+  },{
+    name: 'EXT_meshopt_compression',
+    description: 'Mesh Optimization Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/DragonAttenuation/glTF-Meshopt/DragonAttenuation.gltf'} light />
   }
 ] as RouteData[]
 
