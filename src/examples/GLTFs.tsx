@@ -115,10 +115,17 @@ export const gltfRoutes = [
     name: 'KHR_texture_basisu',
     description: 'Khronos Basis Universal Texture Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/FlightHelmet/glTF-KTX-BasisU/FlightHelmet.gltf'} light />
-  },{
+  },
+  {
     name: 'EXT_meshopt_compression',
     description: 'Mesh Optimization Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/DragonAttenuation/glTF-Meshopt/DragonAttenuation.gltf'} light />
+  },
+  {
+    name: 'EXT_mesh_gpu_instancing',
+    description: 'GPU Instancing Extension',
+    // entry: () => <GLTFViewer src={'https://threejs.org/examples/models/gltf/DamagedHelmet/glTF-instancing/DamagedHelmetGpuInstancing.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/SimpleInstancing/glTF/SimpleInstancing.gltf'} light />
   }
 ] as RouteData[]
 
