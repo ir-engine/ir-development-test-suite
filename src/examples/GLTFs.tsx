@@ -23,7 +23,7 @@ export const metadata = {
   description: ''
 }
 
-const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/'
+const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0'
 
 export const gltfRoutes = [
   {
@@ -50,6 +50,11 @@ export const gltfRoutes = [
     name: 'Quantized',
     description: 'Quantized Duck',
     entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Quantized/Duck.gltf'} light />
+  },
+  {
+    name: 'Skinning',
+    description: 'Skinned Rigged Simple',
+    entry: () => <GLTFViewer src={CDN_URL + '/RiggedSimple/glTF/RiggedSimple.gltf'} light />
   },
   {
     name: 'KHR_materials_unlit',
