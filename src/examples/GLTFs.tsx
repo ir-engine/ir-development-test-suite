@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 
-import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { getMutableState, getState } from '@etherealengine/hyperflux'
+import { getComponent, setComponent, useOptionalComponent } from '@etherealengine/ecs/src/ComponentFunctions'
+import { getMutableState, getState, useMutableState } from '@etherealengine/hyperflux'
 
 import { Engine, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@etherealengine/ecs'
 
+import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
 import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
 import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
 import { EngineState } from '@etherealengine/spatial/src/EngineState'
@@ -15,7 +16,7 @@ import { InputComponent } from '@etherealengine/spatial/src/input/components/Inp
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { Color, Euler, Quaternion } from 'three'
+import { AnimationClip, Color, Euler, Quaternion, Vector3 } from 'three'
 import { RouteData } from '../sceneRoute'
 
 export const metadata = {
@@ -53,8 +54,8 @@ export const gltfRoutes = [
   },
   {
     name: 'Skinning',
-    description: 'Skinned Rigged Simple',
-    entry: () => <GLTFViewer src={CDN_URL + '/RiggedSimple/glTF/RiggedSimple.gltf'} light />
+    description: 'Animated Fox',
+    entry: () => <GLTFViewer src={CDN_URL + '/Fox/glTF/Fox.gltf'} light animationClip={'Run'} scale={0.01} />
   },
   {
     name: 'KHR_materials_unlit',
@@ -134,7 +135,7 @@ export const gltfRoutes = [
   }
 ] as RouteData[]
 
-export default function GLTFViewer(props: { src: string; light?: boolean }) {
+export default function GLTFViewer(props: { src: string; scale?: number; light?: boolean; animationClip?: string }) {
   useEffect(() => {
     const bgColor = document.body.style.backgroundColor
     document.body.style.backgroundColor = 'gray'
@@ -153,6 +154,29 @@ export default function GLTFViewer(props: { src: string; light?: boolean }) {
   useEffect(() => {
     return GLTFAssetState.loadScene(props.src, props.src)
   }, [props.src])
+
+  const assetEntity = useMutableState(GLTFAssetState)[props.src].value
+  const animationComponent = useOptionalComponent(assetEntity, AnimationComponent)
+
+  useEffect(() => {
+    if (!assetEntity || !props.scale) return
+
+    setComponent(assetEntity, TransformComponent, { scale: new Vector3().setScalar(props.scale) })
+  }, [assetEntity, props.scale])
+
+  useEffect(() => {
+    if (!animationComponent?.value?.animations || !props.animationClip) return
+
+    const clips = animationComponent?.value?.animations as AnimationClip[]
+
+    const clip = AnimationClip.findByName(clips, props.animationClip)
+    if (!clip) return console.warn('Clip not found:', props.animationClip)
+
+    const action = animationComponent.value.mixer.clipAction(clip)
+    action.play()
+
+    console.log({ animationComponent, action })
+  }, [animationComponent?.value?.animations, props.animationClip])
 
   useEffect(() => {
     if (!props.light) return
