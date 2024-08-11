@@ -58,6 +58,11 @@ export const gltfRoutes = [
     entry: () => <GLTFViewer src={CDN_URL + '/Fox/glTF/Fox.gltf'} light animationClip={'Run'} scale={0.01} />
   },
   {
+    name: 'Morph Targets',
+    description: 'Morph Primitives Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/AnimatedMorphCube/glTF/AnimatedMorphCube.gltf'} light animationClip={'Square'} />
+  },
+  {
     name: 'KHR_materials_unlit',
     description: 'Khronos Unlit Material Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'} />
