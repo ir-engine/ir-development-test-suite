@@ -279,6 +279,20 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/lightmap_test.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
+  "assets/GLTF/lightmaptest.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
   "assets/graph/default-graph.json": {
     "type": "asset",
     "tags": [

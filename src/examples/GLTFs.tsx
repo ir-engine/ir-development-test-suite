@@ -18,12 +18,14 @@ import { VisibleComponent } from '@etherealengine/spatial/src/renderer/component
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { AnimationClip, Color, Euler, Quaternion, Vector3 } from 'three'
 import { RouteData } from '../sceneRoute'
+import config from '@etherealengine/common/src/config'
 
 export const metadata = {
   title: 'GLTF',
   description: ''
 }
 
+const fileServer = config.client.fileServer
 const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0'
 
 export const gltfRoutes = [
@@ -60,7 +62,9 @@ export const gltfRoutes = [
   {
     name: 'Morph Targets',
     description: 'Morph Primitives Test',
-    entry: () => <GLTFViewer src={CDN_URL + '/AnimatedMorphCube/glTF/AnimatedMorphCube.gltf'} light animationClip={'Square'} />
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/AnimatedMorphCube/glTF/AnimatedMorphCube.gltf'} light animationClip={'Square'} />
+    )
   },
   {
     name: 'KHR_materials_unlit',
@@ -137,6 +141,16 @@ export const gltfRoutes = [
     description: 'GPU Instancing Extension',
     // entry: () => <GLTFViewer src={'https://threejs.org/examples/models/gltf/DamagedHelmet/glTF-instancing/DamagedHelmetGpuInstancing.gltf'} light />
     entry: () => <GLTFViewer src={CDN_URL + '/SimpleInstancing/glTF/SimpleInstancing.gltf'} light />
+  },
+  {
+    name: 'KHR_materials_pbrSpecularGlossiness',
+    description: 'DEPRECATED Khronos PBR Specular Glossiness Extension',
+    entry: () => <GLTFViewer src={CDN_URL + '/SpecGlossVsMetalRough/glTF/SpecGlossVsMetalRough.gltf'} light />
+  },
+  {
+    name: 'MOZ_lightmap',
+    description: 'Mozilla Lightmap Extension',
+    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
   }
 ] as RouteData[]
 
