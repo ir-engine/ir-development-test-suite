@@ -199,8 +199,6 @@ export default function GLTFViewer(props: { src: string; scale?: number; light?:
 
     const action = animationComponent.value.mixer.clipAction(clip)
     action.play()
-
-    console.log({ animationComponent, action })
   }, [animationComponent?.value?.animations, props.animationClip])
 
   useEffect(() => {
