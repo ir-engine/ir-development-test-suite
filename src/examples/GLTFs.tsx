@@ -151,6 +151,12 @@ export const gltfRoutes = [
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
     entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+  },
+  {
+    name: 'EE_material',
+    description: 'Ethereal Engine Material Extension',
+    /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
+    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
   }
 ] as RouteData[]
 

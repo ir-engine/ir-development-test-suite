@@ -10,6 +10,7 @@ import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
 import Routes, { RouteCategories } from './sceneRoute'
 import { gltfRoutes } from './examples/GLTFs'
+import { useEngineInjection } from '@etherealengine/client-core/src/components/World/EngineHooks'
 
 export const examples: RouteCategories = [
   {
@@ -74,6 +75,8 @@ export const examples: RouteCategories = [
 ]
 
 const ExampleRoutes = () => {
+  const projectsLoaded = useEngineInjection()
+  if (!projectsLoaded) return <></>
   return <Routes routeCategories={examples} header="Examples" />
 }
 

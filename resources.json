@@ -76,6 +76,13 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/double-mat-test.glb": {
+    "type": "file",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
   "assets/GLTF/Duck/.ds_store": {
     "type": "file",
     "tags": [
@@ -279,15 +286,8 @@
     ],
     "dependencies": []
   },
-  "assets/GLTF/lightmap_test.glb": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
   "assets/GLTF/lightmaptest.glb": {
-    "type": "file",
+    "type": "asset",
     "tags": [
       "Model"
     ],
