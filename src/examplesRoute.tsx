@@ -1,7 +1,10 @@
 import React from 'react'
 
+import { useEngineInjection } from '@etherealengine/client-core/src/components/World/EngineHooks'
 import '@etherealengine/engine/src/EngineModule'
+import { gltfRoutes } from './examples/GLTFs'
 import AvatarMocapEntry from './examples/avatarMocap'
+import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltfViewer'
@@ -9,8 +12,6 @@ import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
 import Routes, { RouteCategories } from './sceneRoute'
-import { gltfRoutes } from './examples/GLTFs'
-import { useEngineInjection } from '@etherealengine/client-core/src/components/World/EngineHooks'
 
 export const examples: RouteCategories = [
   {
@@ -41,6 +42,11 @@ export const examples: RouteCategories = [
   {
     category: 'Avatar',
     routes: [
+      {
+        name: 'Simple',
+        description: 'Avatar simple example',
+        entry: AvatarSimpleEntry
+      },
       {
         name: 'Mocap',
         description: 'Avatar mocap example',
