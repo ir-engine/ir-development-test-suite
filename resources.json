@@ -69,24 +69,10 @@
     ],
     "dependencies": []
   },
-  "assets/GLTF/.ds_store": {
-    "type": "file",
-    "tags": [
-      "unknown"
-    ],
-    "dependencies": []
-  },
   "assets/GLTF/double-mat-test.glb": {
-    "type": "file",
+    "type": "asset",
     "tags": [
       "Model"
-    ],
-    "dependencies": []
-  },
-  "assets/GLTF/Duck/.ds_store": {
-    "type": "file",
-    "tags": [
-      "unknown"
     ],
     "dependencies": []
   },

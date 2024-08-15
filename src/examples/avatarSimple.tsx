@@ -3,7 +3,7 @@ import { GLTF } from '@gltf-transform/core'
 import { useEffect } from 'react'
 import { Cache, Color, Euler, Quaternion } from 'three'
 
-import { AvatarID } from '@etherealengine/common/src/schema.type.module'
+import { AvatarID, avatarPath } from '@etherealengine/common/src/schema.type.module'
 import {
   Engine,
   EntityUUID,
@@ -25,6 +25,7 @@ import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRen
 import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -50,6 +51,7 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
 export default function AvatarSimpleEntry() {
   const entity = useHookstate(UndefinedEntity)
   const gltfComponent = useOptionalComponent(entity.value, GLTFComponent)
+  const avatars =  useFind(avatarPath)
 
   useEffect(() => {
     const lightEntity = createEntity()
@@ -82,19 +84,19 @@ export default function AvatarSimpleEntry() {
   }, [])
 
   useEffect(() => {
-    if (gltfComponent?.progress?.value !== 100) return
+    if (!avatars.data.length || gltfComponent?.progress?.value !== 100) return
 
     const parentUUID = getComponent(entity.value, UUIDComponent)
     const entityUUID = Engine.instance.userID
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID,
-        avatarID: '9cc0a253-aeec-45d6-86cb-ab08f094c09d' as AvatarID,
+        avatarID: avatars.data.find(avatar => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
         entityUUID: (entityUUID + '_avatar') as EntityUUID,
         name: 'avatar'
       })
     )
-  }, [gltfComponent?.progress?.value])
+  }, [gltfComponent?.progress?.value, avatars.data.length])
 
   return null
 }

@@ -157,11 +157,6 @@ export const gltfRoutes = [
     description: 'Ethereal Engine Material Extension',
     /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
     entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
-  },
-  {
-    name: 'VRM',
-    description: 'VRM Avatar',
-    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/VRM/VRMTest.vrm'} light />
   }
 ] as RouteData[]
 
