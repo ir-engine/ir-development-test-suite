@@ -2,9 +2,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { API } from '@etherealengine/client-core/src/API'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
 import { matchUserPath } from '@etherealengine/common/src/schemas/matchmaking/match-user.schema'
+import { Engine } from '@etherealengine/ecs/src/Engine'
 import { OpenMatchTicketAssignment } from '@etherealengine/matchmaking/src/interfaces'
 import { matchTicketAssignmentPath } from '@etherealengine/matchmaking/src/match-ticket-assignment.schema'
 import { matchTicketPath } from '@etherealengine/matchmaking/src/match-ticket.schema'
@@ -23,10 +23,10 @@ const Page = () => {
   async function newTicket() {
     let ticket
     try {
-      ticket = await API.instance.client.service(matchTicketPath).create({ gamemode: 'mode.demo' })
+      ticket = await Engine.instance.api.service(matchTicketPath).create({ gamemode: 'mode.demo' })
     } catch (e) {
       alert('You already searching for game')
-      const matchUser = (await API.instance.client.service(matchUserPath).find()).data[0]
+      const matchUser = (await Engine.instance.api.service(matchUserPath).find()).data[0]
       console.log('matchUser', matchUser)
       ticket = { id: matchUser.ticketId }
     }
@@ -49,7 +49,7 @@ const Page = () => {
 
   function getAssignment(ticketId: string): Promise<OpenMatchTicketAssignment> {
     return (
-      API.instance.client.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
+      Engine.instance.api.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
     ).then((assignment) => {
       console.log('assignment', ticketId, assignment)
       connections.current[ticketId] = assignment.connection
