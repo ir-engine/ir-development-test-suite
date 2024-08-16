@@ -5,6 +5,7 @@ import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
 import GLTFViewer from './examples/gltf'
+import InstanceConnection from './examples/InstanceConnection'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
@@ -63,6 +64,11 @@ export const examples: RouteCategories = [
         name: 'Multiple',
         description: 'multiple scenes example',
         entry: MultipleScenesEntry
+      },
+      {
+        name: 'Instance Connection',
+        description: 'Test instance server connection',
+        entry: InstanceConnection
       }
     ]
   }

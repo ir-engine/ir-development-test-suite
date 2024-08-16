@@ -8,6 +8,7 @@ import { LocationSeed, LocationState } from '@etherealengine/client-core/src/soc
 import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/transports/SocketWebRTCClientFunctions'
 import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
 import { InstanceID, LocationType } from '@etherealengine/common/src/schema.type.module'
+import { PresentationSystemGroup, useExecute } from '@etherealengine/ecs'
 import { Button } from '@etherealengine/editor/src/components/inputs/Button'
 import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
 import {
@@ -17,6 +18,74 @@ import {
   Network,
   NetworkState
 } from '@etherealengine/network'
+
+const ProducerInfo = (props: { networkID: InstanceID; value: any }) => {
+  const { networkID, value } = props
+  const state = useHookstate('')
+
+  useExecute(
+    () => {
+      if (value.dataChannel) {
+        const dataProducer = MediasoupDataProducerConsumerState.getProducerByDataChannel(networkID, value.dataChannel)
+        if (dataProducer) {
+          state.set(`- ${value.dataChannel} \n  - closed: ${dataProducer.closed}\n  - readyState: ${dataProducer.readyState}`)
+          return
+        }
+      }
+      if (value.mediaTag) {
+        const mediaProducer = MediasoupMediaProducerConsumerState.getProducerByPeerIdAndMediaTag(
+          networkID,
+          value.peerID,
+          value.mediaTag
+        )
+        if (mediaProducer) {
+          state.set(
+            `- ${value.mediaTag} \n  - closed: ${mediaProducer.closed}\n  - readyState: ${mediaProducer.readyState}`
+          )
+          return
+        }
+      }
+      state.set('')
+    },
+    { after: PresentationSystemGroup }
+  )
+
+  return <div>{state.value}</div>
+}
+
+const ConsumerInfo = (props: { networkID: InstanceID; value: any }) => {
+  const { networkID, value } = props
+  const state = useHookstate('')
+
+  useExecute(
+    () => {
+      if (value.dataChannel) {
+        const dataConsumer = MediasoupDataProducerConsumerState.getConsumerByDataChannel(networkID, value.dataChannel)
+        if (dataConsumer) {
+          state.set(`- ${value.dataChannel} \n  - closed: ${dataConsumer.closed}\n   - readyState: ${dataConsumer.readyState}`)
+          return
+        }
+      }
+      if (value.mediaTag) {
+        const mediaConsumer = MediasoupMediaProducerConsumerState.getConsumerByPeerIdAndMediaTag(
+          networkID,
+          value.peerID,
+          value.mediaTag
+        )
+        if (mediaConsumer) {
+          state.set(
+            `- ${value.mediaTag} \n  - closed: ${mediaConsumer.closed}\n  - readyState: ${mediaConsumer.readyState}`
+          )
+          return
+        }
+      }
+      state.set('')
+    },
+    { after: PresentationSystemGroup }
+  )
+
+  return <div>{state.value}</div>
+}
 
 const TransportInfo = (props: { networkID: InstanceID; transportID: string }) => {
   const transportState = useHookstate(
@@ -28,14 +97,14 @@ const TransportInfo = (props: { networkID: InstanceID; transportID: string }) =>
   }
   return (
     <div>
-    {transportState.direction} - {transportState.connected ? 'Active' : 'Waiting'}
+      {transportState.direction} - {transportState.connected ? 'Active' : 'Waiting'}
       {dataState?.producers && (
         <div>
           Producers
           {Object.entries(dataState?.producers)
             .filter(([_, producer]) => producer.transportID === props.transportID)
             .map(([key, value]) => (
-              <div key={key}> - {(value as any).dataChannel ?? value.mediaTag}</div>
+              <ProducerInfo key={key} networkID={props.networkID} value={value} />
             ))}
         </div>
       )}
@@ -45,7 +114,7 @@ const TransportInfo = (props: { networkID: InstanceID; transportID: string }) =>
           {Object.entries(dataState?.consumers)
             .filter(([_, consumer]) => consumer.transportID === props.transportID)
             .map(([key, value]) => (
-              <div key={key}> - {(value as any).dataChannel ?? value.mediaTag}</div>
+              <ConsumerInfo key={key} networkID={props.networkID} value={value} />
             ))}
         </div>
       )}
@@ -58,7 +127,9 @@ const NetworkInfo = (props: { networkID: InstanceID }) => {
   if (!transportState) return <></>
   return (
     <>
-      <h3>{getState(NetworkState).networks[props.networkID].topic} Network ID: {props.networkID}</h3>
+      <h3>
+        {getState(NetworkState).networks[props.networkID].topic} Network ID: {props.networkID}
+      </h3>
       {Object.entries(transportState).map(([key, value]) => (
         <div key={key}>
           <br />
@@ -122,7 +193,7 @@ export default function InstanceConnection() {
 
   return (
     <>
-      <div style={{ pointerEvents: 'all', position: 'absolute', top: '20%', left: '70%' }}>
+      <div style={{ pointerEvents: 'all', position: 'absolute', top: '20%', left: '50%' }}>
         <Button
           onClick={() => {
             online.set((val) => !val)
