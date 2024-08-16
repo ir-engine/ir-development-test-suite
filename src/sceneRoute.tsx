@@ -86,7 +86,7 @@ export const useRouteScene = (projectName = 'ee-development-test-suite', sceneNa
     getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
   }, [viewerEntity])
 
-  return sceneEntity
+  return sceneEntity.value
 }
 
 const getPathForRoute = (category: string, name: string) => {

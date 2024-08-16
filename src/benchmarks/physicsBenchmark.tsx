@@ -12,9 +12,9 @@ export const metadata = {
 
 export default function PhysicsBenchmarkEntry() {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? (
+  return sceneEntity ? (
     <>
-      <PhysicsBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} />
+      <PhysicsBenchmark rootEntity={sceneEntity} onComplete={() => {}} />
       <ProfilerUI systemUUIDs={[PhysicsSystem, PhysicsPreTransformSystem]} />
     </>
   ) : null

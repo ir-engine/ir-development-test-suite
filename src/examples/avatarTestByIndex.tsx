@@ -20,7 +20,7 @@ export default function AvatarBenchmarking() {
   const created = useHookstate(false)
 
   useEffect(() => {
-    if (sceneEntity.value && network?.ready.value && avatarData.value && !created.value) {
+    if (sceneEntity && network?.ready.value && avatarData.value && !created.value) {
       created.set(true)
 
       const avatar = avatarData.get(NO_PROXY) as AvatarType

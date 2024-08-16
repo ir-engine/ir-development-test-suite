@@ -40,26 +40,26 @@ const execute = () => {
   const engineVersion = global.__IR_ENGINE_VERSION__
   const profileData = getMutableState(ProfileState)
   const { gpu, device } = getState(PerformanceState)
-  const systems = [...SystemDefinitions.values()]
+  const systems = SystemDefinitions.values()
 
   const engineVersionData = profileData.systemProfilingData[engineVersion]
 
   if (!engineVersionData[gpu].value) engineVersionData.merge({ [gpu]: {} })
   const systemDataMap = engineVersionData[gpu]
 
+  const data = {}
   for (const system of systems) {
-    if (system.uuid == 'eepro.eetest.SystemProfilerSystem') continue
+    if (system.uuid === SystemProfilerSystem) continue
     const max = systemDataMap[system.uuid].value ? systemDataMap[system.uuid].maxDuration.value : 0
-    systemDataMap.merge({
-      [system.uuid]: {
-        avgDuration: system.avgSystemDuration,
-        maxDuration: Math.max(max, system.systemDuration)
-      }
-    })
+    data[system.uuid] = {
+      avgDuration: system.avgSystemDuration,
+      maxDuration: Math.max(max, system.systemDuration)
+    }
   }
+  systemDataMap.merge(data)
 }
 
-export default defineSystem({
+export const SystemProfilerSystem = defineSystem({
   uuid: 'eepro.eetest.SystemProfilerSystem',
   execute,
   insert: { after: PresentationSystemGroup }

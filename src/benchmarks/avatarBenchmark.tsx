@@ -36,9 +36,9 @@ export const metadata = {
 
 export default function AvatarBenchmarkEntry() {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? (
+  return sceneEntity ? (
     <>
-      <AvatarBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} />
+      <AvatarBenchmark rootEntity={sceneEntity} onComplete={() => {}} />
       <ProfilerUI systemUUIDs={[SkinnedMeshTransformSystem, AvatarAnimationSystem]} />
     </>
   ) : null

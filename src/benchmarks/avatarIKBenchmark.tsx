@@ -12,9 +12,9 @@ export const metadata = {
 
 export default function AvatarIKBenchmarkEntry() {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? (
+  return sceneEntity ? (
     <>
-      <AvatarIKBenchmark rootEntity={sceneEntity.value} onComplete={undefined as any} />
+      <AvatarIKBenchmark rootEntity={sceneEntity} onComplete={() => {}} />
       <ProfilerUI systemUUIDs={[SkinnedMeshTransformSystem]} />
     </>
   ) : null
