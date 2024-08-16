@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
-import { BotHooks } from 'ee-bot/src/enums/BotHooks'
+import { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
+import { BotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
 
 // const vector3 = new Vector3()
 

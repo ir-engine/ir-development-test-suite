@@ -9,7 +9,7 @@ import { RendererState } from '@etherealengine/spatial/src/renderer/RendererStat
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
-import { EmulatorDevtools } from 'ee-bot/devtool/EmulatorDevtools'
+import { EmulatorDevtools } from '@etherealengine/ee-bot/devtool/EmulatorDevtools'
 import 'ee-bot/src/functions/BotHookSystem'
 import React from 'react'
 import { useRouteScene } from '../sceneRoute'
