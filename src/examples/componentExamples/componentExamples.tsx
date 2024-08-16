@@ -10,7 +10,9 @@ import {
   useComponent,
   useOptionalComponent
 } from '@etherealengine/ecs'
+import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
 import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
+import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
 import {
   InteractableComponent,
   XRUIVisibilityOverride
@@ -18,7 +20,6 @@ import {
 import { ImageComponent } from '@etherealengine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@etherealengine/engine/src/scene/components/LinkComponent'
 import { MediaComponent } from '@etherealengine/engine/src/scene/components/MediaComponent'
-import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@etherealengine/engine/src/scene/components/SDFComponent'
@@ -39,7 +40,7 @@ import { ObjectLayerMasks } from '@etherealengine/spatial/src/renderer/constants
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
-import { MathUtils } from 'three'
+import { AnimationClip, MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
@@ -60,11 +61,11 @@ export const subComponentExamples = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
-      const model = useOptionalComponent(entity, ModelComponent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Model-Example')
-        setComponent(entity, ModelComponent, {
+        setComponent(entity, GLTFComponent, {
           cameraOcclusion: true,
           src:
             config.client.fileServer +
@@ -76,8 +77,8 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (model?.scene.value) onLoad(entity)
-      }, [model?.scene])
+        if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
 
       return null
     }
@@ -89,7 +90,7 @@ export const subComponentExamples = [
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
       const avatars = useAvatars()
-      const model = useOptionalComponent(entity, ModelComponent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
 
       useEffect(() => {
         const avatarArr = avatars.value
@@ -97,7 +98,7 @@ export const subComponentExamples = [
 
         const avatarSrc = avatarArr[MathUtils.randInt(0, avatarArr.length)]
         setComponent(entity, NameComponent, 'Avatar-Example')
-        setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
+        setComponent(entity, GLTFComponent, { src: avatarSrc, convertToVRM: true })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
           animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
@@ -106,8 +107,8 @@ export const subComponentExamples = [
       }, [avatars])
 
       useEffect(() => {
-        if (model?.scene.value) onLoad(entity)
-      }, [model?.scene])
+        if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
 
       return null
     }
@@ -118,11 +119,11 @@ export const subComponentExamples = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
-      const model = useOptionalComponent(entity, ModelComponent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Variant-Example')
-        setComponent(entity, ModelComponent, {
+        setComponent(entity, GLTFComponent, {
           cameraOcclusion: true,
           src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb'
         })
@@ -157,8 +158,8 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (model?.scene.value) onLoad(entity)
-      }, [model?.scene])
+        if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
 
       return null
     }
@@ -303,13 +304,12 @@ export const subComponentExamples = [
     Reactor: (props: { parent: Entity; onLoad: (entity: Entity) => void }) => {
       const { parent, onLoad } = props
       const entity = useExampleEntity(parent)
-      const model = useOptionalComponent(entity, ModelComponent)
+      const gltfComponent = useOptionalComponent(entity, GLTFComponent)
 
       useEffect(() => {
         setComponent(entity, NameComponent, 'Animation-Example')
-        setComponent(entity, ModelComponent, {
-          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/animations/rings.glb',
-          convertToVRM: true
+        setComponent(entity, GLTFComponent, {
+          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, { activeClipIndex: 0 })
@@ -317,8 +317,8 @@ export const subComponentExamples = [
       }, [])
 
       useEffect(() => {
-        if (model?.scene.value) onLoad(entity)
-      }, [model?.scene])
+        if (gltfComponent?.progress.value === 100) onLoad(entity)
+      }, [gltfComponent?.progress])
 
       return null
     }

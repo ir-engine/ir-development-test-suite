@@ -18,8 +18,8 @@ export const setupEntity = (parent: Entity): Entity => {
   setComponent(entity, UUIDComponent, generateEntityUUID())
   setComponent(entity, TransformComponent)
   setComponent(entity, EntityTreeComponent, { parentEntity: parent })
-  const sceneID = getComponent(parent, SourceComponent)
-  setComponent(entity, SourceComponent, sceneID)
+  // const sceneID = getComponent(parent, SourceComponent)
+  // setComponent(entity, SourceComponent, sceneID)
 
   return entity
 }
