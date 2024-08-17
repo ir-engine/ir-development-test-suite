@@ -8,16 +8,15 @@ import appRootPath from 'app-root-path'
 import fs from 'fs'
 import path from 'path'
 import manifestJson from './manifest.json'
-import packageJson from './package.json'
 
 const projectRelativeFolder = path.resolve(appRootPath.path, 'packages/projects')
-const avatarsFolder = path.join(appRootPath.path, 'packages/projects/projects', packageJson.name, 'public/avatars')
+const avatarsFolder = path.join(appRootPath.path, 'packages/projects/projects', manifestJson.name, 'public/avatars')
 
 const config = {
   onInstall: async (app: Application) => {
-    await app.service('route-activate').create({ project: packageJson.name, route: '/examples', activate: true })
-    await app.service('route-activate').create({ project: packageJson.name, route: '/benchmarks', activate: true })
-    await app.service('route-activate').create({ project: packageJson.name, route: '/benchmarksAll', activate: true })
+    await app.service('route-activate').create({ project: manifestJson.name, route: '/examples', activate: true })
+    await app.service('route-activate').create({ project: manifestJson.name, route: '/benchmarks', activate: true })
+    await app.service('route-activate').create({ project: manifestJson.name, route: '/benchmarksAll', activate: true })
 
     await Promise.all(
       fs
