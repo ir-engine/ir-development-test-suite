@@ -8,17 +8,18 @@ import { Engine } from '@etherealengine/ecs/src/Engine'
 import { MatchmakingTicketAssignment, OpenMatchTicket } from '@etherealengine/matchmaking/src/interfaces'
 import { matchTicketAssignmentPath } from '@etherealengine/matchmaking/src/match-ticket-assignment.schema'
 import { matchTicketPath } from '@etherealengine/matchmaking/src/match-ticket.schema'
+import { API } from '@etherealengine/common'
 
 const gameModes = ['ctf', 'tournament']
 
 async function findCurrentTicketData() {
-  const { data } = await Engine.instance.api.service(matchUserPath).find()
+  const { data } = await API.instance.service(matchUserPath).find()
   if (data.length) {
     const matchUser = data[0]
-    const ticket = await Engine.instance.api.service(matchTicketPath).get(matchUser.ticketId)
+    const ticket = await API.instance.service(matchTicketPath).get(matchUser.ticketId)
     if (!ticket) {
       // ticket is outdated - delete match-user row
-      await Engine.instance.api.service(matchUserPath).remove(matchUser.id)
+      await API.instance.service(matchUserPath).remove(matchUser.id)
     } else {
       const gamemode = ticket.search_fields.tags[0]
       return { id: ticket.id, gamemode }
@@ -84,15 +85,15 @@ const Page = () => {
     setIsUpdating(true)
     let serverTicket: OpenMatchTicket
     try {
-      serverTicket = await Engine.instance.api.service(matchTicketPath).create({ gamemode })
+      serverTicket = await API.instance.service(matchTicketPath).create({ gamemode })
     } catch (e) {
-      const matchUser = (await Engine.instance.api.service(matchUserPath).find()).data[0]
-      serverTicket = await Engine.instance.api.service(matchTicketPath).get(matchUser.ticketId)
+      const matchUser = (await API.instance.service(matchUserPath).find()).data[0]
+      serverTicket = await API.instance.service(matchTicketPath).get(matchUser.ticketId)
       if (!serverTicket) {
         // cleanup
-        await Engine.instance.api.service(matchUserPath).remove(matchUser.id)
+        await API.instance.service(matchUserPath).remove(matchUser.id)
         // create new
-        serverTicket = await Engine.instance.api.service(matchTicketPath).create({ gamemode })
+        serverTicket = await API.instance.service(matchTicketPath).create({ gamemode })
       }
     }
 
@@ -114,14 +115,14 @@ const Page = () => {
     if (!ticketId) {
       return
     }
-    await Engine.instance.api.service(matchTicketPath).remove(ticketId)
+    await API.instance.service(matchTicketPath).remove(ticketId)
     setTicketData(undefined)
     // setStatus('')
   }
 
   function getAssignment(ticketId: string): Promise<MatchmakingTicketAssignment> {
     return (
-      Engine.instance.api.service(matchTicketAssignmentPath).get(ticketId) as Promise<MatchmakingTicketAssignment>
+      API.instance.service(matchTicketAssignmentPath).get(ticketId) as Promise<MatchmakingTicketAssignment>
     ).then((assignment) => {
       console.log('assignment', ticketId, assignment)
       return assignment
