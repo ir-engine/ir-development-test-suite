@@ -128,7 +128,7 @@ const LODsDND = () => {
           const result = await uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
             args: {
-              project: 'ee-development-test-suite'
+              project: 'etherealengine/ee-development-test-suite'
             } as AdminAssetUploadArgumentsType,
             variants: true
           }).promise
