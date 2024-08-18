@@ -37,7 +37,7 @@ RUN cp .env.local.default .env.local
 
 RUN npm install --loglevel notice --legacy-peer-deps
 
-WORKDIR /etherealengine/packages/projects/projects/ee-development-test-suite
+WORKDIR /etherealengine/packages/projects/projects/etherealengine/ee-development-test-suite
 
 ENV DOMAIN=test2.etherealengine.com
 ENV LOCATION=default

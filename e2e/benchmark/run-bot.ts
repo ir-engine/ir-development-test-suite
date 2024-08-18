@@ -3,8 +3,8 @@ import appRootPath from 'app-root-path'
 import cli from 'cli'
 import dotenv from 'dotenv-flow'
 
-import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
-import { BotHooks } from 'ee-bot/src/enums/BotHooks'
+import { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
+import { BotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
 
 dotenv.config({
     path: appRootPath.path,

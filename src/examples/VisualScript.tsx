@@ -7,7 +7,7 @@ import { VisualScriptComponent } from '@etherealengine/engine'
 import { GraphJSON } from '@etherealengine/visual-script'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import 'reactflow/dist/style.css'
-import targetJson from '../assets/graph/simpleController.json'
+import targetJson from '../../assets/graph/simpleController.json'
 import { Template } from './utils/template'
 
 const entity = createEntity()

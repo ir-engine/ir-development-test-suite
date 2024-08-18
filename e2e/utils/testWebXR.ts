@@ -1,6 +1,6 @@
 import assert from 'assert'
-import type { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
-import { XRBotHooks } from 'ee-bot/src/enums/BotHooks'
+import type { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
+import { XRBotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
 
 export const setupXR = async (bot: EtherealEngineBot) => {
   await bot.runHook(XRBotHooks.OverrideXR)

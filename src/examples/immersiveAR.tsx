@@ -9,14 +9,14 @@ import { RendererState } from '@etherealengine/spatial/src/renderer/RendererStat
 import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
-import { EmulatorDevtools } from 'ee-bot/devtool/EmulatorDevtools'
-import 'ee-bot/src/functions/BotHookSystem'
+import { EmulatorDevtools } from '@etherealengine/ee-bot/devtool/EmulatorDevtools'
+import '@etherealengine/ee-bot/src/functions/BotHookSystem'
 import React from 'react'
 import { useRouteScene } from '../sceneRoute'
 import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 
 export default function ImmersiveAR() {
-  useRouteScene('default-project', 'public/scenes/apartment.gltf')
+  useRouteScene('etherealengine/default-project', 'public/scenes/apartment.gltf')
   useNetwork({ online: false })
   useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value

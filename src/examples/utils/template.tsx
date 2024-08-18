@@ -25,7 +25,7 @@ export function useSpawnAvatar(spawnAvatar?: boolean) {
 export function Template(props: { projectName?: string; sceneName?: string; spawnAvatar?: boolean }) {
   useSpawnAvatar(props.spawnAvatar)
   useLoadScene({
-    projectName: props.projectName ?? 'default-project',
+    projectName: props.projectName ?? 'etherealengine/default-project',
     sceneName: props.sceneName ?? 'public/scenes/default.gltf'
   })
   useNetwork({ online: false })

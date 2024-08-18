@@ -68,7 +68,7 @@ export const subComponentExamples = [
           cameraOcclusion: true,
           src:
             config.client.fileServer +
-            '/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+            '/projects/etherealengine/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
         })
         setComponent(entity, ShadowComponent, { receive: false })
         setVisibleComponent(entity, true)
@@ -124,27 +124,27 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Variant-Example')
         setComponent(entity, ModelComponent, {
           cameraOcclusion: true,
-          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb'
+          src: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb'
         })
         setComponent(entity, VariantComponent, {
           heuristic: Heuristic.DISTANCE,
           levels: [
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+              src: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
               metadata: {
                 minDistance: 0,
                 maxDistance: 5
               }
             },
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+              src: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
               metadata: {
                 minDistance: 5,
                 maxDistance: 10
               }
             },
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+              src: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
               metadata: {
                 minDistance: 10,
                 maxDistance: 15
@@ -195,7 +195,7 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Image-Example')
         setComponent(entity, ImageComponent, {
-          source: config.client.fileServer + '/projects/ee-development-test-suite/assets/Images/testImage.jpg'
+          source: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/Images/testImage.jpg'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -216,7 +216,7 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Video-Example')
         setComponent(entity, VideoComponent)
         setComponent(entity, MediaComponent, {
-          resources: [config.client.fileServer + '/projects/ee-development-test-suite/assets/Videos/HDVideo.mp4']
+          resources: [config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/Videos/HDVideo.mp4']
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -308,7 +308,7 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Animation-Example')
         setComponent(entity, ModelComponent, {
-          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/animations/rings.glb',
+          src: config.client.fileServer + '/projects/etherealengine/ee-development-test-suite/assets/animations/rings.glb',
           convertToVRM: true
         })
         setVisibleComponent(entity, true)

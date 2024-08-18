@@ -6,14 +6,14 @@ import { EngineState } from '@etherealengine/spatial/src/EngineState'
 import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
 import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
-import { EmulatorDevtools } from 'ee-bot/devtool/EmulatorDevtools'
-import 'ee-bot/src/functions/BotHookSystem'
+import { EmulatorDevtools } from '@etherealengine/ee-bot/devtool/EmulatorDevtools'
+import '@etherealengine/ee-bot/src/functions/BotHookSystem'
 import React from 'react'
 import { useRouteScene } from '../sceneRoute'
 import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 
 export default function ImmersiveVR() {
-  useRouteScene('default-project', 'public/scenes/default.gltf')
+  useRouteScene('etherealengine/default-project', 'public/scenes/default.gltf')
   useNetwork({ online: false })
   useLoadEngineWithScene()
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
