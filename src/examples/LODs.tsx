@@ -70,21 +70,21 @@ const LODsDND = () => {
 
     setVariant(entity, [
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
+        url: `${fileServerURL}/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
         metadata: {
           minDistance: 0,
           maxDistance: 5
         }
       },
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
+        url: `${fileServerURL}/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
         metadata: {
           minDistance: 5,
           maxDistance: 10
         }
       },
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
+        url: `${fileServerURL}/projects/etherealengine/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
         metadata: {
           minDistance: 10,
           maxDistance: 15
