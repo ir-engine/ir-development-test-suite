@@ -1,11 +1,11 @@
 import assert from 'assert'
-import { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
-import { BotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
+import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
+import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
 
-import { UserID } from '@etherealengine/common/src/schemas/user/user.schema'
-import { delay } from '@etherealengine/spatial/src/common/functions/delay'
-import { NetworkPeer } from '@etherealengine/network'
+import { UserID } from '@ir-engine/common/src/schemas/user/user.schema'
+import { delay } from '@ir-engine/spatial/src/common/functions/delay'
+import { NetworkPeer } from '@ir-engine/network'
 
 const vector3 = new Vector3()
 
@@ -14,7 +14,7 @@ const locationName = 'test'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
-  const bot = new EtherealEngineBot({ name: 'bot', verbose: true })
+  const bot = new IREngineBot({ name: 'bot', verbose: true })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
@@ -32,10 +32,10 @@ describe('My Bot Tests', () => {
 })
 
 describe('Multi-Bot Tests', () => {
-  const bots = [] as Array<EtherealEngineBot>
+  const bots = [] as Array<IREngineBot>
 
   async function addBot() {
-    const bot = new EtherealEngineBot({ name: `bot-${bots.length}`, verbose: true })
+    const bot = new IREngineBot({ name: `bot-${bots.length}`, verbose: true })
     bots.push(bot)
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
@@ -52,7 +52,7 @@ describe('Multi-Bot Tests', () => {
   // skip for now, as loading multiple uses seems to overload github actions and the test fails
   it('Can connect multiple players', async () => {
     const numPlayers = 3
-    const addedBots = [] as Promise<EtherealEngineBot>[]
+    const addedBots = [] as Promise<IREngineBot>[]
     for (let i = 0; i < numPlayers; i++) addedBots.push(addBot())
     await Promise.all(addedBots)
     const bot = bots[0]
@@ -67,7 +67,7 @@ describe('Multi-Bot Tests', () => {
   //   await bot.delay(1000)
   //   await bot.quit()
 
-  //   const bot2 = new EtherealEngineBot({ name: 'bot-2', verbose: true })
+  //   const bot2 = new IREngineBot({ name: 'bot-2', verbose: true })
   //   await bot2.launchBrowser()
   //   await bot2.enterLocation(`https://${domain}/location/${locationName}`)
   //   await bot2.awaitHookPromise(BotHooks.LocationReady)

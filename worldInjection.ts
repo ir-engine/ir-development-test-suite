@@ -1,4 +1,4 @@
-import { isClient } from '@etherealengine/common/src/utils/getEnvironment'
+import { isClient } from '@ir-engine/common/src/utils/getEnvironment'
 
 /**
  * products & carts are unnecessary on nodejs, as they're only used in the editor,

@@ -1,7 +1,7 @@
 import assert from 'assert'
 import { Vector3 } from 'three'
-import { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
-import { BotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
+import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
+import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 
 // const vector3 = new Vector3()
 
@@ -11,7 +11,7 @@ const locationName = 'default'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
-  const bot = new EtherealEngineBot({ name: 'bot', headless:false, verbose: true })
+  const bot = new IREngineBot({ name: 'bot', headless:false, verbose: true })
   before(async () => {
     const TOTAL_DURATION = 3600000
     const JUMP_DURATION = 1000

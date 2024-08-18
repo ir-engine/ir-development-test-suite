@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: ee-bot-test-run-movement-audio-video-4x
+  name: ir-bot-test-run-movement-audio-video-4x
 spec:
   schedule: "0 17 * * *"  # Run every hour
   jobTemplate:
@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: e2e-test
-              image: etherealengine/etherealengine-testbot:0.0.7  # Replace with your Docker image and tag
+              image: ir-engine/ir-engine-testbot:0.0.7  # Replace with your Docker image and tag
               resources:
                 limits:
                   cpu: "8"
@@ -19,7 +19,7 @@ spec:
                   cpu: "6"
               env:
                 - name: DOMAIN
-                  value: "test2.etherealengine.com" # Pass domain on which you have to perform bot-testing
+                  value: "test2.ir-engine.com" # Pass domain on which you have to perform bot-testing
                 - name: LOCATION
                   value: "default"
                 - name: MOVEMENT

@@ -3,8 +3,8 @@ import appRootPath from 'app-root-path'
 import cli from 'cli'
 import dotenv from 'dotenv-flow'
 
-import { EtherealEngineBot } from '@etherealengine/ee-bot/src/bot/bot-class'
-import { BotHooks } from '@etherealengine/ee-bot/src/enums/BotHooks'
+import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
+import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 
 dotenv.config({
     path: appRootPath.path,
@@ -32,7 +32,7 @@ cli.main(async () => {
         const endMinute = parseInt(options.endMinute)
         let endTime = new Date()
         endTime.setMinutes(endMinute)
-        const bot = new EtherealEngineBot({ name: 'bot', headless: true, verbose: true })
+        const bot = new IREngineBot({ name: 'bot', headless: true, verbose: true })
 
         await bot.launchBrowser()
         await bot.enterLocation(`https://${options.domain}/location/${options.location}`)

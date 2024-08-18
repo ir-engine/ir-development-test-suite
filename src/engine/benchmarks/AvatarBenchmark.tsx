@@ -1,5 +1,5 @@
-import config from '@etherealengine/common/src/config'
-import { UserID } from '@etherealengine/common/src/schema.type.module'
+import config from '@ir-engine/common/src/config'
+import { UserID } from '@ir-engine/common/src/schema.type.module'
 import {
   Engine,
   Entity,
@@ -10,25 +10,25 @@ import {
   setComponent,
   useComponent,
   useOptionalComponent
-} from '@etherealengine/ecs'
+} from '@ir-engine/ecs'
 import {
   AvatarAnimationComponent,
   AvatarRigComponent
-} from '@etherealengine/engine/src/avatar/components/AvatarAnimationComponent'
-import { AvatarComponent } from '@etherealengine/engine/src/avatar/components/AvatarComponent'
-import { AvatarColliderComponent } from '@etherealengine/engine/src/avatar/components/AvatarControllerComponent'
-import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
-import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
-import { NetworkObjectComponent } from '@etherealengine/network'
-import { TransformComponent } from '@etherealengine/spatial'
-import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
-import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
-import { VisibleComponent, setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+} from '@ir-engine/engine/src/avatar/components/AvatarAnimationComponent'
+import { AvatarComponent } from '@ir-engine/engine/src/avatar/components/AvatarComponent'
+import { AvatarColliderComponent } from '@ir-engine/engine/src/avatar/components/AvatarControllerComponent'
+import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
+import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { useHookstate } from '@ir-engine/hyperflux'
+import { NetworkObjectComponent } from '@ir-engine/network'
+import { TransformComponent } from '@ir-engine/spatial'
+import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
+import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
+import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import {
   EntityTreeComponent,
   removeEntityNodeRecursively
-} from '@etherealengine/spatial/src/transform/components/EntityTree'
+} from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { Group, MathUtils, Quaternion, Vector3 } from 'three'
 import {

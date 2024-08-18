@@ -3,15 +3,15 @@ import styles from './sceneRoute.css?inline'
 
 import React, { useEffect } from 'react'
 
-import { SearchParamState } from '@etherealengine/client-core/src/common/services/RouterService'
-import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
-import { useEngineCanvas } from '@etherealengine/client-core/src/hooks/useEngineCanvas'
-import '@etherealengine/client-core/src/world/LocationModule'
-import { staticResourcePath } from '@etherealengine/common/src/schema.type.module'
-import { Entity, getComponent, setComponent } from '@etherealengine/ecs'
-import '@etherealengine/engine/src/EngineModule'
-import { GLTFAssetState } from '@etherealengine/engine/src/gltf/GLTFState'
+import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
+import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
+import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
+import '@ir-engine/client-core/src/world/LocationModule'
+import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
+import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
+import '@ir-engine/engine/src/EngineModule'
+import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   getMutableState,
   none,
@@ -19,13 +19,13 @@ import {
   useImmediateEffect,
   useMutableState,
   useReactiveRef
-} from '@etherealengine/hyperflux'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
-import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
-import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import Button from '@etherealengine/ui/src/primitives/tailwind/Button'
+} from '@ir-engine/hyperflux'
+import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
+import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
+import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
+import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
 export type RouteData = {
@@ -60,7 +60,7 @@ const Header = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = (projectName = 'etherealengine/ee-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
+export const useRouteScene = (projectName = 'ir-engine/ir-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })

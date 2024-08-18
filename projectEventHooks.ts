@@ -1,9 +1,9 @@
-import { ProjectEventHooks } from '@etherealengine/projects/ProjectConfigInterface'
-import { Application } from '@etherealengine/server-core/declarations'
+import { ProjectEventHooks } from '@ir-engine/projects/ProjectConfigInterface'
+import { Application } from '@ir-engine/server-core/declarations'
 import {
   patchStaticResourceAsAvatar,
   supportedAvatars
-} from '@etherealengine/server-core/src/user/avatar/avatar-helper'
+} from '@ir-engine/server-core/src/user/avatar/avatar-helper'
 import appRootPath from 'app-root-path'
 import fs from 'fs'
 import path from 'path'

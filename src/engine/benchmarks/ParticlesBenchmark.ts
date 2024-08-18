@@ -7,12 +7,12 @@ import {
   getComponent,
   removeEntity,
   setComponent
-} from '@etherealengine/ecs'
-import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
-import { TransformComponent } from '@etherealengine/spatial'
-import { Object3DComponent } from '@etherealengine/spatial/src/renderer/components/Object3DComponent'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+} from '@ir-engine/ecs'
+import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
+import { TransformComponent } from '@ir-engine/spatial'
+import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
+import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 import { Group, MathUtils } from 'three'
 
