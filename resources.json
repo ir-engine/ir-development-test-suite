@@ -4,9 +4,7 @@
     "tags": [
       "Model"
     ],
-    "dependencies": [],
-    "thumbnailKey": "ee-development-test-suiteassetsanimationsRacer-transformed.gltf-thumbnail.png",
-    "thumbnailMode": "automatic"
+    "dependencies": []
   },
   "assets/animations/Racer/740e60973cb1cb9852ebe8821bcaf77f2fda66b68f5ed2c143ef504087968238.bin": {
     "type": "file",
@@ -237,9 +235,7 @@
     "tags": [
       "Video"
     ],
-    "dependencies": [],
-    "thumbnailKey": "projects/ee-development-test-suite/public/thumbnails/ee-development-test-suiteassetsVideosHDVideo.mp4-thumbnail.png",
-    "thumbnailMode": "automatic"
+    "dependencies": []
   },
   "public/avatars/Adam.gltf": {
     "type": "asset",
