@@ -1,4 +1,4 @@
-import { defineComponent, Entity, UndefinedEntity } from '@etherealengine/ecs'
+import { defineComponent, Entity, UndefinedEntity } from '@ir-engine/ecs'
 
 export const EntityComponent = defineComponent({
   name: 'eepro.eetest.EntityComponent',

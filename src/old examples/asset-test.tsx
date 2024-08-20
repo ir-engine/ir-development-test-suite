@@ -11,9 +11,9 @@
 //   WebGLRenderer
 // } from 'three'
 
-// import { AssetLoader } from '@etherealengine/engine/src/assets/classes/AssetLoader'
-// import { SkeletonUtils } from '@etherealengine/engine/src/avatar/SkeletonUtils'
-// import { OrbitControls } from '@etherealengine/spatial/src/input/functions/OrbitControls'
+// import { AssetLoader } from '@ir-engine/engine/src/assets/classes/AssetLoader'
+// import { SkeletonUtils } from '@ir-engine/engine/src/avatar/SkeletonUtils'
+// import { OrbitControls } from '@ir-engine/spatial/src/input/functions/OrbitControls'
 
 // const canvasStyle = {
 //   zIndex: 0,

@@ -1,5 +1,5 @@
-import { ECSState, System, SystemUUID, filterAndSortSystemsByAvgDuration } from '@etherealengine/ecs'
-import { getState } from '@etherealengine/hyperflux'
+import { ECSState, filterAndSortSystemsByAvgDuration, System, SystemUUID } from '@ir-engine/ecs'
+import { getState } from '@ir-engine/hyperflux'
 import React, { useEffect, useState } from 'react'
 import { ProfileState, SystemProfileData, SystemProfilerSystem } from '../../engine/benchmarks/Profiling'
 

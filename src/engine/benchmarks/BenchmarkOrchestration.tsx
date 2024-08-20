@@ -1,11 +1,11 @@
-import { Entity, PresentationSystemGroup, SystemUUID, defineSystem, useQuery } from '@etherealengine/ecs'
-import { ParticleSystem } from '@etherealengine/engine'
+import { Entity, PresentationSystemGroup, SystemUUID, defineSystem, useQuery } from '@ir-engine/ecs'
+import { ParticleSystem } from '@ir-engine/engine'
 import {
   AvatarAnimationSystem,
   SkinnedMeshTransformSystem
-} from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
-import { defineState, getState, useMutableState } from '@etherealengine/hyperflux'
-import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
+} from '@ir-engine/engine/src/avatar/systems/AvatarAnimationSystem'
+import { defineState, getState, useMutableState } from '@ir-engine/hyperflux'
+import { PhysicsPreTransformSystem, PhysicsSystem } from '@ir-engine/spatial'
 import React, { useEffect } from 'react'
 import { BenchmarkComponent } from '../Register'
 import { AvatarBenchmark, AvatarIKBenchmark } from './AvatarBenchmark'

@@ -1,12 +1,12 @@
 import { Vector3 } from 'three'
 
-import { setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { Entity } from '@etherealengine/ecs/src/Entity'
-import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
-import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
-import { CollisionGroups, DefaultCollisionMask } from '@etherealengine/spatial/src/physics/enums/CollisionGroups'
-import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
+import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { Entity } from '@ir-engine/ecs/src/Entity'
+import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
+import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
+import { CollisionGroups, DefaultCollisionMask } from '@ir-engine/spatial/src/physics/enums/CollisionGroups'
+import { TransformComponent } from '@ir-engine/spatial/src/transform/components/TransformComponent'
 
 export const createPhysicsObjects = (count: number) => {
   const entities = [] as Entity[]

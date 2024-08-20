@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
-import { avatarPath } from '@etherealengine/common/src/schemas/user/avatar.schema'
+import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { avatarPath } from '@ir-engine/common/src/schemas/user/avatar.schema'
 import {
   mockIKAvatars,
   mockLoopAnimAvatars,
@@ -12,8 +12,8 @@ import {
   mockTPoseAvatars
 } from './utils/avatar/loadAvatarHelpers'
 import { Template } from './utils/template'
-import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { AnimationState } from '@etherealengine/engine/src/avatar/AnimationManager'
+import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
+import { AnimationState } from '@ir-engine/engine/src/avatar/AnimationManager'
 
 export default function avatarIkTesting() {
   const network = useWorldNetwork()

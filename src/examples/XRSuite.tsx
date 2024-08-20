@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { QueryReactor } from '@etherealengine/ecs/src/QueryFunctions'
-import { XRDetectedMeshComponent } from '@etherealengine/spatial/src/xr/XRDetectedMeshComponent'
-import { XRDetectedPlaneComponent } from '@etherealengine/spatial/src/xr/XRDetectedPlaneComponent'
+import { QueryReactor } from '@ir-engine/ecs/src/QueryFunctions'
+import { XRDetectedMeshComponent } from '@ir-engine/spatial/src/xr/XRDetectedMeshComponent'
+import { XRDetectedPlaneComponent } from '@ir-engine/spatial/src/xr/XRDetectedPlaneComponent'
 import { LightProbe } from './XRLightEstimation'
 import { DetectedMeshes, DetectedPlanes } from './XRMeshes'
 import { Template } from './utils/template'

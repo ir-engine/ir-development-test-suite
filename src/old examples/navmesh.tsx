@@ -16,24 +16,24 @@
 // } from 'three'
 // import { CellSpacePartitioning, EntityManager, FollowPathBehavior, NavMeshLoader, Time } from 'yuka'
 
-// import { Engine } from '@etherealengine/ecs/src/Engine'
-// import { Entity } from '@etherealengine/ecs/src/Entity'
-// import { Scene } from '@etherealengine/engine/src/scene/Scene'
+// import { Engine } from '@ir-engine/ecs/src/Engine'
+// import { Entity } from '@ir-engine/ecs/src/Entity'
+// import { Scene } from '@ir-engine/engine/src/scene/Scene'
 // import {
 //   addComponent,
 //   createMappedComponent,
 //   getComponent
-// } from '@etherealengine/ecs/src/ComponentFunctions'
-// import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-// import { initSystems } from '@etherealengine/ecs/src/SystemFunctions'
-// import { useWorld } from '@etherealengine/ecs/src/SystemHooks'
-// import { SystemUpdateType } from '@etherealengine/ecs/src/SystemUpdateType'
-// import { createEngine } from '@etherealengine/spatial/src/initializeEngine'
-// import { OrbitControls } from '@etherealengine/spatial/src/input/functions/OrbitControls'
-// import { createCellSpaceHelper } from '@etherealengine/engine/src/navigation/CellSpacePartitioningHelper'
-// import { CustomVehicle } from '@etherealengine/engine/src/navigation/CustomVehicle'
-// import { createConvexRegionHelper } from '@etherealengine/engine/src/navigation/NavMeshHelper'
-// import { PathPlanner } from '@etherealengine/engine/src/navigation/PathPlanner'
+// } from '@ir-engine/ecs/src/ComponentFunctions'
+// import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+// import { initSystems } from '@ir-engine/ecs/src/SystemFunctions'
+// import { useWorld } from '@ir-engine/ecs/src/SystemHooks'
+// import { SystemUpdateType } from '@ir-engine/ecs/src/SystemUpdateType'
+// import { createEngine } from '@ir-engine/spatial/src/initializeEngine'
+// import { OrbitControls } from '@ir-engine/spatial/src/input/functions/OrbitControls'
+// import { createCellSpaceHelper } from '@ir-engine/engine/src/navigation/CellSpacePartitioningHelper'
+// import { CustomVehicle } from '@ir-engine/engine/src/navigation/CustomVehicle'
+// import { createConvexRegionHelper } from '@ir-engine/engine/src/navigation/NavMeshHelper'
+// import { PathPlanner } from '@ir-engine/engine/src/navigation/PathPlanner'
 
 // type NavigationComponentType = {
 //   pathPlanner: PathPlanner

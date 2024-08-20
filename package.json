@@ -1,7 +1,7 @@
 {
-  "name": "ee-development-test-suite",
+  "name": "@ir-engine/ir-development-test-suite",
   "version": "0.0.0",
-  "description": "Assets and tests for Ethereal Engine core development",
+  "description": "Assets and tests for Infinite Reality Engine core development",
   "main": "",
   "scripts": {
     "quick-test": "mocha --config .mocharc.js --spec 'e2e/dev/*.test.ts'",
@@ -13,9 +13,6 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "format-scss": "stylelint \"**/*.scss\" --fix",
     "format-staged": "lint-staged"
-  },
-  "etherealEngine": {
-    "version": "1.6.0"
   },
   "pre-commit": [
     "format-staged"
