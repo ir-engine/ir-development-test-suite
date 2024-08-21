@@ -8,6 +8,7 @@ import { Engine } from '@ir-engine/ecs/src/Engine'
 import { OpenMatchTicketAssignment } from '@ir-engine/matchmaking/src/interfaces'
 import { matchTicketAssignmentPath } from '@ir-engine/matchmaking/src/match-ticket-assignment.schema'
 import { matchTicketPath } from '@ir-engine/matchmaking/src/match-ticket.schema'
+import { API } from '@ir-engine/common'
 
 const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()
@@ -23,10 +24,10 @@ const Page = () => {
   async function newTicket() {
     let ticket
     try {
-      ticket = await Engine.instance.api.service(matchTicketPath).create({ gamemode: 'mode.demo' })
+      ticket = await API.instance.service(matchTicketPath).create({ gamemode: 'mode.demo' })
     } catch (e) {
       alert('You already searching for game')
-      const matchUser = (await Engine.instance.api.service(matchUserPath).find()).data[0]
+      const matchUser = (await API.instance.service(matchUserPath).find()).data[0]
       console.log('matchUser', matchUser)
       ticket = { id: matchUser.ticketId }
     }
@@ -49,7 +50,7 @@ const Page = () => {
 
   function getAssignment(ticketId: string): Promise<OpenMatchTicketAssignment> {
     return (
-      Engine.instance.api.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
+      API.instance.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
     ).then((assignment) => {
       console.log('assignment', ticketId, assignment)
       connections.current[ticketId] = assignment.connection
