@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 
-import { NO_PROXY, useHookstate } from '@etherealengine/hyperflux'
+import { NO_PROXY, useHookstate } from '@ir-engine/hyperflux'
 
-import { useWorldNetwork } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { AvatarType } from '@etherealengine/common/src/schema.type.module'
+import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
+import { AvatarType } from '@ir-engine/common/src/schema.type.module'
 import { useRandomAvatarData } from '../engine/TestUtils'
 import { useRouteScene } from '../sceneRoute'
 import {

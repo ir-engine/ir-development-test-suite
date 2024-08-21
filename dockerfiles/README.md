@@ -6,7 +6,7 @@
     - In this Dockerfile we have use Ubuntu image. 
     - Then we have Install nodejs and chrome in Ubuntu image.
     - Cloned EtherealEngine repository
-    - Then change WORKDIR and installed ee-development-test-suite and ee-bot in this path /etherealengine/packages/projects/projects/
+    - Then change WORKDIR and installed ir-development-test-suite and ir-bot in this path /etherealengine/packages/projects/projects/
     - Then we have change WORKDIR to etherealengine and copied the env's to .env.local
     - Then we have installed dependencies of etherealengine.
     - Pass ENV APP_HOST=default-value to pass env when we run the Dockerfile_bot
@@ -25,14 +25,14 @@
 
 - Creating cronjob for above Dockerfile_bot
     
-    - Cron Job for Running ee-bot Tests
+    - Cron Job for Running ir-bot Tests
         
     - Cron.yaml
 
             apiVersion: batch/v1
             kind: CronJob
             metadata:
-                name: ee-bot-test-run
+                name: ir-bot-test-run
             spec:
               schedule: "0 * * * *"  # Run every hour
             jobTemplate:
@@ -41,13 +41,13 @@
                   spec:
                     containers:
                     - name: e2e-test
-                      image: ashishaes/ee-bot:latest  # Replace with your Docker image and tag
+                      image: ashishaes/ir-bot:latest  # Replace with your Docker image and tag
                       env: 
                       - name:  APP_HOST
                         value: "test2.etherealengine.com" #Pass domain on which you have to perform bot-testing
                     restartPolicy: Never
 
-       - This cron job is designed to run periodic tests using the ee-bot tool. It is configured to run every hour.
+       - This cron job is designed to run periodic tests using the ir-bot tool. It is configured to run every hour.
 
     - Cron Job Configuration
 
@@ -67,28 +67,28 @@
             
             kubectl apply -f cron.yaml 
 
--  Kubernetes Job: ee-bot-test-job
+-  Kubernetes Job: ir-bot-test-job
 
-        This Kubernetes Job is designed to run a bot-testing task using a specified Docker image (`ashishaes/ee-bot:latest`). The task is configured to use the environment variable `APP_HOST` with the value set to "test2.etherealengine.com"
-    - ee-bot-test-job.yaml
+        This Kubernetes Job is designed to run a bot-testing task using a specified Docker image (`ashishaes/ir-bot:latest`). The task is configured to use the environment variable `APP_HOST` with the value set to "test2.etherealengine.com"
+    - ir-bot-test-job.yaml
 
             apiVersion: batch/v1
             kind: Job
             metadata:
-              name: ee-bot-test-job
+              name: ir-bot-test-job
             spec:
               template:
                 spec:
                   containers:
                   - name: e2e-test
-                    image: ashishaes/ee-bot:latest
+                    image: ashishaes/ir-bot:latest
                     env: 
                     - name: APP_HOST
                       value: "test2.etherealengine.com"
                  restartPolicy: Never
     - Create the Job:
             
-            kubectl apply -f ee-bot-test-job.yaml
+            kubectl apply -f ir-bot-test-job.yaml
     
 
      

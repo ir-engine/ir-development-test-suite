@@ -1,8 +1,8 @@
 import assert from 'assert'
-import type { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
-import { XRBotHooks } from 'ee-bot/src/enums/BotHooks'
+import type { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
+import { XRBotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 
-export const setupXR = async (bot: EtherealEngineBot) => {
+export const setupXR = async (bot: IREngineBot) => {
   await bot.runHook(XRBotHooks.OverrideXR)
   await bot.runHook(XRBotHooks.StartXR)
 }
@@ -20,7 +20,7 @@ const testPoses = [
   ]
 ]
 
-export const testWebXR = (bot: EtherealEngineBot) => {
+export const testWebXR = (bot: IREngineBot) => {
   it('Web XR works', async () => {
     assert(await bot.runHook(XRBotHooks.XRSupported))
     assert(await bot.runHook(XRBotHooks.XRInitialized))

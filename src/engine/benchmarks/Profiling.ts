@@ -1,6 +1,6 @@
-import { ECSState, PresentationSystemGroup, SystemDefinitions, SystemUUID, defineSystem } from '@etherealengine/ecs'
-import { defineState, getMutableState, getState, syncStateWithLocalStorage } from '@etherealengine/hyperflux'
-import { PerformanceState } from '@etherealengine/spatial/src/renderer/PerformanceState'
+import { ECSState, PresentationSystemGroup, SystemDefinitions, SystemUUID, defineSystem } from '@ir-engine/ecs'
+import { defineState, getMutableState, getState, syncStateWithLocalStorage } from '@ir-engine/hyperflux'
+import { PerformanceState } from '@ir-engine/spatial/src/renderer/PerformanceState'
 
 export type SystemProfileData = {
   avgDuration: number

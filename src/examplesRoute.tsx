@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '@etherealengine/engine/src/EngineModule'
+import '@ir-engine/engine/src/EngineModule'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'

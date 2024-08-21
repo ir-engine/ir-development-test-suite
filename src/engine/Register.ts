@@ -1,8 +1,8 @@
-import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@etherealengine/ecs'
-import { ComponentEditorsState } from '@etherealengine/editor/src/services/ComponentEditors'
-import { ComponentShelfCategoriesState } from '@etherealengine/editor/src/services/ComponentShelfCategoriesState'
+import { PresentationSystemGroup, defineComponent, defineSystem, useQuery } from '@ir-engine/ecs'
+import { ComponentEditorsState } from '@ir-engine/editor/src/services/ComponentEditors'
+import { ComponentShelfCategoriesState } from '@ir-engine/editor/src/services/ComponentShelfCategoriesState'
 
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
+import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 import { useEffect } from 'react'
 import { BenchmarkComponentNodeEditor, ProfilingComponentNodeEditor } from './benchmarks/BenchmarkNodeEditors'
 

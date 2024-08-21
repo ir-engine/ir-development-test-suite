@@ -3,7 +3,7 @@ import React from 'react'
 import {
   AvatarAnimationSystem,
   SkinnedMeshTransformSystem
-} from '@etherealengine/engine/src/avatar/systems/AvatarAnimationSystem'
+} from '@ir-engine/engine/src/avatar/systems/AvatarAnimationSystem'
 import { AvatarBenchmark } from '../engine/benchmarks/AvatarBenchmark'
 import { useRouteScene } from '../sceneRoute'
 import ProfilerUI from './utils/profilerUI'

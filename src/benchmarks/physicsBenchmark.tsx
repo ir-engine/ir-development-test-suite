@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PhysicsPreTransformSystem, PhysicsSystem } from '@etherealengine/spatial'
+import { PhysicsPreTransformSystem, PhysicsSystem } from '@ir-engine/spatial'
 import { PhysicsBenchmark } from '../engine/benchmarks/PhysicsBenchmark'
 import { useRouteScene } from '../sceneRoute'
 import ProfilerUI from './utils/profilerUI'

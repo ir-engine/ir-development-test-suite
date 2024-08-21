@@ -1,9 +1,9 @@
 // @ts-ignore
 import styles from './ComponentNamesUI.css?inline'
 
-import ECS, { getOptionalComponent, useComponent, useEntityContext } from '@etherealengine/ecs'
-import { useHookstate } from '@etherealengine/hyperflux'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+import ECS, { getOptionalComponent, useComponent, useEntityContext } from '@ir-engine/ecs'
+import { useHookstate } from '@ir-engine/hyperflux'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import React, { useEffect } from 'react'
 import { EntityComponent } from '../utils/entityComponent'
 

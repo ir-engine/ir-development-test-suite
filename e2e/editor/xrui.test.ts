@@ -1,14 +1,14 @@
 import assert from 'assert'
-import { EtherealEngineBot } from 'ee-bot/src/bot/bot-class'
-import { BotHooks } from 'ee-bot/src/enums/BotHooks'
+import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
+import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 
-import { delay } from '@etherealengine/spatial/src/common/functions/delay'
+import { delay } from '@ir-engine/spatial/src/common/functions/delay'
 
 const domain = process.env.APP_HOST || 'localhost:3000'
 const editorUrl = `https://${domain}/studio`
 
 describe('Editor Scene Tests', () => {
-  const bot = new EtherealEngineBot({ name: 'bot', verbose: true, headless: false })
+  const bot = new IREngineBot({ name: 'bot', verbose: true, headless: false })
   before(async () => {
     await bot.launchBrowser()
     await bot.enterEditor(`https://${domain}/studio/`, `https://${domain}`)
@@ -23,7 +23,7 @@ describe('Editor Scene Tests', () => {
     await bot.navigate(editorUrl)
 
     // click on project
-    await bot.clickElementById('open-ee-development-test-suite')
+    await bot.clickElementById('open-ir-development-test-suite')
 
     // click on scene
     await bot.page.waitForSelector(`[class^='_sceneContainer_1b1hs_126']`, { visible: true })

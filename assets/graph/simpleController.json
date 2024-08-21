@@ -225,7 +225,7 @@
       },
       "parameters": {
         "a": {
-          "value": "https://localhost:9000/etherealengine-static-resources/projects/default-project/assets/collisioncube.glb"
+          "value": "https://localhost:9000/ir-engine-static-resources/projects/default-project/assets/collisioncube.glb"
         }
       }
     },

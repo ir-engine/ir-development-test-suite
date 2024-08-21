@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ParticleSystem } from '@etherealengine/engine'
+import { ParticleSystem } from '@ir-engine/engine'
 import { ParticlesBenchmark } from '../engine/benchmarks/ParticlesBenchmark'
 import { useRouteScene } from '../sceneRoute'
 import ProfilerUI from './utils/profilerUI'

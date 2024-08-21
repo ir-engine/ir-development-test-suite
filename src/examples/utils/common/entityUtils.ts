@@ -6,11 +6,11 @@ import {
   getComponent,
   removeEntity,
   setComponent
-} from '@etherealengine/ecs'
-import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
-import { TransformComponent } from '@etherealengine/spatial'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
+} from '@ir-engine/ecs'
+import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+import { useHookstate } from '@ir-engine/hyperflux'
+import { TransformComponent } from '@ir-engine/spatial'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 
 export const setupEntity = (parent: Entity): Entity => {

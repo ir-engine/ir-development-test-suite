@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { ARPlacement } from '@etherealengine/client-core/src/components/ARPlacement'
-import { MediaIconsBox } from '@etherealengine/client-core/src/components/MediaIconsBox'
-import { Shelves } from '@etherealengine/client-core/src/components/Shelves'
-import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { useLoadScene } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
-import { XRLoading } from '@etherealengine/client-core/src/components/XRLoading'
-import { AvatarService } from '@etherealengine/client-core/src/user/services/AvatarService'
+import { ARPlacement } from '@ir-engine/client-core/src/components/ARPlacement'
+import { MediaIconsBox } from '@ir-engine/client-core/src/components/MediaIconsBox'
+import { Shelves } from '@ir-engine/client-core/src/components/Shelves'
+import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
+import { XRLoading } from '@ir-engine/client-core/src/components/XRLoading'
+import { AvatarService } from '@ir-engine/client-core/src/user/services/AvatarService'
 
 import './avatar/simulateMovement'
 
@@ -25,7 +25,7 @@ export function useSpawnAvatar(spawnAvatar?: boolean) {
 export function Template(props: { projectName?: string; sceneName?: string; spawnAvatar?: boolean }) {
   useSpawnAvatar(props.spawnAvatar)
   useLoadScene({
-    projectName: props.projectName ?? 'default-project',
+    projectName: props.projectName ?? 'ir-engine/default-project',
     sceneName: props.sceneName ?? 'public/scenes/default.gltf'
   })
   useNetwork({ online: false })

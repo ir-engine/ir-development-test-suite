@@ -2,13 +2,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
-import { matchUserPath } from '@etherealengine/common/src/schemas/matchmaking/match-user.schema'
-import { Engine } from '@etherealengine/ecs/src/Engine'
-import { OpenMatchTicketAssignment } from '@etherealengine/matchmaking/src/interfaces'
-import { matchTicketAssignmentPath } from '@etherealengine/matchmaking/src/match-ticket-assignment.schema'
-import { matchTicketPath } from '@etherealengine/matchmaking/src/match-ticket.schema'
-import { API } from '@etherealengine/common'
+import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
+import { matchUserPath } from '@ir-engine/common/src/schemas/matchmaking/match-user.schema'
+import { Engine } from '@ir-engine/ecs/src/Engine'
+import { OpenMatchTicketAssignment } from '@ir-engine/matchmaking/src/interfaces'
+import { matchTicketAssignmentPath } from '@ir-engine/matchmaking/src/match-ticket-assignment.schema'
+import { matchTicketPath } from '@ir-engine/matchmaking/src/match-ticket.schema'
+import { API } from '@ir-engine/common'
 
 const Page = () => {
   const [renderTrigger, updRenderTrigger] = useState<object>()

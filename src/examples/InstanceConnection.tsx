@@ -1,22 +1,22 @@
 import React from 'react'
 
-import { LocationInstanceState } from '@etherealengine/client-core/src/common/services/LocationInstanceConnectionService'
-import { LocationIcons } from '@etherealengine/client-core/src/components/LocationIcons'
-import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import { useLoadLocation } from '@etherealengine/client-core/src/components/World/LoadLocationScene'
-import { LocationSeed, LocationState } from '@etherealengine/client-core/src/social/services/LocationService'
-import { SocketWebRTCClientNetwork } from '@etherealengine/client-core/src/transports/SocketWebRTCClientFunctions'
-import { AuthService } from '@etherealengine/client-core/src/user/services/AuthService'
-import { InstanceID, LocationType } from '@etherealengine/common/src/schema.type.module'
-import { Button } from '@etherealengine/editor/src/components/inputs/Button'
-import { getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { LocationInstanceState } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
+import { LocationIcons } from '@ir-engine/client-core/src/components/LocationIcons'
+import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { useLoadLocation } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
+import { LocationSeed, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
+import { SocketWebRTCClientNetwork } from '@ir-engine/client-core/src/transports/SocketWebRTCClientFunctions'
+import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
+import { InstanceID, LocationType } from '@ir-engine/common/src/schema.type.module'
+import { Button } from '@ir-engine/editor/src/components/inputs/Button'
+import { getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
 import {
   MediasoupDataProducerConsumerState,
   MediasoupMediaProducerConsumerState,
   MediasoupTransportState,
   Network,
   NetworkState
-} from '@etherealengine/network'
+} from '@ir-engine/network'
 
 const TransportInfo = (props: { networkID: InstanceID; transportID: string }) => {
   const transportState = useHookstate(

@@ -1,4 +1,4 @@
-import { useLoadEngineWithScene, useNetwork } from '@etherealengine/client-core/src/components/World/EngineHooks'
+import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
   Engine,
   Entity,
@@ -15,29 +15,29 @@ import {
   removeEntity,
   setComponent,
   useOptionalComponent
-} from '@etherealengine/ecs'
-import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
-import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
-import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
-import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
-import { getMutableState, useHookstate, useImmediateEffect } from '@etherealengine/hyperflux'
-import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@etherealengine/spatial'
-import { CameraComponent } from '@etherealengine/spatial/src/camera/components/CameraComponent'
-import { CameraOrbitComponent } from '@etherealengine/spatial/src/camera/components/CameraOrbitComponent'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { InputComponent } from '@etherealengine/spatial/src/input/components/InputComponent'
-import { ColliderComponent } from '@etherealengine/spatial/src/physics/components/ColliderComponent'
-import { RigidBodyComponent } from '@etherealengine/spatial/src/physics/components/RigidBodyComponent'
-import { RendererState } from '@etherealengine/spatial/src/renderer/RendererState'
-import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
+} from '@ir-engine/ecs'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { getMutableState, useHookstate, useImmediateEffect } from '@ir-engine/hyperflux'
+import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
+import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
+import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
+import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
+import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
+import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
+import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
+import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
+import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import {
   MaterialInstanceComponent,
   MaterialStateComponent
-} from '@etherealengine/spatial/src/renderer/materials/MaterialComponent'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { computeTransformMatrix } from '@etherealengine/spatial/src/transform/systems/TransformSystem'
+} from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
+import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
 import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
@@ -205,7 +205,7 @@ const execute = () => {
 }
 
 export const BallResetSystem = defineSystem({
-  uuid: 'ee-development-test-suite.multiplescenes.ball-reset-system',
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
   insert: { before: PhysicsPreTransformSystem },
   execute
 })
