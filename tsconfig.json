@@ -31,6 +31,7 @@
   "include": [
     "../../../../../__global.d.ts",
     "../../../../server-core/src/*",
+    "../../../../client-core/src/API",
     "./**/*.ts",
     "./**/*.tsx"
   ]
