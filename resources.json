@@ -238,7 +238,7 @@
     "dependencies": []
   },
   "public/avatars/Adam.gltf": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
@@ -302,14 +302,14 @@
     "dependencies": []
   },
   "public/avatars/Test Avaturn.glb": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
     "dependencies": []
   },
   "public/avatars/Test RPM.glb": {
-    "type": "asset",
+    "type": "avatar",
     "tags": [
       "Model"
     ],
