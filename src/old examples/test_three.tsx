@@ -11,8 +11,8 @@
 //   WebGLRenderer
 // } from 'three'
 
-// import { OrbitControls } from '@etherealengine/spatial/src/input/functions/OrbitControls'
-// import TrailRenderer from '@etherealengine/engine/src/scene/classes/TrailRenderer'
+// import { OrbitControls } from '@ir-engine/spatial/src/input/functions/OrbitControls'
+// import TrailRenderer from '@ir-engine/engine/src/scene/classes/TrailRenderer'
 
 // const canvasStyle = {
 //   zIndex: 0,

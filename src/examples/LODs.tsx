@@ -2,29 +2,29 @@ import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from 'three'
 
-import { uploadToFeathersService } from '@etherealengine/client-core/src/util/upload'
-import { AdminAssetUploadArgumentsType } from '@etherealengine/common/src/interfaces/UploadAssetInterface'
+import { uploadToFeathersService } from '@ir-engine/client-core/src/util/upload'
+import { AdminAssetUploadArgumentsType } from '@ir-engine/common/src/interfaces/UploadAssetInterface'
 import {
   getComponent,
   removeComponent,
   setComponent,
   useOptionalComponent
-} from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { DndWrapper } from '@etherealengine/editor/src/components/dnd/DndWrapper'
-import { SupportedFileTypes } from '@etherealengine/editor/src/constants/AssetTypes'
-import { ModelComponent } from '@etherealengine/engine/src/scene/components/ModelComponent'
-import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
-import { useHookstate } from '@etherealengine/hyperflux'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
+} from '@ir-engine/ecs/src/ComponentFunctions'
+import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
+import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
+import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
+import { useHookstate } from '@ir-engine/hyperflux'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { TransformComponent } from '@ir-engine/spatial/src/transform/components/TransformComponent'
 
-import config from '@etherealengine/common/src/config'
-import { Entity } from '@etherealengine/ecs/src/Entity'
-import { GroupComponent, addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
+import config from '@ir-engine/common/src/config'
+import { Entity } from '@ir-engine/ecs/src/Entity'
+import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
 import { Template } from './utils/template'
-import { uploadAssetPath } from '@etherealengine/common/src/schema.type.module'
+import { uploadAssetPath } from '@ir-engine/common/src/schema.type.module'
 
 // create rings for each LOD
 const visualizeVariants = () => {
@@ -70,21 +70,21 @@ const LODsDND = () => {
 
     setVariant(entity, [
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb`,
+        url: `${fileServerURL}/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD0.glb`,
         metadata: {
           minDistance: 0,
           maxDistance: 5
         }
       },
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb`,
+        url: `${fileServerURL}/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD1.glb`,
         metadata: {
           minDistance: 5,
           maxDistance: 10
         }
       },
       {
-        url: `${fileServerURL}/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb`,
+        url: `${fileServerURL}/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD2.glb`,
         metadata: {
           minDistance: 10,
           maxDistance: 15
@@ -128,7 +128,7 @@ const LODsDND = () => {
           const result = await uploadToFeathersService('upload-asset', files, {
             type: 'admin-file-upload',
             args: {
-              project: 'ee-development-test-suite'
+              project: 'ir-engine/ir-development-test-suite'
             } as AdminAssetUploadArgumentsType,
             variants: true
           }).promise

@@ -1,4 +1,4 @@
-import config from '@etherealengine/common/src/config'
+import config from '@ir-engine/common/src/config'
 import {
   Entity,
   UUIDComponent,
@@ -9,36 +9,35 @@ import {
   setComponent,
   useComponent,
   useOptionalComponent
-} from '@etherealengine/ecs'
-import { AnimationComponent } from '@etherealengine/engine/src/avatar/components/AnimationComponent'
-import { LoopAnimationComponent } from '@etherealengine/engine/src/avatar/components/LoopAnimationComponent'
-import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
+} from '@ir-engine/ecs'
+import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
 import {
   InteractableComponent,
   XRUIVisibilityOverride
-} from '@etherealengine/engine/src/interaction/components/InteractableComponent'
-import { ImageComponent } from '@etherealengine/engine/src/scene/components/ImageComponent'
-import { LinkComponent } from '@etherealengine/engine/src/scene/components/LinkComponent'
-import { MediaComponent } from '@etherealengine/engine/src/scene/components/MediaComponent'
-import { ParticleSystemComponent } from '@etherealengine/engine/src/scene/components/ParticleSystemComponent'
-import { PrimitiveGeometryComponent } from '@etherealengine/engine/src/scene/components/PrimitiveGeometryComponent'
-import { SDFComponent } from '@etherealengine/engine/src/scene/components/SDFComponent'
-import { ShadowComponent } from '@etherealengine/engine/src/scene/components/ShadowComponent'
-import { SourceComponent } from '@etherealengine/engine/src/scene/components/SourceComponent'
-import { SplineComponent } from '@etherealengine/engine/src/scene/components/SplineComponent'
-import { SplineTrackComponent } from '@etherealengine/engine/src/scene/components/SplineTrackComponent'
-import { Heuristic, VariantComponent } from '@etherealengine/engine/src/scene/components/VariantComponent'
-import { VideoComponent } from '@etherealengine/engine/src/scene/components/VideoComponent'
-import { SplineHelperComponent } from '@etherealengine/engine/src/scene/components/debug/SplineHelperComponent'
-import { GeometryTypeEnum } from '@etherealengine/engine/src/scene/constants/GeometryTypeEnum'
-import { useImmediateEffect } from '@etherealengine/hyperflux'
-import { TransformComponent } from '@etherealengine/spatial'
-import { CallbackComponent } from '@etherealengine/spatial/src/common/CallbackComponent'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { setVisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { ObjectLayerMasks } from '@etherealengine/spatial/src/renderer/constants/ObjectLayers'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { createXRUI } from '@etherealengine/spatial/src/xrui/functions/createXRUI'
+} from '@ir-engine/engine/src/interaction/components/InteractableComponent'
+import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
+import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
+import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComponent'
+import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
+import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
+import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
+import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+import { SplineComponent } from '@ir-engine/engine/src/scene/components/SplineComponent'
+import { SplineTrackComponent } from '@ir-engine/engine/src/scene/components/SplineTrackComponent'
+import { Heuristic, VariantComponent } from '@ir-engine/engine/src/scene/components/VariantComponent'
+import { VideoComponent } from '@ir-engine/engine/src/scene/components/VideoComponent'
+import { SplineHelperComponent } from '@ir-engine/engine/src/scene/components/debug/SplineHelperComponent'
+import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
+import { useImmediateEffect } from '@ir-engine/hyperflux'
+import { TransformComponent } from '@ir-engine/spatial'
+import { CallbackComponent } from '@ir-engine/spatial/src/common/CallbackComponent'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/ObjectLayers'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
+import { createXRUI } from '@ir-engine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
 import { AnimationClip, MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
@@ -46,6 +45,7 @@ import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import { EntityComponent } from '../utils/entityComponent'
 import ComponentNamesUI from './ComponentNamesUI'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 
 export const metadata = {
   title: 'Components Examples',
@@ -69,7 +69,7 @@ export const subComponentExamples = [
           cameraOcclusion: true,
           src:
             config.client.fileServer +
-            '/projects/ee-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
+            '/projects/ir-engine/ir-development-test-suite/assets/GLTF/Flight%20Helmet/FlightHelmet.gltf'
         })
         setComponent(entity, ShadowComponent, { receive: false })
         setVisibleComponent(entity, true)
@@ -98,7 +98,7 @@ export const subComponentExamples = [
 
         const avatarSrc = avatarArr[MathUtils.randInt(0, avatarArr.length)]
         setComponent(entity, NameComponent, 'Avatar-Example')
-        setComponent(entity, GLTFComponent, { src: avatarSrc, convertToVRM: true })
+        setComponent(entity, GLTFComponent, { src: avatarSrc })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
           animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
@@ -125,27 +125,27 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Variant-Example')
         setComponent(entity, GLTFComponent, {
           cameraOcclusion: true,
-          src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb'
+          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD0.glb'
         })
         setComponent(entity, VariantComponent, {
           heuristic: Heuristic.DISTANCE,
           levels: [
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD0.glb',
+              src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD0.glb',
               metadata: {
                 minDistance: 0,
                 maxDistance: 5
               }
             },
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD1.glb',
+              src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD1.glb',
               metadata: {
                 minDistance: 5,
                 maxDistance: 10
               }
             },
             {
-              src: config.client.fileServer + '/projects/ee-development-test-suite/assets/LOD/Test_LOD2.glb',
+              src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/LOD/Test_LOD2.glb',
               metadata: {
                 minDistance: 10,
                 maxDistance: 15
@@ -196,7 +196,7 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Image-Example')
         setComponent(entity, ImageComponent, {
-          source: config.client.fileServer + '/projects/ee-development-test-suite/assets/Images/testImage.jpg'
+          source: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Images/testImage.jpg'
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -217,7 +217,7 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Video-Example')
         setComponent(entity, VideoComponent)
         setComponent(entity, MediaComponent, {
-          resources: [config.client.fileServer + '/projects/ee-development-test-suite/assets/Videos/HDVideo.mp4']
+          resources: [config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Videos/HDVideo.mp4']
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -369,13 +369,13 @@ export const subComponentExamples = [
 
   //       setComponent(modelEntity, NameComponent, 'Model-Example')
   //       setComponent(modelEntity, VolumetricComponent, {
-  //         paths: ['https://resources-volumetric.etherealengine.com/alex_walk_performer.json']
+  //         paths: ['https://resources-volumetric.ir-engine.com/alex_walk_performer.json']
   //       })
   //       setVisibleComponent(modelEntity, true)
 
   //       setComponent(outfitEntity, NameComponent, 'Outfit-Example')
   //       setComponent(outfitEntity, VolumetricComponent, {
-  //         paths: ['https://resources-volumetric.etherealengine.com/alex_walk_sundress_businessCasual.json']
+  //         paths: ['https://resources-volumetric.ir-engine.com/alex_walk_sundress_businessCasual.json']
   //       })
   //       setVisibleComponent(outfitEntity, true)
 

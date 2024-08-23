@@ -1,8 +1,6 @@
 import React from 'react'
 
-import { useEngineInjection } from '@etherealengine/client-core/src/components/World/EngineHooks'
-import '@etherealengine/engine/src/EngineModule'
-import { gltfRoutes } from './examples/GLTFs'
+import '@ir-engine/engine/src/EngineModule'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
@@ -12,6 +10,8 @@ import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
 import Routes, { RouteCategories } from './sceneRoute'
+import { useEngineInjection } from '@ir-engine/client-core/src/components/World/EngineHooks'
+import { gltfRoutes } from './examples/GLTFs'
 
 export const examples: RouteCategories = [
   {

@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Mesh, MeshStandardMaterial, SphereGeometry } from 'three'
 
-import { getMutableState, useHookstate } from '@etherealengine/hyperflux'
-import { XRLightProbeState } from '@etherealengine/spatial/src/xr/XRLightProbeSystem'
+import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
+import { XRLightProbeState } from '@ir-engine/spatial/src/xr/XRLightProbeSystem'
 
-import { getComponent, setComponent } from '@etherealengine/ecs/src/ComponentFunctions'
-import { createEntity, removeEntity } from '@etherealengine/ecs/src/EntityFunctions'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { addObjectToGroup } from '@etherealengine/spatial/src/renderer/components/GroupComponent'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { TransformComponent } from '@etherealengine/spatial/src/transform/components/TransformComponent'
+import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { createEntity, removeEntity } from '@ir-engine/ecs/src/EntityFunctions'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
+import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { TransformComponent } from '@ir-engine/spatial/src/transform/components/TransformComponent'
 import { Template } from './utils/template'
 
 export const LightProbe = () => {
