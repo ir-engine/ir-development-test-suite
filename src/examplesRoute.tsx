@@ -8,6 +8,7 @@ import GLTFViewer from './examples/gltf'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
 import MultipleScenesEntry from './examples/multipleScenes'
+import ResourceTrackingRoute from './examples/resourceTracking'
 import Routes, { RouteCategories } from './sceneRoute'
 
 export const examples: RouteCategories = [
@@ -63,6 +64,11 @@ export const examples: RouteCategories = [
         name: 'Multiple',
         description: 'multiple scenes example',
         entry: MultipleScenesEntry
+      },
+      {
+        name: 'Resource Tracking',
+        description: 'Track resources loaded in a scene example',
+        entry: ResourceTrackingRoute
       }
     ]
   }
