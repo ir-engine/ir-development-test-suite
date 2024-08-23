@@ -60,7 +60,10 @@ const Header = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = (projectName = 'ir-engine/ir-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
+export const useRouteScene = (
+  projectName = 'ir-engine/ir-development-test-suite',
+  sceneName = 'public/scenes/Examples.gltf'
+) => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
