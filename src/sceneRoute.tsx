@@ -9,7 +9,7 @@ import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLo
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
+import { Entity, createEngine, destroyEngine, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
@@ -24,7 +24,9 @@ import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { destroySpatialEngine, initializeSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
+import { startTimer } from '@ir-engine/spatial/src/startTimer'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
@@ -101,6 +103,17 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const currentRoute = useMutableState(SearchParamState).example.value
   const categoriesShown = useHookstate({} as Record<string, boolean>)
   const hidden = useHookstate(false)
+
+  useImmediateEffect(() => {
+    createEngine()
+    startTimer()
+    initializeSpatialEngine()
+
+    return () => {
+      destroyEngine()
+      destroySpatialEngine()
+    }
+  }, [])
 
   const [ref, setRef] = useReactiveRef<HTMLDivElement>()
 
