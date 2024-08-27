@@ -9,7 +9,6 @@
     "test": "exit 0",
     "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
     "benchmark": "mocha --config .mocharc.js --timeout 3700000 --spec 'e2e/benchmark/basic.test.ts'",
-    "precommit": "no-master-commits -b main",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "format-scss": "stylelint \"**/*.scss\" --fix",
     "format-staged": "lint-staged"
@@ -19,10 +18,10 @@
   ],
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --write"
+      "prettier --write \"**/*.{ts,tsx}\""
     ],
     "*.scss": [
-      "stylelint --fix"
+      "stylelint \"**/*.scss\" --fix"
     ]
   },
   "license": "ISC"
