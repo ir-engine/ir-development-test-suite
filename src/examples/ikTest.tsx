@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 
-import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { useFind } from '@ir-engine/common'
 import { avatarPath } from '@ir-engine/common/src/schemas/user/avatar.schema'
 import {
   mockIKAvatars,

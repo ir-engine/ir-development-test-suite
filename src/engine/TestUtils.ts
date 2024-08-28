@@ -1,6 +1,6 @@
 import { AvatarType, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import { NO_PROXY, useHookstate } from '@ir-engine/hyperflux'
-import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { useFind } from '@ir-engine/common'
 import { useEffect } from 'react'
 import { MathUtils } from 'three'
 
