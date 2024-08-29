@@ -17,7 +17,7 @@ export const Transform = (props: {
   const { position, rotation, scale } = transformState.value
 
   const onChangePosition = (value: Vector3) => transformState.position.set(new Vector3().copy(value))
-  const onChangeRotation = (value: Euler) => transformState.rotation.set(new Quaternion().setFromEuler(value))
+  const onChangeRotation = (value: Quaternion) => transformState.rotation.set(new Quaternion().copy(value))
   const onChangeScale = (value: Vector3) => transformState.scale.set(new Vector3().copy(value))
 
   return (
