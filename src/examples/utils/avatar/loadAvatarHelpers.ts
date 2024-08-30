@@ -1,7 +1,6 @@
 import { AvatarState } from '@ir-engine/client-core/src/user/services/AvatarService'
 import config from '@ir-engine/common/src/config'
-import { NetworkId } from '@ir-engine/common/src/interfaces/NetworkId'
-import { AvatarID, AvatarType } from '@ir-engine/common/src/schemas/user/avatar.schema'
+import { AvatarType } from '@ir-engine/common/src/schemas/user/avatar.schema'
 import { UserID } from '@ir-engine/common/src/schemas/user/user.schema'
 import { Engine, EntityUUID, UUIDComponent } from '@ir-engine/ecs'
 import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
@@ -14,6 +13,7 @@ import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNe
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { PeerID, dispatchAction, getMutableState } from '@ir-engine/hyperflux'
 import { Network, NetworkPeerFunctions, NetworkState } from '@ir-engine/network'
+import { NetworkId } from '@ir-engine/network/src/NetworkId'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { Vector3_Up } from '@ir-engine/spatial/src/common/constants/MathConstants'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
@@ -40,7 +40,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
         rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
         ownerID: userId,
         entityUUID: (userId + '_avatar') as EntityUUID,
-        avatarID: avatar.id,
+        avatarURL: avatar.modelResource!.url,
         name: userId + '_avatar'
       })
     )
@@ -58,7 +58,7 @@ export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'u
       rotation: new Quaternion().setFromAxisAngle(Vector3_Up, Math.PI),
       ownerID: userId,
       entityUUID: (userId + '_avatar') as EntityUUID,
-      avatarID: typeof avatar === 'string' ? (avatar as AvatarID) : avatar.id,
+      avatarURL: typeof avatar === 'string' ? avatar : avatar.modelResource!.url,
       name: userId + '_avatar'
     })
   )
@@ -194,7 +194,7 @@ export const randomQuaternion = (): Quaternion => {
 export const spawnAvatar = (
   rootUUID: EntityUUID,
   userID: string,
-  avatarID: string,
+  avatarURL: string,
   pose: {
     position: Vector3
     rotation: Quaternion
@@ -206,8 +206,8 @@ export const spawnAvatar = (
       position: pose.position,
       rotation: pose.rotation,
       entityUUID: userID as EntityUUID,
-      avatarID: avatarID as AvatarID,
-      name: avatarID
+      avatarURL,
+      name: avatarURL.split('/').pop() as string
     })
   )
 

@@ -8,15 +8,12 @@ import { LocationSeed, LocationState } from '@ir-engine/client-core/src/social/s
 import { SocketWebRTCClientNetwork } from '@ir-engine/client-core/src/transports/SocketWebRTCClientFunctions'
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
 import { InstanceID, LocationType } from '@ir-engine/common/src/schema.type.module'
+import { MediasoupDataProducerConsumerState } from '@ir-engine/common/src/transports/mediasoup/MediasoupDataProducerConsumerState'
+import { MediasoupMediaProducerConsumerState } from '@ir-engine/common/src/transports/mediasoup/MediasoupMediaProducerConsumerState'
+import { MediasoupTransportState } from '@ir-engine/common/src/transports/mediasoup/MediasoupTransportState'
 import { Button } from '@ir-engine/editor/src/components/inputs/Button'
 import { getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
-import {
-  MediasoupDataProducerConsumerState,
-  MediasoupMediaProducerConsumerState,
-  MediasoupTransportState,
-  Network,
-  NetworkState
-} from '@ir-engine/network'
+import { Network, NetworkState } from '@ir-engine/network'
 
 const TransportInfo = (props: { networkID: InstanceID; transportID: string }) => {
   const transportState = useHookstate(
@@ -28,7 +25,7 @@ const TransportInfo = (props: { networkID: InstanceID; transportID: string }) =>
   }
   return (
     <div>
-    {transportState.direction} - {transportState.connected ? 'Active' : 'Waiting'}
+      {transportState.direction} - {transportState.connected ? 'Active' : 'Waiting'}
       {dataState?.producers && (
         <div>
           Producers
@@ -58,7 +55,9 @@ const NetworkInfo = (props: { networkID: InstanceID }) => {
   if (!transportState) return <></>
   return (
     <>
-      <h3>{getState(NetworkState).networks[props.networkID].topic} Network ID: {props.networkID}</h3>
+      <h3>
+        {getState(NetworkState).networks[props.networkID].topic} Network ID: {props.networkID}
+      </h3>
       {Object.entries(transportState).map(([key, value]) => (
         <div key={key}>
           <br />
