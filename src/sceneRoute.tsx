@@ -4,13 +4,14 @@ import styles from './sceneRoute.css?inline'
 import React, { useEffect } from 'react'
 
 import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
+import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
 import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity, createEngine, destroyEngine, getComponent, setComponent } from '@ir-engine/ecs'
+import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
@@ -26,7 +27,6 @@ import { CameraComponent } from '@ir-engine/spatial/src/camera/components/Camera
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { destroySpatialEngine, initializeSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
-import { startTimer } from '@ir-engine/spatial/src/startTimer'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
 
@@ -104,13 +104,9 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const categoriesShown = useHookstate({} as Record<string, boolean>)
   const hidden = useHookstate(false)
 
-  useImmediateEffect(() => {
-    createEngine()
-    startTimer()
+  useEffect(() => {
     initializeSpatialEngine()
-
     return () => {
-      destroyEngine()
       destroySpatialEngine()
     }
   }, [])
@@ -205,6 +201,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
         <div id="examples-panel" ref={setRef} style={{ flexGrow: 1, pointerEvents: 'none' }} />
         {viewerEntity && Entry && <Entry />}
       </div>
+      <Debug />
     </>
   )
 }

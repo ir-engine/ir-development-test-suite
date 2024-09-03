@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '@ir-engine/client/src/engine'
+
 import '@ir-engine/engine/src/EngineModule'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
