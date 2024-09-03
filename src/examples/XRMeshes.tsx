@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react'
 import { BufferGeometry, Mesh, MeshBasicMaterial, MeshNormalMaterial, Vector3 } from 'three'
 
-import {
-  getComponent,
-  removeComponent,
-  setComponent,
-  useComponent,
-  useOptionalComponent
-} from '@ir-engine/ecs/src/ComponentFunctions'
+import { setComponent, useComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { createEntity, removeEntity, useEntityContext } from '@ir-engine/ecs/src/EntityFunctions'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { addObjectToGroup, removeObjectFromGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
@@ -18,12 +12,10 @@ import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/Col
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { CollisionGroups, DefaultCollisionMask } from '@ir-engine/spatial/src/physics/enums/CollisionGroups'
 import { BodyTypes, Shapes } from '@ir-engine/spatial/src/physics/types/PhysicsTypes'
-import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
-import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { XRDetectedMeshComponent } from '@ir-engine/spatial/src/xr/XRDetectedMeshComponent'
 import { XRDetectedPlaneComponent } from '@ir-engine/spatial/src/xr/XRDetectedPlaneComponent'
 import { Template } from './utils/template'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 
 const wireframeMaterial = new MeshBasicMaterial({ wireframe: true })
 const normalMaterial = new MeshNormalMaterial({ opacity: 0.5, transparent: true })
@@ -53,7 +45,7 @@ export const DetectedPlanes = () => {
     const colliderEntity = createEntity()
     setComponent(colliderEntity, NameComponent, 'Plane ' + entity + ' Collider')
     setComponent(colliderEntity, EntityTreeComponent, {
-      parentEntity: entity,
+      parentEntity: entity
     })
     setComponent(colliderEntity, TransformComponent, {
       scale: new Vector3(height, 0.01, width)

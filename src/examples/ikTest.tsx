@@ -1,19 +1,13 @@
 import React, { useEffect } from 'react'
 
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { getMutableState, useHookstate } from '@ir-engine/hyperflux'
 
+import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
 import { useFind } from '@ir-engine/common'
 import { avatarPath } from '@ir-engine/common/src/schemas/user/avatar.schema'
-import {
-  mockIKAvatars,
-  mockLoopAnimAvatars,
-  mockNetworkAvatars,
-  mockTPoseAvatars
-} from './utils/avatar/loadAvatarHelpers'
-import { Template } from './utils/template'
-import { useWorldNetwork } from '@ir-engine/client-core/src/common/services/LocationInstanceConnectionService'
 import { AnimationState } from '@ir-engine/engine/src/avatar/AnimationManager'
+import { mockIKAvatars } from './utils/avatar/loadAvatarHelpers'
+import { Template } from './utils/template'
 
 export default function avatarIkTesting() {
   const network = useWorldNetwork()

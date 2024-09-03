@@ -216,7 +216,9 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Video-Example')
         setComponent(entity, VideoComponent)
         setComponent(entity, MediaComponent, {
-          resources: [config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Videos/HDVideo.mp4']
+          resources: [
+            config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Videos/HDVideo.mp4'
+          ]
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)

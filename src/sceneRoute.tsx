@@ -8,6 +8,7 @@ import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/c
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
+import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
 import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
@@ -23,7 +24,6 @@ import {
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
-import { useFind } from '@ir-engine/common'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
@@ -60,7 +60,10 @@ const Header = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = (projectName = 'ir-engine/ir-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
+export const useRouteScene = (
+  projectName = 'ir-engine/ir-development-test-suite',
+  sceneName = 'public/scenes/Examples.gltf'
+) => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })

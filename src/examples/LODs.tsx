@@ -24,7 +24,6 @@ import config from '@ir-engine/common/src/config'
 import { Entity } from '@ir-engine/ecs/src/Entity'
 import { GroupComponent, addObjectToGroup } from '@ir-engine/spatial/src/renderer/components/GroupComponent'
 import { Template } from './utils/template'
-import { uploadAssetPath } from '@ir-engine/common/src/schema.type.module'
 
 // create rings for each LOD
 const visualizeVariants = () => {
