@@ -1,3 +1,4 @@
+import { GLTF } from '@gltf-transform/core'
 import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
   Engine,
@@ -38,7 +39,6 @@ import {
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
-import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'

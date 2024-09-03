@@ -1,9 +1,6 @@
 import { ProjectEventHooks } from '@ir-engine/projects/ProjectConfigInterface'
 import { Application } from '@ir-engine/server-core/declarations'
-import {
-  patchStaticResourceAsAvatar,
-  supportedAvatars
-} from '@ir-engine/server-core/src/user/avatar/avatar-helper'
+import { patchStaticResourceAsAvatar, supportedAvatars } from '@ir-engine/server-core/src/user/avatar/avatar-helper'
 import appRootPath from 'app-root-path'
 import fs from 'fs'
 import path from 'path'
