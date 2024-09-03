@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
+import { API } from '@ir-engine/common'
 import { matchUserPath } from '@ir-engine/common/src/schemas/matchmaking/match-user.schema'
-import { Engine } from '@ir-engine/ecs/src/Engine'
 import { OpenMatchTicketAssignment } from '@ir-engine/matchmaking/src/interfaces'
 import { matchTicketAssignmentPath } from '@ir-engine/matchmaking/src/match-ticket-assignment.schema'
 import { matchTicketPath } from '@ir-engine/matchmaking/src/match-ticket.schema'
@@ -23,10 +23,10 @@ const Page = () => {
   async function newTicket() {
     let ticket
     try {
-      ticket = await Engine.instance.api.service(matchTicketPath).create({ gamemode: 'mode.demo' })
+      ticket = await API.instance.service(matchTicketPath).create({ gamemode: 'mode.demo' })
     } catch (e) {
       alert('You already searching for game')
-      const matchUser = (await Engine.instance.api.service(matchUserPath).find()).data[0]
+      const matchUser = (await API.instance.service(matchUserPath).find()).data[0]
       console.log('matchUser', matchUser)
       ticket = { id: matchUser.ticketId }
     }
@@ -48,14 +48,14 @@ const Page = () => {
   }
 
   function getAssignment(ticketId: string): Promise<OpenMatchTicketAssignment> {
-    return (
-      Engine.instance.api.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>
-    ).then((assignment) => {
-      console.log('assignment', ticketId, assignment)
-      connections.current[ticketId] = assignment.connection
-      updRenderTrigger({})
-      return assignment
-    })
+    return (API.instance.service(matchTicketAssignmentPath).get(ticketId) as Promise<OpenMatchTicketAssignment>).then(
+      (assignment) => {
+        console.log('assignment', ticketId, assignment)
+        connections.current[ticketId] = assignment.connection
+        updRenderTrigger({})
+        return assignment
+      }
+    )
   }
 
   const ticketsTable = !ticketsIds.length
