@@ -1,9 +1,9 @@
-import { dispatchAction, getMutableState, getState, useHookstate } from '@etherealengine/hyperflux'
+import { dispatchAction, getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
 import { GLTF } from '@gltf-transform/core'
 import { useEffect } from 'react'
 import { Cache, Color, Euler, Quaternion } from 'three'
 
-import { AvatarID, avatarPath } from '@etherealengine/common/src/schema.type.module'
+import { AvatarID, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
   Engine,
   EntityUUID,
@@ -14,18 +14,18 @@ import {
   getMutableComponent,
   setComponent,
   useOptionalComponent
-} from '@etherealengine/ecs'
-import { AvatarNetworkAction } from '@etherealengine/engine/src/avatar/state/AvatarNetworkActions'
-import { GLTFComponent } from '@etherealengine/engine/src/gltf/GLTFComponent'
-import { GLTFAssetState, GLTFSourceState } from '@etherealengine/engine/src/gltf/GLTFState'
-import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@etherealengine/spatial'
-import { EngineState } from '@etherealengine/spatial/src/EngineState'
-import { NameComponent } from '@etherealengine/spatial/src/common/NameComponent'
-import { RendererComponent } from '@etherealengine/spatial/src/renderer/WebGLRendererSystem'
-import { SceneComponent } from '@etherealengine/spatial/src/renderer/components/SceneComponents'
-import { VisibleComponent } from '@etherealengine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@etherealengine/spatial/src/transform/components/EntityTree'
-import { useFind } from '@etherealengine/spatial/src/common/functions/FeathersHooks'
+} from '@ir-engine/ecs'
+import { AvatarNetworkAction } from '@ir-engine/engine/src/avatar/state/AvatarNetworkActions'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
+import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
+import { EngineState } from '@ir-engine/spatial/src/EngineState'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
+import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
+import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
+import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
