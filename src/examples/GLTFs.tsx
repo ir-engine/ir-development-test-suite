@@ -67,6 +67,13 @@ export const gltfRoutes = [
     )
   },
   {
+    name: 'Multiple Primitives Morph Targets',
+    description: 'Morph Targets For Multiple Primitives ',
+    entry: () => (
+      <GLTFViewer src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'} light animationClip={'Sphere'} />
+    )
+  },
+  {
     name: 'KHR_materials_unlit',
     description: 'Khronos Unlit Material Extension',
     entry: () => <GLTFViewer src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'} />
@@ -196,6 +203,8 @@ export default function GLTFViewer(props: { src: string; scale?: number; light?:
 
     const clip = AnimationClip.findByName(clips, props.animationClip)
     if (!clip) return console.warn('Clip not found:', props.animationClip)
+
+    console.log(clip)
 
     const action = animationComponent.value.mixer.clipAction(clip)
     action.play()

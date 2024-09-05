@@ -279,6 +279,13 @@
     ],
     "dependencies": []
   },
+  "assets/GLTF/MultiplePrimitivesMorphTargets.glb": {
+    "type": "asset",
+    "tags": [
+      "Model"
+    ],
+    "dependencies": []
+  },
   "assets/graph/default-graph.json": {
     "type": "asset",
     "tags": [
