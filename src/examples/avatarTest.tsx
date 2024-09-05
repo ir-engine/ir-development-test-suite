@@ -25,7 +25,7 @@ export default function AvatarTestEntry() {
   const created = useHookstate(false)
 
   useEffect(() => {
-    if (sceneEntity.value && network?.ready?.value && avatarList.value.length > 0 && !created.value) {
+    if (sceneEntity && network?.ready?.value && avatarList.value.length > 0 && !created.value) {
       created.set(true)
       const data = [...avatarList.get(NO_PROXY)] as AvatarType[]
       mockNetworkAvatars(data)

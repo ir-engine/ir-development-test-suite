@@ -1,13 +1,4 @@
-import {
-  Engine,
-  Entity,
-  EntityUUID,
-  UUIDComponent,
-  createEntity,
-  getComponent,
-  removeEntity,
-  setComponent
-} from '@ir-engine/ecs'
+import { Engine, Entity, getComponent, removeEntity, setComponent } from '@ir-engine/ecs'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { TransformComponent } from '@ir-engine/spatial'
@@ -15,9 +6,9 @@ import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/Col
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { Object3DComponent } from '@ir-engine/spatial/src/renderer/components/Object3DComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { useEffect } from 'react'
 import { Group, MathUtils, Vector3 } from 'three'
+import { setupEntity } from '../../examples/utils/common/entityUtils'
 
 const objectsToCreate = 60
 const waitTimeBetween = 200
@@ -26,15 +17,13 @@ const simulateTime = 3000
 const scale = new Vector3(0.5, 0.5, 0.5)
 
 const createPhysicsEntity = (rootEntity: Entity) => {
-  const entity = createEntity()
+  const entity = setupEntity(rootEntity)
 
   const position = getComponent(Engine.instance.cameraEntity, TransformComponent).position.clone()
   position.setZ(position.z - 7.0)
   position.setX(position.x + MathUtils.randFloat(-2.0, 2.0))
   const obj3d = new Group()
   obj3d.entity = entity
-  setComponent(entity, UUIDComponent, MathUtils.generateUUID() as EntityUUID)
-  setComponent(entity, EntityTreeComponent, { parentEntity: rootEntity })
   setComponent(entity, Object3DComponent, obj3d)
   setComponent(entity, TransformComponent, { position, scale })
   setComponent(entity, PrimitiveGeometryComponent, {

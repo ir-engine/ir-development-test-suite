@@ -86,7 +86,7 @@ const GLTF = (props: { sceneEntity: Entity }) => {
 export default function GLTFViewer() {
   const sceneEntity = useRouteScene()
 
-  return sceneEntity.value ? (
+  return sceneEntity ? (
     <div
       id="dnd-container"
       style={{
@@ -100,7 +100,7 @@ export default function GLTFViewer() {
       }}
     >
       <DndWrapper id="dnd-container">
-        <GLTF sceneEntity={sceneEntity.value} />
+        <GLTF sceneEntity={sceneEntity} />
       </DndWrapper>
     </div>
   ) : null

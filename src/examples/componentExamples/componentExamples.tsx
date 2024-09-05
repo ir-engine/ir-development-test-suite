@@ -100,7 +100,7 @@ export const subComponentExamples = [
         setComponent(entity, ModelComponent, { src: avatarSrc, convertToVRM: true })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
-          animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
+          animationPack: config.client.fileServer + '/projects/ir-engine/default-project/assets/animations/emotes.glb',
           activeClipIndex: validAvatarAnimations[Math.floor(Math.random() * validAvatarAnimations.length)]
         })
       }, [avatars])
@@ -426,5 +426,5 @@ export default function ComponentExamplesRoute(props: {
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }) {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? <ComponentExamples sceneEntity={sceneEntity.value} Reactor={props.Reactor} /> : null
+  return sceneEntity ? <ComponentExamples sceneEntity={sceneEntity} Reactor={props.Reactor} /> : null
 }
