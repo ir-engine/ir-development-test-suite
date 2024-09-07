@@ -1,3 +1,5 @@
+import { ThemeContextProvider } from '@ir-engine/client/src/pages/themeContext'
+import { StyledEngineProvider } from '@mui/material/styles'
 import React from 'react'
 
 import '@ir-engine/client/src/engine'
@@ -77,7 +79,15 @@ export const examples: RouteCategories = [
 ]
 
 const ExampleRoutes = () => {
-  return <Routes routeCategories={examples} header="Examples" />
+  return (
+    <>
+      <ThemeContextProvider>
+        <StyledEngineProvider injectFirst>
+          <Routes routeCategories={examples} header="Examples" />
+        </StyledEngineProvider>
+      </ThemeContextProvider>
+    </>
+  )
 }
 
 export default ExampleRoutes
