@@ -101,7 +101,7 @@ export const subComponentExamples = [
         setComponent(entity, GLTFComponent, { src: avatarSrc })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, {
-          animationPack: config.client.fileServer + '/projects/default-project/assets/animations/emotes.glb',
+          animationPack: config.client.fileServer + '/projects/ir-engine/default-project/assets/animations/emotes.glb',
           activeClipIndex: validAvatarAnimations[Math.floor(Math.random() * validAvatarAnimations.length)]
         })
       }, [avatars])
@@ -217,7 +217,9 @@ export const subComponentExamples = [
         setComponent(entity, NameComponent, 'Video-Example')
         setComponent(entity, VideoComponent)
         setComponent(entity, MediaComponent, {
-          resources: [config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Videos/HDVideo.mp4']
+          resources: [
+            config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/Videos/HDVideo.mp4'
+          ]
         })
         setVisibleComponent(entity, true)
         getComponent(entity, TransformComponent).position.set(0, 2, 0)
@@ -424,5 +426,5 @@ export default function ComponentExamplesRoute(props: {
   Reactor: React.FC<{ parent: Entity; onLoad: (entity: Entity) => void }>
 }) {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? <ComponentExamples sceneEntity={sceneEntity.value} Reactor={props.Reactor} /> : null
+  return sceneEntity ? <ComponentExamples sceneEntity={sceneEntity} Reactor={props.Reactor} /> : null
 }

@@ -1,5 +1,3 @@
-import assert from 'assert'
-import { Vector3 } from 'three'
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 
@@ -11,7 +9,7 @@ const locationName = 'default'
 const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
-  const bot = new IREngineBot({ name: 'bot', headless:false, verbose: true })
+  const bot = new IREngineBot({ name: 'bot', headless: false, verbose: true })
   before(async () => {
     const TOTAL_DURATION = 3600000
     const JUMP_DURATION = 1000
@@ -23,7 +21,8 @@ describe('My Bot Tests', () => {
     await bot.startAudio()
     await bot.startVideo()
     let counter = 0
-    while (counter < TOTAL_DURATION / (JUMP_DURATION + DELAY_DURATION + FORWARD_DURATION)) { // Set a limit to the number of iterations (adjust as needed)
+    while (counter < TOTAL_DURATION / (JUMP_DURATION + DELAY_DURATION + FORWARD_DURATION)) {
+      // Set a limit to the number of iterations (adjust as needed)
       let direction
       switch (counter % 3) {
         case 0:
@@ -44,8 +43,9 @@ describe('My Bot Tests', () => {
       await bot.moveBot('jump', JUMP_DURATION)
       await bot.delay(DELAY_DURATION)
       await bot.moveBot(direction, FORWARD_DURATION)
-      counter++;
-    }})
+      counter++
+    }
+  })
 })
 
 //   after(async () => {
@@ -57,4 +57,3 @@ describe('My Bot Tests', () => {
 //     // assert(vector3.copy(pos).length() < sqrt2 * 2) // sqrt2 * 2 is the default size of our spawn area
 //   })
 // })
-

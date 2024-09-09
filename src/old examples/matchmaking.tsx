@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
+import { API } from '@ir-engine/common'
 import { matchUserPath } from '@ir-engine/common/src/schemas/matchmaking/match-user.schema'
 import { MatchmakingTicketAssignment, OpenMatchTicket } from '@ir-engine/matchmaking/src/interfaces'
 import { matchTicketAssignmentPath } from '@ir-engine/matchmaking/src/match-ticket-assignment.schema'
 import { matchTicketPath } from '@ir-engine/matchmaking/src/match-ticket.schema'
-import { API } from '@ir-engine/common'
 
 const gameModes = ['ctf', 'tournament']
 
@@ -120,12 +120,12 @@ const Page = () => {
   }
 
   function getAssignment(ticketId: string): Promise<MatchmakingTicketAssignment> {
-    return (
-      API.instance.service(matchTicketAssignmentPath).get(ticketId) as Promise<MatchmakingTicketAssignment>
-    ).then((assignment) => {
-      console.log('assignment', ticketId, assignment)
-      return assignment
-    })
+    return (API.instance.service(matchTicketAssignmentPath).get(ticketId) as Promise<MatchmakingTicketAssignment>).then(
+      (assignment) => {
+        console.log('assignment', ticketId, assignment)
+        return assignment
+      }
+    )
   }
 
   return (

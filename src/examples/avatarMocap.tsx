@@ -189,7 +189,8 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
   }, [network?.ready, selectedAvatar])
 
   useEffect(() => {
-    if (avatars.value && avatars.value.length && !selectedAvatar.value) selectedAvatar.set(avatars.get(NO_PROXY)[0].id)
+    if (avatars.value && avatars.value.length && !selectedAvatar.value)
+      selectedAvatar.set(avatars.get(NO_PROXY)[0].modelResource?.url!)
   }, [avatars])
 
   return (
@@ -233,5 +234,5 @@ function AvatarMocap(props: { sceneEntity: Entity }) {
 
 export default function AvatarMocapEntry() {
   const sceneEntity = useRouteScene()
-  return sceneEntity.value ? <AvatarMocap sceneEntity={sceneEntity.value} /> : null
+  return sceneEntity ? <AvatarMocap sceneEntity={sceneEntity} /> : null
 }

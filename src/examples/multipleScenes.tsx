@@ -1,3 +1,4 @@
+import { GLTF } from '@gltf-transform/core'
 import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import {
   Engine,
@@ -20,8 +21,9 @@ import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { getMutableState, useHookstate, useImmediateEffect } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
+import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -38,7 +40,6 @@ import {
 } from '@ir-engine/spatial/src/renderer/materials/MaterialComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { computeTransformMatrix } from '@ir-engine/spatial/src/transform/systems/TransformSystem'
-import { GLTF } from '@gltf-transform/core'
 import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
@@ -112,11 +113,9 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
   extensionsUsed: ['EE_uuid', 'EE_visible', 'EE_rigidbody', 'EE_collider', 'EE_primitive_geometry']
 })
 
-const SceneReactor = (props: {
-  coord: Vector3
-  transform: { position: Vector3; rotation: Quaternion; scale: Vector3 }
-}) => {
-  const { coord, transform } = props
+const SceneReactor = (props: { coord: Vector3 }) => {
+  const { coord } = props
+  const transform = useMutableState(MultipleSceneTransformState).value
 
   const gltfEntityState = useHookstate(UndefinedEntity)
   const gltfComponent = useOptionalComponent(gltfEntityState.value, GLTFComponent)
@@ -154,6 +153,7 @@ const SceneReactor = (props: {
       rotation: new Quaternion(),
       scale: new Vector3(0.5, 0.5, 0.5)
     })
+    computeTransformMatrix(gltfEntity)
 
     // apply transform state
     const transformComponent = getComponent(gltfEntity, TransformComponent)
@@ -204,58 +204,79 @@ const execute = () => {
   }
 }
 
-export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
-  insert: { before: PhysicsPreTransformSystem },
-  execute
-})
+const reactor = () => {
+  const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
-const gridCount = 3
-const gridSpacing = 10
+  useEffect(() => {
+    if (!viewerEntity) return
 
-export default function MultipleScenesEntry() {
-  useNetwork({ online: false })
-  useLoadEngineWithScene()
-
-  useImmediateEffect(() => {
     const lightEntity = createEntity()
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(-4, -0.5, 0)) })
     setComponent(lightEntity, NameComponent, 'directional light')
     setComponent(lightEntity, VisibleComponent)
     setComponent(lightEntity, DirectionalLightComponent, { intensity: 1, color: new Color(0xffffff) })
-    getMutableComponent(Engine.instance.viewerEntity, RendererComponent).scenes.merge([lightEntity])
+    getMutableComponent(viewerEntity, RendererComponent).scenes.merge([lightEntity])
 
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 3, 4)
-  }, [])
 
-  const coordsState = useHookstate<Vector3[]>([])
+    setComponent(viewerEntity, CameraOrbitComponent)
+    setComponent(viewerEntity, InputComponent)
+    getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
 
-  useEffect(() => {
+    return () => {
+      removeEntity(lightEntity)
+    }
+  }, [viewerEntity])
+
+  const coordsState = useHookstate(() => {
     const coords = [] as Vector3[]
     for (let i = -gridCount * 0.5; i < gridCount * 0.5; i++) {
       for (let j = -gridCount * 0.5; j < gridCount * 0.5; j++) {
         coords.push(new Vector3(i, 0, j))
       }
     }
-    coordsState.set(coords)
-  }, [])
-
-  const transformState = useHookstate({
-    position: new Vector3(),
-    rotation: new Quaternion(),
-    scale: new Vector3(1, 1, 1)
+    return coords
   })
+
+  if (!viewerEntity) return null
 
   return (
     <>
       {coordsState.value.map((coord) => (
-        <SceneReactor key={`${coord.x}-${coord.z}`} coord={coord} transform={transformState.value} />
+        <SceneReactor key={`${coord.x}-${coord.z}`} coord={coord} />
       ))}
+    </>
+  )
+}
+
+export const BallResetSystem = defineSystem({
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute,
+  reactor
+})
+
+const gridCount = 3
+const gridSpacing = 10
+
+const MultipleSceneTransformState = defineState({
+  name: 'ir.dev-test-suite.multiple-scenes.MultipleSceneTransformState',
+  initial: () => ({
+    position: new Vector3(),
+    rotation: new Quaternion(),
+    scale: new Vector3(1, 1, 1)
+  })
+})
+
+export default function MultipleScenesEntry() {
+  useNetwork({ online: false })
+  useLoadEngineWithScene()
+
+  const transformState = useMutableState(MultipleSceneTransformState)
+
+  return (
+    <>
       <div className="flex-grid pointer-events-auto absolute right-0 flex w-fit flex-col justify-start gap-1.5">
         <Transform transformState={transformState} />
       </div>

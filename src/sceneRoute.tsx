@@ -4,10 +4,12 @@ import styles from './sceneRoute.css?inline'
 import React, { useEffect } from 'react'
 
 import { SearchParamState } from '@ir-engine/client-core/src/common/services/RouterService'
+import Debug from '@ir-engine/client-core/src/components/Debug'
 import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
+import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
 import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
@@ -25,7 +27,7 @@ import {
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
-import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { destroySpatialEngine, initializeSpatialEngine } from '@ir-engine/spatial/src/initializeEngine'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import Button from '@ir-engine/ui/src/primitives/tailwind/Button'
 import { HiChevronDown, HiChevronLeft, HiChevronRight, HiChevronUp } from 'react-icons/hi2'
@@ -62,7 +64,10 @@ const Header = (props: { header: string }) => {
   )
 }
 
-export const useRouteScene = (projectName = 'ir-engine/ir-development-test-suite', sceneName = 'public/scenes/Examples.gltf') => {
+export const useRouteScene = (
+  projectName = 'ir-engine/ir-development-test-suite',
+  sceneName = 'public/scenes/Examples.gltf'
+) => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
@@ -88,7 +93,7 @@ export const useRouteScene = (projectName = 'ir-engine/ir-development-test-suite
     getComponent(viewerEntity, CameraComponent).position.set(0, 3, 4)
   }, [viewerEntity])
 
-  return sceneEntity
+  return sceneEntity.value
 }
 
 const getPathForRoute = (category: string, name: string) => {
@@ -109,6 +114,13 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const currentRoute = useMutableState(SearchParamState).example.value
   const categoriesShown = useHookstate({} as Record<string, boolean>)
   const hidden = useMutableState(ExampleRouteState).hidden
+
+  useEffect(() => {
+    initializeSpatialEngine()
+    return () => {
+      destroySpatialEngine()
+    }
+  }, [])
 
   const [ref, setRef] = useReactiveRef<HTMLDivElement>()
 
@@ -200,6 +212,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
         <div id="examples-panel" ref={setRef} style={{ flexGrow: 1, pointerEvents: 'none' }} />
         {viewerEntity && Entry && <Entry />}
       </div>
+      <Debug />
     </>
   )
 }

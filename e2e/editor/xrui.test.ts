@@ -1,6 +1,6 @@
-import assert from 'assert'
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
+import assert from 'assert'
 
 import { delay } from '@ir-engine/spatial/src/common/functions/delay'
 

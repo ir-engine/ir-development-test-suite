@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDrop } from 'react-dnd'
-import { DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace, sRGBEncoding, Texture } from 'three'
+import { SRGBColorSpace, Texture } from 'three'
 
 import { DndWrapper } from '@ir-engine/editor/src/components/dnd/DndWrapper'
 import { SupportedFileTypes } from '@ir-engine/editor/src/constants/AssetTypes'
-import { Engine } from '@ir-engine/ecs/src/Engine'
 
-import { Template } from './utils/template'
-import { getState } from '@ir-engine/hyperflux'
 import { AssetLoaderState } from '@ir-engine/engine/src/assets/state/AssetLoaderState'
+import { getState } from '@ir-engine/hyperflux'
+import { Template } from './utils/template'
 
 let mesh
 

@@ -25,7 +25,7 @@ import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRenderer
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
-import { useFind } from '@ir-engine/spatial/src/common/functions/FeathersHooks'
+import { useFind } from '@ir-engine/common'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -91,7 +91,7 @@ export default function AvatarSimpleEntry() {
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID,
-        avatarID: avatars.data.find(avatar => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
+        avatarURL: avatars.data.find(avatar => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
         entityUUID: (entityUUID + '_avatar') as EntityUUID,
         name: 'avatar'
       })
