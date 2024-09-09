@@ -72,11 +72,12 @@ export const examples: RouteCategories = [
         description: 'Drag and drop GLTF files',
         entry: GLTFViewer
       },
-      {
-        name: 'Multiple',
-        description: 'multiple scenes example',
-        entry: MultipleScenesEntry
-      },
+      /**@todo why is this always loading? */
+      // {
+      //   name: 'Multiple',
+      //   description: 'multiple scenes example',
+      //   entry: MultipleScenesEntry
+      // },
       {
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
@@ -91,9 +92,15 @@ export const examples: RouteCategories = [
 ]
 
 const ExampleRoutes = () => {
-  const projectsLoaded = useEngineInjection()
-  if (!projectsLoaded) return <></>
-  return <Routes routeCategories={examples} header="Examples" />
+  return (
+    <>
+      <ThemeContextProvider>
+        <StyledEngineProvider injectFirst>
+          <Routes routeCategories={examples} header="Examples" />
+        </StyledEngineProvider>
+      </ThemeContextProvider>
+    </>
+  )
 }
 
 export default ExampleRoutes
