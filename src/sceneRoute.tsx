@@ -15,8 +15,10 @@ import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
+  defineState,
   getMutableState,
   none,
+  syncStateWithLocalStorage,
   useHookstate,
   useImmediateEffect,
   useMutableState,
@@ -98,11 +100,19 @@ const getPathForRoute = (category: string, name: string) => {
   return (category.toLowerCase() + '_' + name.toLocaleLowerCase()).replace(' ', '_')
 }
 
+const ExampleRouteState = defineState({
+  name: 'ExampleRouteState',
+  initial: {
+    hidden: false
+  },
+  extension: syncStateWithLocalStorage(['hidden'])
+})
 const Routes = (props: { routeCategories: RouteCategories; header: string }) => {
   const { routeCategories, header } = props
   const currentRoute = useMutableState(SearchParamState).example.value
   const categoriesShown = useHookstate({} as Record<string, boolean>)
-  const hidden = useHookstate(false)
+
+  const hidden = useMutableState(ExampleRouteState).hidden
 
   useEffect(() => {
     initializeSpatialEngine()
