@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react'
 
-import { getComponent, setComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { getMutableState, getState, useMutableState } from '@ir-engine/hyperflux'
+import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
 
-import { Engine, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
+import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
-import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
-import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
-import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
-import { EngineState } from '@ir-engine/spatial/src/EngineState'
-import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
-import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
-import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
-import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
-import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
-import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
-import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
-import { AnimationClip, Color, Euler, Quaternion, Vector3 } from 'three'
-import { RouteData } from '../sceneRoute'
 import config from '@ir-engine/common/src/config'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
+import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
+import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
+import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
+import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
+import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
+import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
+import { Color, Euler, Quaternion } from 'three'
+import { RouteData, useRouteScene } from '../sceneRoute'
+import { useExampleEntity } from './utils/common/entityUtils'
 
 export const metadata = {
   title: 'GLTF',
@@ -70,7 +68,13 @@ export const gltfRoutes = [
     name: 'Multiple Primitives Morph Targets',
     description: 'Morph Targets For Multiple Primitives ',
     entry: () => (
-      <GLTFViewer src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'} light animationClip={'Sphere'} />
+      <GLTFViewer
+        src={
+          fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
+        }
+        light
+        animationClip={'Sphere'}
+      />
     )
   },
   {
@@ -157,26 +161,68 @@ export const gltfRoutes = [
   {
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
-    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+    entry: () => (
+      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+    )
   },
   {
     name: 'EE_material',
     description: 'Ethereal Engine Material Extension',
     /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
-    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
+    entry: () => (
+      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
+    )
   }
 ] as RouteData[]
 
-export default function GLTFViewer(props: { src: string; scale?: number; light?: boolean; animationClip?: string }) {
+const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: number; animationClip?: string }) => {
+  const { root, src, scale, offset, animationClip } = props
+  const gltfEntity = useExampleEntity(root)
+  const modelEntity = useExampleEntity(root)
+
+  useImmediateEffect(() => {
+    setComponent(gltfEntity, NameComponent, 'GLTF-Loader')
+    setComponent(gltfEntity, GLTFComponent, {
+      cameraOcclusion: true,
+      src: src
+    })
+    setComponent(gltfEntity, ShadowComponent, { receive: false })
+    setVisibleComponent(gltfEntity, true)
+    const gltfTransform = getComponent(gltfEntity, TransformComponent)
+    if (offset) gltfTransform.position.set(-offset, 0, 0)
+    else gltfTransform.position.set(-2, 0, 0)
+    if (scale) gltfTransform.scale.set(scale, scale, scale)
+
+    setComponent(modelEntity, NameComponent, 'Three-Loader')
+    setComponent(modelEntity, ModelComponent, {
+      cameraOcclusion: true,
+      src: src
+    })
+    setComponent(modelEntity, ShadowComponent, { receive: false })
+    setVisibleComponent(modelEntity, true)
+    const modelTransform = getComponent(modelEntity, TransformComponent)
+    if (offset) modelTransform.position.set(offset, 0, 0)
+    else modelTransform.position.set(2, 0, 0)
+    if (scale) modelTransform.scale.set(scale, scale, scale)
+  }, [])
+
+  return null
+}
+
+export default function GLTFViewer(props: {
+  src: string
+  scale?: number
+  offset?: number
+  light?: boolean
+  animationClip?: string
+}) {
+  const sceneEntity = useRouteScene()
+
   useEffect(() => {
     const bgColor = document.body.style.backgroundColor
     document.body.style.backgroundColor = 'gray'
     getMutableState(RendererState).gridVisibility.set(true)
     getMutableState(RendererState).physicsDebug.set(true)
-    const entity = Engine.instance.viewerEntity
-    setComponent(entity, CameraOrbitComponent)
-    setComponent(entity, InputComponent)
-    getComponent(entity, CameraComponent).position.set(0, 3, 4)
 
     return () => {
       document.body.style.backgroundColor = bgColor
@@ -184,40 +230,13 @@ export default function GLTFViewer(props: { src: string; scale?: number; light?:
   }, [])
 
   useEffect(() => {
-    return GLTFAssetState.loadScene(props.src, props.src)
-  }, [props.src])
-
-  const assetEntity = useMutableState(GLTFAssetState)[props.src].value
-  const animationComponent = useOptionalComponent(assetEntity, AnimationComponent)
-
-  useEffect(() => {
-    if (!assetEntity || !props.scale) return
-
-    setComponent(assetEntity, TransformComponent, { scale: new Vector3().setScalar(props.scale) })
-  }, [assetEntity, props.scale])
-
-  useEffect(() => {
-    if (!animationComponent?.value?.animations || !props.animationClip) return
-
-    const clips = animationComponent?.value?.animations as AnimationClip[]
-
-    const clip = AnimationClip.findByName(clips, props.animationClip)
-    if (!clip) return console.warn('Clip not found:', props.animationClip)
-
-    console.log(clip)
-
-    const action = animationComponent.value.mixer.clipAction(clip)
-    action.play()
-  }, [animationComponent?.value?.animations, props.animationClip])
-
-  useEffect(() => {
-    if (!props.light) return
+    if (!props.light || !sceneEntity) return
 
     const entity = createEntity()
     setComponent(entity, UUIDComponent, 'directional light' as EntityUUID)
     setComponent(entity, NameComponent, 'Directional Light')
     setComponent(entity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(2, 5, 3)) })
-    setComponent(entity, EntityTreeComponent, { parentEntity: getState(EngineState).originEntity })
+    setComponent(entity, EntityTreeComponent, { parentEntity: sceneEntity })
     setComponent(entity, VisibleComponent, true)
     setComponent(entity, DirectionalLightComponent, { color: new Color('white'), intensity: 0.5 })
     setComponent(entity, AmbientLightComponent, { color: new Color('white'), intensity: 0.5 })
@@ -225,7 +244,36 @@ export default function GLTFViewer(props: { src: string; scale?: number; light?:
     return () => {
       removeEntity(entity)
     }
-  }, [props.light])
+  }, [props.light, sceneEntity])
 
-  return null
+  // useEffect(() => {
+  //   return GLTFAssetState.loadScene(props.src, props.src)
+  // }, [props.src])
+
+  // const assetEntity = useMutableState(GLTFAssetState)[props.src].value
+  // const animationComponent = useOptionalComponent(assetEntity, AnimationComponent)
+
+  // useEffect(() => {
+  //   if (!assetEntity || !props.scale) return
+
+  //   setComponent(assetEntity, TransformComponent, { scale: new Vector3().setScalar(props.scale) })
+  // }, [assetEntity, props.scale])
+
+  // useEffect(() => {
+  //   if (!animationComponent?.value?.animations || !props.animationClip) return
+
+  //   const clips = animationComponent?.value?.animations as AnimationClip[]
+
+  //   const clip = AnimationClip.findByName(clips, props.animationClip)
+  //   if (!clip) return console.warn('Clip not found:', props.animationClip)
+
+  //   console.log(clip)
+
+  //   const action = animationComponent.value.mixer.clipAction(clip)
+  //   action.play()
+  // }, [animationComponent?.value?.animations, props.animationClip])
+
+  return sceneEntity ? (
+    <GLTF root={sceneEntity} src={props.src} scale={props.scale} animationClip={props.animationClip} />
+  ) : null
 }

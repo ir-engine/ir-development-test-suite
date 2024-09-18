@@ -5,7 +5,7 @@ import { LocationIcons } from '@ir-engine/client-core/src/components/LocationIco
 import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/components/World/EngineHooks'
 import { useLoadLocation } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { LocationSeed, LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
-import { SocketWebRTCClientNetwork } from '@ir-engine/client-core/src/transports/SocketWebRTCClientFunctions'
+import { SocketWebRTCClientNetwork } from '@ir-engine/client-core/src/transports/mediasoup/MediasoupClientFunctions'
 import { AuthService } from '@ir-engine/client-core/src/user/services/AuthService'
 import { InstanceID, LocationType } from '@ir-engine/common/src/schema.type.module'
 import { MediasoupDataProducerConsumerState } from '@ir-engine/common/src/transports/mediasoup/MediasoupDataProducerConsumerState'
