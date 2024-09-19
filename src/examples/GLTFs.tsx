@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { getComponent, setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
+import { ComponentType, getComponent, setComponent, useOptionalComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { State, getMutableState, useImmediateEffect } from '@ir-engine/hyperflux'
 
 import { Entity, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
 import config from '@ir-engine/common/src/config'
+import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
@@ -14,7 +15,7 @@ import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
 import { VisibleComponent, setVisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
-import { Color, Euler, Quaternion } from 'three'
+import { AnimationClip, Color, Euler, Quaternion } from 'three'
 import { RouteData, useRouteScene } from '../sceneRoute'
 import { useExampleEntity } from './utils/common/entityUtils'
 
@@ -80,22 +81,28 @@ export const gltfRoutes = [
   {
     name: 'KHR_materials_unlit',
     description: 'Khronos Unlit Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'} />
+    entry: () => <GLTFViewer src={CDN_URL + '/UnlitTest/glTF/UnlitTest.gltf'} offset={4} />
   },
   {
     name: 'KHR_materials_emissive_strength',
     description: 'Khronos Emissive Strength Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/EmissiveStrengthTest/glTF/EmissiveStrengthTest.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/EmissiveStrengthTest/glTF/EmissiveStrengthTest.gltf'} light offset={10} />
   },
   {
     name: 'KHR_materials_clearcoat',
     description: 'Khronos Clearcoat Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/ClearCoatTest/glTF/ClearCoatTest.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/ClearCoatTest/glTF/ClearCoatTest.gltf'} light offset={6} />
   },
   {
     name: 'KHR_materials_iridescence',
     description: 'Khronos Iridescence Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/IridescenceMetallicSpheres/glTF/IridescenceMetallicSpheres.gltf'} light />
+    entry: () => (
+      <GLTFViewer
+        src={CDN_URL + '/IridescenceMetallicSpheres/glTF/IridescenceMetallicSpheres.gltf'}
+        light
+        offset={12}
+      />
+    )
   },
   {
     name: 'KHR_materials_sheen',
@@ -110,7 +117,7 @@ export const gltfRoutes = [
   {
     name: 'KHR_materials_volume',
     description: 'Khronos Volume Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/AttenuationTest/glTF/AttenuationTest.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/AttenuationTest/glTF/AttenuationTest.gltf'} light offset={12} />
   },
   // {
   //   name: 'KHR_materials_ior',
@@ -179,8 +186,11 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
   const { root, src, scale, offset, animationClip } = props
   const gltfEntity = useExampleEntity(root)
   const modelEntity = useExampleEntity(root)
+  const gltfAnimation = useOptionalComponent(gltfEntity, AnimationComponent)
+  const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
 
   useImmediateEffect(() => {
+    // use GLTF Loader
     setComponent(gltfEntity, NameComponent, 'GLTF-Loader')
     setComponent(gltfEntity, GLTFComponent, {
       cameraOcclusion: true,
@@ -193,6 +203,7 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
     else gltfTransform.position.set(-2, 0, 0)
     if (scale) gltfTransform.scale.set(scale, scale, scale)
 
+    // use Three JS Loader
     setComponent(modelEntity, NameComponent, 'Three-Loader')
     setComponent(modelEntity, ModelComponent, {
       cameraOcclusion: true,
@@ -204,7 +215,27 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
     if (offset) modelTransform.position.set(offset, 0, 0)
     else modelTransform.position.set(2, 0, 0)
     if (scale) modelTransform.scale.set(scale, scale, scale)
-  }, [])
+  }, [src])
+
+  const playAnimation = (component: State<ComponentType<typeof AnimationComponent>> | undefined) => {
+    const animationComponent = component?.value
+    if (!animationComponent?.animations || !animationClip) return
+
+    const clips = animationComponent.animations as AnimationClip[]
+    const clip = AnimationClip.findByName(clips, animationClip)
+    if (!clip) return console.warn('Clip not found:', animationClip)
+
+    const action = animationComponent.mixer.clipAction(clip)
+    action.play()
+  }
+
+  useEffect(() => {
+    playAnimation(gltfAnimation)
+  }, [gltfAnimation, animationClip])
+
+  useEffect(() => {
+    playAnimation(modelAnimation)
+  }, [modelAnimation, animationClip])
 
   return null
 }
@@ -246,34 +277,13 @@ export default function GLTFViewer(props: {
     }
   }, [props.light, sceneEntity])
 
-  // useEffect(() => {
-  //   return GLTFAssetState.loadScene(props.src, props.src)
-  // }, [props.src])
-
-  // const assetEntity = useMutableState(GLTFAssetState)[props.src].value
-  // const animationComponent = useOptionalComponent(assetEntity, AnimationComponent)
-
-  // useEffect(() => {
-  //   if (!assetEntity || !props.scale) return
-
-  //   setComponent(assetEntity, TransformComponent, { scale: new Vector3().setScalar(props.scale) })
-  // }, [assetEntity, props.scale])
-
-  // useEffect(() => {
-  //   if (!animationComponent?.value?.animations || !props.animationClip) return
-
-  //   const clips = animationComponent?.value?.animations as AnimationClip[]
-
-  //   const clip = AnimationClip.findByName(clips, props.animationClip)
-  //   if (!clip) return console.warn('Clip not found:', props.animationClip)
-
-  //   console.log(clip)
-
-  //   const action = animationComponent.value.mixer.clipAction(clip)
-  //   action.play()
-  // }, [animationComponent?.value?.animations, props.animationClip])
-
   return sceneEntity ? (
-    <GLTF root={sceneEntity} src={props.src} scale={props.scale} animationClip={props.animationClip} />
+    <GLTF
+      root={sceneEntity}
+      src={props.src}
+      scale={props.scale}
+      offset={props.offset}
+      animationClip={props.animationClip}
+    />
   ) : null
 }
