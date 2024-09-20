@@ -15,13 +15,13 @@ const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
   const bot = new IREngineBot({ name: 'bot', verbose: true })
-  before(async () => {
+  beforeAll(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationReady)
   })
 
-  after(async () => {
+  afterAll(async () => {
     await bot.quit()
   })
 
@@ -43,7 +43,7 @@ describe('Multi-Bot Tests', () => {
     return bot
   }
 
-  after(async () => {
+  afterAll(async () => {
     for (const bot of bots) {
       await bot.quit()
     }

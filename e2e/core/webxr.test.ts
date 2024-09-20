@@ -9,14 +9,14 @@ const locationName = 'test'
 describe('WebXR Bot Tests', () => {
   const bot = new IREngineBot({ name: 'bot-' + Date.now(), verbose: true })
 
-  before(async () => {
+  beforeAll(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationReady)
     await setupXR(bot)
   })
 
-  after(async () => {
+  afterAll(async () => {
     await bot.quit()
   })
 
