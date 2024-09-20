@@ -1,6 +1,6 @@
 import type { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { XRBotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
-import assert from 'assert'
+import { assert, it } from 'vitest'
 
 export const setupXR = async (bot: IREngineBot) => {
   await bot.runHook(XRBotHooks.OverrideXR)

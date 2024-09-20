@@ -1,6 +1,7 @@
 {
   "name": "@ir-engine/ir-development-test-suite",
   "version": "0.0.0",
+  "type": "module",
   "description": "Assets and tests for Infinite Reality Engine core development",
   "main": "",
   "scripts": {
