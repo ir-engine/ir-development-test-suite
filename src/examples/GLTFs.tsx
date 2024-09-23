@@ -26,6 +26,7 @@ export const metadata = {
 
 const fileServer = config.client.fileServer
 const CDN_URL = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0'
+const gltf_test_url = 'https://raw.githubusercontent.com/cx20/gltf-test/refs/heads/master/tutorialModels'
 
 export const gltfRoutes = [
   {
@@ -152,7 +153,9 @@ export const gltfRoutes = [
   {
     name: 'EXT_meshopt_compression',
     description: 'Mesh Optimization Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/DragonAttenuation/glTF-Meshopt/DragonAttenuation.gltf'} light />
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/DragonAttenuation/glTF-Meshopt/DragonAttenuation.gltf'} light offset={4} />
+    )
   },
   {
     name: 'EXT_mesh_gpu_instancing',
@@ -179,10 +182,151 @@ export const gltfRoutes = [
     entry: () => (
       <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
     )
+  },
+  {
+    name: 'Simple Material',
+    description: 'Simple Material',
+    entry: () => <GLTFViewer src={gltf_test_url + '/SimpleMaterial/glTF/SimpleMaterial.gltf'} light />
+  },
+  {
+    name: 'Simple Texture',
+    description: 'Simple Texture',
+    entry: () => <GLTFViewer src={gltf_test_url + '/SimpleTexture/glTF/SimpleTexture.gltf'} light />
+  },
+  // Doesn't work with either loader
+  {
+    name: 'Boom Box',
+    description: 'Boom Box',
+    entry: () => <GLTFViewer src={CDN_URL + '/BoomBox/glTF/BoomBox.gltf'} light />
+  },
+  {
+    name: 'Damaged Helmet',
+    description: 'Damaged Helmet',
+    entry: () => <GLTFViewer src={CDN_URL + '/DamagedHelmet/glTF/DamagedHelmet.gltf'} light offset={{ y: 2 }} />
+  },
+  {
+    name: 'Alpha Blend Mode Test',
+    description: 'Alpha Blend Mode Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/AlphaBlendModeTest/glTF/AlphaBlendModeTest.gltf'} light offset={{ x: 5, y: 0.2 }} />
+    )
+  },
+  {
+    name: 'Metallic Roughness Test',
+    description: 'Metallic Roughness Material Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf'} light offset={{ x: 6, y: 6 }} />
+    )
+  },
+  {
+    name: 'Metallic Roughness Test (Textureless)',
+    description: 'Metallic Roughness Material Test (Textureless)',
+    entry: () => (
+      <GLTFViewer
+        src={CDN_URL + '/MetalRoughSpheresNoTextures/glTF/MetalRoughSpheresNoTextures.gltf'}
+        light
+        offset={{ x: 6, y: 6 }}
+      />
+    )
+  },
+  {
+    name: 'Morph Target Stress Test',
+    description: 'Morph Target Stress Test (RESOURCE INTENSIVE)',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/MorphStressTest/glTF/MorphStressTest.gltf'} light offset={{ x: 3, y: 0.5 }} />
+    )
+  },
+  {
+    name: 'Negative Scale Test',
+    description: 'Negative Scale Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/NegativeScaleTest/glTF/NegativeScaleTest.gltf'} light offset={{ x: 6, y: 6 }} />
+    )
+  },
+  {
+    name: 'Multiple UVs Test',
+    description: 'Multiple UVs Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/MultiUVTest/glTF/MultiUVTest.gltf'} light offset={{ y: 1 }} />
+  },
+  {
+    name: 'Normal Tangent Test',
+    description: 'Normal Tangent Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/NormalTangentTest/glTF/NormalTangentTest.gltf'} light offset={{ y: 2 }} />
+  },
+  {
+    name: 'Normal Tangent Mirrored Test',
+    description: 'Normal Tangent Mirrored Test',
+    entry: () => (
+      <GLTFViewer
+        src={CDN_URL + '/NormalTangentMirrorTest/glTF/NormalTangentMirrorTest.gltf'}
+        light
+        offset={{ y: 2 }}
+      />
+    )
+  },
+  {
+    name: 'Orientation Test',
+    description: 'Orientation Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/OrientationTest/glTF/OrientationTest.gltf'} light offset={{ x: 8, y: 8 }} />
+    )
+  },
+  {
+    name: 'Recursive Skeletons Test',
+    description: 'Recursive Skeletons Test (RESOURCE INTENSIVE)',
+    entry: () => <GLTFViewer src={CDN_URL + '/RecursiveSkeletons/glTF/RecursiveSkeletons.gltf'} light />
+  },
+  {
+    name: 'Texture Coordinate Test',
+    description: 'Texture Coordinate Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/TextureCoordinateTest/glTF/TextureCoordinateTest.gltf'} light offset={{ y: 1.5 }} />
+    )
+  },
+  {
+    name: 'Texture Linear Interpolation Test',
+    description: 'Texture Linear Interpolation Test',
+    entry: () => (
+      <GLTFViewer
+        src={CDN_URL + '/TextureLinearInterpolationTest/glTF/TextureLinearInterpolationTest.gltf'}
+        light
+        offset={{ x: 4, y: 2 }}
+      />
+    )
+  },
+  {
+    name: 'Texture Settings Test',
+    description: 'Texture Settings Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/TextureSettingsTest/glTF/TextureSettingsTest.gltf'} light offset={{ x: 6, y: 6 }} />
+    )
+  },
+  {
+    name: 'Vertex Color Test',
+    description: 'Vertex Color Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/VertexColorTest/glTF/VertexColorTest.gltf'} light offset={{ y: 1.5 }} />
+  },
+  {
+    name: 'Interpolation Test',
+    description: 'Interpolation Test',
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/InterpolationTest/glTF/InterpolationTest.gltf'} light offset={{ x: 6, y: 3 }} />
+    )
+  },
+  {
+    name: 'Transmission and Volume Test',
+    description: 'Transmission and Volume Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/ABeautifulGame/glTF/ABeautifulGame.gltf'} light />
   }
 ] as RouteData[]
 
-const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: number; animationClip?: string }) => {
+const GLTF = (props: {
+  root: Entity
+  src: string
+  scale?: number
+  offset?: number | { x?: number; y?: number; z?: number }
+  animationClip?: string
+}) => {
   const { root, src, scale, offset, animationClip } = props
   const gltfEntity = useExampleEntity(root)
   const modelEntity = useExampleEntity(root)
@@ -190,6 +334,11 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
   const modelAnimation = useOptionalComponent(modelEntity, AnimationComponent)
 
   useImmediateEffect(() => {
+    const offsetVec =
+      typeof offset === 'number'
+        ? { x: offset, y: 0, z: 0 }
+        : { x: offset?.x ?? 2, y: offset?.y ?? 0, z: offset?.z ?? 0 }
+
     // use GLTF Loader
     setComponent(gltfEntity, NameComponent, 'GLTF-Loader')
     setComponent(gltfEntity, GLTFComponent, {
@@ -199,8 +348,7 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
     setComponent(gltfEntity, ShadowComponent, { receive: false })
     setVisibleComponent(gltfEntity, true)
     const gltfTransform = getComponent(gltfEntity, TransformComponent)
-    if (offset) gltfTransform.position.set(-offset, 0, 0)
-    else gltfTransform.position.set(-2, 0, 0)
+    gltfTransform.position.set(-offsetVec.x, offsetVec.y, offsetVec.z)
     if (scale) gltfTransform.scale.set(scale, scale, scale)
 
     // use Three JS Loader
@@ -212,8 +360,7 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
     setComponent(modelEntity, ShadowComponent, { receive: false })
     setVisibleComponent(modelEntity, true)
     const modelTransform = getComponent(modelEntity, TransformComponent)
-    if (offset) modelTransform.position.set(offset, 0, 0)
-    else modelTransform.position.set(2, 0, 0)
+    modelTransform.position.set(offsetVec.x, offsetVec.y, offsetVec.z)
     if (scale) modelTransform.scale.set(scale, scale, scale)
   }, [src])
 
@@ -243,7 +390,7 @@ const GLTF = (props: { root: Entity; src: string; scale?: number; offset?: numbe
 export default function GLTFViewer(props: {
   src: string
   scale?: number
-  offset?: number
+  offset?: number | { x?: number; y?: number; z?: number }
   light?: boolean
   animationClip?: string
 }) {
