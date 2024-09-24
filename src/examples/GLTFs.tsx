@@ -314,9 +314,9 @@ export const gltfRoutes = [
     )
   },
   {
-    name: 'Transmission and Volume Test',
-    description: 'Transmission and Volume Test',
-    entry: () => <GLTFViewer src={CDN_URL + '/ABeautifulGame/glTF/ABeautifulGame.gltf'} light />
+    name: 'Sparse Accessor Test',
+    description: 'Sparse Accessor Test',
+    entry: () => <GLTFViewer src={CDN_URL + '/SimpleSparseAccessor/glTF/SimpleSparseAccessor.gltf'} light />
   }
 ] as RouteData[]
 
