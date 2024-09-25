@@ -1,7 +1,7 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
-import { assert, describe, it } from 'vitest'
+import { afterAll, assert, beforeAll, describe, it } from 'vitest'
 
 import { UserID } from '@ir-engine/common/src/schemas/user/user.schema'
 import { NetworkPeer } from '@ir-engine/network'

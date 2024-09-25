@@ -1,5 +1,6 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
+import { afterAll, beforeAll, describe } from 'vitest'
 
 import { setupXR, testWebXR } from '../utils/testWebXR'
 

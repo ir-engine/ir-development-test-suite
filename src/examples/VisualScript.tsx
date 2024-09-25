@@ -1,22 +1,17 @@
 import React from 'react'
 
-import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
-import { VisualScriptComponent } from '@ir-engine/engine'
-import { ActiveVisualScript } from '@ir-engine/ui/src/components/editor/panels/VisualScript/container'
-import { GraphJSON } from '@ir-engine/visual-script'
-import AutoSizer from 'react-virtualized-auto-sizer'
 import 'reactflow/dist/style.css'
-import targetJson from '../../assets/graph/simpleController.json'
-import { Template } from './utils/template'
 
-const entity = createEntity()
-setComponent(entity, VisualScriptComponent, { visualScript: targetJson as unknown as GraphJSON })
+/**
+ * @todo rewrite this
+ */
+// const entity = createEntity()
+// setComponent(entity, VisualScriptComponent, { visualScript: targetJson as unknown as GraphJSON })
 
 export default function VisualScript() {
   return (
     <>
-      <Template />
+      {/* <Template />
       <div
         style={{
           pointerEvents: 'all',
@@ -34,7 +29,7 @@ export default function VisualScript() {
             </div>
           )}
         </AutoSizer>
-      </div>
+      </div> */}
     </>
   )
 }

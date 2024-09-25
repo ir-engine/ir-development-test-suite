@@ -1,6 +1,7 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
+import { afterAll, beforeAll, describe, it } from 'vitest'
 
 const vector3 = new Vector3()
 

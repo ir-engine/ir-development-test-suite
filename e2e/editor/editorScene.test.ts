@@ -1,6 +1,6 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
-import { assert, describe, it } from 'vitest'
+import { afterAll, assert, beforeAll, describe, it } from 'vitest'
 
 import { delay } from '@ir-engine/spatial/src/common/functions/delay'
 
