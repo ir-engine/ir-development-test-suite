@@ -5,11 +5,8 @@
   "description": "Assets and tests for Infinite Reality Engine core development",
   "main": "",
   "scripts": {
-    "quick-test": "mocha --config .mocharc.js --spec 'e2e/dev/*.test.ts'",
     "check-errors": "tsc --noemit",
     "test": "vitest run",
-    "test-e2e": "mocha --config .mocharc.js --spec 'e2e/**/*.test.ts'",
-    "benchmark": "mocha --config .mocharc.js --timeout 3700000 --spec 'e2e/benchmark/basic.test.ts'",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "format-scss": "stylelint \"**/*.scss\" --fix",
     "format-staged": "lint-staged"
