@@ -5,6 +5,7 @@ import React from 'react'
 import '@ir-engine/client/src/engine'
 
 import '@ir-engine/engine/src/EngineModule'
+import { gltfRoutes } from './examples/GLTFs'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
@@ -12,11 +13,8 @@ import ComponentExamplesRoute, { subComponentExamples } from './examples/compone
 import GLTFViewer from './examples/gltfViewer'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
-import MultipleScenesEntry from './examples/multipleScenes'
 import ResourceTrackingRoute from './examples/resourceTracking'
 import Routes, { RouteCategories } from './sceneRoute'
-import { useEngineInjection } from '@ir-engine/client-core/src/components/World/EngineHooks'
-import { gltfRoutes } from './examples/GLTFs'
 
 export const examples: RouteCategories = [
   {

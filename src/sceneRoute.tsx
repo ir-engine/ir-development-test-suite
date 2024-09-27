@@ -100,7 +100,6 @@ const getPathForRoute = (category: string, name: string) => {
   return (category.toLowerCase() + '_' + name.toLocaleLowerCase()).replace(' ', '_')
 }
 
-
 const ExampleRouteState = defineState({
   name: 'ExampleRouteState',
   initial: {
