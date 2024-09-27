@@ -5,6 +5,7 @@ import { getMutableState, getState, useMutableState } from '@ir-engine/hyperflux
 
 import { Engine, EntityUUID, UUIDComponent, createEntity, removeEntity } from '@ir-engine/ecs'
 
+import config from '@ir-engine/common/src/config'
 import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { AmbientLightComponent, DirectionalLightComponent, TransformComponent } from '@ir-engine/spatial'
@@ -18,7 +19,6 @@ import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/Vis
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { AnimationClip, Color, Euler, Quaternion, Vector3 } from 'three'
 import { RouteData } from '../sceneRoute'
-import config from '@ir-engine/common/src/config'
 
 export const metadata = {
   title: 'GLTF',
@@ -55,6 +55,11 @@ export const gltfRoutes = [
     entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Quantized/Duck.gltf'} light />
   },
   {
+    name: 'Sponza',
+    description: 'Sponza',
+    entry: () => <GLTFViewer src={CDN_URL + '/Sponza/glTF/Sponza.gltf'} light />
+  },
+  {
     name: 'Skinning',
     description: 'Animated Fox',
     entry: () => <GLTFViewer src={CDN_URL + '/Fox/glTF/Fox.gltf'} light animationClip={'Run'} scale={0.01} />
@@ -70,7 +75,13 @@ export const gltfRoutes = [
     name: 'Multiple Primitives Morph Targets',
     description: 'Morph Targets For Multiple Primitives ',
     entry: () => (
-      <GLTFViewer src={fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'} light animationClip={'Sphere'} />
+      <GLTFViewer
+        src={
+          fileServer + '/projects/ir-engine/ir-development-test-suite/assets/GLTF/MultiplePrimitivesMorphTargets.glb'
+        }
+        light
+        animationClip={'Sphere'}
+      />
     )
   },
   {
@@ -157,13 +168,17 @@ export const gltfRoutes = [
   {
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
-    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+    entry: () => (
+      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+    )
   },
   {
     name: 'EE_material',
     description: 'Ethereal Engine Material Extension',
     /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
-    entry: () => <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
+    entry: () => (
+      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
+    )
   }
 ] as RouteData[]
 
