@@ -113,12 +113,14 @@ export const gltfRoutes = [
   {
     name: 'KHR_materials_transmission',
     description: 'Khronos Transmission Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/TransmissionTest/glTF/TransmissionTest.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/TransmissionTest/glTF/TransmissionTest.gltf'} light offset={{ y: 0.5 }} />
   },
   {
     name: 'KHR_materials_volume',
     description: 'Khronos Volume Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/AttenuationTest/glTF/AttenuationTest.gltf'} light offset={12} />
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/AttenuationTest/glTF/AttenuationTest.gltf'} light offset={{ x: 12, y: 8 }} />
+    )
   },
   // {
   //   name: 'KHR_materials_ior',
@@ -128,7 +130,7 @@ export const gltfRoutes = [
   {
     name: 'KHR_materials_specular',
     description: 'Khronos Specular Material Extension',
-    entry: () => <GLTFViewer src={CDN_URL + '/SpecularTest/glTF/SpecularTest.gltf'} light />
+    entry: () => <GLTFViewer src={CDN_URL + '/SpecularTest/glTF/SpecularTest.gltf'} light offset={{ x: 1, y: 0.5 }} />
   },
   // {
   //   name: 'EXT_materials_bump',
