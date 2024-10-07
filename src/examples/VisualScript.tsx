@@ -2,10 +2,9 @@ import React from 'react'
 
 import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
 import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+import { ActiveVisualScript } from '@ir-engine/editor/src/panels/visualscript/container'
 import { VisualScriptComponent } from '@ir-engine/engine'
-import { ActiveVisualScript } from '@ir-engine/ui/src/components/editor/panels/VisualScript/container'
 import { GraphJSON } from '@ir-engine/visual-script'
-import AutoSizer from 'react-virtualized-auto-sizer'
 import 'reactflow/dist/style.css'
 import targetJson from '../../assets/graph/simpleController.json'
 import { Template } from './utils/template'
@@ -27,13 +26,7 @@ export default function VisualScript() {
           height: '100%'
         }}
       >
-        <AutoSizer>
-          {({ width, height }) => (
-            <div style={{ width, height }}>
-              <ActiveVisualScript entity={entity} />
-            </div>
-          )}
-        </AutoSizer>
+        <ActiveVisualScript entity={entity} />
       </div>
     </>
   )
