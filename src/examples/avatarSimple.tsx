@@ -1,8 +1,9 @@
-import { dispatchAction, getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
 import { GLTF } from '@gltf-transform/core'
+import { dispatchAction, getMutableState, getState, useHookstate } from '@ir-engine/hyperflux'
 import { useEffect } from 'react'
 import { Cache, Color, Euler, Quaternion } from 'three'
 
+import { useFind } from '@ir-engine/common'
 import { AvatarID, avatarPath } from '@ir-engine/common/src/schema.type.module'
 import {
   Engine,
@@ -25,7 +26,6 @@ import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRenderer
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
-import { useFind } from '@ir-engine/common'
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -51,7 +51,7 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
 export default function AvatarSimpleEntry() {
   const entity = useHookstate(UndefinedEntity)
   const gltfComponent = useOptionalComponent(entity.value, GLTFComponent)
-  const avatars =  useFind(avatarPath)
+  const avatars = useFind(avatarPath)
 
   useEffect(() => {
     const lightEntity = createEntity()
@@ -91,7 +91,7 @@ export default function AvatarSimpleEntry() {
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID,
-        avatarURL: avatars.data.find(avatar => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
+        avatarURL: avatars.data.find((avatar) => avatar.modelResource?.key.endsWith('.vrm'))!.id as AvatarID,
         entityUUID: (entityUUID + '_avatar') as EntityUUID,
         name: 'avatar'
       })

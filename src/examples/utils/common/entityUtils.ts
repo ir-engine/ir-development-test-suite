@@ -1,13 +1,4 @@
-import {
-  Entity,
-  UUIDComponent,
-  createEntity,
-  generateEntityUUID,
-  getComponent,
-  removeEntity,
-  setComponent
-} from '@ir-engine/ecs'
-import { SourceComponent } from '@ir-engine/engine/src/scene/components/SourceComponent'
+import { Entity, UUIDComponent, createEntity, generateEntityUUID, removeEntity, setComponent } from '@ir-engine/ecs'
 import { useHookstate } from '@ir-engine/hyperflux'
 import { TransformComponent } from '@ir-engine/spatial'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'

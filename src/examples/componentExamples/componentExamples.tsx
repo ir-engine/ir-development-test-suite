@@ -11,6 +11,7 @@ import {
   useOptionalComponent
 } from '@ir-engine/ecs'
 import { LoopAnimationComponent } from '@ir-engine/engine/src/avatar/components/LoopAnimationComponent'
+import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import {
   InteractableComponent,
   XRUIVisibilityOverride
@@ -18,7 +19,6 @@ import {
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { LinkComponent } from '@ir-engine/engine/src/scene/components/LinkComponent'
 import { MediaComponent } from '@ir-engine/engine/src/scene/components/MediaComponent'
-import { ModelComponent } from '@ir-engine/engine/src/scene/components/ModelComponent'
 import { ParticleSystemComponent } from '@ir-engine/engine/src/scene/components/ParticleSystemComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { SDFComponent } from '@ir-engine/engine/src/scene/components/SDFComponent'
@@ -39,13 +39,12 @@ import { ObjectLayerMasks } from '@ir-engine/spatial/src/renderer/constants/Obje
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { createXRUI } from '@ir-engine/spatial/src/xrui/functions/createXRUI'
 import React, { useEffect } from 'react'
-import { AnimationClip, MathUtils } from 'three'
+import { MathUtils } from 'three'
 import { useAvatars } from '../../engine/TestUtils'
 import { useRouteScene } from '../../sceneRoute'
 import { useExampleEntity } from '../utils/common/entityUtils'
 import { EntityComponent } from '../utils/entityComponent'
 import ComponentNamesUI from './ComponentNamesUI'
-import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 
 export const metadata = {
   title: 'Components Examples',

@@ -19,10 +19,10 @@ import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/C
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { RendererState } from '@ir-engine/spatial/src/renderer/RendererState'
+import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { EntityTreeComponent } from '@ir-engine/spatial/src/transform/components/EntityTree'
 import { Color, Euler, Quaternion, Vector3 } from 'three'
-import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 export const metadata = {
   title: 'GLTF',
   description: ''
@@ -36,7 +36,6 @@ const defaultSource = config.client.fileServer + '/projects/default-project/asse
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/embedded/Duck.gltf'
 // const defaultSource = config.client.fileServer + '/projects/ee-development-test-suite/assets/GLTF/Duck/quantized/Duck.gltf'
 // const defaultSource = 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/UnlitTest/glTF-Binary/UnlitTest.glb'
-
 
 const GLTF = () => {
   const filenames = useHookstate<string[]>([])

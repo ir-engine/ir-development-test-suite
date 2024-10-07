@@ -55,6 +55,11 @@ export const gltfRoutes = [
     entry: () => <GLTFViewer src={CDN_URL + '/Duck/glTF-Quantized/Duck.gltf'} light />
   },
   {
+    name: 'Sponza',
+    description: 'Sponza',
+    entry: () => <GLTFViewer src={CDN_URL + '/Sponza/glTF/Sponza.gltf'} light />
+  },
+  {
     name: 'Skinning',
     description: 'Animated Fox',
     entry: () => <GLTFViewer src={CDN_URL + '/Fox/glTF/Fox.gltf'} light animationClip={'Run'} scale={0.01} />
