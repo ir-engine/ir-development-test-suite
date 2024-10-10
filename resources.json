@@ -323,7 +323,7 @@
     "dependencies": []
   },
   "public/scenes/animations-test.scene.json": {
-    "type": "asset",
+    "type": "scene",
     "tags": [],
     "dependencies": []
   },
@@ -370,7 +370,7 @@
     "dependencies": []
   },
   "public/scenes/bpcem-envmap-bake-test.scene.json": {
-    "type": "asset",
+    "type": "scene",
     "tags": [],
     "dependencies": []
   },
@@ -408,7 +408,7 @@
     "dependencies": []
   },
   "public/scenes/test.scene.json": {
-    "type": "asset",
+    "type": "scene",
     "tags": [],
     "dependencies": []
   },
