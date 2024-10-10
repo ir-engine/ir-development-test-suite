@@ -1,21 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
-import { createEntity } from '@ir-engine/ecs/src/EntityFunctions'
+// import { setComponent } from '@ir-engine/ecs/src/ComponentFunctions'
+import { createEntity, removeEntity } from '@ir-engine/ecs/src/EntityFunctions'
 import { ActiveVisualScript } from '@ir-engine/editor/src/panels/visualscript/container'
-import { VisualScriptComponent } from '@ir-engine/engine'
-import { GraphJSON } from '@ir-engine/visual-script'
+// import { VisualScriptComponent } from '@ir-engine/engine'
+import { useHookstate } from '@ir-engine/hyperflux'
+// import { GraphJSON } from '@ir-engine/visual-script'
 import 'reactflow/dist/style.css'
-import targetJson from '../../assets/graph/simpleController.json'
-import { Template } from './utils/template'
-
-const entity = createEntity()
-setComponent(entity, VisualScriptComponent, { visualScript: targetJson as unknown as GraphJSON })
 
 export default function VisualScript() {
+  const entity = useHookstate(() => {
+    const entity = createEntity()
+    // setComponent(entity, VisualScriptComponent, { visualScript: targetJson as unknown as GraphJSON })
+    return entity
+  }).value
+
+  useEffect(() => {
+    return () => {
+      removeEntity(entity)
+    }
+  }, [])
   return (
     <>
-      <Template />
+      {/* <Template /> */}
       <div
         style={{
           pointerEvents: 'all',

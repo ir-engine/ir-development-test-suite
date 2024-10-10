@@ -1,7 +1,7 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
-import assert from 'assert'
 import { Vector3 } from 'three'
+import { afterAll, assert, beforeAll, describe, it } from 'vitest'
 
 import { UserID } from '@ir-engine/common/src/schemas/user/user.schema'
 import { NetworkPeer } from '@ir-engine/network'
@@ -15,13 +15,13 @@ const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
   const bot = new IREngineBot({ name: 'bot', verbose: true })
-  before(async () => {
+  beforeAll(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationReady)
   })
 
-  after(async () => {
+  afterAll(async () => {
     await bot.quit()
   })
 
@@ -43,7 +43,7 @@ describe('Multi-Bot Tests', () => {
     return bot
   }
 
-  after(async () => {
+  afterAll(async () => {
     for (const bot of bots) {
       await bot.quit()
     }
