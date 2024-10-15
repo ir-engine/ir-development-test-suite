@@ -21,7 +21,7 @@ import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { defineState, getMutableState, hookstate, useHookstate, useMutableState } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -204,12 +204,17 @@ const execute = () => {
   }
 }
 
-const reactor = () => {
-  const enabled = useHookstate(exampleActive).value
+export const BallResetSystem = defineSystem({
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute
+})
+
+const MultipleScenesReactor = () => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
-    if (!viewerEntity || !enabled) return
+    if (!viewerEntity) return
 
     const lightEntity = createEntity()
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(-4, -0.5, 0)) })
@@ -228,7 +233,7 @@ const reactor = () => {
     return () => {
       removeEntity(lightEntity)
     }
-  }, [viewerEntity, enabled])
+  }, [viewerEntity])
 
   const coordsState = useHookstate(() => {
     const coords = [] as Vector3[]
@@ -240,7 +245,7 @@ const reactor = () => {
     return coords
   })
 
-  if (!viewerEntity || !enabled) return null
+  if (!viewerEntity) return null
 
   return (
     <>
@@ -250,15 +255,6 @@ const reactor = () => {
     </>
   )
 }
-
-export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
-  insert: { before: PhysicsPreTransformSystem },
-  execute,
-  reactor
-})
-
-const exampleActive = hookstate(false)
 
 const gridCount = 3
 const gridSpacing = 10
@@ -276,17 +272,11 @@ export default function MultipleScenesEntry() {
   useNetwork({ online: false })
   useLoadEngineWithScene()
 
-  useEffect(() => {
-    exampleActive.set(true)
-    return () => {
-      exampleActive.set(false)
-    }
-  }, [])
-
   const transformState = useMutableState(MultipleSceneTransformState)
 
   return (
     <>
+      <MultipleScenesReactor />
       <div className="flex-grid pointer-events-auto absolute right-0 flex w-fit flex-col justify-start gap-1.5">
         <Transform transformState={transformState} />
       </div>

@@ -13,6 +13,7 @@ import ComponentExamplesRoute, { subComponentExamples } from './examples/compone
 import GLTFViewer from './examples/gltfViewer'
 import ImmersiveAR from './examples/immersiveAR'
 import ImmersiveVR from './examples/immersiveVR'
+import MultipleScenesEntry from './examples/multipleScenes'
 import ResourceTrackingRoute from './examples/resourceTracking'
 import Routes, { RouteCategories } from './sceneRoute'
 
@@ -70,12 +71,11 @@ export const examples: RouteCategories = [
         description: 'Drag and drop GLTF files',
         entry: GLTFViewer
       },
-      /**@todo why is this always loading? */
-      // {
-      //   name: 'Multiple',
-      //   description: 'multiple scenes example',
-      //   entry: MultipleScenesEntry
-      // },
+      {
+        name: 'Multiple',
+        description: 'multiple scenes example',
+        entry: MultipleScenesEntry
+      },
       {
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
