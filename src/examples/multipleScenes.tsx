@@ -21,7 +21,7 @@ import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
-import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
+import { defineState, getMutableState, hookstate, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -206,10 +206,11 @@ const execute = () => {
 }
 
 const reactor = () => {
+  const enabled = useHookstate(exampleActive).value
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
 
   useEffect(() => {
-    if (!viewerEntity) return
+    if (!viewerEntity || !enabled) return
 
     const lightEntity = createEntity()
     setComponent(lightEntity, TransformComponent, { rotation: new Quaternion().setFromEuler(new Euler(-4, -0.5, 0)) })
@@ -228,7 +229,7 @@ const reactor = () => {
     return () => {
       removeEntity(lightEntity)
     }
-  }, [viewerEntity])
+  }, [viewerEntity, enabled])
 
   const coordsState = useHookstate(() => {
     const coords = [] as Vector3[]
@@ -240,7 +241,7 @@ const reactor = () => {
     return coords
   })
 
-  if (!viewerEntity) return null
+  if (!viewerEntity || !enabled) return null
 
   return (
     <>
@@ -258,6 +259,8 @@ export const BallResetSystem = defineSystem({
   reactor
 })
 
+const exampleActive = hookstate(false)
+
 const gridCount = 3
 const gridSpacing = 10
 
@@ -273,6 +276,13 @@ const MultipleSceneTransformState = defineState({
 export default function MultipleScenesEntry() {
   useNetwork({ online: false })
   useLoadEngineWithScene()
+
+  useEffect(() => {
+    exampleActive.set(true)
+    return () => {
+      exampleActive.set(false)
+    }
+  }, [])
 
   const transformState = useMutableState(MultipleSceneTransformState)
 

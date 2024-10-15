@@ -1,6 +1,6 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
-import assert from 'assert'
+import { afterAll, assert, beforeAll, describe, it } from 'vitest'
 
 import { delay } from '@ir-engine/spatial/src/common/functions/delay'
 
@@ -9,11 +9,11 @@ const editorUrl = `https://${domain}/editor`
 
 describe('Editor Scene Tests', () => {
   const bot = new IREngineBot({ name: 'bot', verbose: true, headless: false })
-  before(async () => {
+  beforeAll(async () => {
     await bot.launchBrowser()
   })
 
-  after(async () => {
+  afterAll(async () => {
     await bot.quit()
   })
 

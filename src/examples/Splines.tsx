@@ -25,19 +25,19 @@ const createSpline = (index = 0) => {
     elements: [
       {
         position: new Vector3(0, index * 5, 0),
-        quaternion: new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), 0)
+        rotation: new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), 0)
       },
       {
         position: new Vector3(10, index * 5, 0),
-        quaternion: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Math.PI / 2)
+        rotation: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Math.PI / 2)
       },
       {
         position: new Vector3(10, index * 5, 10),
-        quaternion: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Math.PI)
+        rotation: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), Math.PI)
       },
       {
         position: new Vector3(0, index * 5, 10),
-        quaternion: new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), Math.PI * 1.5)
+        rotation: new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), Math.PI * 1.5)
       }
     ]
   })
