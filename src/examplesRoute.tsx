@@ -90,6 +90,16 @@ export const examples: RouteCategories = [
     routes: gltfRoutes
   },
   {
+    category: 'Physics',
+    routes: [
+      // {
+      //   name: 'Dynamic objects',
+      //   description: 'Dynamic objects example',
+      //   entry: PhysicsDynamicObjects
+      // }
+    ]
+  },
+  {
     category: 'Render',
     routes: [
       {

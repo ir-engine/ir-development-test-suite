@@ -44,7 +44,8 @@ import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
-const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+export const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+
 let physicsEntityCount = 0
 export const createPhysicsEntity = (sceneEntity: Entity) => {
   const entity = createEntity()
