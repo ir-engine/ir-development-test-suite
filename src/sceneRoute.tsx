@@ -112,6 +112,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   const { routeCategories, header } = props
   const currentRoute = useMutableState(SearchParamState).example.value
   const categoriesShown = useHookstate({} as Record<string, boolean>)
+
   const hidden = useMutableState(ExampleRouteState).hidden
 
   useEffect(() => {
