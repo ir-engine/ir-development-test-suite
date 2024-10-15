@@ -6,6 +6,8 @@ import '@ir-engine/client/src/engine'
 
 import '@ir-engine/engine/src/EngineModule'
 import { gltfRoutes } from './examples/GLTFs'
+import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
+import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
@@ -86,6 +88,21 @@ export const examples: RouteCategories = [
   {
     category: 'GLTF',
     routes: gltfRoutes
+  },
+  {
+    category: 'Render',
+    routes: [
+      {
+        name: 'Multiple Canvases with different scenes',
+        description: 'Loads different scenes in different canvases',
+        entry: MultipleCanvasScenes
+      },
+      {
+        name: 'Multiple Canvases with different cameras',
+        description: 'View the same scene from different cameras',
+        entry: MultipleCanvasCameras
+      }
+    ]
   }
 ]
 
