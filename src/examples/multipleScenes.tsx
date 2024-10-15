@@ -81,6 +81,33 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
   return entity
 }
 
+const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
+
+const execute = () => {
+  for (const entity of testSuiteBallTagQuery()) {
+    const rigidbody = getComponent(entity, RigidBodyComponent)
+    const transform = getComponent(entity, TransformComponent)
+    if (rigidbody.position.y < -10) {
+      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    }
+
+    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
+
+    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
+    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
+    if (!materialInstance) continue
+    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
+    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
+    material.color.set(isPointerOver ? 'red' : 'white')
+  }
+}
+
+export const BallResetSystem = defineSystem({
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute
+})
+
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
   asset: {
@@ -101,6 +128,10 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
         },
         EE_collider: {
           shape: 'box'
+        },
+        EE_shadow: {
+          cast: true,
+          receive: true
         },
         EE_primitive_geometry: {
           geometryType: 0,
@@ -185,33 +216,6 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
   return null
 }
-
-const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
-
-const execute = () => {
-  for (const entity of testSuiteBallTagQuery()) {
-    const rigidbody = getComponent(entity, RigidBodyComponent)
-    const transform = getComponent(entity, TransformComponent)
-    if (rigidbody.position.y < -10) {
-      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-    }
-
-    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
-
-    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
-    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
-    if (!materialInstance) continue
-    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
-    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
-    material.color.set(isPointerOver ? 'red' : 'white')
-  }
-}
-
-export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
-  insert: { before: PhysicsPreTransformSystem },
-  execute
-})
 
 const MultipleScenesReactor = () => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
