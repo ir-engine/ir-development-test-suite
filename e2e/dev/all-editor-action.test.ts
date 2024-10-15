@@ -1,6 +1,7 @@
 import { IREngineBot } from '@ir-engine/ir-bot/src/bot/bot-class'
 import { BotHooks } from '@ir-engine/ir-bot/src/enums/BotHooks'
 import { Vector3 } from 'three'
+import { afterAll, beforeAll, describe, it } from 'vitest'
 
 const vector3 = new Vector3()
 
@@ -11,14 +12,14 @@ const sqrt2 = Math.sqrt(2)
 
 describe('My Bot Tests', () => {
   const bot = new IREngineBot({ name: 'bot', headless: false, verbose: true })
-  before(async () => {
+  beforeAll(async () => {
     await bot.launchBrowser()
     await bot.enterLocation(`https://${domain}/location/${locationName}`)
     await bot.awaitHookPromise(BotHooks.LocationReady)
     await bot.clickAllButtons()
   })
 
-  after(async () => {
+  afterAll(async () => {
     await bot.quit()
   })
 
