@@ -32,7 +32,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
     const userId = ('user' + i) as UserID & PeerID
     const index = (1000 + i) as NetworkId
     const column = i * 2
-    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
+    NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId)
     dispatchAction(
       AvatarNetworkAction.spawn({
         parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
@@ -50,7 +50,7 @@ export const mockNetworkAvatars = (avatarList: AvatarType[]) => {
 export const loadNetworkAvatar = (avatar: AvatarType | string, i: number, u = 'user', x = 0) => {
   const userId = (u + i) as UserID & PeerID
   const index = (1000 + i) as NetworkId
-  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId, index)
+  NetworkPeerFunctions.createPeer(NetworkState.worldNetwork as Network, userId, index, userId)
   dispatchAction(
     AvatarNetworkAction.spawn({
       parentUUID: getComponent(Engine.instance.originEntity, UUIDComponent),
