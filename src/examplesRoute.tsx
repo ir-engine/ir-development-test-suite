@@ -8,6 +8,7 @@ import '@ir-engine/engine/src/EngineModule'
 import { gltfRoutes } from './examples/GLTFs'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
 import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
+import PhysicsDynamicObjects from './examples/PhysicsDynamicObjects'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarSimpleEntry from './examples/avatarSimple'
 import AvatarTestEntry from './examples/avatarTest'
@@ -92,11 +93,12 @@ export const examples: RouteCategories = [
   {
     category: 'Physics',
     routes: [
-      // {
-      //   name: 'Dynamic objects',
-      //   description: 'Dynamic objects example',
-      //   entry: PhysicsDynamicObjects
-      // }
+      {
+        name: 'Dynamic objects',
+        description: 'Dynamic objects example',
+        entry: PhysicsDynamicObjects,
+        spawnAvatar: true
+      }
     ]
   },
   {
