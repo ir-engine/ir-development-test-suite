@@ -20,6 +20,7 @@ import {
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
 import { GLTFAssetState, GLTFSourceState } from '@ir-engine/engine/src/gltf/GLTFState'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
+import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { GeometryTypeEnum } from '@ir-engine/engine/src/scene/constants/GeometryTypeEnum'
 import { defineState, getMutableState, useHookstate, useMutableState } from '@ir-engine/hyperflux'
 import { DirectionalLightComponent, PhysicsPreTransformSystem, TransformComponent } from '@ir-engine/spatial'
@@ -44,7 +45,8 @@ import React, { useEffect } from 'react'
 import { Cache, Color, Euler, MathUtils, Matrix4, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
 import { Transform } from './utils/transform'
 
-const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+export const TestSuiteBallTagComponent = defineComponent({ name: 'TestSuiteBallTagComponent' })
+
 let physicsEntityCount = 0
 export const createPhysicsEntity = (sceneEntity: Entity) => {
   const entity = createEntity()
@@ -74,9 +76,37 @@ export const createPhysicsEntity = (sceneEntity: Entity) => {
     geometryType: GeometryTypeEnum.SphereGeometry
   })
   setComponent(colliderEntity, InputComponent)
+  setComponent(colliderEntity, ShadowComponent)
 
   return entity
 }
+
+const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
+
+const execute = () => {
+  for (const entity of testSuiteBallTagQuery()) {
+    const rigidbody = getComponent(entity, RigidBodyComponent)
+    const transform = getComponent(entity, TransformComponent)
+    if (rigidbody.position.y < -10) {
+      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
+    }
+
+    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
+
+    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
+    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
+    if (!materialInstance) continue
+    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
+    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
+    material.color.set(isPointerOver ? 'red' : 'white')
+  }
+}
+
+export const BallResetSystem = defineSystem({
+  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
+  insert: { before: PhysicsPreTransformSystem },
+  execute
+})
 
 // create scene with a rigidbody loaded offset from the origin
 const createSceneGLTF = (id: string): GLTF.IGLTF => ({
@@ -98,6 +128,10 @@ const createSceneGLTF = (id: string): GLTF.IGLTF => ({
         },
         EE_collider: {
           shape: 'box'
+        },
+        EE_shadow: {
+          cast: true,
+          receive: true
         },
         EE_primitive_geometry: {
           geometryType: 0,
@@ -182,33 +216,6 @@ const SceneReactor = (props: { coord: Vector3 }) => {
 
   return null
 }
-
-const testSuiteBallTagQuery = defineQuery([TestSuiteBallTagComponent])
-
-const execute = () => {
-  for (const entity of testSuiteBallTagQuery()) {
-    const rigidbody = getComponent(entity, RigidBodyComponent)
-    const transform = getComponent(entity, TransformComponent)
-    if (rigidbody.position.y < -10) {
-      transform.position.set(Math.random() * 10 - 5, Math.random() * 2 + 2, Math.random() * 10 - 5)
-    }
-
-    const colliderEntity = getComponent(entity, EntityTreeComponent).children[0]
-
-    const isPointerOver = getComponent(colliderEntity, InputComponent).inputSources.length > 0
-    const materialInstance = getOptionalComponent(colliderEntity, MaterialInstanceComponent)
-    if (!materialInstance) continue
-    const materialEntity = UUIDComponent.getEntityByUUID(materialInstance.uuid[0])
-    const material = getComponent(materialEntity, MaterialStateComponent).material as MeshLambertMaterial
-    material.color.set(isPointerOver ? 'red' : 'white')
-  }
-}
-
-export const BallResetSystem = defineSystem({
-  uuid: 'ir-development-test-suite.multiplescenes.ball-reset-system',
-  insert: { before: PhysicsPreTransformSystem },
-  execute
-})
 
 const MultipleScenesReactor = () => {
   const viewerEntity = useMutableState(EngineState).viewerEntity.value
