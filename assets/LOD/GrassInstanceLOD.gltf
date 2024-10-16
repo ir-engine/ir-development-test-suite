@@ -1,0 +1,207 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "iR Engine"
+  },
+  "scenes": [
+    {
+      "nodes": [0, 1, 2, 3]
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "Var1",
+      "extensions": {
+        "EE_uuid": "4ce3b551-7a77-47b4-81dd-8c94408fc310",
+        "EE_variant": {
+          "levels": [
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD0_Var1.gltf",
+              "metadata": {
+                "minDistance": 0,
+                "maxDistance": 15
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD1_Var1.gltf",
+              "metadata": {
+                "minDistance": 15,
+                "maxDistance": 25
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD2_Var1.gltf",
+              "metadata": {
+                "minDistance": 25,
+                "maxDistance": 50
+              }
+            }
+          ],
+          "heuristic": "DISTANCE",
+          "useDistance": false,
+          "currentLevel": 0,
+          "budgetLevel": 0
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "None",
+          "envMapTextureType": "Equirectangular",
+          "envMapSourceColor": 4095,
+          "envMapSourceURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1,
+          "envmap": null
+        }
+      }
+    },
+    {
+      "name": "Var2",
+      "extensions": {
+        "EE_uuid": "1d79f80a-1418-4c10-9474-981050869928",
+        "EE_variant": {
+          "levels": [
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD0_Var2.gltf",
+              "metadata": {
+                "minDistance": 0,
+                "maxDistance": 15
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD1_Var2.gltf",
+              "metadata": {
+                "minDistance": 15,
+                "maxDistance": 25
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD2_Var2.gltf",
+              "metadata": {
+                "minDistance": 25,
+                "maxDistance": 50
+              }
+            }
+          ],
+          "heuristic": "DISTANCE",
+          "useDistance": false,
+          "currentLevel": 0,
+          "budgetLevel": 0
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "None",
+          "envMapTextureType": "Equirectangular",
+          "envMapSourceColor": 4095,
+          "envMapSourceURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1,
+          "envmap": null
+        }
+      }
+    },
+    {
+      "name": "Var3",
+      "extensions": {
+        "EE_uuid": "7c7f9586-7838-4892-a55a-f36773a092cf",
+        "EE_variant": {
+          "levels": [
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD0_Var3.gltf",
+              "metadata": {
+                "minDistance": 0,
+                "maxDistance": 12
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD1_Var3.gltf",
+              "metadata": {
+                "minDistance": 12,
+                "maxDistance": 24
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD2_Var3.gltf",
+              "metadata": {
+                "minDistance": 24,
+                "maxDistance": 50
+              }
+            }
+          ],
+          "heuristic": "DISTANCE",
+          "useDistance": false,
+          "currentLevel": 0,
+          "budgetLevel": 0
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "None",
+          "envMapTextureType": "Equirectangular",
+          "envMapSourceColor": 4095,
+          "envMapSourceURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1,
+          "envmap": null
+        }
+      }
+    },
+    {
+      "name": "Var5",
+      "extensions": {
+        "EE_uuid": "57319203-2ade-47d9-981d-797669a7e41a",
+        "EE_variant": {
+          "levels": [
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD0_Var5.gltf",
+              "metadata": {
+                "minDistance": 0,
+                "maxDistance": 10
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD1_Var5.gltf",
+              "metadata": {
+                "minDistance": 10,
+                "maxDistance": 30
+              }
+            },
+            {
+              "src": "__$project$__/ir-engine/ir-development-test-suite/assets/LOD/grass/TundraGrass_LOD2_Var5.gltf",
+              "metadata": {
+                "minDistance": 30,
+                "maxDistance": 50
+              }
+            }
+          ],
+          "heuristic": "DISTANCE",
+          "useDistance": false,
+          "currentLevel": 0,
+          "budgetLevel": 0
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "None",
+          "envMapTextureType": "Equirectangular",
+          "envMapSourceColor": 4095,
+          "envMapSourceURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1,
+          "envmap": null
+        }
+      }
+    }
+  ],
+  "extensionsUsed": ["EE_uuid", "EE_variant", "EE_instancing", "EE_shadow", "EE_envmap"]
+}

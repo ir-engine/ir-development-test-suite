@@ -5,6 +5,7 @@ import React from 'react'
 import '@ir-engine/client/src/engine'
 
 import '@ir-engine/engine/src/EngineModule'
+import InstancedLODs from './examples/InstancedLODs'
 import AvatarMocapEntry from './examples/avatarMocap'
 import AvatarTestEntry from './examples/avatarTest'
 import ComponentExamplesRoute, { subComponentExamples } from './examples/componentExamples/componentExamples'
@@ -73,6 +74,11 @@ export const examples: RouteCategories = [
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
         entry: ResourceTrackingRoute
+      },
+      {
+        name: 'Instanced LODs',
+        description: 'Instanced LODs example',
+        entry: InstancedLODs
       }
     ]
   }
