@@ -11,7 +11,7 @@ import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanva
 import '@ir-engine/client-core/src/world/LocationModule'
 import { useFind } from '@ir-engine/common'
 import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
-import { Entity, getComponent, setComponent } from '@ir-engine/ecs'
+import { UndefinedEntity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
@@ -76,7 +76,7 @@ export const useRouteScene = (
   const assetQuery = useFind(staticResourcePath, { query: { key: sceneKey, type: 'scene' } })
 
   const gltfState = useMutableState(GLTFAssetState)
-  const sceneEntity = useHookstate<undefined | Entity>(undefined)
+  const sceneEntity = useHookstate(UndefinedEntity)
 
   useEffect(() => {
     if (!assetQuery.data[0]) return
@@ -107,6 +107,7 @@ const ExampleRouteState = defineState({
   },
   extension: syncStateWithLocalStorage(['hidden'])
 })
+
 const Routes = (props: { routeCategories: RouteCategories; header: string }) => {
   const { routeCategories, header } = props
   const currentRoute = useMutableState(SearchParamState).example.value
