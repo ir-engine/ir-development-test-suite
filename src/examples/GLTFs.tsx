@@ -179,7 +179,7 @@ export const gltfRoutes = [
     name: 'MOZ_lightmap',
     description: 'Mozilla Lightmap Extension',
     entry: () => (
-      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
+      <GLTFViewer src={fileServer + '/projects/ir-development-test-suite/assets/GLTF/lightmaptest.glb'} light />
     )
   },
   {
@@ -187,7 +187,7 @@ export const gltfRoutes = [
     description: 'Ethereal Engine Material Extension',
     /** @todo currently relies on eepro advanced materials project - replace asset with one that has base custom material */
     entry: () => (
-      <GLTFViewer src={fileServer + '/projects/ee-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
+      <GLTFViewer src={fileServer + '/projects/ir-development-test-suite/assets/GLTF/double-mat-test.glb'} light />
     )
   },
   {
