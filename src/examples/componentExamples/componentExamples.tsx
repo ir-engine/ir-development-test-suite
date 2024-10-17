@@ -310,7 +310,7 @@ export const subComponentExamples = [
       useEffect(() => {
         setComponent(entity, NameComponent, 'Animation-Example')
         setComponent(entity, GLTFComponent, {
-          src: config.client.fileServer + '/projects/ir-development-test-suite/assets/animations/rings.glb'
+          src: config.client.fileServer + '/projects/ir-engine/ir-development-test-suite/assets/animations/rings.glb'
         })
         setVisibleComponent(entity, true)
         setComponent(entity, LoopAnimationComponent, { activeClipIndex: 0 })
