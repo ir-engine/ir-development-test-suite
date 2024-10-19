@@ -9,14 +9,14 @@ import { useLoadEngineWithScene, useNetwork } from '@ir-engine/client-core/src/c
 import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLocationScene'
 import { useEngineCanvas } from '@ir-engine/client-core/src/hooks/useEngineCanvas'
 import '@ir-engine/client-core/src/world/LocationModule'
-import { useFind } from '@ir-engine/common'
-import { staticResourcePath } from '@ir-engine/common/src/schema.type.module'
 import { UndefinedEntity, getComponent, setComponent } from '@ir-engine/ecs'
 import '@ir-engine/engine/src/EngineModule'
+import { DomainConfigState } from '@ir-engine/engine/src/assets/state/DomainConfigState'
 import { GLTFAssetState } from '@ir-engine/engine/src/gltf/GLTFState'
 import {
   defineState,
   getMutableState,
+  getState,
   none,
   syncStateWithLocalStorage,
   useHookstate,
@@ -71,19 +71,16 @@ export const useRouteScene = (
   useLoadScene({ projectName: projectName, sceneName: sceneName })
   useNetwork({ online: false })
   useLoadEngineWithScene()
-  const sceneKey = `projects/${projectName}/${sceneName}`
-  const assetQuery = useFind(staticResourcePath, { query: { key: sceneKey, type: 'scene' } })
 
   const gltfState = useMutableState(GLTFAssetState)
   const sceneEntity = useHookstate(UndefinedEntity)
 
   useEffect(() => {
-    if (!assetQuery.data[0]) return
-    const sceneURL = assetQuery.data[0].url
-    if (!gltfState[sceneURL].value) return
-    const entity = gltfState[sceneURL].value
+    const url = getState(DomainConfigState).cloudDomain + `/projects/${projectName}/${sceneName}`
+    if (!gltfState[url].value) return
+    const entity = gltfState[url].value
     if (entity) sceneEntity.set(entity)
-  }, [assetQuery.data, gltfState])
+  }, [projectName, sceneName, gltfState])
 
   useImmediateEffect(() => {
     if (!viewerEntity) return
