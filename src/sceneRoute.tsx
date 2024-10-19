@@ -21,8 +21,7 @@ import {
   syncStateWithLocalStorage,
   useHookstate,
   useImmediateEffect,
-  useMutableState,
-  useReactiveRef
+  useMutableState
 } from '@ir-engine/hyperflux'
 import { EngineState } from '@ir-engine/spatial/src/EngineState'
 import { CameraComponent } from '@ir-engine/spatial/src/camera/components/CameraComponent'
@@ -122,7 +121,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
     }
   }, [])
 
-  const [ref, setRef] = useReactiveRef<HTMLDivElement>()
+  const ref = React.useRef<HTMLDivElement>(null)
 
   useEngineCanvas(ref)
 
@@ -209,7 +208,7 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
             })}
           </div>
         </div>
-        <div id="examples-panel" ref={setRef} style={{ flexGrow: 1, pointerEvents: 'none' }} />
+        <div id="examples-panel" ref={ref} style={{ flexGrow: 1, pointerEvents: 'none' }} />
         {viewerEntity && Entry && <Entry />}
       </div>
       <Debug />

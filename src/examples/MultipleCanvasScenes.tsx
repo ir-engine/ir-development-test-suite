@@ -17,7 +17,7 @@ import { CameraComponent } from '@ir-engine/spatial/src/camera/components/Camera
 import { CameraOrbitComponent } from '@ir-engine/spatial/src/camera/components/CameraOrbitComponent'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
-import { RendererComponent, initializeEngineRenderer } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
+import { RendererComponent } from '@ir-engine/spatial/src/renderer/WebGLRendererSystem'
 import { SceneComponent } from '@ir-engine/spatial/src/renderer/components/SceneComponents'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import {
@@ -83,7 +83,6 @@ const useScene = (canvas: React.MutableRefObject<HTMLCanvasElement>) => {
       canvas: canvasRef.value as HTMLCanvasElement,
       scenes: [sceneEntity]
     })
-    initializeEngineRenderer(cameraEntity)
   }, [canvas.current])
 
   return panelState.value
