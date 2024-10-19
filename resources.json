@@ -308,21 +308,21 @@
     "dependencies": []
   },
   "assets/LOD/grass/Albedo_4K__wk2oaeyqx.jpg": {
-    "type": "file",
+    "type": "asset",
     "tags": [
       "Image"
     ],
     "dependencies": []
   },
   "assets/LOD/grass/Normal_4K__wk2oaeyqx.jpg": {
-    "type": "file",
+    "type": "asset",
     "tags": [
       "Image"
     ],
     "dependencies": []
   },
   "assets/LOD/grass/Roughness_4K__wk2oaeyqx.jpg": {
-    "type": "file",
+    "type": "asset",
     "tags": [
       "Image"
     ],
