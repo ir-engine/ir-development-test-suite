@@ -329,7 +329,9 @@ export const gltfRoutes = [
   {
     name: 'Sparse Accessor Test',
     description: 'Sparse Accessor Test',
-    entry: () => <GLTFViewer src={CDN_URL + '/SimpleSparseAccessor/glTF/SimpleSparseAccessor.gltf'} light />
+    entry: () => (
+      <GLTFViewer src={CDN_URL + '/SimpleSparseAccessor/glTF/SimpleSparseAccessor.gltf'} light offset={{ x: 5 }} />
+    )
   }
 ] as RouteData[]
 
