@@ -496,13 +496,6 @@
     ],
     "dependencies": []
   },
-  "assets/LOD/GrassInstanceLOD.gltf": {
-    "type": "asset",
-    "tags": [
-      "Model"
-    ],
-    "dependencies": []
-  },
   "assets/LOD/Test_LOD0.glb": {
     "type": "asset",
     "tags": [
