@@ -6,6 +6,7 @@ import '@ir-engine/client/src/engine'
 
 import '@ir-engine/engine/src/EngineModule'
 import { gltfRoutes } from './examples/GLTFs'
+import InstancedLODs from './examples/InstancedLODs'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
 import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
 import PhysicsDynamicObjects from './examples/PhysicsDynamicObjects'
@@ -83,6 +84,11 @@ export const examples: RouteCategories = [
         name: 'Resource Tracking',
         description: 'Track resources loaded in a scene example',
         entry: ResourceTrackingRoute
+      },
+      {
+        name: 'Instanced LODs',
+        description: 'Instanced LODs example',
+        entry: InstancedLODs
       }
     ]
   },
