@@ -159,7 +159,6 @@ export const loadAssetTPose = async (filename, position: Vector3, i: number) => 
   })
   loadAvatarModelAsset(entity, filename)
   setComponent(entity, AvatarAnimationComponent, {
-    rootYRatio: 1,
     locomotion: new Vector3()
   })
   setComponent(entity, VisibleComponent, true)
