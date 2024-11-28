@@ -6,6 +6,7 @@ import { gltfRoutes } from './examples/GLTFs'
 import GrabbablesEntry from './examples/Grabbables'
 import InstanceConnection from './examples/InstanceConnection'
 import InstancedLODs from './examples/InstancedLODs'
+import MountPointsEntry from './examples/MountPoints'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
 import MultipleCanvasScenes from './examples/MultipleCanvasScenes'
 import P2PConnection from './examples/P2PConnection'
@@ -70,12 +71,28 @@ export const examples: RouteCategories = [
         description: 'An object an avatar can grab',
         entry: GrabbablesEntry,
         spawnAvatar: true
+      },
+      {
+        name: 'Mount Point',
+        description: 'An object an avatar can sit on',
+        entry: MountPointsEntry,
+        spawnAvatar: true
       }
     ]
   },
   {
     category: 'Scene',
     routes: [
+      {
+        name: 'Multiple Canvases with different scenes',
+        description: 'Loads different scenes in different canvases',
+        entry: MultipleCanvasScenes
+      },
+      {
+        name: 'Multiple Canvases with different cameras',
+        description: 'View the same scene from different cameras',
+        entry: MultipleCanvasCameras
+      },
       {
         name: 'GLTF Viewer',
         description: 'Drag and drop GLTF files',
@@ -110,21 +127,6 @@ export const examples: RouteCategories = [
         description: 'Dynamic objects example',
         entry: PhysicsDynamicObjects,
         spawnAvatar: true
-      }
-    ]
-  },
-  {
-    category: 'Render',
-    routes: [
-      {
-        name: 'Multiple Canvases with different scenes',
-        description: 'Loads different scenes in different canvases',
-        entry: MultipleCanvasScenes
-      },
-      {
-        name: 'Multiple Canvases with different cameras',
-        description: 'View the same scene from different cameras',
-        entry: MultipleCanvasCameras
       }
     ]
   },

@@ -3,20 +3,18 @@ import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLo
 import { useLoadedSceneEntity } from '@ir-engine/client-core/src/hooks/useLoadedSceneEntity'
 import { LocationState } from '@ir-engine/client-core/src/social/services/LocationService'
 import { EntityUUID, UUIDComponent, getComponent, removeEntity, setComponent } from '@ir-engine/ecs'
-import { GrabbableComponent } from '@ir-engine/engine/src/grabbable/GrabbableComponent'
 import { InteractableComponent } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
+import { MountPointComponent } from '@ir-engine/engine/src/scene/components/MountPointComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
 import { dispatchAction, getMutableState, useHookstate } from '@ir-engine/hyperflux'
 import { NetworkTopics, ScenePeer, SceneUser } from '@ir-engine/network'
-import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
 import { ColliderComponent } from '@ir-engine/spatial/src/physics/components/ColliderComponent'
 import { RigidBodyComponent } from '@ir-engine/spatial/src/physics/components/RigidBodyComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import { SpawnObjectActions } from '@ir-engine/spatial/src/transform/SpawnObjectActions'
-import { grabbableInteractMessage } from '@ir-engine/ui/src/components/editor/properties/grab'
 import { useEffect } from 'react'
 import { Vector3 } from 'three'
 import { useSpawnAvatar } from './utils/template'
@@ -24,9 +22,10 @@ import { useSpawnAvatar } from './utils/template'
 const projectName = 'ir-engine/default-project'
 const sceneName = 'public/scenes/default.gltf'
 
-const grabbableEntityUUID = 'example grabbable' as EntityUUID
+const mountPointEntityUUID = 'example mount point' as EntityUUID
+const seatEntityUUID = 'example seat' as EntityUUID
 
-export default function GrabbablesEntry() {
+export default function MountPointsEntry() {
   useSpawnAvatar(true)
   useLoadScene({ projectName, sceneName })
   useNetwork({ online: false })
@@ -43,38 +42,54 @@ export default function GrabbablesEntry() {
         ownerID: SceneUser,
         $peer: ScenePeer,
         $topic: NetworkTopics.world,
-        entityUUID: grabbableEntityUUID
+        entityUUID: seatEntityUUID
+      })
+    )
+    dispatchAction(
+      SpawnObjectActions.spawnObject({
+        parentUUID: seatEntityUUID,
+        position: new Vector3(0, 0.4, 0.2), // hardcoded to avatar proportions
+        ownerID: SceneUser,
+        $peer: ScenePeer,
+        $topic: NetworkTopics.world,
+        entityUUID: mountPointEntityUUID
       })
     )
   }, [sceneEntity])
 
-  const grabbableEntity = UUIDComponent.getEntityByUUID(grabbableEntityUUID)
-  useEffect(() => {
-    if (!grabbableEntity) return
+  const mountPointEntity = UUIDComponent.getEntityByUUID(mountPointEntityUUID)
+  const seatEntity = UUIDComponent.getEntityByUUID(seatEntityUUID)
 
-    setComponent(grabbableEntity, VisibleComponent)
-    setComponent(grabbableEntity, ShadowComponent)
-    setComponent(grabbableEntity, TransformComponent, { scale: new Vector3(0.1, 0.1, 0.1) })
-    setComponent(grabbableEntity, NameComponent, 'Grabbable')
-    setComponent(grabbableEntity, PrimitiveGeometryComponent)
-    setComponent(grabbableEntity, RigidBodyComponent, { type: 'dynamic' })
-    setComponent(grabbableEntity, ColliderComponent, { shape: 'box' })
-    setComponent(grabbableEntity, GrabbableComponent)
-    setComponent(grabbableEntity, InputComponent)
-    setComponent(grabbableEntity, InteractableComponent, {
-      label: grabbableInteractMessage,
+  useEffect(() => {
+    if (!mountPointEntity || !seatEntity) return
+
+    setComponent(seatEntity, VisibleComponent)
+    setComponent(seatEntity, ShadowComponent)
+    setComponent(seatEntity, NameComponent, 'Seat')
+    setComponent(seatEntity, PrimitiveGeometryComponent)
+    setComponent(seatEntity, RigidBodyComponent, { type: 'fixed' })
+    setComponent(seatEntity, ColliderComponent, { shape: 'box' })
+
+    setComponent(mountPointEntity, VisibleComponent)
+    setComponent(mountPointEntity, ShadowComponent)
+    setComponent(mountPointEntity, NameComponent, 'Mount Point')
+    setComponent(mountPointEntity, MountPointComponent, { dismountOffset: new Vector3(0, 0, 1) })
+    setComponent(mountPointEntity, InputComponent)
+    setComponent(mountPointEntity, InteractableComponent, {
+      label: 'Sit',
       callbacks: [
         {
-          callbackID: GrabbableComponent.grabbableCallbackName,
-          target: getComponent(grabbableEntity, UUIDComponent)
+          callbackID: MountPointComponent.mountCallbackName,
+          target: getComponent(mountPointEntity, UUIDComponent)
         }
       ]
     })
 
     return () => {
-      removeEntity(grabbableEntity)
+      removeEntity(mountPointEntity)
+      removeEntity(seatEntity)
     }
-  }, [grabbableEntity])
+  }, [mountPointEntity, seatEntity])
 
   return null
 }
