@@ -7,8 +7,8 @@ import { GrabbableComponent } from '@ir-engine/engine/src/grabbable/GrabbableCom
 import { InteractableComponent } from '@ir-engine/engine/src/interaction/components/InteractableComponent'
 import { PrimitiveGeometryComponent } from '@ir-engine/engine/src/scene/components/PrimitiveGeometryComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
-import { HyperFlux, dispatchAction, getMutableState, useHookstate } from '@ir-engine/hyperflux'
-import { NetworkTopics } from '@ir-engine/network'
+import { dispatchAction, getMutableState, useHookstate } from '@ir-engine/hyperflux'
+import { NetworkTopics, ScenePeer, SceneUser } from '@ir-engine/network'
 import { TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { InputComponent } from '@ir-engine/spatial/src/input/components/InputComponent'
@@ -40,7 +40,8 @@ export default function GrabbablesEntry() {
     dispatchAction(
       SpawnObjectActions.spawnObject({
         parentUUID: getComponent(sceneEntity, UUIDComponent),
-        ownerID: HyperFlux.store.userID,
+        ownerID: SceneUser,
+        $peer: ScenePeer,
         $topic: NetworkTopics.world,
         entityUUID: grabbableEntityUUID
       })
