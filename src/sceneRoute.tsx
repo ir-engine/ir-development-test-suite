@@ -132,8 +132,15 @@ const Routes = (props: { routeCategories: RouteCategories; header: string }) => 
   )[0]
 
   useEffect(() => {
-    if (selectedRoute?.spawnAvatar) SearchParamState.set('spectate', none)
-    else SearchParamState.set('spectate', '')
+    const url = new URL(window.location.href)
+    if (selectedRoute?.spawnAvatar) {
+      SearchParamState.set('spectate', none)
+      url.searchParams.delete('spectate')
+    } else {
+      SearchParamState.set('spectate', '')
+      url.searchParams.set('spectate', '')
+    }
+    window.history.pushState({}, '', url.toString())
   }, [selectedRoute])
 
   const Entry = selectedRoute && selectedRoute.entry

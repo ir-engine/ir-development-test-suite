@@ -8,6 +8,7 @@ import { useLoadScene } from '@ir-engine/client-core/src/components/World/LoadLo
 import { XRLoading } from '@ir-engine/client-core/src/components/XRLoading'
 import { AvatarService } from '@ir-engine/client-core/src/user/services/AvatarService'
 
+import '@ir-engine/client-core/src/networking/AvatarSpawnSystem'
 import './avatar/simulateMovement'
 
 export function useSpawnAvatar(spawnAvatar?: boolean) {

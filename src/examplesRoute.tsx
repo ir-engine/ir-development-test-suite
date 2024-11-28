@@ -3,6 +3,7 @@ import React from 'react'
 import '@ir-engine/client/src/engine'
 
 import { gltfRoutes } from './examples/GLTFs'
+import GrabbablesEntry from './examples/Grabbables'
 import InstanceConnection from './examples/InstanceConnection'
 import InstancedLODs from './examples/InstancedLODs'
 import MultipleCanvasCameras from './examples/MultipleCanvasCameras'
@@ -63,6 +64,12 @@ export const examples: RouteCategories = [
         name: 'Test',
         description: 'Load many avatars',
         entry: AvatarTestEntry
+      },
+      {
+        name: 'Grabbables',
+        description: 'An object an avatar can grab',
+        entry: GrabbablesEntry,
+        spawnAvatar: true
       }
     ]
   },
