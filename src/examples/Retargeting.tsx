@@ -299,7 +299,7 @@ const RetargetingDND = () => {
     const originalBoneName = useHookstate(() => bone.name)
 
     const boneHelper = getComponent(
-      NameComponent.entitiesByName[boneName.value + '--helper'][0],
+      NameComponent.getEntitiesByName(boneName.value + '--helper')[0],
       GroupComponent
     )[0] as Mesh<ConeGeometry, MeshBasicMaterial>
     const isBone = bone.type === 'Bone'
@@ -315,7 +315,7 @@ const RetargetingDND = () => {
       boneHelper.name = name + '--helper'
       const currentBoneName = boneName.value as MixamoBoneNames
       boneName.set(name)
-      const helperEntity = NameComponent.entitiesByName[currentBoneName + '--helper'][0]
+      const helperEntity = NameComponent.getEntitiesByName(currentBoneName + '--helper')[0]
       setComponent(helperEntity, NameComponent, name + '--helper')
     }
 
