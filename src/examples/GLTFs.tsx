@@ -9,6 +9,7 @@ import config from '@ir-engine/common/src/config'
 import { EntityTreeComponent } from '@ir-engine/ecs'
 import { AnimationComponent } from '@ir-engine/engine/src/avatar/components/AnimationComponent'
 import { GLTFComponent } from '@ir-engine/engine/src/gltf/GLTFComponent'
+import { EnvMapComponent } from '@ir-engine/engine/src/scene/components/EnvmapComponent'
 import { ImageComponent } from '@ir-engine/engine/src/scene/components/ImageComponent'
 import { AmbientLightComponent, TransformComponent } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
@@ -635,6 +636,10 @@ const GLTF = (props: {
 
     // use GLTF Loader
     setComponent(gltfEntity, NameComponent, 'GLTF-Loader')
+    setComponent(gltfEntity, EnvMapComponent, {
+      type: 'Equirectangular',
+      envMapSourceURL: `${config.client.fileServer}/projects/ir-engine/default-project/assets/sky_skybox.jpg`
+    })
     setComponent(gltfEntity, GLTFComponent, {
       cameraOcclusion: true,
       src: src
