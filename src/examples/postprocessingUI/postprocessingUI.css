@@ -1,4 +1,4 @@
-.ComponentsContainer {
+.PostProcessingsContainer {
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
@@ -14,7 +14,7 @@
   border-radius: 2.4em;
 }
 
-.ComponentsHeaderContainer {
+.PostProcessingsHeaderContainer {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -27,13 +27,13 @@
   border-radius: 2.4em 2.4em 0 0;
 }
 
-.ComponentsHeader {
+.PostProcessingsHeader {
   color: white;
   font-size: 3.6em;
   margin: 0;
 }
 
-.ComponentNamesContainer {
+.PostProcessingNamesContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -43,7 +43,7 @@
   padding-right: 2em;
 }
 
-.ComponentNamesContainer {
+.PostProcessingNamesContainer {
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
@@ -68,13 +68,13 @@
   padding-bottom: 1em;
 }
 
-.ComponentNameContainer {
+.PostProcessingNameContainer {
   flex-basis: content;
   padding-top: 1em;
   padding-bottom: 1em;
 }
 
-.ComponentName {
+.PostProcessingName {
   color: white;
   margin: 0;
   font-size: 2.4em;

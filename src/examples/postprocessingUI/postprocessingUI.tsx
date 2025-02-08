@@ -19,15 +19,15 @@ const PostprocessingUI: React.FC = () => {
   return (
     <>
       <style type="text/css">{styles.toString()}</style>
-      <div className="ComponentsContainer">
-        <div className="ComponentsHeaderContainer">
-          <h1 className="ComponentsHeader">Effects</h1>
+      <div className="PostProcessingsContainer">
+        <div className="PostProcessingsHeaderContainer">
+          <h1 className="PostProcessingsHeader">Effects</h1>
         </div>
-        <div className="ComponentNamesContainer">
+        <div className="PostProcessingNamesContainer">
           {Object.entries(postProcessingComponent?.effects.value as Record<string, Effect & {isActive: boolean}>).map(([name, effectData]) => {
             return (
-              <div onClick={() => postProcessingComponent?.effects[name].isActive.set(!effectData.isActive)} className="ComponentNameContainer" key={name}>
-                <p className="ComponentName">{name}</p>
+              <div onClick={() => postProcessingComponent?.effects[name].isActive.set(!effectData.isActive)} className="PostProcessingNameContainer" key={name}>
+                <p className="PostProcessingName">{name}</p>
               </div>
             )
           })}
