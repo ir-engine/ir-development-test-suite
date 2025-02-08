@@ -21,6 +21,7 @@ import MountPointEntry from './examples/mountPoint'
 import MultipleScenesEntry from './examples/multipleScenes'
 import ResourceTrackingRoute from './examples/resourceTracking'
 import Routes, { RouteCategories } from './sceneRoute'
+import PostProcessingExampleEntry from './examples/PostprocessingExample'
 
 export const examples: RouteCategories = [
   {
@@ -85,6 +86,12 @@ export const examples: RouteCategories = [
         description: 'Cast shadows from directional, point, and spot lights',
         sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
         entry: ShadowExampleEntry
+      },
+      {
+        name: 'PostProcessing',
+        description: 'Cast shadows from directional, point, and spot lights',
+        sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
+        entry: PostProcessingExampleEntry
       },
       {
         name: 'GLTF Viewer',
