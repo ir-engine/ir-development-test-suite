@@ -89,7 +89,7 @@ export const examples: RouteCategories = [
       },
       {
         name: 'PostProcessing',
-        description: 'Cast shadows from directional, point, and spot lights',
+        description: 'Same scene as Shadows but with Postprocessing controls',
         sceneKey: 'projects/ir-engine/ir-development-test-suite/public/scenes/Unlit.gltf',
         entry: PostProcessingExampleEntry
       },

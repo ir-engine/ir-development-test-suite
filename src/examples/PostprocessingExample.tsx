@@ -1,6 +1,10 @@
-import { Entity, UUIDComponent, UndefinedEntity, getComponent, setComponent } from '@ir-engine/ecs'
+import { Entity, UUIDComponent, getComponent, setComponent } from '@ir-engine/ecs'
 import { RenderSettingsComponent } from '@ir-engine/engine/src/scene/components/RenderSettingsComponent'
 import { ShadowComponent } from '@ir-engine/engine/src/scene/components/ShadowComponent'
+import { SkyboxComponent } from '@ir-engine/engine/src/scene/components/SkyboxComponent'
+import { SkyTypeEnum } from '@ir-engine/engine/src/scene/constants/SkyTypeEnum'
+import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
+import { useHookstate } from '@ir-engine/hyperflux'
 import {
   DirectionalLightComponent,
   PointLightComponent,
@@ -9,16 +13,12 @@ import {
 } from '@ir-engine/spatial'
 import { NameComponent } from '@ir-engine/spatial/src/common/NameComponent'
 import { MeshComponent } from '@ir-engine/spatial/src/renderer/components/MeshComponent'
+import { PostProcessingComponent } from '@ir-engine/spatial/src/renderer/components/PostProcessingComponent'
 import { VisibleComponent } from '@ir-engine/spatial/src/renderer/components/VisibleComponent'
 import React, { useEffect } from 'react'
 import { BoxGeometry, Color, Euler, Mesh, MeshLambertMaterial, Quaternion, Vector3 } from 'three'
-import { useExampleEntity } from './utils/common/entityUtils'
-import { PostProcessingComponent } from '@ir-engine/spatial/src/renderer/components/PostProcessingComponent'
-import { SkyboxComponent } from '@ir-engine/engine/src/scene/components/SkyboxComponent'
-import { SkyTypeEnum } from '@ir-engine/engine/src/scene/constants/SkyTypeEnum'
-import { useHookstate } from '@ir-engine/hyperflux'
-import { createXRUI } from '@ir-engine/engine/src/xrui/createXRUI'
 import PostprocessingUI from './postprocessingUI/postprocessingUI'
+import { useExampleEntity } from './utils/common/entityUtils'
 
 export default function PostProcessingExampleEntry(props: { sceneEntity: Entity }) {
   const settingsEntity = useExampleEntity(props.sceneEntity)
@@ -31,9 +31,8 @@ export default function PostProcessingExampleEntry(props: { sceneEntity: Entity 
   const postProcessingUIEntity = useExampleEntity(props.sceneEntity)
   const xruiState = useHookstate({ settingsEntity: settingsEntity })
 
-
   useEffect(() => {
-    setComponent(skyboxEntity, NameComponent, "Skybox")
+    setComponent(skyboxEntity, NameComponent, 'Skybox')
     setComponent(skyboxEntity, SkyboxComponent, {
       backgroundType: SkyTypeEnum.color,
       backgroundColor: 0x828282
@@ -43,8 +42,8 @@ export default function PostProcessingExampleEntry(props: { sceneEntity: Entity 
       primaryLight: getComponent(directionalLightEntity, UUIDComponent)
     }) // required for CSM
     setComponent(settingsEntity, PostProcessingComponent, {
-      enabled: true,
-  })
+      enabled: true
+    })
     setComponent(platformEntity, TransformComponent, {
       position: new Vector3(0, -0.5, 0),
       scale: new Vector3(10, 0.1, 10)
