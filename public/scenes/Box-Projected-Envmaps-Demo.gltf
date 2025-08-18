@@ -1,0 +1,241 @@
+{
+  "asset": {
+    "generator": "IREngine.SceneExporter",
+    "version": "2.0"
+  },
+  "nodes": [
+    {
+      "name": "ground-plane",
+      "matrix": [
+        0.0020000000000000018,
+        0,
+        0,
+        0,
+        0,
+        0.0020000000000000018,
+        0,
+        0,
+        0,
+        0,
+        0.0020000000000000018,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "extensions": {
+        "EE_uuid": "a9bfab51-6ce7-431f-9f95-80f788f38b9f",
+        "EE_ground_plane": {
+          "color": 16777215,
+          "visible": true
+        },
+        "EE_rigidbody": {
+          "type": "fixed",
+          "ccd": false,
+          "allowRolling": true,
+          "enabledRotations": [
+            true,
+            true,
+            true
+          ],
+          "canSleep": true,
+          "gravityScale": 1
+        },
+        "EE_collider": {
+          "shape": "plane",
+          "mass": 1,
+          "massCenter": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "friction": 0.5,
+          "restitution": 0.5,
+          "collisionLayer": 4,
+          "collisionMask": 3,
+          "matchMesh": true,
+          "centerOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "boxSize": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          },
+          "radius": 1,
+          "height": 2
+        }
+      }
+    },
+    {
+      "name": "New Object",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        3,
+        0,
+        1
+      ],
+      "extensions": {
+        "EE_uuid": "294f934a-fe0f-42bb-a689-3180c24880cf",
+        "EE_visible": true,
+        "EE_envmap": {
+          "type": "Equirectangular",
+          "envMapSourceColor": 8421631,
+          "envMapSourceURL": "__$project$__/ir-engine/ir-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2?hash=8c1176",
+          "envMapCubemapURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1
+        }
+      }
+    },
+    {
+      "name": "envmaps_hall",
+      "extensions": {
+        "EE_uuid": "774fb0a6-0ea3-494e-a003-000bb6f05f44",
+        "EE_model": {
+          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/envmaps_hall.gltf?hash=d4ad74",
+          "cameraOcclusion": true,
+          "applyColliders": false,
+          "shape": "box"
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "Equirectangular",
+          "envMapSourceColor": 8421631,
+          "envMapSourceURL": "__$project$__/ir-engine/ir-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2?hash=8c1176",
+          "envMapCubemapURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1
+        },
+        "EE_visible": true
+      }
+    },
+    {
+      "name": "envmaps_hall",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        4,
+        1
+      ],
+      "extensions": {
+        "EE_uuid": "3162e91c-ee2e-4014-ab6f-e1a5e4b017c8",
+        "EE_visible": true,
+        "EE_model": {
+          "src": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/envmaps_hall.gltf?hash=d4ad74",
+          "cameraOcclusion": true,
+          "applyColliders": false,
+          "shape": "box"
+        },
+        "EE_shadow": {
+          "cast": true,
+          "receive": true
+        },
+        "EE_envmap": {
+          "type": "Equirectangular",
+          "envMapSourceColor": 8421631,
+          "envMapSourceURL": "__$project$__/ir-engine/ir-development-test-suite/public/scenes/bpcem-envmap-bake-test-bpcem-hall-bake-1.ktx2?hash=8c1176",
+          "envMapCubemapURL": "",
+          "envMapSourceEntityUUID": "",
+          "envMapIntensity": 1
+        }
+      }
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "extensionsUsed": [
+    "EE_uuid",
+    "EE_ground_plane",
+    "EE_rigidbody",
+    "EE_collider",
+    "EE_visible",
+    "EE_envmap",
+    "EE_model",
+    "EE_shadow",
+    "IR_scene_delta"
+  ],
+  "extensions": {
+    "IR_scene_delta": {
+      "rootf2472f97-cb51-46a9-a077-5f03fc4d3c9a3162e91c-ee2e-4014-ab6f-e1a5e4b017c8material-0": {
+        "IR_material_component": {
+          "parameters": {
+            "lightMap": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/Lightmap.png"
+          },
+          "prototype": "MeshStandardMaterial"
+        }
+      },
+      "rootf2472f97-cb51-46a9-a077-5f03fc4d3c9a3162e91c-ee2e-4014-ab6f-e1a5e4b017c8material-1": {
+        "IR_material_component": {
+          "parameters": {
+            "lightMap": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/Lightmap.png"
+          },
+          "prototype": "MeshPhysicalMaterial"
+        }
+      },
+      "rootf2472f97-cb51-46a9-a077-5f03fc4d3c9a774fb0a6-0ea3-494e-a003-000bb6f05f44material-0": {
+        "IR_material_component": {
+          "parameters": {
+            "lightMap": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/Lightmap.png"
+          },
+          "prototype": "MeshStandardMaterial"
+        }
+      },
+      "rootf2472f97-cb51-46a9-a077-5f03fc4d3c9a774fb0a6-0ea3-494e-a003-000bb6f05f44material-1": {
+        "IR_material_component": {
+          "parameters": {
+            "lightMap": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/Lightmap.png"
+          },
+          "prototype": "MeshPhysicalMaterial"
+        }
+      },
+      "rootf2472f97-cb51-46a9-a077-5f03fc4d3c9a774fb0a6-0ea3-494e-a003-000bb6f05f44material-2": {
+        "IR_material_component": {
+          "parameters": {
+            "lightMap": "__$project$__/ir-engine/ir-development-test-suite/assets/envmapsdemo/Lightmap.png"
+          },
+          "prototype": "MeshStandardMaterial"
+        }
+      }
+    }
+  }
+}
